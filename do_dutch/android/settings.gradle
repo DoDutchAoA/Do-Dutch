@@ -1,0 +1,3 @@
+rootProject.name = 'do_dutch'
+
+include ':app'
