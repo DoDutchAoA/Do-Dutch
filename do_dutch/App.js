@@ -8,6 +8,9 @@
 
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View} from 'react-native';
+import Header from './components/header.js'; 
+import Footer from './components/footer.js'; 
+
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -19,15 +22,21 @@ const instructions = Platform.select({
 type Props = {};
 export default class App extends Component<Props> {
   render() {
-    return (
-      <View style={styles.container}>
+    return ( 
+
+      <View style={styles.container}> 
         <Text style={styles.welcome}>Welcome to Do Dutch!</Text>
         <Text style={styles.instructions}>To get started, edit App.js</Text>
-        <Text style={styles.instructions}>{instructions}</Text>
+        <Text style={styles.instructions}>{instructions}</Text> 
+        
+        <Header /> 
+
+        <Footer /> 
+
       </View>
     );
   }
-}
+} 
 
 const styles = StyleSheet.create({
   container: {
