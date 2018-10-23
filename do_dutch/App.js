@@ -7,7 +7,11 @@
  */
 
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View} from 'react-native';
+import {Platform, StyleSheet, Text, View} from 'react-native'; 
+import ContextLayout from './components/context_layout.js'; 
+import Header from './components/header.js'; 
+import Footer from './components/footer.js'; 
+
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -19,15 +23,19 @@ const instructions = Platform.select({
 type Props = {};
 export default class App extends Component<Props> {
   render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>Welcome to Do Dutch!</Text>
-        <Text style={styles.instructions}>To get started, edit App.js</Text>
-        <Text style={styles.instructions}>{instructions}</Text>
+    return ( 
+
+      <View style={styles.container}> 
+        <Header /> 
+
+        <ContextLayout /> 
+
+        <Footer /> 
+
       </View>
     );
   }
-}
+} 
 
 const styles = StyleSheet.create({
   container: {
