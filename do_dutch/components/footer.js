@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
-import { AppRegistry, Image } from 'react-native';
+import { AppRegistry, Image, Text, FlatList } from 'react-native';
 
 export default class Footer extends Component {
   render() {
-    let pic = {
-      uri: 'https://upload.wikimedia.org/wikipedia/commons/d/de/Bananavarieties.jpg'
-    };
-    return (
-      <Image source={pic} style={{width: 193, height: 110}}/>
+    
+    return ( 
+    	<FlatList horizontal data={[{key: 'Home'}, {key: 'Friend'}, {key: 'Group'}]}
+  				renderItem={({item}) => <Text>{item.key}</Text>} />
     );
   }
 }

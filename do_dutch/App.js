@@ -7,7 +7,8 @@
  */
 
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View} from 'react-native';
+import {Platform, StyleSheet, Text, View} from 'react-native'; 
+import ContextLayout from './components/context_layout.js'; 
 import Header from './components/header.js'; 
 import Footer from './components/footer.js'; 
 
@@ -25,11 +26,9 @@ export default class App extends Component<Props> {
     return ( 
 
       <View style={styles.container}> 
-        <Text style={styles.welcome}>Welcome to Do Dutch!</Text>
-        <Text style={styles.instructions}>To get started, edit App.js</Text>
-        <Text style={styles.instructions}>{instructions}</Text> 
-        
         <Header /> 
+
+        <ContextLayout /> 
 
         <Footer /> 
 
