@@ -83,6 +83,9 @@ export default class Camera extends Component {
         <TouchableOpacity style={styles.button} onPress={this.UploadPhoto}>
           <Text style={styles.text}>Upload</Text>
         </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={() =>this.props.navigation.navigate("Form")}>
+          <Text style={styles.text}>Check Form</Text>
+        </TouchableOpacity>
       </View>
       );
   }

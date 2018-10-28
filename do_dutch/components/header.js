@@ -10,7 +10,7 @@ export default class Header extends Component {
 
 	userAuthentication() {
 		let type = this.state.auth_type; 
-		if (type == 'signup') {
+		if (type == 'login') {
 			return <Login />; 
 		} else {
 			return <Signup />; 
