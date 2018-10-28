@@ -17,7 +17,6 @@ export default class ContextLayout extends Component {
     		<Text> Main Context </Text> 
 
     		<Text> put camera button here. </Text>  
-        <Camera /> 
     	</View> 
     );
   }
