@@ -3,11 +3,27 @@ import { AppRegistry, Image } from 'react-native';
 import {Platform, StyleSheet, Text, View, TextInput} from 'react-native'; 
 import { Button } from 'react-native-elements'; 
 
-export default class LogIn extends Component {
-  render() { 
-    this.state = {
-      	username: "", 
-      	password: "" 
+export default class LogIn extends Component { 
+
+	userLogin() {
+	    RNFetchBlob.fetch('POST', 'http://www.example.com/upload-form', {
+	      'Content-Type' : 'application/json',
+	    }, [
+	    { 
+	        username: this.state.username, 
+	        password: this.state.password
+	    },
+	    ]).then((resp) => {
+
+	    }).catch((err) => {
+
+	    })
+	}
+
+  	render() { 
+	    this.state = {
+	      	username: "", 
+	      	password: "" 
     }; 
 
     return ( 
@@ -24,7 +40,7 @@ export default class LogIn extends Component {
             secureTextEntry={true} 
             onChangeText={(text) => this.setState({password: text})} /> 
 
-          <Button onPress={(e) => this.userSignUp(e)} title='login'/> 
+          <Button onPress={(e) => this.userLogIn(e)} title='login'/> 
     	</View> 
     );
   }
