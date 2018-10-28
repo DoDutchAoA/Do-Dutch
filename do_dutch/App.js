@@ -11,7 +11,7 @@ import {Platform, StyleSheet, Text, View} from 'react-native';
 import ContextLayout from './components/context_layout.js'; 
 import Header from './components/header.js'; 
 import Footer from './components/footer.js'; 
-
+import Camera from './components/camera.js'
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -24,14 +24,7 @@ type Props = {};
 export default class App extends Component<Props> {
   render() {
     return ( 
-
-      <View style={styles.container}> 
-        <Header /> 
-
-        <ContextLayout /> 
-
-        <Footer /> 
-      </View>
+      <ContextLayout />
     );
   }
 } 

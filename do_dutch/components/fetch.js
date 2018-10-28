@@ -15,7 +15,8 @@ import {
   View,
   FlatList,
   Image,
-  ActivityIndicator
+  ActivityIndicator,
+  Button
 } from 'react-native';
 
  
@@ -74,8 +75,9 @@ export default class Form extends Component {
           }
         />
       </View>
+     
+       
       );
-
   }
 }
 
@@ -83,5 +85,18 @@ const styles = StyleSheet.create({
   container: {
     flex:1,
     backgroundColor: '#f5fcff' 
+  },
+  button: {
+    width: 250,
+    height: 50,
+    backgroundColor: '#330066',
+    borderRadius: 30,
+    justifyContent: 'center',
+    marginTop: 15
+  },
+  text: {
+    color: 'white',
+    fontSize: 18,
+    textAlign: 'center'
   }
 });
