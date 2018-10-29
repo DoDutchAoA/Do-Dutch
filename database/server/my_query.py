@@ -85,7 +85,7 @@ def removeMemberFromGroup(conn, groupId, memberId):
         runQuery(conn, query, (groupId, memberId), False)
         return True
 
-# Order
+# Order (GroupOrder)
 def createOrder(conn, orderName, totalItems):
     query = "INSERT INTO Orders (order_name, item_unres_num) VALUES (%s, %s);"
     runQuery(conn, query, (orderName, totalItems), False)
@@ -104,13 +104,99 @@ def orderExists(conn, orderId):
     result = runQuery(conn, query, orderId, True)
     return len(result) > 0
 
+# GroupOrders
+def insertRecieptInfo(conn, orderId, groupId, receiptPath, receiptIdx=1):
+    if not (orderExists(conn, orderId) and groupExists(conn, groupId)):
+        return False
+    else:
+        query = "INSERT INTO GroupOrders (group_id, order_id, receipt_index, receipt_path) \
+        VALUES (%s, %s, %s, %s);"
+        runQuery(conn, query, (groupId, orderId, receiptIdx, receiptPath), False)
+        return True
+
 # Item
 def addItemToOrder(conn, itemName, orderId, itemAmount):
     query = "INSERT INTO Items (item_name, order_id, left_amount) VALUES \
-    (itemName, orderId, itemAmount);"
+    (%s, %s, %s);"
     runQuery(conn, query, (itemName, orderId, itemAmount), False)
     return True
 
+# In case OCR does not work properly
+def modifyItemName(conn, itemId, itemName):
+    if not itemExists(conn, itemId):
+        return False
+    else:
+        query = "UPDATE Items SET item_name = %s WHERE item_id = %s;"
+        runQuery(conn, query, (itemName, itemId), False)
+        return True
+
+# In case OCR does not work properly
+def modifyItemTotalAmount(conn, itemId, totalAmount):
+    if not itemExists(conn, itemId):
+        return False
+    else:
+        query = "UPDATE Items SET left_amount = %s WHERE item_id = %s;"
+        runQuery(conn, query, (totalAmount, itemId), False)
+        return True
+
+def itemExists(conn, itemId):
+    query = "SELECT * FROM Items WHERE item_id = %s;"
+    result = runQuery(conn, query, itemId, True)
+    return len(result) > 0
+
+def updateItemAmountByDiff(conn, itemId, diff):     #diff is sign-sensitive
+    # guarantee itemId exists and diff is valid
+    selectQuery = "SELECT left_amount FROM Items WHERE item_id = %s;"
+    result = runQuery(conn, selectQuery, itemId, True)
+    left = result[0]['left_amount']
+
+    query = "UPDATE Items SET left_amount = %s WHERE item_id = %s;"
+    runQuery(conn, query, (left + diff, itemId), False)
+    return True
+
+def deductItemAmount(conn, itemId, amount): #amount >= 0
+    return updateItemAmountByDiff(conn, itemId, -amount)
+
+# Allocation
+def validAllocation(conn, itemId, amount):  #amount >= 0
+    query = "SELECT * FROM Items WHERE item_id = %s;"
+    result = runQuery(conn, query, itemId, True)
+
+    # print("left = ", result[0]['left_amount'], "amount = ", amount)
+
+    if not len(result) > 0:
+        return False #No such item
+    else:
+        if (result[0]['left_amount'] - amount) < 0:
+            return False    # No sufficient items
+        else:
+            return True
+
+def createAllocation(conn, userId, itemId, amount):
+    if not validAllocation(conn, itemId, amount):
+        return False
+    else:
+        deductItemAmount(conn, itemId, amount)
+
+        query = "INSERT INTO Allocations (allo_amount, item_id, user_id) \
+        VALUES (%s, %s, %s);"
+        result = runQuery(conn, query, (amount, itemId, userId), False)
+        return True
+
+def modifyAllocation(conn, alloId, updatedAmount): # updatedAmount >= 0
+    #guarantee alloId exists
+    selectQuery = "SELECT * FROM Allocations WHERE allo_id = %s;"
+    result = runQuery(conn, selectQuery, alloId, True)
+    itemId = result[0]['item_id']
+    prevAllo = result[0]['allo_amount']
+
+    if not validAllocation(conn, itemId, updatedAmount - prevAllo):
+        return False
+    else:
+        deductItemAmount(conn, itemId, updatedAmount - prevAllo)
+        updateQuery = "UPDATE Allocations SET allo_amount = %s WHERE allo_id = %s;"
+        runQuery(conn, updateQuery, (updatedAmount, alloId), False)
+        return True
 
 # Miscellaneous
 def selectUserByUsername(conn, username):
@@ -141,19 +227,17 @@ connection = pymysql.connect(host=hostname,
 # prepare a cursor object using cursor() method
 # cursor = connection.cursor()
 
-# Signup
+# # Signup
 # print(signUp(connection, "Amy", "1111222")) #True
 # print(signUp(connection, "Andrew", "1156511222")) #True
-# deleteUserByUsername(connection, "Amy")
-# deleteUserByUsername(connection, "Xiaoming")
-
-## login
-# getUserId(connection, "Xiaoming")
-# usernameExists(connection, "Jane") #false
-# login(connection, "Xiaoming", "1234567")    #true
-# login(connection, "Xiaoming", "123467")     #false
-
-# group
+#
+# ## login
+# # getUserId(connection, "Xiaoming")
+# # usernameExists(connection, "Jane") #false
+# # login(connection, "Xiaoming", "1234567")    #true
+# # login(connection, "Xiaoming", "123467")     #false
+#
+# # group
 # createEmptyGroup(connection, "Testgroupname", 1)
 #
 # print(addMembersToGroup(connection, 1, [1,2]))  #True
@@ -164,15 +248,34 @@ connection = pymysql.connect(host=hostname,
 # createGroupWithMembers(connection, "Test3", 1, [2,3,4])
 # print(removeMemberFromGroup(connection, 2, 3))    #True
 # print(removeMemberFromGroup(connection, 2, 5))    #False
-
-# order
+#
+# # order
 # createOrder(connection, "orderTest", 5)
-# deleteOrder(connection, 1)
+#
+# # item
+# addItemToOrder(connection, "apple", 1, 3)
+# addItemToOrder(connection, "pear", 1, 4.55)
+# addItemToOrder(connection, "peach", 1, 4.6666666)
+# modifyItemName(connection, 1, "grape")  #apple to Grape
+# modifyItemName(connection, 8, "grape")  #not exist
+# modifyItemTotalAmount(connection, 1, 10)    # 3 to 10
+#
+# # Allocation
+# print(validAllocation(connection, 1, 1.2))  #true
+# print(validAllocation(connection, 1, 1))  #true
+# print(validAllocation(connection, 1, 3))  #false
+# print(deductItemAmount(connection, 1, 1))   #true left 9
+# print(deductItemAmount(connection, 1, 0.2)) #true left 8.8
+# print(createAllocation(connection, 1, 1, 3)) #true 5 -> 3
+# print(createAllocation(connection, 1, 1, 2)) # false
+# print(modifyAllocation(connection, 6, 15))
 
-# item
-addItemToOrder(connection, "apple", 1, 3)
-addItemToOrder(connection, "pear", 1, 4.55)
-addItemToOrder(connection, "peach", 1, 4.6666666)
+#GroupOrders
+# print(insertRecieptInfo(connection, 1, 1, "abc.com"))   #true
+# print(insertRecieptInfo(connection, 1, 1, "efg.com", 2))   #true
+print(insertRecieptInfo(connection, 1, 8, "abc.com"))   #false
+print(insertRecieptInfo(connection, 9, 1, "abc.com"))   #false
+# insertRecieptInfo(conn, orderId, groupId, receiptPath, receiptIdx=1):
 
 
 connection.close()

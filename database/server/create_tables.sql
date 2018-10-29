@@ -43,11 +43,10 @@ CREATE TABLE Orders (
 CREATE TABLE GroupOrders (
 	group_id INT NOT NULL,
 	order_id INT NOT NULL,
-	receipt_index INT NOT NULL DEFAULT 0,
+	receipt_index INT NOT NULL DEFAULT 1,
 	receipt_path VARCHAR(300) NOT NULL,
 	FOREIGN KEY (group_id) REFERENCES gGroups(group_id),
-	FOREIGN KEY (order_id) REFERENCES Orders(order_id),
-	PRIMARY KEY (group_id, order_id)
+	FOREIGN KEY (order_id) REFERENCES Orders(order_id)
 );	-- If multiple reciepts, collect all items to one order.
 
 
@@ -55,18 +54,18 @@ CREATE TABLE Items (
 	item_id INT NOT NULL AUTO_INCREMENT,
 	item_name VARCHAR(150),
 	order_id INT NOT NULL,
-	left_amount DOUBLE(5, 4) NOT NULL,
+	left_amount DOUBLE(50, 4) NOT NULL,
 	PRIMARY KEY (item_id),
 	FOREIGN KEY (order_id) REFERENCES Orders(order_id)
 );	-- Not empty at the begining
 
 
 CREATE TABLE Allocations (
-	allocation_id INT NOT NULL AUTO_INCREMENT,
-	allocation_amount DOUBLE(5, 4) NOT NULL,
+	allo_id INT NOT NULL AUTO_INCREMENT,
+	allo_amount DOUBLE(50, 4) NOT NULL,
 	item_id INT NOT NULL,
 	user_id INT NOT NULL,
-	PRIMARY KEY (allocation_id),
+	PRIMARY KEY (allo_id),
 	FOREIGN KEY (item_id) REFERENCES Items(item_id),
 	FOREIGN KEY (user_id) REFERENCES Users(user_id)
 );	-- Empty at the begining
