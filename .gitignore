@@ -1,0 +1,13 @@
+*.DS_Store
+*.lock
+*.jpg
+*.png
+*.pdf
+
+*.sql
+*.pyc
+
+*.cache
+*.jpgcd
+
+*.yaml

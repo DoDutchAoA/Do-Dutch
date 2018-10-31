@@ -1,0 +1,19 @@
+category,rule,display,
+balance,balance|total,Balance
+protein,chk|chicken,Chicken
+grain,chow|mein,Noodles
+snack,orion,Orion Chocolate Pies
+protein,grade a|egg,Egg
+grain,bun|burger,Burger
+protein,milk|dairypure,milk
+vegetable,mushroom,Mushroom
+protein,tofu,Tofu
+vegetable,garlic,Garlic
+protein,turkey,Turkey Meat
+snack,breyers,Breyers Ice Cream
+vegetable,onion,onion
+fruit,fruit,Fruit
+snack,nuts,Nuts
+vegetable,cabbage,Cabbage
+seasoning,oil,Oil
+seasoning,suac|oil sauc,Hot Sauce
