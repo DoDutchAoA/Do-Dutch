@@ -1,41 +1,91 @@
-import React, { Component } from 'react';
-import { AppRegistry, Image } from 'react-native';
-import {Platform, StyleSheet, Text, View} from 'react-native';
+import React, { Component } from "react";
+import { AppRegistry, Image } from "react-native";
+import { Platform, StyleSheet, Text, View } from "react-native";
+import { Button, Container, Header, Content, Left } from "native-base";
+import { DrawerNavigator, StackNavigator } from "react-navigation";
+import Icon from "react-native-vector-icons/FontAwesome";
+import HeaderButtons, {
+  HeaderButton,
+  Item
+} from "react-navigation-header-buttons";
+import { NavigationActions } from "react-navigation";
 
-import Camera from './camera.js';
-import {createStackNavigator} from 'react-navigation';
-import Form from './fetch.js';
+import { createStackNavigator } from "react-navigation";
+import Camera from "./receipt_actions/camera.js";
+import Form from "./receipt_actions/fetch.js";
+import HomeScreen from "./home_screen.js";
+
+const IoniconsHeaderButton = passMeFurther => (
+  // the `passMeFurther` variable here contains props from <Item .../> as well as <HeaderButtons ... />
+  // and it is important to pass those props to `HeaderButton`
+  // then you may add some information like icon size or color (if you use icons)
+  <HeaderButton
+    {...passMeFurther}
+    IconComponent={Icon}
+    iconSize={23}
+    color="blue"
+  />
+);
 
 export default class ContextLayout extends Component {
   render() {
-  	this.state = {
-  		context_route: 'home',
-  	};
+    this.state = {
+      context_route: "home"
+    };
 
-    return (
-      <AppStackNavigator />
-    );
+    return <AppStackNavigator />;
   }
 }
 
 const AppStackNavigator = createStackNavigator({
-  Camera: {screen: Camera,
-    navigationOptions: ({navigation}) => ({
+  Home: {
+    screen: HomeScreen,
+    navigationOptions: ({ navigation }) => ({
       title: "Home",
-      headerTitleStyle: {color: '#17202a', textAlign:'center',fontFamily:'Montserrat-Regular'},
+      headerTitleStyle: {
+        color: "#17202a",
+        textAlign: "center",
+        fontFamily: "Montserrat-Regular"
+      },
       headerStyle: {
-        backgroundColor:"#d5d8dc",
-        textAlign: 'center'
+        backgroundColor: "#d5d8dc",
+        textAlign: "center"
       }
     })
   },
-  Form: {screen: Form,
-    navigationOptions: ({navigation}) => ({
-        title: "Receipt",
-        headerTitleStyle: {color: '#17202a', textAlign:'center',fontFamily:'Montserrat-Regular'},
-        headerStyle: {
-          backgroundColor:"#d5d8dc",
-          textAlign: 'center'
-        }
-      })}
-})
+  Camera: {
+    screen: Camera,
+    navigationOptions: ({ navigation }) => ({
+      title: "Creat New Receipt",
+      headerTitleStyle: {
+        color: "#17202a",
+        textAlign: "center",
+        fontFamily: "Montserrat-Regular"
+      },
+      headerStyle: {
+        backgroundColor: "#d5d8dc",
+        textAlign: "center"
+      }
+      // headerLeft: (
+      //     <HeaderButtons HeaderButtonComponent={IoniconsHeaderButton}>
+      //         <Item title="select" iconName="bars" onPress={() => {alert(navigation.navigate); navigation.dispatch('Form')}} />
+      //     </HeaderButtons>
+      // )
+    })
+  },
+  Form: {
+    screen: Form,
+    navigationOptions: ({ navigation }) => ({
+      title: "Receipt",
+      headerTitleStyle: {
+        color: "#17202a",
+        textAlign: "center",
+        fontFamily: "Montserrat-Regular"
+      },
+      headerStyle: {
+        backgroundColor: "#d5d8dc",
+        textAlign: "center"
+      }
+    })
+  }
+});

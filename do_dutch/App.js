@@ -6,44 +6,43 @@
  * @flow
  */
 
-import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View} from 'react-native'; 
-import ContextLayout from './components/context_layout.js'; 
-import Header from './components/header.js'; 
-import Footer from './components/footer.js'; 
-import Camera from './components/camera.js'
+import React, { Component } from "react";
+import { Platform, StyleSheet, Text, View, Image } from "react-native";
+import { DrawerActions } from "react-navigation-drawer";
+import { DrawerNavigator } from "react-navigation";
+import { Button } from "react-native-elements";
 
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
-  android:
-    'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
+import ContextLayout from "./components/context_layout.js";
+import Header from "./components/header.js";
+import Footer from "./components/footer.js";
+import HomeScreen from "./components/home_screen.js";
+import Camera from "./components/receipt_actions/camera.js";
+import Form from "./components/receipt_actions/fetch.js";
+
+class App extends Component {
+  render() {
+    return <MyApp />;
+  }
+}
+
+export default App;
+
+const MyApp = DrawerNavigator({
+  Home: {
+    screen: ContextLayout
+  },
+  CreateReceipt: {
+    screen: Camera
+  },
+  CheckAllReceipts: {
+    screen: Form
+  }
 });
 
-type Props = {};
-export default class App extends Component<Props> {
-  render() {
-    return ( 
-      <ContextLayout />
-    );
-  }
-} 
-
-const styles = StyleSheet.create({
+styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
+    justifyContent: "center",
+    alignItems: "center"
+  }
 });
