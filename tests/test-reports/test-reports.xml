@@ -1,6 +1,6 @@
 <pre>
-    <testsuite hostname="" name=""> <!-- testsuite is a mandatory tag -->
-        <testcase classname="" name="" time=""> <!-- testcase is also mandatory, you need 1 per test/result, so if you have 10 result you need 10 -->
+    <testsuite hostname="" name=""/> <!-- testsuite is a mandatory tag -->
+        <testcase classname="" name="" time=""/> <!-- testcase is also mandatory, you need 1 per test/result, so if you have 10 result you need 10 -->
             <error message="error title"> <!-- optional Only needed on errors to describe the error/test failure -->
                 Error Message, content ... <!-- optional, only needed to provide detailed information to jenkins -->
             </error>
