@@ -9,7 +9,7 @@ class TestOCR(unittest.TestCase):
         # result = ocr('upload/receipt.jpg')
         # result = json.loads(result)
         # self.assertLessEqual(result['accumTotal'], result['detectedTotal'])
-        self.assertLessEqual(1， 1)
+        self.assertLessEqual(1, 1)
 
 if __name__ == '__main__':
     unittest.main()
