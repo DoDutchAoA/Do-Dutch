@@ -1,69 +1,82 @@
-#Local testing
-import pymysql.cursors
+# Local testing
+import gdmysql
+import pymysql
+# from gdmysql import gdmysql.runQuery
 
 hostname = '127.0.0.1'
 user = 'root'
 password = ''
-db = 'GODUTCH_SERVER'
+database = 'GODUTCH_SERVER'
+port = 3306
 
 
-def runQuery(conn, query, args, fetch=False):
-    cursor = conn.cursor()
-    cursor.execute(query, args)
+class Connection:
 
-    if fetch:
-        result = cursor.fetchall()
-    else:
-        result = None
+    def __init__(self, *args, **kwargs):
+        self.conn = pymysql.connect(
+            host=hostname, user=user,
+            password=password, db=kwargs.get(
+                'db', database,
+            ),
+            charset='utf8mb4',
+            port=port,
+            cursorclass=pymysql.cursors.DictCursor,
+        )
+        self.cursor = self.conn.cursor()
 
-    conn.commit()
-    return result #[dict]
+    def close(self):
+        self.conn.close()
+        self.conn = None
+        self.cursor = None
 
-#Sign up
-def signUp(conn, username, userpwd): # return user_id
-    if usernameExists(conn, username) > 0:
+    def commit(self):
+        self.conn.commit()
+
+    def getCursor(self):
+        return self.cursor
+
+# Sign up
+
+
+def signUp(conn, username, userpwd):  # return user_id
+    if gdmysql.usernameExists(conn, username) > 0:
         return -1
     else:
         query = "INSERT INTO Users (user_name, user_pwd) VALUES (%s, %s);"
-        runQuery(conn, query, (username, userpwd), False)
-        return getUserIdByUsername(conn, username)
+        gdmysql.runQuery(conn, query, (username, userpwd), False)
+        return gdmysql.getUserIdByUsername(conn, username)
 
 # Login
-def usernameExists(conn, username):
-    query = "SELECT user_id FROM Users WHERE user_name = %s;"
-    result = runQuery(conn, query, username, True)
-    return (len(result) > 0)
+
 
 def login(conn, username, userpwd):
     query = "SELECT * FROM Users WHERE user_name = %s AND user_pwd = %s;"
-    result = runQuery(conn, query, (username, userpwd), True)
+    result = gdmysql.runQuery(conn, query, (username, userpwd), True)
     if len(result) > 0:
         return result['user_id']
     else:
         return -1
 
 # Group
-def groupExists(conn, groupId):
-    query = "SELECT * FROM gGroups WHERE group_id = %s;"
-    result = runQuery(conn, query, groupId, True)
-    # print("result", result)
-    return len(result) > 0
+
 
 def createEmptyGroup(conn, groupName, ownerId):
     createQuery = "INSERT INTO gGroups (group_name, owner_id) VALUES (%s, %s);"
-    runQuery(conn, createQuery, (groupName, ownerId), False)
+    gdmysql.runQuery(conn, createQuery, (groupName, ownerId), False)
     selectQuery = "SELECT group_id FROM gGroups WHERE group_name = %s AND owner_id = %s;"
-    result = runQuery(conn, selectQuery, (groupName, ownerId), True)
-    return result[-1]   #Get the newly inserted
+    result = gdmysql.runQuery(conn, selectQuery, (groupName, ownerId), True)
+    return result[-1]  # Get the newly inserted
+
 
 def addMembersToGroup(conn, groupId, memberIds):
-    if not groupExists(conn, groupId):
+    if not gdmysql.groupExists(conn, groupId):
         return False
     else:
         query = "INSERT INTO GroupUsers (group_id, member_id) VALUES (%s, %s);"
         for i in range(len(memberIds)):
-            runQuery(conn, query, (groupId, memberIds[i]), False)
+            gdmysql.runQuery(conn, query, (groupId, memberIds[i]), False)
         return True
+
 
 def createGroupWithMembers(conn, groupName, ownerId, memberIds):
     result = createEmptyGroup(conn, groupName, ownerId)
@@ -72,170 +85,132 @@ def createGroupWithMembers(conn, groupName, ownerId, memberIds):
     # print(memberIds)
     return addMembersToGroup(conn, result['group_id'], memberIds)
 
-def userInGroup(conn, groupId, userId):
-    query = "SELECT * FROM GroupUsers WHERE group_id = %s AND member_id = %s;"
-    result = runQuery(conn, query, (groupId, userId), True)
-    return len(result) > 0
 
 def removeMemberFromGroup(conn, groupId, memberId):
-    if not userInGroup(conn, groupId, memberId):
+    if not gdmysql.userInGroup(conn, groupId, memberId):
         return False
     else:
         query = "DELETE FROM GroupUsers WHERE group_id = %s AND member_id = %s;"
-        runQuery(conn, query, (groupId, memberId), False)
+        gdmysql.runQuery(conn, query, (groupId, memberId), False)
         return True
 
 # Order (GroupOrder)
+
+
 def createOrder(conn, orderName, totalItems):
     query = "INSERT INTO Orders (order_name, item_unres_num) VALUES (%s, %s);"
-    runQuery(conn, query, (orderName, totalItems), False)
+    gdmysql.runQuery(conn, query, (orderName, totalItems), False)
     return True
 
+
 def deleteOrder(conn, orderId):
-    if not orderExists(conn, orderId):
+    if not gdmysql.orderExists(conn, orderId):
         return False
     else:
         query = "DELETE FROM Orders WHERE order_id = %s;"
-        runQuery(conn, query, orderId, False)
+        gdmysql.runQuery(conn, query, orderId, False)
         return True
 
-def orderExists(conn, orderId):
-    query = "SELECT * FROM Orders WHERE order_id = %s;"
-    result = runQuery(conn, query, orderId, True)
-    return len(result) > 0
-
 # GroupOrders
-def insertRecieptInfo(conn, orderId, groupId, receiptPath, receiptIdx=1):
-    if not (orderExists(conn, orderId) and groupExists(conn, groupId)):
+
+
+def createReciept(conn, orderId, groupId, receiptPath, receiptIdx=1):
+    if not (gdmysql.orderExists(conn, orderId) and gdmysql.groupExists(conn, groupId)):
         return False
     else:
         query = "INSERT INTO GroupOrders (group_id, order_id, receipt_index, receipt_path) \
         VALUES (%s, %s, %s, %s);"
-        runQuery(conn, query, (groupId, orderId, receiptIdx, receiptPath), False)
+        gdmysql.runQuery(
+            conn, query, (
+                groupId, orderId,
+                receiptIdx, receiptPath,
+            ), False,
+        )
         return True
 
+# Deprecated
+
+
+def insertRecieptInfo(conn, orderId, groupId, receiptPath, receiptIdx=1):
+    return createReciept(conn, orderId, groupId, receiptPath, receiptIdx=1)
+
 # Item
+
+
 def addItemToOrder(conn, itemName, orderId, itemAmount):
     query = "INSERT INTO Items (item_name, order_id, left_amount) VALUES \
     (%s, %s, %s);"
-    runQuery(conn, query, (itemName, orderId, itemAmount), False)
+    gdmysql.runQuery(conn, query, (itemName, orderId, itemAmount), False)
     return True
 
-# In case OCR does not work properly
-def modifyItemName(conn, itemId, itemName):
-    if not itemExists(conn, itemId):
+
+def modifyItemName(conn, itemId, itemName):  # In case OCR does not work properly
+    if not gdmysql.itemExists(conn, itemId):
         return False
     else:
         query = "UPDATE Items SET item_name = %s WHERE item_id = %s;"
-        runQuery(conn, query, (itemName, itemId), False)
+        gdmysql.runQuery(conn, query, (itemName, itemId), False)
         return True
+
 
 # In case OCR does not work properly
 def modifyItemTotalAmount(conn, itemId, totalAmount):
-    if not itemExists(conn, itemId):
+    if not gdmysql.itemExists(conn, itemId):
         return False
     else:
         query = "UPDATE Items SET left_amount = %s WHERE item_id = %s;"
-        runQuery(conn, query, (totalAmount, itemId), False)
+        gdmysql.runQuery(conn, query, (totalAmount, itemId), False)
         return True
 
-def itemExists(conn, itemId):
-    query = "SELECT * FROM Items WHERE item_id = %s;"
-    result = runQuery(conn, query, itemId, True)
-    return len(result) > 0
-
-def updateItemAmountByDiff(conn, itemId, diff):     #diff is sign-sensitive
-    # guarantee itemId exists and diff is valid
-    selectQuery = "SELECT left_amount FROM Items WHERE item_id = %s;"
-    result = runQuery(conn, selectQuery, itemId, True)
-    left = result[0]['left_amount']
-
-    query = "UPDATE Items SET left_amount = %s WHERE item_id = %s;"
-    runQuery(conn, query, (left + diff, itemId), False)
-    return True
-
-def deductItemAmount(conn, itemId, amount): #amount >= 0
-    return updateItemAmountByDiff(conn, itemId, -amount)
-
 # Allocation
-def validAllocation(conn, itemId, amount):  #amount >= 0
-    query = "SELECT * FROM Items WHERE item_id = %s;"
-    result = runQuery(conn, query, itemId, True)
 
-    # print("left = ", result[0]['left_amount'], "amount = ", amount)
-
-    if not len(result) > 0:
-        return False #No such item
-    else:
-        if (result[0]['left_amount'] - amount) < 0:
-            return False    # No sufficient items
-        else:
-            return True
 
 def createAllocation(conn, userId, itemId, amount):
-    if not validAllocation(conn, itemId, amount):
+    if not gdmysql.validAllocation(conn, itemId, amount):
         return False
     else:
-        deductItemAmount(conn, itemId, amount)
+        gdmysql.deductItemAmount(conn, itemId, amount)
 
         query = "INSERT INTO Allocations (allo_amount, item_id, user_id) \
         VALUES (%s, %s, %s);"
-        result = runQuery(conn, query, (amount, itemId, userId), False)
+        gdmysql.runQuery(conn, query, (amount, itemId, userId), False)
         return True
 
-def modifyAllocation(conn, alloId, updatedAmount): # updatedAmount >= 0
-    #guarantee alloId exists
+
+def modifyAllocation(conn, alloId, updatedAmount):  # updatedAmount >= 0
+    # guarantee alloId exists
     selectQuery = "SELECT * FROM Allocations WHERE allo_id = %s;"
-    result = runQuery(conn, selectQuery, alloId, True)
+    result = gdmysql.runQuery(conn, selectQuery, alloId, True)
     itemId = result[0]['item_id']
     prevAllo = result[0]['allo_amount']
 
-    if not validAllocation(conn, itemId, updatedAmount - prevAllo):
+    if not gdmysql.validAllocation(conn, itemId, updatedAmount - prevAllo):
         return False
     else:
-        deductItemAmount(conn, itemId, updatedAmount - prevAllo)
+        gdmysql.deductItemAmount(conn, itemId, updatedAmount - prevAllo)
         updateQuery = "UPDATE Allocations SET allo_amount = %s WHERE allo_id = %s;"
-        runQuery(conn, updateQuery, (updatedAmount, alloId), False)
+        gdmysql.runQuery(conn, updateQuery, (updatedAmount, alloId), False)
         return True
 
-# Miscellaneous
-def selectUserByUsername(conn, username):
-    # guarantee username exist
-    query = "SELECT user_id FROM Users WHERE user_name = %s;"
-    result = runQuery(conn, query, username, True)
-    return result[0]
-
-def deleteUserByUsername(conn, username):
-    query = "DELETE FROM Users WHERE user_name = %s;"
-    result = runQuery(conn, query, username, True)
-    return True
-
-def getUserIdByUsername(conn, username):
-    return selectUserByUsername(conn, username)['user_id']
-
-
-#Testing
+# Testing
 
 # Connect to the database
-connection = pymysql.connect(host=hostname,
-                             user=user,
-                             password=password,
-                             db=db,
-                             charset='utf8mb4',
-                             cursorclass=pymysql.cursors.DictCursor)
+# connection = Connection(db='Test')
+# connection = Connection()
 
-# prepare a cursor object using cursor() method
-# cursor = connection.cursor()
+# gdmysql.dropDB(connection, "TEST")
 
-# # Signup
+# # prepare a cursor object using cursor() method
+# cursor = connection.getCursor()
+#
+# # # Signup
 # print(signUp(connection, "Amy", "1111222")) #True
 # print(signUp(connection, "Andrew", "1156511222")) #True
-#
+# print(signUp(connection, "Xiaoming", "1156511222")) #True
+
 # ## login
-# # getUserId(connection, "Xiaoming")
-# # usernameExists(connection, "Jane") #false
-# # login(connection, "Xiaoming", "1234567")    #true
-# # login(connection, "Xiaoming", "123467")     #false
+# login(connection, "Xiaoming", "1156511222")    #true
+# login(connection, "Xiaoming", "123467")     #false
 #
 # # group
 # createEmptyGroup(connection, "Testgroupname", 1)
@@ -270,12 +245,11 @@ connection = pymysql.connect(host=hostname,
 # print(createAllocation(connection, 1, 1, 2)) # false
 # print(modifyAllocation(connection, 6, 15))
 
-#GroupOrders
+# GroupOrders
 # print(insertRecieptInfo(connection, 1, 1, "abc.com"))   #true
 # print(insertRecieptInfo(connection, 1, 1, "efg.com", 2))   #true
-print(insertRecieptInfo(connection, 1, 8, "abc.com"))   #false
-print(insertRecieptInfo(connection, 9, 1, "abc.com"))   #false
-# insertRecieptInfo(conn, orderId, groupId, receiptPath, receiptIdx=1):
+# print(insertRecieptInfo(connection, 1, 8, "abc.com"))   #false
+# print(insertRecieptInfo(connection, 9, 1, "abc.com"))   #false
 
 
-connection.close()
+# connection.close()
