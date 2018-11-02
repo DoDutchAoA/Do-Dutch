@@ -7,7 +7,7 @@ This Android application is developed in two languages where React (javascript) 
 - Front-end:
   Sign-in, Login-in, photo uploading
 - Server-end:
-  [NJ]
+  Image preprocess, OCR analysis
   Database implementation
 
 ### 2. Pre-commit
