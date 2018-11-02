@@ -1,9 +1,11 @@
 import unittest
 
-import dbfunctions as f
-import dbhelpers as h
-import dbqueries as q
+import functions as f
+import orderutils as o
+import queries as q
+import userutils as u
 from connection import ConnectionWrapper
+# import dbhelpers as h
 # import xmlrunner
 
 create_script = "create_tables.sql"
@@ -161,7 +163,7 @@ class TestDB(unittest.TestCase):
         self.assertEqual(len(result_list), len(memberIds))
 
         # All members in the tables from memberIds
-        membersDB = h.getAllMemberIds(groupId)
+        membersDB = u.getAllMemberIds(groupId)
 
         self.assertEqual(set(membersDB), set(memberIds))
 
@@ -189,7 +191,7 @@ class TestDB(unittest.TestCase):
         check = f.removeMembersFromGroup(groupId, removedIds)
         self.assertTrue(check)  # Removed successfully
 
-        membersDB = h.getAllMemberIds(groupId)
+        membersDB = u.getAllMemberIds(groupId)
 
         for i in range(len(removedIds)):
             # remove the removed Ids from member list

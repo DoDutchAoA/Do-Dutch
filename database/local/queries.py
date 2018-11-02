@@ -9,19 +9,15 @@ def runQuery(query, args, fetch=False, db=data.DATABASE):
         cursor = cw.getCursor()
         cursor.execute(query, args)
 
-        # print(query)
         if fetch:
             result = cursor.fetchall()
         else:
             result = None
         cw.commit()
-        # print(result)
         return result
 
     finally:
         cw.close()
-
-# For testing
 
 
 def createTestingDB():
@@ -58,7 +54,6 @@ def selectInfoByConditions(tableName, info_format, cons_format=None, vals=None):
         )
         query = query % vals
 
-    # print(query
     return runQuery(query, None, True)
 
 
@@ -67,16 +62,11 @@ def selectAllByConditions(tableName, cons_format=None, vals=None):
 
 
 def getNumOfRecordByConditions(tableName, cons_format=None, vals=None):
-    # print("hahah")
     return len(selectAllByConditions(tableName, cons_format, vals))
 
 
 def checkRecordExistByConditions(tableName, cons_format=None, vals=None):
     return (getNumOfRecordByConditions(tableName, cons_format, vals) > 0)
-
-
-def checkRecordExistByPK(tableName, pkName, pkVal):
-    return checkRecordExistByConditions(tableName, pkName + " = '%s'", pkVal)
 
 
 def deleteRecordByCondition(tableName, cons_format, vals):
@@ -92,8 +82,6 @@ def insertRecordTo(tableName, cols, vals, vals_format):
     runQuery(query, vals, False)
     return True
 
-# "UPDATE Items SET item_name = %s WHERE item_id = %s;"
-
 
 def updateRecordByConditions(tableName, info_format, cons_format, vals):
     query = (
@@ -101,7 +89,6 @@ def updateRecordByConditions(tableName, info_format, cons_format, vals):
         + cons_format + ";"
     )
     query = query % vals
-    # print(query)
     runQuery(query, None, False)
     return True
 
@@ -113,7 +100,5 @@ def getValsByKey(result_list, key):  # return a list
 
     for i in range(len(result_list)):
         vals.append(result_list[i][key])
-
-    # print("vals = ", vals)
 
     return vals
