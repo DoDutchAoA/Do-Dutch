@@ -4,9 +4,8 @@ import functions as f
 import orderutils as o
 import queries as q
 import userutils as u
+import xmlrunner
 from connection import ConnectionWrapper
-# import dbhelpers as h
-# import xmlrunner
 
 create_script = "create_tables.sql"
 
@@ -541,4 +540,8 @@ class TestDB(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    unittest.main()
+    with open('test-reports/results.xml', 'w') as output:
+        unittest.main(
+            testRunner=xmlrunner.XMLTestRunner(output=output),
+            failfast=False, buffer=False, catchbreak=False,
+        )
