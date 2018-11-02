@@ -1,7 +1,7 @@
 # W4156 Go Dutch
 
 ## First iteration
-### 1. Progress overiew
+### 1. Progress overiewthe
 This Android application is developed in two languages where React (javascript) is used in the front-end development and Python is utilized for the server-end development. Until the deadline of the first iteration, we have done:
 
 - Front-end:
@@ -10,7 +10,7 @@ This Android application is developed in two languages where React (javascript) 
   Image preprocess, OCR analysis, database implementation
 
 ### 2. Pre-commit
-Since two distinct languages are used, we have set up two pre-commit configuration files which contain language-specific pre-commit hooks. You can go to the directory [precommit_history](https://github.com/DoDutchAoA/Do-Dutch/tree/master/first_iteration) to check them out. Because yaml file itself violates several hooks so it is not allowed to be committed. That’s why we exported them to pdf format to be able to bypass the restriction of pre-commit hook to upload.
+Since two distinct languages are used, we have set up two pre-commit configuration files which contain language-specific pre-commit hooks. You can go to [this directory](https://github.com/DoDutchAoA/Do-Dutch/tree/master/first_iteration) to check them out. Because yaml file itself violates several hooks so it is not allowed to be committed. That’s why we exported them to pdf format to be able to bypass the restriction of pre-commit hook to upload.
 Also, we have uploaded some screenshots to show how the pre-commit actually worked on our code. Sometimes it did detect a few problems with our code sometimes it did not.
 
 ### 3. Post-commit
