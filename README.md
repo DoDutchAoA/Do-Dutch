@@ -1,7 +1,7 @@
 # W4156 Go Dutch
 
 ## First iteration
-### 1. Progress overiewthe
+### 1. Progress overview
 This Android application is developed in two languages where React (javascript) is used in the front-end development and Python is utilized for the server-end development. Until the deadline of the first iteration, we have done:
 
 - Front-end:
