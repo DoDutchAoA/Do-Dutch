@@ -7,8 +7,7 @@ This Android application is developed in two languages where React (javascript) 
 - Front-end:
   Sign-in, Login-in, photo uploading
 - Server-end:
-  Image preprocess, OCR analysis
-  Database implementation
+  Image preprocess, OCR analysis, database implementation
 
 ### 2. Pre-commit
 Since two distinct languages are used, we have set up two pre-commit configuration files which contain language-specific pre-commit hooks. You can go to the directory [precommit_history] to check them out. Because yaml file itself violates several hooks so it is not allowed to be committed. That’s why we exported them to pdf format to be able to bypass the restriction of pre-commit hook to upload.
