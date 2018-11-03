@@ -1,0 +1,137 @@
+[INFO] Installing environment for https://github.com/asottile/reorder_python_imports.
+[INFO] Once installed this environment will be reused.
+[INFO] This may take a few minutes...
+[INFO] Installing environment for https://github.com/pre-commit/mirrors-autopep8.
+[INFO] Once installed this environment will be reused.
+[INFO] This may take a few minutes...
+[INFO] Installing environment for https://github.com/asottile/add-trailing-comma.
+[INFO] Once installed this environment will be reused.
+[INFO] This may take a few minutes...
+[INFO] Installing environment for https://github.com/pre-commit/pre-commit.
+[INFO] Once installed this environment will be reused.
+[INFO] This may take a few minutes...
+Trim Trailing Whitespace.................................................Passed
+Fix End of Files.........................................................Passed
+Check docstring is first.................................................Passed
+Check JSON...............................................................Passed
+Check Yaml...........................................(no files to check)Skipped
+Debug Statements (Python)................................................Passed
+Tests should end in _test.py.........................(no files to check)Skipped
+Fix requirements.txt.................................(no files to check)Skipped
+Flake8...................................................................Failed
+hookid: flake8
+
+database/local/my_query.py:1:1: E265 block comment should start with '# '
+database/local/my_query.py:20:18: E261 at least two spaces before inline comment
+database/local/my_query.py:20:19: E262 inline comment should start with '# '
+database/local/my_query.py:22:1: E265 block comment should start with '# '
+database/local/my_query.py:23:1: E302 expected 2 blank lines, found 1
+database/local/my_query.py:23:37: E261 at least two spaces before inline comment
+database/local/my_query.py:32:1: E302 expected 2 blank lines, found 1
+database/local/my_query.py:37:1: E302 expected 2 blank lines, found 1
+database/local/my_query.py:46:1: E302 expected 2 blank lines, found 1
+database/local/my_query.py:52:1: E302 expected 2 blank lines, found 1
+database/local/my_query.py:55:80: E501 line too long (89 > 79 characters)
+database/local/my_query.py:57:25: E262 inline comment should start with '# '
+database/local/my_query.py:59:1: E302 expected 2 blank lines, found 1
+database/local/my_query.py:68:1: E302 expected 2 blank lines, found 1
+database/local/my_query.py:75:1: E302 expected 2 blank lines, found 1
+database/local/my_query.py:80:1: E302 expected 2 blank lines, found 1
+database/local/my_query.py:84:80: E501 line too long (80 > 79 characters)
+database/local/my_query.py:89:1: E302 expected 2 blank lines, found 1
+database/local/my_query.py:94:1: E302 expected 2 blank lines, found 1
+database/local/my_query.py:102:1: E302 expected 2 blank lines, found 1
+database/local/my_query.py:108:1: E302 expected 2 blank lines, found 1
+database/local/my_query.py:114:80: E501 line too long (81 > 79 characters)
+database/local/my_query.py:118:1: E302 expected 2 blank lines, found 1
+database/local/my_query.py:125:1: E302 expected 2 blank lines, found 1
+database/local/my_query.py:134:1: E302 expected 2 blank lines, found 1
+database/local/my_query.py:142:1: E302 expected 2 blank lines, found 1
+database/local/my_query.py:147:1: E302 expected 2 blank lines, found 1
+database/local/my_query.py:147:53: E262 inline comment should start with '# '
+database/local/my_query.py:157:1: E302 expected 2 blank lines, found 1
+database/local/my_query.py:157:44: E261 at least two spaces before inline comment
+database/local/my_query.py:157:45: E262 inline comment should start with '# '
+database/local/my_query.py:161:1: E302 expected 2 blank lines, found 1
+database/local/my_query.py:161:45: E262 inline comment should start with '# '
+database/local/my_query.py:168:21: E261 at least two spaces before inline comment
+database/local/my_query.py:168:22: E262 inline comment should start with '# '
+database/local/my_query.py:175:1: E302 expected 2 blank lines, found 1
+database/local/my_query.py:183:9: F841 local variable 'result' is assigned to but never used
+database/local/my_query.py:186:1: E302 expected 2 blank lines, found 1
+database/local/my_query.py:186:51: E261 at least two spaces before inline comment
+database/local/my_query.py:187:5: E265 block comment should start with '# '
+database/local/my_query.py:197:80: E501 line too long (83 > 79 characters)
+database/local/my_query.py:202:1: E302 expected 2 blank lines, found 1
+database/local/my_query.py:208:1: E302 expected 2 blank lines, found 1
+database/local/my_query.py:210:5: F841 local variable 'result' is assigned to but never used
+database/local/my_query.py:213:1: E302 expected 2 blank lines, found 1
+database/local/my_query.py:217:1: E265 block comment should start with '# '
+database/local/my_query.py:273:1: E265 block comment should start with '# '
+database/local/my_query.py:276:57: E262 inline comment should start with '# '
+database/local/my_query.py:277:57: E262 inline comment should start with '# '
+database/server/query.py:1:1: E265 block comment should start with '# '
+database/server/query.py:20:18: E261 at least two spaces before inline comment
+database/server/query.py:20:19: E262 inline comment should start with '# '
+database/server/query.py:22:1: E265 block comment should start with '# '
+database/server/query.py:23:1: E302 expected 2 blank lines, found 1
+database/server/query.py:23:37: E261 at least two spaces before inline comment
+database/server/query.py:32:1: E302 expected 2 blank lines, found 1
+database/server/query.py:37:1: E302 expected 2 blank lines, found 1
+database/server/query.py:46:1: E302 expected 2 blank lines, found 1
+database/server/query.py:52:1: E302 expected 2 blank lines, found 1
+database/server/query.py:55:80: E501 line too long (89 > 79 characters)
+database/server/query.py:57:25: E262 inline comment should start with '# '
+database/server/query.py:59:1: E302 expected 2 blank lines, found 1
+database/server/query.py:68:1: E302 expected 2 blank lines, found 1
+database/server/query.py:75:1: E302 expected 2 blank lines, found 1
+database/server/query.py:80:1: E302 expected 2 blank lines, found 1
+database/server/query.py:84:80: E501 line too long (80 > 79 characters)
+database/server/query.py:89:1: E302 expected 2 blank lines, found 1
+database/server/query.py:94:1: E302 expected 2 blank lines, found 1
+database/server/query.py:102:1: E302 expected 2 blank lines, found 1
+database/server/query.py:108:1: E302 expected 2 blank lines, found 1
+database/server/query.py:114:80: E501 line too long (81 > 79 characters)
+database/server/query.py:118:1: E302 expected 2 blank lines, found 1
+database/server/query.py:125:1: E302 expected 2 blank lines, found 1
+database/server/query.py:134:1: E302 expected 2 blank lines, found 1
+database/server/query.py:142:1: E302 expected 2 blank lines, found 1
+database/server/query.py:147:1: E302 expected 2 blank lines, found 1
+database/server/query.py:147:53: E262 inline comment should start with '# '
+database/server/query.py:157:1: E302 expected 2 blank lines, found 1
+database/server/query.py:157:44: E261 at least two spaces before inline comment
+database/server/query.py:157:45: E262 inline comment should start with '# '
+database/server/query.py:161:1: E302 expected 2 blank lines, found 1
+database/server/query.py:161:45: E262 inline comment should start with '# '
+database/server/query.py:168:21: E261 at least two spaces before inline comment
+database/server/query.py:168:22: E262 inline comment should start with '# '
+database/server/query.py:175:1: E302 expected 2 blank lines, found 1
+database/server/query.py:183:9: F841 local variable 'result' is assigned to but never used
+database/server/query.py:186:1: E302 expected 2 blank lines, found 1
+database/server/query.py:186:51: E261 at least two spaces before inline comment
+database/server/query.py:187:5: E265 block comment should start with '# '
+database/server/query.py:197:80: E501 line too long (83 > 79 characters)
+database/server/query.py:202:1: E302 expected 2 blank lines, found 1
+database/server/query.py:208:1: E302 expected 2 blank lines, found 1
+database/server/query.py:210:5: F841 local variable 'result' is assigned to but never used
+database/server/query.py:213:1: E302 expected 2 blank lines, found 1
+database/server/query.py:217:1: E265 block comment should start with '# '
+database/server/query.py:273:1: E265 block comment should start with '# '
+
+autopep8.................................................................Failed
+hookid: autopep8
+
+Files were modified by this hook.
+
+Validate Pre-Commit Manifest.........................(no files to check)Skipped
+Reorder python imports...................................................Passed
+Add trailing commas......................................................Failed
+hookid: add-trailing-comma
+
+Files were modified by this hook. Additional output:
+
+Rewriting database/local/my_query.py
+Rewriting database/server/query.py
+
+Check hooks apply to the repository..................(no files to check)Skipped
+Check for useless excludes...........................(no files to check)Skipped

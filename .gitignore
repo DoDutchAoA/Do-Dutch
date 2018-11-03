@@ -2,6 +2,7 @@
 *.lock
 *.jpg
 *.png
+*.pdf
 
 *.sql
 *.pyc
