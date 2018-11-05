@@ -8,14 +8,9 @@ import {
   FormValidationMessage
 } from "react-native-elements";
 
-export default class LogIn extends Component {
+export default class Logout extends Component {
   constructor() {
     super();
-
-    this.state = {
-      username: "",
-      password: ""
-    };
   }
 
   userLogIn() {
@@ -33,7 +28,6 @@ export default class LogIn extends Component {
       .then(response => {
         console.log(response);
         this.props.updateLogin(response._bodyText, this.state.username);
-        alert("login in successfully!" + window.user_id);
       })
       .catch(error => {
         console.error("Error: login fetch error." + error);
@@ -43,25 +37,8 @@ export default class LogIn extends Component {
   render() {
     return (
       <View>
-        <Text> Log In </Text>
-
-        <FormLabel> Username </FormLabel>
-        <FormInput
-          autoFocus={true}
-          keyboardType="email-address"
-          value={this.state.username}
-          onChangeText={text => this.setState({ username: text })}
-        />
-
-        <FormLabel> Password </FormLabel>
-        <FormInput
-          autoFocus={true}
-          keyboardType="password"
-          value={this.state.password}
-          onChangeText={text => this.setState({ password: text })}
-        />
-
-        <Button onPress={e => this.userLogIn()} title="login" />
+        <Text> Hi {window.username}! You already logged in. </Text>
+        <Button onPress={this.props.updateLogout} title="Log out" />
       </View>
     );
   }

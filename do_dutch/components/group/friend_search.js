@@ -8,14 +8,9 @@ import {
   FormValidationMessage
 } from "react-native-elements";
 
-export default class LogIn extends Component {
+export default class LogOut extends Component {
   constructor() {
     super();
-
-    this.state = {
-      username: "",
-      password: ""
-    };
   }
 
   userLogIn() {
@@ -43,25 +38,8 @@ export default class LogIn extends Component {
   render() {
     return (
       <View>
-        <Text> Log In </Text>
-
-        <FormLabel> Username </FormLabel>
-        <FormInput
-          autoFocus={true}
-          keyboardType="email-address"
-          value={this.state.username}
-          onChangeText={text => this.setState({ username: text })}
-        />
-
-        <FormLabel> Password </FormLabel>
-        <FormInput
-          autoFocus={true}
-          keyboardType="password"
-          value={this.state.password}
-          onChangeText={text => this.setState({ password: text })}
-        />
-
-        <Button onPress={e => this.userLogIn()} title="login" />
+        <Text> You already logged in. </Text>
+        <Button onPress={this.props.updateLogout} />
       </View>
     );
   }
