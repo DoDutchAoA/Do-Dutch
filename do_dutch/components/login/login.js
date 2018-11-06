@@ -32,8 +32,11 @@ export default class LogIn extends Component {
     })
       .then(response => {
         console.log(response);
-        this.props.updateLogin(response._bodyText, this.state.username);
-        alert("login in successfully!" + window.user_id);
+        if (response._bodyText == "-1") {
+          alert("Wrong password!");
+        } else {
+          this.props.updateLogin(response._bodyText, this.state.username);
+        }
       })
       .catch(error => {
         console.error("Error: login fetch error." + error);

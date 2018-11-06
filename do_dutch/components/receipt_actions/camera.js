@@ -18,6 +18,7 @@ import {
 
 import ImagePicker from "react-native-image-picker";
 import RNFetchBlob from "react-native-fetch-blob";
+import { Button } from "react-native-elements";
 
 const options = {
   title: "Select a photo",
@@ -29,6 +30,7 @@ const options = {
 export default class Camera extends Component {
   constructor() {
     super();
+
     this.state = {
       imageSource: null,
       data: null
@@ -54,28 +56,47 @@ export default class Camera extends Component {
   }
 
   UploadPhoto() {
+    console.log("uploading..");
     RNFetchBlob.fetch(
       "POST",
-      "http://www.example.com/upload-form",
+      "http://52.12.74.177:5000/upload",
       {
-        Authorization: "Bearer access-token",
-        otherHeader: "foo",
         "Content-Type": "multipart/form-data"
       },
       [
         {
           name: "image",
-          filename: "image.png",
+          filename: window.user_id + "image.png",
           type: "image/png",
           data: this.state.data
         }
       ]
     )
-      .then(resp => {})
-      .catch(err => {});
+      .then(resp => {
+        console.log("upload successfully!");
+        console.log(resp);
+        console.log("========");
+        console.log(JSON.parse(resp.data).items);
+
+        this.props.navigation.navigate("Receipt", {
+          receipt_items: JSON.parse(resp.data).items,
+          receipt_total: JSON.parse(resp.data).accumTotal
+        });
+      })
+      .catch(err => {
+        console.error("Error: " + err);
+      });
   }
 
   render() {
+    if (window.user_id == undefined) {
+      return (
+        <View>
+          <Text> Please log in first. </Text>
+        </View>
+      );
+    }
+
     return (
       <View style={styles.container}>
         <Image
@@ -92,8 +113,18 @@ export default class Camera extends Component {
         >
           <Text style={styles.text}>Select</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={this.UploadPhoto}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={this.UploadPhoto.bind(this)}
+        >
           <Text style={styles.text}>Upload</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => this.props.navigation.navigate("Receipt")}
+        >
+          <Text style={styles.text}>Check Form</Text>
         </TouchableOpacity>
       </View>
     );

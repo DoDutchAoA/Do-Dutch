@@ -37,7 +37,6 @@ export default class Signup extends Component {
     })
       .then(response => {
         this.props.updateLogin(response._bodyText, this.state.username);
-        alert("login in successfully!" + window.user_id);
       })
       .catch(error => {
         console.error("Error: signup fetch error." + error);

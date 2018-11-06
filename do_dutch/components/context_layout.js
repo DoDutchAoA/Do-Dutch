@@ -13,6 +13,7 @@ import { NavigationActions } from "react-navigation";
 import { createStackNavigator } from "react-navigation";
 import Camera from "./receipt_actions/camera.js";
 import Form from "./receipt_actions/fetch.js";
+import ReceiptScreen from "./receipt_actions/receipt_screen.js";
 import HomeScreen from "./home_screen.js";
 
 const IoniconsHeaderButton = passMeFurther => (
@@ -75,6 +76,21 @@ const AppStackNavigator = createStackNavigator({
   },
   Form: {
     screen: Form,
+    navigationOptions: ({ navigation }) => ({
+      title: "Receipt",
+      headerTitleStyle: {
+        color: "#17202a",
+        textAlign: "center",
+        fontFamily: "Montserrat-Regular"
+      },
+      headerStyle: {
+        backgroundColor: "#d5d8dc",
+        textAlign: "center"
+      }
+    })
+  },
+  Receipt: {
+    screen: ReceiptScreen,
     navigationOptions: ({ navigation }) => ({
       title: "Receipt",
       headerTitleStyle: {

@@ -18,6 +18,7 @@ import Footer from "./components/footer.js";
 import HomeScreen from "./components/home_screen.js";
 import Camera from "./components/receipt_actions/camera.js";
 import Form from "./components/receipt_actions/fetch.js";
+import ReceiptScreen from "./components/receipt_actions/receipt_screen.js";
 
 class App extends Component {
   render() {
@@ -39,6 +40,9 @@ const MyApp = DrawerNavigator({
   },
   CheckAllReceipts: {
     screen: Form
+  },
+  Receipt: {
+    screen: ReceiptScreen
   }
 });
 
