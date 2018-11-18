@@ -14,6 +14,7 @@ import { Button } from "react-native-elements";
 
 import ContextLayout from "./components/context_layout.js";
 import LoginContainer from "./components/login_container.js";
+import CreateReceiptLayout from "./components/create_receipt_layout.js";
 import Footer from "./components/footer.js";
 import HomeScreen from "./components/home_screen.js";
 import Camera from "./components/receipt_actions/camera.js";
@@ -36,13 +37,10 @@ const MyApp = DrawerNavigator({
     screen: LoginContainer
   },
   CreateReceipt: {
-    screen: Camera
+    screen: CreateReceiptLayout
   },
   CheckAllReceipts: {
     screen: Form
-  },
-  Receipt: {
-    screen: ReceiptScreen
   }
 });
 

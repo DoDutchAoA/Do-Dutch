@@ -12,14 +12,12 @@ import { NavigationActions } from "react-navigation";
 
 import { createStackNavigator } from "react-navigation";
 import Camera from "./receipt_actions/camera.js";
-import Form from "./receipt_actions/fetch.js";
 import ReceiptScreen from "./receipt_actions/receipt_screen.js";
-import HomeScreen from "./home_screen.js";
 
-export default class ContextLayout extends Component {
+export default class CreateReceiptLayout extends Component {
   render() {
     this.state = {
-      context_route: "home"
+      context_route: "create receipt"
     };
 
     return <AppStackNavigator />;
@@ -27,21 +25,6 @@ export default class ContextLayout extends Component {
 }
 
 const AppStackNavigator = createStackNavigator({
-  Home: {
-    screen: HomeScreen,
-    navigationOptions: ({ navigation }) => ({
-      title: "Home",
-      headerTitleStyle: {
-        color: "#17202a",
-        textAlign: "center",
-        fontFamily: "Montserrat-Regular"
-      },
-      headerStyle: {
-        backgroundColor: "#d5d8dc",
-        textAlign: "center"
-      }
-    })
-  },
   Camera: {
     screen: Camera,
     navigationOptions: ({ navigation }) => ({
@@ -60,21 +43,6 @@ const AppStackNavigator = createStackNavigator({
       //         <Item title="select" iconName="bars" onPress={() => {alert(navigation.navigate); navigation.dispatch('Form')}} />
       //     </HeaderButtons>
       // )
-    })
-  },
-  Form: {
-    screen: Form,
-    navigationOptions: ({ navigation }) => ({
-      title: "Receipt",
-      headerTitleStyle: {
-        color: "#17202a",
-        textAlign: "center",
-        fontFamily: "Montserrat-Regular"
-      },
-      headerStyle: {
-        backgroundColor: "#d5d8dc",
-        textAlign: "center"
-      }
     })
   },
   Receipt: {
