@@ -24,4 +24,4 @@ For the server-side, the CI server we chose is Jenkin because Travis does not su
 
 ### 4. Summary and future tasks
 
-So, to briefly summarize, by the first demo day (Nov 8th), we should spend more efforts on the front-end development, coming with some minor teaks on our server-side development. Our goals are at least achieving those features tagged as basic in our revised proposal. Along with the development, we should do the tests at the same time. Jenkins also works for Javascript so we plan to use this CI server for the front-end as well.
+So, to briefly summarize, by the first demo day (Nov 8th), we should spend more efforts in the front-end development, together with some minor tweaks in our server-side development as well. Our goals are at least achieving those features tagged as basic in our revised proposal. Along with the development, we should do the tests at the same time. Jenkins also works for Javascript so we plan to use this CI server for the front-end as well.
