@@ -1,6 +1,9 @@
 # OSX
 #
 .DS_Store
+*.ttf
+*.gradle
+
 
 # Xcode
 #
