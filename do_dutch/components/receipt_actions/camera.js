@@ -89,13 +89,13 @@ export default class Camera extends Component {
   }
 
   render() {
-    if (window.user_id == undefined) {
-      return (
-        <View>
-          <Text> Please log in first. </Text>
-        </View>
-      );
-    }
+    // if (window.user_id == undefined) {
+    //   return (
+    //     <View>
+    //       <Text> Please log in first. </Text>
+    //     </View>
+    //   );
+    // }
 
     return (
       <View style={styles.container}>
