@@ -12,17 +12,6 @@ export default class FriendContainer extends Component {
     return (
       <View>
         <Text> Do Dutch </Text>
-
-        {this.userAuthentication()}
-
-        <Text
-          onPress={() => {
-            this.toggleLoginSignup();
-          }}
-        >
-          {" "}
-          {this.alterOptionContent()}{" "}
-        </Text>
       </View>
     );
   }
