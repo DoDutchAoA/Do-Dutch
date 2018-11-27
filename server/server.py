@@ -160,6 +160,13 @@ def getAllFriends():
         result = functions.getAllFriends(request.json.get('user_id'))
         return json.dumps(result)
 
+@app.route("/getAllGroups", methods=['POST', 'GET'])
+def getAllGroups():
+    if request.method == 'POST':
+        result = functions.getAllGroups(request.json.get('user_id'))
+        return json.dumps(result)
+
 if __name__ == '__main__':
     app.debug = True
     app.run(host= '0.0.0.0')
+i

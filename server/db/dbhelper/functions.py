@@ -40,6 +40,8 @@ def removeMembersFromGroup(groupId, memberIds):
 def deleteGroup(groupId):
     return u.deleteGroup(groupId)
 
+def getAllGroups(userId):
+    return u.getAllGroups(userId)
 
 def createOrder(groupId, orderName, numOfItems):
     return o.createOrder(groupId, orderName, numOfItems)
