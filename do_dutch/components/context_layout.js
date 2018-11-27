@@ -30,7 +30,7 @@ const AppStackNavigator = createStackNavigator({
   Home: {
     screen: HomeScreen,
     navigationOptions: ({ navigation }) => ({
-      title: "Home",
+      title: "Go Dutch!",
       headerTitleStyle: {
         color: "#17202a",
         textAlign: "center",
@@ -45,7 +45,7 @@ const AppStackNavigator = createStackNavigator({
   Camera: {
     screen: Camera,
     navigationOptions: ({ navigation }) => ({
-      title: "Creat New Receipt",
+      title: "New Receipt",
       headerTitleStyle: {
         color: "#17202a",
         textAlign: "center",
