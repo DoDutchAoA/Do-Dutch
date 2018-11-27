@@ -5,6 +5,7 @@ import { createStackNavigator } from "react-navigation";
 
 import GroupMain from "./group_main.js";
 import GroupCreate from "./group_create.js";
+import GroupDetail from "./group_detail.js";
 
 export default class GroupContainer extends Component {
   constructor() {
@@ -12,7 +13,11 @@ export default class GroupContainer extends Component {
   }
 
   render() {
-    return <GroupStackNavigator />;
+    return (
+      <GroupStackNavigator
+        screenProps={this.props.navigation.getParam("user_id", -1)}
+      />
+    );
   }
 }
 
@@ -36,6 +41,21 @@ const GroupStackNavigator = createStackNavigator({
     screen: GroupCreate,
     navigationOptions: ({ navigation }) => ({
       title: "Create new group",
+      headerTitleStyle: {
+        color: "#17202a",
+        textAlign: "center",
+        fontFamily: "Montserrat-Regular"
+      },
+      headerStyle: {
+        backgroundColor: "#d5d8dc",
+        textAlign: "center"
+      }
+    })
+  },
+  GroupDetail: {
+    screen: GroupDetail,
+    navigationOptions: ({ navigation }) => ({
+      title: "Group detail",
       headerTitleStyle: {
         color: "#17202a",
         textAlign: "center",
