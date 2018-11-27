@@ -42,8 +42,9 @@ const App = TabNavigator(
               vertical
               active={props.navigationState.index === 1}
               onPress={() => {
-                window.user_id = 22;
-                props.navigation.navigate("FriendContainer", { user_id: 22 });
+                props.navigation.navigate("FriendContainer", {
+                  user_id: window.user_id
+                });
               }}
             >
               <Icon name="people" />
@@ -53,7 +54,11 @@ const App = TabNavigator(
             <Button
               vertical
               active={props.navigationState.index === 1}
-              onPress={() => props.navigation.navigate("GroupContainer")}
+              onPress={() =>
+                props.navigation.navigate("GroupContainer", {
+                  user_id: window.user_id
+                })
+              }
             >
               <Icon name="contacts" />
               <Text>Group</Text>
