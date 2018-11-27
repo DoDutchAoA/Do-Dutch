@@ -41,7 +41,10 @@ const App = TabNavigator(
             <Button
               vertical
               active={props.navigationState.index === 1}
-              onPress={() => props.navigation.navigate("FriendContainer")}
+              onPress={() => {
+                window.user_id = 22;
+                props.navigation.navigate("FriendContainer", { user_id: 22 });
+              }}
             >
               <Icon name="people" />
               <Text>Friend</Text>
