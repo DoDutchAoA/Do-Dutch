@@ -32,6 +32,8 @@ def removeFriend(first_user_id, second_user_id):
 def createGroupWithMembers(groupName, ownerId, memberIds):
     return u.createGroupWithMembers(groupName, ownerId, memberIds)
 
+def getAllMembersByGroupId(groupId):
+    return u.getAllMembersByGroupId(groupId)
 
 def removeMembersFromGroup(groupId, memberIds):
     return u.removeMembersFromGroupByIds(groupId, memberIds)

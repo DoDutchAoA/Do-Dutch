@@ -166,7 +166,13 @@ def getAllGroups():
         result = functions.getAllGroups(request.json.get('user_id'))
         return json.dumps(result)
 
+@app.route("/getAllMembersByGroupId", methods=['POST', 'GET'])
+def getAllMembersByGroupId():
+    if request.method == 'POST':
+        result = functions.getAllMembersByGroupId(request.json.get('group_id'))
+        return json.dumps(result)
+
 if __name__ == '__main__':
     app.debug = True
     app.run(host= '0.0.0.0')
-i
+
