@@ -61,6 +61,12 @@ def createGroupWithMembers():
         result = functions.createGroupWithMembers(request.json.get('groupName'), request.json.get('ownerId'), request.json.get('memberIds'))
         return str(result)
 
+@app.route("/removeGroup", methods=['POST', 'GET'])
+def removeGroup():
+    if request.method == 'POST':
+        result = functions.deleteGroup(request.json.get('groupId'))
+        return json.dumps(result)
+
 @app.route("/removeMemberFromGroup", methods=['POST', 'GET'])
 def removeMemberFromGroup():
     if request.method == 'POST':
