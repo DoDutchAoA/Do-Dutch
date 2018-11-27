@@ -7,7 +7,6 @@ import {
   Image,
   FlatList
 } from "react-native";
-
 import { Button } from "react-native-elements";
 
 export default class GroupDetail extends Component {
@@ -17,7 +16,9 @@ export default class GroupDetail extends Component {
     this.state = {
       group_id: -1,
       group_name: "",
-      groupsData: []
+      owner_id: -1,
+      groupsData: [],
+      force_reload: -1
     };
   }
 
@@ -27,17 +28,46 @@ export default class GroupDetail extends Component {
 
   componentDidUpdate() {
     if (
-      this.state.group_id === this.props.navigation.getParam("group_id", -1)
+      this.state.group_id === this.props.navigation.getParam("group_id", -1) &&
+      this.props.navigation.getParam("force_reload", -1) ==
+        this.state.force_reload
     ) {
+      if (this.state.force_reload === 0) {
+        this.state.force_reload = -1;
+      }
       return;
     }
 
+    this.state.force_reload = this.props.navigation.getParam(
+      "force_reload",
+      -1
+    );
     this.loadGroupsData();
+  }
+
+  loadOwnerButtons() {
+    if (window.user_id == this.state.owner_id && this.state.owner_id !== -1) {
+      return (
+        <View>
+          <Button title="delete group" />
+          <Text> {"\n"} </Text>
+          <Button
+            onPress={() =>
+              this.props.navigation.navigate("GroupAddMembers", {
+                group_id: this.state.group_id
+              })
+            }
+            title="add more members"
+          />
+        </View>
+      );
+    }
   }
 
   loadGroupsData() {
     this.state.group_id = this.props.navigation.getParam("group_id", -1);
     this.state.group_name = this.props.navigation.getParam("group_name", "");
+    this.state.owner_id = this.props.navigation.getParam("owner_id", -1);
 
     fetch("http://52.12.74.177:5000/getAllMembersByGroupId", {
       method: "POST",
@@ -62,6 +92,8 @@ export default class GroupDetail extends Component {
     return (
       <View>
         <Text> Group name: {this.state.group_name} </Text>
+
+        {this.loadOwnerButtons()}
 
         <View>
           <FlatList

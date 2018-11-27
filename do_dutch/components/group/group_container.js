@@ -6,6 +6,7 @@ import { createStackNavigator } from "react-navigation";
 import GroupMain from "./group_main.js";
 import GroupCreate from "./group_create.js";
 import GroupDetail from "./group_detail.js";
+import GroupAddMembers from "./group_add_members.js";
 
 export default class GroupContainer extends Component {
   constructor() {
@@ -56,6 +57,21 @@ const GroupStackNavigator = createStackNavigator({
     screen: GroupDetail,
     navigationOptions: ({ navigation }) => ({
       title: "Group detail",
+      headerTitleStyle: {
+        color: "#17202a",
+        textAlign: "center",
+        fontFamily: "Montserrat-Regular"
+      },
+      headerStyle: {
+        backgroundColor: "#d5d8dc",
+        textAlign: "center"
+      }
+    })
+  },
+  GroupAddMembers: {
+    screen: GroupAddMembers,
+    navigationOptions: ({ navigation }) => ({
+      title: "Add members",
       headerTitleStyle: {
         color: "#17202a",
         textAlign: "center",
