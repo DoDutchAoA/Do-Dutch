@@ -53,7 +53,7 @@ export default class GroupCreate extends Component {
       })
     })
       .then(response => {
-        if (response._bodyText === -1) {
+        if (response._bodyText === "-1") {
           alert("The group name already be used, plz try another name.");
         } else {
           alert("The group is create successfully.");
@@ -68,7 +68,6 @@ export default class GroupCreate extends Component {
   render() {
     return (
       <View>
-        <Text> Create a new group </Text>
         <FormLabel> Group name </FormLabel>
         <FormInput
           autoFocus={true}
