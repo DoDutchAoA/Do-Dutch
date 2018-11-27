@@ -10,12 +10,14 @@ import {
 
 import { Button } from "react-native-elements";
 
-export default class GroupMain extends Component {
+export default class GroupDetail extends Component {
   constructor() {
     super();
 
     this.state = {
-      user_id: window.user_id
+      group_id: -1,
+      group_name: "",
+      groupsData: []
     };
   }
 
@@ -24,7 +26,9 @@ export default class GroupMain extends Component {
   }
 
   componentDidUpdate() {
-    if (this.state.user_id === this.props.screenProps) {
+    if (
+      this.state.group_id === this.props.navigation.getParam("group_id", -1)
+    ) {
       return;
     }
 
@@ -32,18 +36,21 @@ export default class GroupMain extends Component {
   }
 
   loadGroupsData() {
-    fetch("http://52.12.74.177:5000/getAllGroups", {
+    this.state.group_id = this.props.navigation.getParam("group_id", -1);
+    this.state.group_name = this.props.navigation.getParam("group_name", "");
+
+    fetch("http://52.12.74.177:5000/getAllMembersByGroupId", {
       method: "POST",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        user_id: this.props.screenProps
+        group_id: this.state.group_id
       })
     })
       .then(response => {
-        this.state.user_id = this.props.screenProps;
+        console.log(response._bodyText);
         this.setState({ groupsData: JSON.parse(response._bodyText) });
       })
       .catch(error => {
@@ -51,40 +58,17 @@ export default class GroupMain extends Component {
       });
   }
 
-  _renderItem = ({ item, section }) => (
-    <View>
-      <Text key={item.group_id} style={styles.item}>
-        {item.group_name}
-      </Text>
-    </View>
-  );
-
   render() {
     return (
       <View>
-        <Text> Group Main </Text>
-        <Button
-          onPress={() => {
-            this.props.navigation.navigate("GroupCreate");
-          }}
-          title="Create a new group"
-        />
+        <Text> Group name: {this.state.group_name} </Text>
 
         <View>
           <FlatList
             data={this.state.groupsData}
             renderItem={({ item }) => (
-              <Text
-                onPress={() => {
-                  this.props.navigation.navigate("GroupDetail", {
-                    group_id: item.group_id,
-                    group_name: item.group_name
-                  });
-                }}
-                style={styles.item}
-                key={item.group_id}
-              >
-                {item.group_name}
+              <Text style={styles.item} key={item.member_id}>
+                {item.member_name}
               </Text>
             )}
           />
