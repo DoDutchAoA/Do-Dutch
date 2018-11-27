@@ -28,7 +28,7 @@ const AppStackNavigator = createStackNavigator({
   Camera: {
     screen: Camera,
     navigationOptions: ({ navigation }) => ({
-      title: "Creat New Receipt",
+      title: "Create New Receipt",
       headerTitleStyle: {
         color: "#17202a",
         textAlign: "center",

@@ -19,7 +19,6 @@ def userInGroup(groupId, userId):
         " = '%s'", (groupId, userId),
     )
 
-
 def createEmptyGroup(groupName, ownerId):  # return g_id
     if createGroup(groupName, ownerId):
         groupId = getGroupIdBygName(groupName)
@@ -89,6 +88,88 @@ def getUserIdByUsername(username):
         return result_list[0]['user_id']
     else:
         return -1
+
+
+def addFriend(first_user_id, second_user_id):
+    result_list = q.selectInfoByConditions(
+        "Friends", "user_id", 
+        "user_id = '%s' AND friend_id = '%s'", (first_user_id, second_user_id),
+    )
+
+    res = {}
+    if len(result_list) > 0 or first_user_id == second_user_id:
+        res["status"] = False
+    else:
+
+        first_res = q.selectInfoByConditions(
+            "Users", "user_name", 
+            "user_id = '%s'", (first_user_id),
+        )
+
+        second_res = q.selectInfoByConditions(
+            "Users", "user_name", 
+            "user_id = '%s'", (second_user_id),
+        )
+
+	print(first_res)
+        res["status"] = True
+        q.insertRecordTo(
+            "Friends", "(user_id, friend_id, friend_name, title)",
+            (first_user_id, second_user_id, second_res[0]["user_name"], second_res[0]["user_name"][0].upper()), "(%s, %s, %s, %s)",
+        )
+        q.insertRecordTo(
+            "Friends", "(user_id, friend_id, friend_name, title)",
+            (second_user_id, first_user_id, first_res[0]["user_name"], first_res[0]["user_name"][0].upper()), "(%s, %s, %s, %s)",
+        )
+
+    return res
+
+
+def removeFriend(first_user_id, second_user_id):
+    result_list = q.selectInfoByConditions(
+        "Friends", "user_id",
+        "user_id = '%s' AND friend_id = '%s'", (first_user_id, second_user_id)
+    )
+
+    res = {}
+    if len(result_list) == 0:
+        res["status"] = False
+    else:
+        res["status"] = True
+        q.deleteRecordByCondition(
+            "Friends", "user_id = '%s' AND friend_id = '%s'",
+            (first_user_id, second_user_id)
+        )
+        q.deleteRecordByCondition(
+            "Friends", "user_id = '%s' AND friend_id = '%s'",
+            (second_user_id, first_user_id)
+        )
+
+    return res
+
+
+def searchUserByKeyword(keyword):
+    result_list = q.searchInfoByConditions(
+        "Users", "user_id, user_name",
+        "user_name LIKE '%s'", keyword,
+    )
+
+    return result_list
+
+
+def getAllFriends(userId):
+    result_list = q.searchInfoByConditions(
+        "Friends", "friend_id, friend_name, title",
+        "user_id = '%s'", userId
+    )
+
+    res = {}
+    for result in result_list:
+        if not result["title"] in res:
+            res[result["title"]] = []
+        res[result["title"]].append(result)
+
+    return res
 
 
 def getUserIdByAuthentication(username, userpwd):
