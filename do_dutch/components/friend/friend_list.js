@@ -8,17 +8,24 @@ import {
   ScrollView
 } from "react-native";
 
-import { Button } from "react-native-elements";
+import { Button, CheckBox } from "react-native-elements";
 
 export default class FriendList extends Component {
   constructor() {
     super();
 
+    window.user_id = 22;
+
     this.state = {
       user_id: -1,
       type: "",
-      friendsData: []
+      friendsData: [],
+      checked: {}
     };
+  }
+
+  componentDidMount() {
+    this.loadFriendsData(this.props.type);
   }
 
   componentDidUpdate() {
@@ -31,6 +38,14 @@ export default class FriendList extends Component {
 
   changeType(newType) {
     this.setState({ type: newType });
+  }
+
+  toggleCheckBox(friend_id) {
+    checked = JSON.parse(JSON.stringify(this.state.checked)); //copy the array
+    checked[friend_id] = !checked[friend_id]; //execute the manipulations
+    this.props.passCheckedValue(checked);
+    console.log(checked);
+    this.setState({ checked: checked });
   }
 
   loadFriendsData(type) {
@@ -55,6 +70,15 @@ export default class FriendList extends Component {
         }
         this.state.friendsData = data;
         this.state.type = type;
+        if (type === "select") {
+          var checked = {};
+          for (title in responseData) {
+            for (index in responseData[title]) {
+              checked[responseData[title][index]["friend_id"]] = false;
+            }
+          }
+          this.state.checked = checked;
+        }
         this.setState({ user_id: this.props.user_id });
       })
       .catch(error => {
@@ -130,6 +154,16 @@ export default class FriendList extends Component {
           >
             {item.friend_name}
           </Text>
+        </View>
+      );
+    } else if (this.state.type === "select") {
+      return (
+        <View>
+          <CheckBox
+            title={item.friend_name}
+            checked={this.state.checked[item.friend_id]}
+            onPress={() => this.toggleCheckBox(item.friend_id)}
+          />
         </View>
       );
     }
