@@ -36,6 +36,15 @@ def createGroupWithMembers(groupName, ownerId, memberIds):
     return groupId
 
 
+def getAllGroups(userId):
+    result_list = q.selectInfoByConditions(
+        "GroupUsers INNER JOIN gGroups ON gGroups.group_id = GroupUsers.group_id", "gGroups.group_id as group_id, group_name",
+        "member_id = '%s'", (userId),
+    )
+
+    return result_list
+
+
 def createUser(username, userpwd):
     if not usernameExists(username):
         if q.insertRecordTo(
