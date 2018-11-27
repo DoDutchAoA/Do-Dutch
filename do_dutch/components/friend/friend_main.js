@@ -7,7 +7,7 @@ export default class FriendMain extends Component {
   render() {
     return (
       <View>
-        <FriendList user_id={this.props.screenProps} />
+        <FriendList user_id={this.props.screenProps} type="list" />
       </View>
     );
   }

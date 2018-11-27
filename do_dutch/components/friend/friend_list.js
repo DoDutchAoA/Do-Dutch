@@ -5,9 +5,10 @@ import {
   StyleSheet,
   Text,
   View,
-  Button,
   ScrollView
 } from "react-native";
+
+import { Button } from "react-native-elements";
 
 export default class FriendList extends Component {
   constructor() {
@@ -15,6 +16,7 @@ export default class FriendList extends Component {
 
     this.state = {
       user_id: -1,
+      type: "",
       friendsData: []
     };
   }
@@ -24,6 +26,14 @@ export default class FriendList extends Component {
       return;
     }
 
+    this.loadFriendsData(this.props.type);
+  }
+
+  changeType(newType) {
+    this.setState({ type: newType });
+  }
+
+  loadFriendsData(type) {
     fetch("http://52.12.74.177:5000/getAllFriends", {
       method: "POST",
       headers: {
@@ -44,6 +54,7 @@ export default class FriendList extends Component {
           data.push(item);
         }
         this.state.friendsData = data;
+        this.state.type = type;
         this.setState({ user_id: this.props.user_id });
       })
       .catch(error => {
@@ -51,9 +62,78 @@ export default class FriendList extends Component {
       });
   }
 
-  _renderItem = ({ item, section }) => (
-    <Text key={item.user_id}>{item.friend_name}</Text>
-  );
+  removeFriend(friend_id, friend_name) {
+    fetch("http://52.12.74.177:5000/removeFriend", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        first_id: this.state.user_id,
+        second_id: friend_id
+      })
+    })
+      .then(response => {
+        if (JSON.parse(response._bodyText)["status"] === true) {
+          alert("Delete friend " + friend_name);
+          this.loadFriendsData("delete");
+        } else {
+          alert("Fail to delete friend " + friend_name);
+        }
+      })
+      .catch(error => {
+        console.error("Error: friend list fetch error." + error);
+      });
+  }
+
+  loadDeleteFriendButton() {
+    if (this.state.type === "list") {
+      return (
+        <Button
+          onPress={() => {
+            this.changeType("delete");
+          }}
+          title="delete friends"
+        />
+      );
+    } else if (this.state.type === "delete") {
+      return (
+        <Button
+          onPress={() => {
+            this.changeType("list");
+          }}
+          title="complete delete friends"
+        />
+      );
+    }
+  }
+
+  _renderItem = ({ item, section }) => {
+    if (this.state.type === "list") {
+      return (
+        <View>
+          <Text key={item.user_id} style={styles.item}>
+            {item.friend_name}
+          </Text>
+        </View>
+      );
+    } else if (this.state.type === "delete") {
+      return (
+        <View>
+          <Text
+            onPress={() => {
+              this.removeFriend(item.friend_id, item.friend_name);
+            }}
+            key={item.user_id}
+            style={styles.item}
+          >
+            {item.friend_name}
+          </Text>
+        </View>
+      );
+    }
+  };
 
   loadAllFriends() {
     return (
@@ -64,7 +144,6 @@ export default class FriendList extends Component {
           renderSectionHeader={({ section }) => (
             <Text style={styles.sectionHeader}>{section.title}</Text>
           )}
-          keyExtractor={(item, index) => index}
         />
       </View>
     );
@@ -73,7 +152,7 @@ export default class FriendList extends Component {
   render() {
     return (
       <View>
-        <Text> friend list </Text>
+        {this.loadDeleteFriendButton()}
         {this.loadAllFriends()}
       </View>
     );
