@@ -15,7 +15,8 @@ export default class GroupMain extends Component {
     super();
 
     this.state = {
-      user_id: window.user_id
+      user_id: window.user_id,
+      force_reload: -1
     };
   }
 
@@ -24,11 +25,26 @@ export default class GroupMain extends Component {
   }
 
   componentDidUpdate() {
-    if (this.state.user_id === this.props.screenProps) {
+    if (
+      this.state.user_id === this.props.screenProps &&
+      this.props.navigation.getParam("force_reload", -1) ==
+        this.state.force_reload
+    ) {
+      if (this.state.force_reload === 0) {
+        this.state.force_reload = -1;
+      }
       return;
     }
 
+    this.state.force_reload = this.props.navigation.getParam(
+      "force_reload",
+      -1
+    );
     this.loadGroupsData();
+  }
+
+  forceReload() {
+    this.setState({ force_reload: this.state.force_reload + 1 });
   }
 
   loadGroupsData() {
@@ -78,7 +94,8 @@ export default class GroupMain extends Component {
                 onPress={() => {
                   this.props.navigation.navigate("GroupDetail", {
                     group_id: item.group_id,
-                    group_name: item.group_name
+                    group_name: item.group_name,
+                    owner_id: item.owner_id
                   });
                 }}
                 style={styles.item}
