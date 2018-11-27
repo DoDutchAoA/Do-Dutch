@@ -38,7 +38,7 @@ def createGroupWithMembers(groupName, ownerId, memberIds):
 
 def getAllGroups(userId):
     result_list = q.selectInfoByConditions(
-        "GroupUsers INNER JOIN gGroups ON gGroups.group_id = GroupUsers.group_id", "gGroups.group_id as group_id, group_name",
+        "GroupUsers INNER JOIN gGroups ON gGroups.group_id = GroupUsers.group_id", "gGroups.group_id as group_id, group_name, owner_id",
         "member_id = '%s'", (userId),
     )
 
@@ -75,11 +75,20 @@ def createGroup(gName, ownerId):
 
 def addMembersToGroup(groupId, memberIds):
     if not groupExists(groupId):
-        return False
+        return True
     return insertMembersToGroup(groupId, memberIds)
 
 
 def insertMemberToGroup(groupId, memberId):
+    result_list = q.selectInfoByConditions(
+        "GroupUsers", "group_id",
+        "group_id = '%s' AND member_id = '%s'", (groupId, memberId),
+    )
+
+    if (len(result_list) > 0):
+        print("MATCH")
+        return True
+
     return q.insertRecordTo(
         "GroupUsers", "(group_id, member_id)",
         (groupId, memberId), "(%s, %s)",
