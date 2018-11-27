@@ -49,7 +49,7 @@ export default class GroupDetail extends Component {
     if (window.user_id == this.state.owner_id && this.state.owner_id !== -1) {
       return (
         <View>
-          <Button title="delete group" />
+          <Button onPress={() => this.deleteGroup()} title="delete group" />
           <Text> {"\n"} </Text>
           <Button
             onPress={() =>
@@ -82,6 +82,31 @@ export default class GroupDetail extends Component {
       .then(response => {
         console.log(response._bodyText);
         this.setState({ groupsData: JSON.parse(response._bodyText) });
+      })
+      .catch(error => {
+        console.error("Error: group list fetch error." + error);
+      });
+  }
+
+  deleteGroup() {
+    fetch("http://52.12.74.177:5000/removeGroup", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        groupId: this.state.group_id
+      })
+    })
+      .then(response => {
+        console.log(response._bodyText);
+        if (response._bodyText == "true") {
+          alert("The group is deleted.");
+        } else {
+          alert("Fail to delete the group.");
+        }
+        this.props.navigation.navigate("GroupMain", { force_reload: 0 });
       })
       .catch(error => {
         console.error("Error: group list fetch error." + error);
