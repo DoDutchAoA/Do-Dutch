@@ -38,7 +38,6 @@ def getAllMembersByGroupId(groupId):
 def removeMembersFromGroup(groupId, memberIds):
     return u.removeMembersFromGroupByIds(groupId, memberIds)
 
-
 def deleteGroup(groupId):
     return u.deleteGroup(groupId)
 
