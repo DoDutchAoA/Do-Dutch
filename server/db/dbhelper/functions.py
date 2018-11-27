@@ -17,6 +17,17 @@ def createEmptyGroup(groupName, ownerId):  # return g_id
 def addMembersToGroup(groupId, memberIds):
     return u.addMembersToGroup(groupId, memberIds)
 
+def searchUserByUsername(keyword):
+    return u.searchUserByKeyword(keyword)
+
+def getAllFriends(userId):
+    return u.getAllFriends(userId)
+
+def addFriend(first_user_id, second_user_id):
+    return u.addFriend(first_user_id, second_user_id)
+
+def removeFriend(first_user_id, second_user_id):
+    return u.removeFriend(first_user_id, second_user_id)
 
 def createGroupWithMembers(groupName, ownerId, memberIds):
     return u.createGroupWithMembers(groupName, ownerId, memberIds)
