@@ -2,31 +2,78 @@ import React, { Component } from "react";
 import {
   View,
   FlatList,
-  Text,
+  Platform,
   TouchableOpacity,
   StyleSheet,
   Image,
-  Dimensions
+  Dimensions,
+  TouchableNativeFeedback
 } from "react-native";
-import { Button, Container, Header, Content, Left } from "native-base";
-import Ripple from "react-native-material-ripple";
+import {
+  Button,
+  SearchBar,
+  Text,
+  Divider,
+  List,
+  ListItem
+} from "react-native-elements";
+
+import Spinner from "react-native-loading-spinner-overlay";
+// import ReceiptScreen from "./receipt_actions/receipt_screen";
+import Modal from "react-native-modal";
+
+// import { Button, Container, Header, Content, Left } from "native-base";
+// import Ripple from "react-native-material-ripple";
 import ActionButton from "react-native-action-button";
 import Icon from "react-native-vector-icons/Ionicons";
 
-const CustomRow = ({ title, time, place, balance, image_url, status }) => (
-  <Ripple>
+import ImagePicker from "react-native-image-picker";
+import RNFetchBlob from "react-native-fetch-blob";
+
+const date = new Date().toDateString();
+
+const list = [
+  {
+    name: "Amy Farha",
+    avatar_url:
+      "https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg",
+    subtitle: "Vice President"
+  },
+  {
+    name: "Chris Jackson",
+    avatar_url:
+      "https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg",
+    subtitle: "Vice Chairman"
+  }
+];
+
+const CustomRow = ({
+  title,
+  time,
+  place,
+  balance,
+  image_url,
+  status,
+  onPress
+}) => (
+  // <Ripple>
+  <TouchableOpacity onPress={onPress}>
     <View style={styles.rowContainer}>
-      <Image source={{ uri: image_url }} style={styles.photo} />
+      <Image
+        source={{ uri: image_url }}
+        style={styles.photo}
+        onPress={onPress}
+      />
       <View style={{ flex: 1, flexDirection: "column" }}>
-        <View style={styles.container_text}>
+        <View style={styles.containerText}>
           <Text style={{ fontSize: 16, color: "#000" }}>{title}</Text>
           <Text style={{ fontSize: 16, color: "#000" }}>{balance}</Text>
         </View>
-        <View style={styles.container_text}>
+        <View style={styles.containerText}>
           <Text style={{ fontSize: 10, color: "#aaa" }}>{place}</Text>
           <Text style={{ fontSize: 10, color: "#aaa" }}>{time}</Text>
         </View>
-        <View style={styles.container_text}>
+        <View style={styles.containerText}>
           <View style={styles.tagContainer}>
             <Text
               style={{
@@ -41,10 +88,10 @@ const CustomRow = ({ title, time, place, balance, image_url, status }) => (
         </View>
       </View>
     </View>
-  </Ripple>
+  </TouchableOpacity>
 );
 
-const CustomListview = ({ itemList }) => (
+const CustomListview = ({ itemList, onPress }) => (
   <View style={styles.listContainer}>
     <FlatList
       data={itemList}
@@ -56,6 +103,7 @@ const CustomListview = ({ itemList }) => (
           balance={item.balance}
           image_url={item.image_url}
           status={item.status}
+          onPress={onPress}
         />
       )}
       keyExtractor={(item, index) => index.toString()}
@@ -64,23 +112,87 @@ const CustomListview = ({ itemList }) => (
 );
 
 export default class HomeScreen extends Component {
+  state = {
+    spinner: false,
+    isModalVisible: false
+  };
+  options = {
+    title: "New Receipt",
+    takePhotoButtonTitle: "Take a photo",
+    chooseFromLibraryButtonTitle: "Choose from gallery",
+    quality: 1
+  };
+
+  selectPhoto() {
+    ImagePicker.showImagePicker(this.options, response => {
+      console.log("Response = ", response);
+
+      if (response.didCancel) {
+        console.log("User cancelled image picker");
+      } else if (response.error) {
+        console.log("ImagePicker Error: ", response.error);
+      } else {
+        let source = { uri: response.uri };
+        this.setState({
+          imageSource: source,
+          data: response.data,
+          spinner: true
+        });
+        this.uploadPhoto();
+      }
+    });
+  }
+
+  uploadPhoto() {
+    RNFetchBlob.fetch(
+      "POST",
+      "http://52.12.74.177:5000/upload",
+      {
+        "Content-Type": "multipart/form-data"
+      },
+      [
+        {
+          name: "image",
+          filename: window.user_id + "image.png",
+          type: "image/png",
+          data: this.state.data
+        }
+      ]
+    )
+      .then(resp => {
+        this.setState({
+          spinner: false
+        });
+        console.log("upload successfully!");
+        console.log(resp);
+        console.log("========");
+        console.log(JSON.parse(resp.data).items);
+
+        this.props.navigation.navigate("Receipt", {
+          receipt_items: JSON.parse(resp.data).items,
+          receipt_total: JSON.parse(resp.data).accumTotal
+        });
+      })
+      .catch(err => {
+        console.error("Error: " + err);
+      });
+  }
+
+  _toggleModal = () =>
+    this.setState({ isModalVisible: !this.state.isModalVisible });
+
   render() {
     return (
       <View style={styles.container}>
-        {/* <View style={{ flex: 1 }}>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => this.props.navigation.navigate("Camera")}
-          >
-            <Text style={styles.text}>Create a New Receipt</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => this.props.navigation.navigate("Form")}
-          >
-            <Text style={styles.text}>Check Form</Text>
-          </TouchableOpacity>
-          </View> */}
+        <SearchBar
+          containerStyle={{ backgroundColor: "#fff" }}
+          lightTheme
+          placeholder="Search Receipt..."
+        />
+        <View style={styles.statsContainer}>
+          <Text>{date}</Text>
+        </View>
+
         <CustomListview
           itemList={[
             {
@@ -108,12 +220,67 @@ export default class HomeScreen extends Component {
               status: "Pending"
             }
           ]}
+          onPress={this._toggleModal}
         />
+
+        <View style={{ alignItems: "center", margin: 10 }}>
+          <Text>End of Receipts</Text>
+        </View>
+
+        <Modal
+          isVisible={this.state.isModalVisible}
+          onSwipe={() => this.setState({ isModalVisible: false })}
+          swipeDirection="down"
+        >
+          <View style={styles.modalContent}>
+            <Text h4>Checkout Items</Text>
+            <List>
+              <FlatList
+                data={list}
+                renderItem={item => (
+                  <ListItem
+                    roundAvatar
+                    title={item.name}
+                    subtitle={item.subtitle}
+                    avatar={{ uri: item.avatar_url }}
+                  />
+                )}
+                keyExtractor={item => item.name}
+              />
+            </List>
+            <Button onPress={this._toggleModal}>
+              <Text>Hide me!</Text>
+            </Button>
+          </View>
+        </Modal>
+        <List>
+          <FlatList
+            data={list}
+            renderItem={item => (
+              <ListItem
+                roundAvatar
+                title={item.name}
+                subtitle={item.subtitle}
+                avatar={{ uri: item.avatar_url }}
+              />
+            )}
+            keyExtractor={item => item.name}
+          />
+        </List>
+        <Divider style={{ backgroundColor: "rgb(200, 200, 200)" }} />
+
+        <Spinner
+          cancelable={true}
+          visible={this.state.spinner}
+          textContent={"Processing Receipt..."}
+          textStyle={styles.spinnerTextStyle}
+        />
+
         <ActionButton buttonColor="rgba(231,76,60,1)" position="center">
           <ActionButton.Item
             buttonColor="#9b59b6"
             title="New Photo"
-            onPress={() => this.props.navigation.navigate("Camera")}
+            onPress={this.selectPhoto.bind(this)}
           >
             <Icon name="md-add" style={styles.actionButtonIcon} />
           </ActionButton.Item>
@@ -137,6 +304,9 @@ export default class HomeScreen extends Component {
   }
 }
 
+////////////////////////////////////////////
+// STYLE SHEET
+////////////////////////////////////////////
 const { width: viewportWidth, height: viewportHeight } = Dimensions.get(
   "window"
 );
@@ -146,7 +316,6 @@ const itemWidth = viewportWidth - 2 * marginLR;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // justifyContent: "center",
     // alignItems: "center",
     backgroundColor: "#ffffff"
   },
@@ -163,8 +332,9 @@ const styles = StyleSheet.create({
     elevation: 1,
     width: itemWidth
   },
-  listContainer: {
-    flex: 1
+  listContainer: {},
+  statsContainer: {
+    margin: 10
   },
   tagContainer: {
     backgroundColor: "steelblue",
@@ -175,6 +345,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginTop: 3
   },
+  modalContent: {
+    backgroundColor: "white",
+    padding: 22,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 4,
+    borderColor: "rgba(0, 0, 0, 0.1)"
+  },
   title: {
     fontSize: 16,
     color: "#000"
@@ -184,7 +362,7 @@ const styles = StyleSheet.create({
     height: 22,
     color: "white"
   },
-  container_text: {
+  containerText: {
     flex: 1,
     flexDirection: "row",
     marginLeft: 12,
