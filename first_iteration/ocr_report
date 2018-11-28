@@ -1,0 +1,366 @@
+************* Module ocr.ocr
+C: 36, 0: Unnecessary parens after 'if' keyword (superfluous-parens)
+C: 45, 0: Unnecessary parens after 'if' keyword (superfluous-parens)
+C: 52, 0: Trailing whitespace (trailing-whitespace)
+C: 60, 0: Trailing whitespace (trailing-whitespace)
+W: 72, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 73, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 75, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+C:117, 0: No space allowed after keyword argument assignment
+    app.run(host= '0.0.0.0')
+                ^ (bad-whitespace)
+C:  1, 0: Missing module docstring (missing-docstring)
+W:  1, 0: Relative import 'preprocess', should be 'ocr.preprocess' (relative-import)
+E:  2, 0: Unable to import 'PIL' (import-error)
+E:  3, 0: Unable to import 'pytesseract' (import-error)
+E:  5, 0: Unable to import 'cv2' (import-error)
+C:  6, 0: Multiple imports on one line (os, sys) (multiple-imports)
+E:  7, 0: Unable to import 'imutils' (import-error)
+C: 14, 0: Invalid function name "textAnalysis" (invalid-name)
+C: 14, 0: Missing function docstring (missing-docstring)
+C: 17,54: Invalid variable name "rulesFile" (invalid-name)
+C: 33,16: Invalid variable name "ruleItem" (invalid-name)
+C: 53, 0: Invalid argument name "inPath" (invalid-name)
+C: 53, 0: Missing function docstring (missing-docstring)
+C: 54, 4: Invalid variable name "outPath" (invalid-name)
+C: 55, 4: Invalid variable name "pdfPath" (invalid-name)
+C: 71, 8: Invalid variable name "f" (invalid-name)
+C: 74,20: Invalid variable name "e" (invalid-name)
+C: 83, 0: Missing function docstring (missing-docstring)
+C: 86, 0: Invalid constant name "app" (invalid-name)
+C: 91, 0: Missing function docstring (missing-docstring)
+W:102, 8: Redefining built-in 'file' (redefined-builtin)
+C: 96, 0: Missing function docstring (missing-docstring)
+W:  2, 0: Unused Image imported from PIL (unused-import)
+W:  4, 0: Unused import argparse (unused-import)
+W:  7, 0: Unused import imutils (unused-import)
+W: 11, 0: Unused url_for imported from flask (unused-import)
+C:  4, 0: standard import "import argparse" comes before "from preprocess import process" (wrong-import-order)
+C:  6, 0: standard import "import os, sys" comes before "from preprocess import process" (wrong-import-order)
+C:  6, 0: standard import "import os, sys" comes before "from preprocess import process" (wrong-import-order)
+C:  8, 0: standard import "import re" comes before "from preprocess import process" (wrong-import-order)
+C:  9, 0: standard import "import json" comes before "from preprocess import process" (wrong-import-order)
+************* Module ocr.preprocess.test_transform
+C:  5, 0: Trailing whitespace (trailing-whitespace)
+C:  8, 0: No space allowed around keyword argument assignment
+ap.add_argument("-i", "--image", help = "path to the image file")
+                                      ^ (bad-whitespace)
+C: 10, 0: Wrong continued indentation (add 15 spaces).
+	help = "comma seperated list of source points")
+ ^              | (bad-continuation)
+C: 10, 0: No space allowed around keyword argument assignment
+	help = "comma seperated list of source points")
+      ^ (bad-whitespace)
+C: 12, 0: Trailing whitespace (trailing-whitespace)
+C: 19, 0: No space allowed around keyword argument assignment
+pts = np.array(eval(args["coords"]), dtype = "float32")
+                                           ^ (bad-whitespace)
+C: 20, 0: Trailing whitespace (trailing-whitespace)
+C: 24, 0: Trailing whitespace (trailing-whitespace)
+C: 28, 0: Final newline missing (missing-final-newline)
+C:  1, 0: Missing module docstring (missing-docstring)
+W:  1, 0: Relative import 'transform', should be 'ocr.preprocess.transform' (relative-import)
+E:  4, 0: Unable to import 'cv2' (import-error)
+C:  7, 0: Invalid constant name "ap" (invalid-name)
+C: 11, 0: Invalid constant name "args" (invalid-name)
+C: 18, 0: Invalid constant name "image" (invalid-name)
+C: 19, 0: Invalid constant name "pts" (invalid-name)
+W: 19,15: Use of eval (eval-used)
+C: 23, 0: Invalid constant name "warped" (invalid-name)
+C:  3, 0: standard import "import argparse" comes before "from transform import four_point_transform as tf" (wrong-import-order)
+************* Module ocr.preprocess.transform
+C:  4, 0: Trailing whitespace (trailing-whitespace)
+W: 10, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+C: 10, 0: No space allowed around keyword argument assignment
+	rect = np.zeros((4, 2), dtype = "float32")
+                               ^ (bad-whitespace)
+C: 11, 0: Trailing whitespace (trailing-whitespace)
+W: 14, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+C: 14, 0: No space allowed around keyword argument assignment
+	s = pts.sum(axis = 1)
+                  ^ (bad-whitespace)
+W: 15, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 16, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+C: 17, 0: Trailing whitespace (trailing-whitespace)
+W: 21, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+C: 21, 0: No space allowed around keyword argument assignment
+	diff = np.diff(pts, axis = 1)
+                          ^ (bad-whitespace)
+W: 22, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 23, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+C: 24, 0: Trailing whitespace (trailing-whitespace)
+W: 26, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 31, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 32, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+C: 33, 0: Trailing whitespace (trailing-whitespace)
+W: 37, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 38, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 39, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+C: 40, 0: Trailing whitespace (trailing-whitespace)
+W: 44, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 45, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 46, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+C: 47, 0: Trailing whitespace (trailing-whitespace)
+W: 53, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+C: 54, 0: Wrong hanging indentation (add 10 spaces).
+		[0, 0],
+  ^         | (bad-continuation)
+C: 55, 0: Wrong hanging indentation (add 10 spaces).
+		[maxWidth - 1, 0],
+  ^         | (bad-continuation)
+C: 56, 0: Wrong hanging indentation (add 10 spaces).
+		[maxWidth - 1, maxHeight - 1],
+  ^         | (bad-continuation)
+C: 57, 0: Wrong hanging indentation (add 10 spaces).
+		[0, maxHeight - 1]], dtype = "float32")
+  ^         | (bad-continuation)
+C: 57, 0: No space allowed around keyword argument assignment
+		[0, maxHeight - 1]], dtype = "float32")
+                             ^ (bad-whitespace)
+C: 58, 0: Trailing whitespace (trailing-whitespace)
+W: 60, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 61, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+C: 62, 0: Trailing whitespace (trailing-whitespace)
+C: 64, 0: Final newline missing (missing-final-newline)
+W: 64, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+C:  1, 0: Missing module docstring (missing-docstring)
+E:  3, 0: Unable to import 'cv2' (import-error)
+C:  5, 0: Missing function docstring (missing-docstring)
+C: 14, 1: Invalid variable name "s" (invalid-name)
+C: 28, 0: Missing function docstring (missing-docstring)
+R: 28, 0: Too many local variables (16/15) (too-many-locals)
+C: 32, 2: Invalid variable name "tl" (invalid-name)
+C: 32, 6: Invalid variable name "tr" (invalid-name)
+C: 32,10: Invalid variable name "br" (invalid-name)
+C: 32,14: Invalid variable name "bl" (invalid-name)
+C: 37, 1: Invalid variable name "widthA" (invalid-name)
+C: 38, 1: Invalid variable name "widthB" (invalid-name)
+C: 39, 1: Invalid variable name "maxWidth" (invalid-name)
+C: 44, 1: Invalid variable name "heightA" (invalid-name)
+C: 45, 1: Invalid variable name "heightB" (invalid-name)
+C: 46, 1: Invalid variable name "maxHeight" (invalid-name)
+C: 60, 1: Invalid variable name "M" (invalid-name)
+************* Module ocr.preprocess.process
+W: 12, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 13, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 14, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 15, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+C: 15, 0: No space allowed around keyword argument assignment
+	image = imutils.resize(image, height = 500)
+                                      ^ (bad-whitespace)
+C: 16, 0: Trailing whitespace (trailing-whitespace)
+W: 19, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 20, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 21, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+C: 22, 0: Trailing whitespace (trailing-whitespace)
+W: 32, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 33, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 34, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+C: 34, 0: No space allowed around keyword argument assignment
+	cnts = sorted(cnts, key = cv2.contourArea, reverse = True)[:5]
+                         ^ (bad-whitespace)
+C: 34, 0: No space allowed around keyword argument assignment
+	cnts = sorted(cnts, key = cv2.contourArea, reverse = True)[:5]
+                                                    ^ (bad-whitespace)
+C: 35, 0: Trailing whitespace (trailing-whitespace)
+W: 37, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 39, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 40, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+C: 41, 0: Trailing whitespace (trailing-whitespace)
+W: 44, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 45, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 46, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+C: 47, 0: Trailing whitespace (trailing-whitespace)
+W: 50, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 58, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+C: 59, 0: Trailing whitespace (trailing-whitespace)
+W: 62, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+C: 65, 0: Trailing whitespace (trailing-whitespace)
+W: 71, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+C: 74, 0: Line too long (127/100) (line-too-long)
+W: 74, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 78, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 82, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 83, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+C: 83, 0: No space allowed around keyword argument assignment
+	ap.add_argument("-i", "--image", required = True,
+                                           ^ (bad-whitespace)
+C: 84, 0: Wrong continued indentation (add 15 spaces).
+		help = "Path to the image to be scanned")
+  ^              | (bad-continuation)
+C: 84, 0: No space allowed around keyword argument assignment
+		help = "Path to the image to be scanned")
+       ^ (bad-whitespace)
+W: 85, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 86, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+C:  1, 0: Missing module docstring (missing-docstring)
+W:  1, 0: Relative import 'transform', should be 'ocr.preprocess.transform' (relative-import)
+E:  4, 0: Unable to import 'cv2' (import-error)
+E:  5, 0: Unable to import 'skimage.filters' (import-error)
+E:  6, 0: Unable to import 'imutils' (import-error)
+C:  7, 0: Multiple imports on one line (os, sys) (multiple-imports)
+C:  9, 0: Invalid argument name "imagePath" (invalid-name)
+C:  9, 0: Invalid argument name "outPath" (invalid-name)
+C:  9, 0: Missing function docstring (missing-docstring)
+C: 37, 5: Invalid variable name "c" (invalid-name)
+C: 45, 3: Invalid variable name "screenCnt" (invalid-name)
+C: 77, 0: Invalid argument name "imagePath" (invalid-name)
+C: 77, 0: Missing function docstring (missing-docstring)
+E: 78, 1: No value for argument 'outPath' in function call (no-value-for-parameter)
+C: 82, 1: Invalid constant name "ap" (invalid-name)
+C: 85, 1: Invalid constant name "args" (invalid-name)
+W:  2, 0: Unused numpy imported as np (unused-import)
+W:  5, 0: Unused threshold_local imported from skimage.filters (unused-import)
+C:  3, 0: standard import "import argparse" comes before "from transform import four_point_transform as tf" (wrong-import-order)
+C:  7, 0: standard import "import os, sys" comes before "from transform import four_point_transform as tf" (wrong-import-order)
+C:  7, 0: standard import "import os, sys" comes before "from transform import four_point_transform as tf" (wrong-import-order)
+
+
+Report
+======
+164 statements analysed.
+
+Statistics by type
+------------------
+
++---------+-------+-----------+-----------+------------+---------+
+|type     |number |old number |difference |%documented |%badname |
++=========+=======+===========+===========+============+=========+
+|module   |6      |NC         |NC         |33.33       |0.00     |
++---------+-------+-----------+-----------+------------+---------+
+|class    |0      |NC         |NC         |0           |0        |
++---------+-------+-----------+-----------+------------+---------+
+|method   |0      |NC         |NC         |0           |0        |
++---------+-------+-----------+-----------+------------+---------+
+|function |9      |NC         |NC         |0.00        |11.11    |
++---------+-------+-----------+-----------+------------+---------+
+
+
+
+External dependencies
+---------------------
+::
+
+    flask (ocr.ocr)
+    numpy (ocr.preprocess.process,ocr.preprocess.transform,ocr.preprocess.test_transform)
+    ocr (ocr.ocr)
+      \-preprocess 
+        \-transform (ocr.preprocess.process,ocr.preprocess.test_transform)
+    werkzeug 
+      \-utils (ocr.ocr)
+
+
+
+Raw metrics
+-----------
+
++----------+-------+------+---------+-----------+
+|type      |number |%     |previous |difference |
++==========+=======+======+=========+===========+
+|code      |176    |57.70 |NC       |NC         |
++----------+-------+------+---------+-----------+
+|docstring |0      |0.00  |NC       |NC         |
++----------+-------+------+---------+-----------+
+|comment   |86     |28.20 |NC       |NC         |
++----------+-------+------+---------+-----------+
+|empty     |43     |14.10 |NC       |NC         |
++----------+-------+------+---------+-----------+
+
+
+
+Duplication
+-----------
+
++-------------------------+------+---------+-----------+
+|                         |now   |previous |difference |
++=========================+======+=========+===========+
+|nb duplicated lines      |0     |NC       |NC         |
++-------------------------+------+---------+-----------+
+|percent duplicated lines |0.000 |NC       |NC         |
++-------------------------+------+---------+-----------+
+
+
+
+Messages by category
+--------------------
+
++-----------+-------+---------+-----------+
+|type       |number |previous |difference |
++===========+=======+=========+===========+
+|convention |103    |NC       |NC         |
++-----------+-------+---------+-----------+
+|refactor   |1      |NC       |NC         |
++-----------+-------+---------+-----------+
+|warning    |60     |NC       |NC         |
++-----------+-------+---------+-----------+
+|error      |10     |NC       |NC         |
++-----------+-------+---------+-----------+
+
+
+
+% errors / warnings by module
+-----------------------------
+
++------------------------------+------+--------+---------+-----------+
+|module                        |error |warning |refactor |convention |
++==============================+======+========+=========+===========+
+|ocr.preprocess.process        |40.00 |48.33   |0.00     |27.18      |
++------------------------------+------+--------+---------+-----------+
+|ocr.ocr                       |40.00 |15.00   |0.00     |25.24      |
++------------------------------+------+--------+---------+-----------+
+|ocr.preprocess.transform      |10.00 |33.33   |100.00   |32.04      |
++------------------------------+------+--------+---------+-----------+
+|ocr.preprocess.test_transform |10.00 |3.33    |0.00     |15.53      |
++------------------------------+------+--------+---------+-----------+
+
+
+
+Messages
+--------
+
++-----------------------+------------+
+|message id             |occurrences |
++=======================+============+
+|mixed-indentation      |49          |
++-----------------------+------------+
+|invalid-name           |33          |
++-----------------------+------------+
+|trailing-whitespace    |22          |
++-----------------------+------------+
+|missing-docstring      |13          |
++-----------------------+------------+
+|bad-whitespace         |13          |
++-----------------------+------------+
+|wrong-import-order     |9           |
++-----------------------+------------+
+|import-error           |9           |
++-----------------------+------------+
+|unused-import          |6           |
++-----------------------+------------+
+|bad-continuation       |6           |
++-----------------------+------------+
+|relative-import        |3           |
++-----------------------+------------+
+|superfluous-parens     |2           |
++-----------------------+------------+
+|multiple-imports       |2           |
++-----------------------+------------+
+|missing-final-newline  |2           |
++-----------------------+------------+
+|too-many-locals        |1           |
++-----------------------+------------+
+|redefined-builtin      |1           |
++-----------------------+------------+
+|no-value-for-parameter |1           |
++-----------------------+------------+
+|line-too-long          |1           |
++-----------------------+------------+
+|eval-used              |1           |
++-----------------------+------------+
+
+
+
+Global evaluation
+-----------------
+Your code has been rated at -3.05/10
+
