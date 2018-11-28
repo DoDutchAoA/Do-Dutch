@@ -13,14 +13,14 @@ import { TabNavigator } from "react-navigation";
 
 import ContextLayout from "./components/context_layout.js";
 import FriendContainer from "./components/friend/friend_container.js";
-import Group from "./components/group/group.js";
+import GroupContainer from "./components/group/group_container.js";
 import LoginContainer from "./components/login_container.js";
 
 const App = TabNavigator(
   {
     ContextLayout: { screen: ContextLayout },
     FriendContainer: { screen: FriendContainer },
-    Group: { screen: Group },
+    GroupContainer: { screen: GroupContainer },
     LoginContainer: { screen: LoginContainer }
   },
   {
@@ -41,7 +41,11 @@ const App = TabNavigator(
             <Button
               vertical
               active={props.navigationState.index === 1}
-              onPress={() => props.navigation.navigate("FriendContainer")}
+              onPress={() => {
+                props.navigation.navigate("FriendContainer", {
+                  user_id: window.user_id
+                });
+              }}
             >
               <Icon name="people" />
               <Text>Friend</Text>
@@ -50,7 +54,11 @@ const App = TabNavigator(
             <Button
               vertical
               active={props.navigationState.index === 1}
-              onPress={() => props.navigation.navigate("Group")}
+              onPress={() =>
+                props.navigation.navigate("GroupContainer", {
+                  user_id: window.user_id
+                })
+              }
             >
               <Icon name="contacts" />
               <Text>Group</Text>
