@@ -20,7 +20,7 @@ After the first iteration, tasks were classified into the users-related part and
 
 ### 2. Coverage report
 
-We deployed coverage.py, a code coverage tool serves to Python program, to analyze the code coverage of our database test script. The report can be accessed by this [link](https://github.com/DoDutchAoA/Do-Dutch/blob/jenkins/tests/test-reports/coverage.xml).
+We deployed coverage.py, a code coverage tool serves to Python program, to analyze the code coverage of our database test script. The report can be accessed by this [link](https://github.com/DoDutchAoA/Do-Dutch/blob/jenkins/tests/test-reports/coverage.xml) and this [one](https://github.com/DoDutchAoA/Do-Dutch/tree/jenkins/do_dutch/__test__).
 
 ### 3. Future work
 
