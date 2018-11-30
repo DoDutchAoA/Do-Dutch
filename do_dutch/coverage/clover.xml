@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1543559735644" clover="3.2.0">
+  <project timestamp="1543559735644" name="All files">
+    <metrics statements="37" coveredstatements="17" conditionals="4" coveredconditionals="0" methods="18" coveredmethods="9" elements="59" coveredelements="26" complexity="0" loc="37" ncloc="37" packages="1" files="1" classes="1">
+      <file name="home_screen.js" path="/Users/fionazheng/GoDutch/Do-Dutch/do_dutch/components/home_screen.js">
+        <metrics statements="37" coveredstatements="17" conditionals="4" coveredconditionals="0" methods="18" coveredmethods="9"/>
+        <line num="33" count="1" type="stmt"/>
+        <line num="35" count="1" type="stmt"/>
+        <line num="50" count="1" type="stmt"/>
+        <line num="60" count="6" type="stmt"/>
+        <line num="94" count="1" type="stmt"/>
+        <line num="95" count="2" type="stmt"/>
+        <line num="99" count="6" type="stmt"/>
+        <line num="109" count="6" type="stmt"/>
+        <line num="129" count="0" type="stmt"/>
+        <line num="130" count="0" type="stmt"/>
+        <line num="132" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="133" count="0" type="stmt"/>
+        <line num="134" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="135" count="0" type="stmt"/>
+        <line num="137" count="0" type="stmt"/>
+        <line num="138" count="0" type="stmt"/>
+        <line num="143" count="0" type="stmt"/>
+        <line num="149" count="0" type="stmt"/>
+        <line num="165" count="0" type="stmt"/>
+        <line num="168" count="0" type="stmt"/>
+        <line num="169" count="0" type="stmt"/>
+        <line num="170" count="0" type="stmt"/>
+        <line num="171" count="0" type="stmt"/>
+        <line num="173" count="0" type="stmt"/>
+        <line num="179" count="0" type="stmt"/>
+        <line num="184" count="0" type="stmt"/>
+        <line num="187" count="3" type="stmt"/>
+        <line num="234" count="0" type="stmt"/>
+        <line num="243" count="4" type="stmt"/>
+        <line num="250" count="4" type="stmt"/>
+        <line num="262" count="4" type="stmt"/>
+        <line num="269" count="4" type="stmt"/>
+        <line num="292" count="0" type="stmt"/>
+        <line num="312" count="1" type="stmt"/>
+        <line num="315" count="1" type="stmt"/>
+        <line num="316" count="1" type="stmt"/>
+        <line num="318" count="1" type="stmt"/>
+      </file>
+    </metrics>
+  </project>
+</coverage>

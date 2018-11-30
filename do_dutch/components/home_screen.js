@@ -112,10 +112,12 @@ const CustomListview = ({ itemList, onPress }) => (
 );
 
 export default class HomeScreen extends Component {
+
   state = {
     spinner: false,
     isModalVisible: false
   };
+
   options = {
     title: "New Receipt",
     takePhotoButtonTitle: "Take a photo",
