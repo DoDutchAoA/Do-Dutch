@@ -7,6 +7,7 @@ import {
   StyleSheet,
   Image,
   Dimensions,
+  TextInput,
   TouchableNativeFeedback
 } from "react-native";
 import {
@@ -17,6 +18,7 @@ import {
   List,
   ListItem
 } from "react-native-elements";
+import ReceiptModal from "./receipt/ReceiptModal.js";
 
 import Spinner from "react-native-loading-spinner-overlay";
 // import ReceiptScreen from "./receipt_actions/receipt_screen";
@@ -29,23 +31,9 @@ import Icon from "react-native-vector-icons/Ionicons";
 
 import ImagePicker from "react-native-image-picker";
 import RNFetchBlob from "react-native-fetch-blob";
+import NumericInput from "react-native-numeric-input";
 
 const date = new Date().toDateString();
-
-const list = [
-  {
-    name: "Amy Farha",
-    avatar_url:
-      "https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg",
-    subtitle: "Vice President"
-  },
-  {
-    name: "Chris Jackson",
-    avatar_url:
-      "https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg",
-    subtitle: "Vice Chairman"
-  }
-];
 
 const CustomRow = ({
   title,
@@ -178,8 +166,9 @@ export default class HomeScreen extends Component {
       });
   }
 
-  _toggleModal = () =>
-    this.setState({ isModalVisible: !this.state.isModalVisible });
+  toggleModal = () => {
+    this.modal.toggle(); // do stuff
+  };
 
   render() {
     return (
@@ -220,53 +209,60 @@ export default class HomeScreen extends Component {
               status: "Pending"
             }
           ]}
-          onPress={this._toggleModal}
+          onPress={this.toggleModal}
         />
 
         <View style={{ alignItems: "center", margin: 10 }}>
           <Text>End of Receipts</Text>
         </View>
-
-        <Modal
-          isVisible={this.state.isModalVisible}
-          onSwipe={() => this.setState({ isModalVisible: false })}
-          swipeDirection="down"
-        >
-          <View style={styles.modalContent}>
-            <Text h4>Checkout Items</Text>
-            <List>
-              <FlatList
-                data={list}
-                renderItem={item => (
-                  <ListItem
-                    roundAvatar
-                    title={item.name}
-                    subtitle={item.subtitle}
-                    avatar={{ uri: item.avatar_url }}
-                  />
-                )}
-                keyExtractor={item => item.name}
-              />
-            </List>
-            <Button onPress={this._toggleModal}>
-              <Text>Hide me!</Text>
-            </Button>
-          </View>
-        </Modal>
-        <List>
-          <FlatList
-            data={list}
-            renderItem={item => (
-              <ListItem
-                roundAvatar
-                title={item.name}
-                subtitle={item.subtitle}
-                avatar={{ uri: item.avatar_url }}
-              />
-            )}
-            keyExtractor={item => item.name}
+        <View>
+          <ReceiptModal
+            onRef={ref => (this.modal = ref)}
+            text="I love to blinkkkk"
+            data={[
+              {
+                name: "Amy Farha",
+                avatar_url:
+                  "https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg",
+                subtitle: "Vice President",
+                icon: "apple"
+              },
+              {
+                name: "Chris Jackson",
+                avatar_url:
+                  "https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg",
+                subtitle: "Vice Chairman",
+                icon: "flight-takeoff"
+              }
+            ]}
+            friends={[
+              {
+                name: "Amy Farha",
+                avatar:
+                  "https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg",
+                selected: false
+              },
+              {
+                name: "Chris Jackson",
+                avatar:
+                  "https://s3.amazonaws.com/uifaces/faces/twitter/kfriedson/128.jpg",
+                selected: true
+              },
+              {
+                name: "Amy Farha",
+                avatar:
+                  "https://s3.amazonaws.com/uifaces/faces/twitter/brynn/128.jpg",
+                selected: false
+              },
+              {
+                name: "Chris Jackson",
+                avatar:
+                  "https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg",
+                selected: true
+              }
+            ]}
           />
-        </List>
+        </View>
         <Divider style={{ backgroundColor: "rgb(200, 200, 200)" }} />
 
         <Spinner
@@ -327,9 +323,10 @@ const styles = StyleSheet.create({
     marginRight: marginLR,
     marginTop: 2,
     marginBottom: 2,
-    borderRadius: 5,
+    borderRadius: 2,
+    borderWidth: 0,
     // backgroundColor: "#FFF",
-    elevation: 1,
+    elevation: 0.1,
     width: itemWidth
   },
   listContainer: {},
@@ -345,14 +342,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginTop: 3
   },
-  modalContent: {
-    backgroundColor: "white",
-    padding: 22,
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 4,
-    borderColor: "rgba(0, 0, 0, 0.1)"
-  },
+
   title: {
     fontSize: 16,
     color: "#000"
@@ -393,5 +383,26 @@ const styles = StyleSheet.create({
     flex: 1
     // justifyContent: "flex-end",
     // alignItems: "center"
+  },
+
+  // Modal Contents
+  modalContent: {
+    backgroundColor: "white",
+    padding: 22,
+    justifyContent: "center",
+    // alignItems: "center",
+    borderRadius: 4,
+    borderColor: "rgba(0, 0, 0, 0.1)"
+  },
+  modalBtnContainer: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "flex-end",
+    marginBottom: 15
+  },
+  modalBtn: {
+    marginLeft: -20
+    // width: 50,
+    // height: 10
   }
 });
