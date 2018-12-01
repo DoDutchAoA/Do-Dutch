@@ -2,12 +2,10 @@ import React, { Component } from "react";
 import {
   View,
   FlatList,
-  Platform,
   TouchableOpacity,
   StyleSheet,
   Image,
-  Dimensions,
-  TouchableNativeFeedback
+  Dimensions
 } from "react-native";
 import {
   Button,
@@ -27,6 +25,8 @@ import Icon from "react-native-vector-icons/Ionicons";
 
 import ImagePicker from "react-native-image-picker";
 import RNFetchBlob from "react-native-fetch-blob";
+
+import ReceiptList from "./receipt/ReceiptList.js";
 
 const date = new Date().toDateString();
 
@@ -208,53 +208,7 @@ export default class HomeScreen extends Component {
           <Text>Unfinished</Text>
         </View>
 
-        <View style={styles.listContainer}>
-          <FlatList
-            data={this.state.receiptHistory}
-            renderItem={({ item }) => (
-              <TouchableOpacity onPress={this.toggleModal}>
-                <View style={styles.rowContainer}>
-                  <Image
-                    source={{ uri: item.image_url }}
-                    style={styles.photo}
-                  />
-                  <View style={{ flex: 1, flexDirection: "column" }}>
-                    <View style={styles.containerText}>
-                      <Text style={{ fontSize: 16, color: "#000" }}>
-                        {item.title}
-                      </Text>
-                      <Text style={{ fontSize: 16, color: "#000" }}>
-                        {item.balance}
-                      </Text>
-                    </View>
-                    <View style={styles.containerText}>
-                      <Text style={{ fontSize: 10, color: "#aaa" }}>
-                        {item.place}
-                      </Text>
-                      <Text style={{ fontSize: 10, color: "#aaa" }}>
-                        {item.time}
-                      </Text>
-                    </View>
-                    <View style={styles.containerText}>
-                      <View style={styles.tagContainer}>
-                        <Text
-                          style={{
-                            fontSize: 10,
-                            color: "#ffffff"
-                          }}
-                        >
-                          {item.status}
-                        </Text>
-                      </View>
-                      <Text style={{ fontSize: 12, color: "#000" }}>{"✘"}</Text>
-                    </View>
-                  </View>
-                </View>
-              </TouchableOpacity>
-            )}
-            keyExtractor={(item, index) => index.toString()}
-          />
-        </View>
+        <ReceiptList onPress={this.toggleModal} />
 
         <View style={{ alignItems: "center", margin: 10 }}>
           <Text>End of Receipts</Text>
