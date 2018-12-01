@@ -7,7 +7,6 @@ import {
   StyleSheet,
   Image,
   Dimensions,
-  TextInput,
   TouchableNativeFeedback
 } from "react-native";
 import {
@@ -22,87 +21,75 @@ import ReceiptModal from "./receipt/ReceiptModal.js";
 
 import Spinner from "react-native-loading-spinner-overlay";
 // import ReceiptScreen from "./receipt_actions/receipt_screen";
-import Modal from "react-native-modal";
 
-// import { Button, Container, Header, Content, Left } from "native-base";
-// import Ripple from "react-native-material-ripple";
 import ActionButton from "react-native-action-button";
 import Icon from "react-native-vector-icons/Ionicons";
 
 import ImagePicker from "react-native-image-picker";
 import RNFetchBlob from "react-native-fetch-blob";
-import NumericInput from "react-native-numeric-input";
 
 const date = new Date().toDateString();
 
-const CustomRow = ({
-  title,
-  time,
-  place,
-  balance,
-  image_url,
-  status,
-  onPress
-}) => (
-  // <Ripple>
-  <TouchableOpacity onPress={onPress}>
-    <View style={styles.rowContainer}>
-      <Image
-        source={{ uri: image_url }}
-        style={styles.photo}
-        onPress={onPress}
-      />
-      <View style={{ flex: 1, flexDirection: "column" }}>
-        <View style={styles.containerText}>
-          <Text style={{ fontSize: 16, color: "#000" }}>{title}</Text>
-          <Text style={{ fontSize: 16, color: "#000" }}>{balance}</Text>
-        </View>
-        <View style={styles.containerText}>
-          <Text style={{ fontSize: 10, color: "#aaa" }}>{place}</Text>
-          <Text style={{ fontSize: 10, color: "#aaa" }}>{time}</Text>
-        </View>
-        <View style={styles.containerText}>
-          <View style={styles.tagContainer}>
-            <Text
-              style={{
-                fontSize: 10,
-                color: "#ffffff"
-              }}
-            >
-              {status}
-            </Text>
-          </View>
-          <Text style={{ fontSize: 12, color: "#000" }}>{"✘"}</Text>
-        </View>
-      </View>
-    </View>
-  </TouchableOpacity>
-);
+const simReceiptData = [
+  { name: "pizza", icon: "file" },
+  { name: "apple", icon: "file" }
+];
+const simFriendsData = [
+  {
+    name: "Amy Farha",
+    avatar: "https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg",
+    selected: false
+  },
+  {
+    name: "Chris Jackson",
+    avatar: "https://s3.amazonaws.com/uifaces/faces/twitter/kfriedson/128.jpg",
+    selected: true
+  },
+  {
+    name: "Amy Farha",
+    avatar: "https://s3.amazonaws.com/uifaces/faces/twitter/brynn/128.jpg",
+    selected: false
+  },
+  {
+    name: "Chris Jackson",
+    avatar:
+      "https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg",
+    selected: true
+  }
+];
 
-const CustomListview = ({ itemList, onPress }) => (
-  <View style={styles.listContainer}>
-    <FlatList
-      data={itemList}
-      renderItem={({ item }) => (
-        <CustomRow
-          title={item.title}
-          place={item.place}
-          time={item.time}
-          balance={item.balance}
-          image_url={item.image_url}
-          status={item.status}
-          onPress={onPress}
-        />
-      )}
-      keyExtractor={(item, index) => index.toString()}
-    />
-  </View>
-);
+const simReceiptHistory = [
+  {
+    title: "Beautiful",
+    time: "Today 15:33",
+    place: "HMart",
+    balance: "$10.20",
+    image_url: "https://i.imgur.com/UYiroysl.jpg",
+    status: "Pending"
+  },
+  {
+    title: "NYC",
+    time: "Nov 13, 10:20",
+    place: "ACME",
+    balance: "$20.40",
+    image_url: "https://i.imgur.com/UPrs1EWl.jpg",
+    status: "Pending"
+  },
+  {
+    title: "White",
+    time: "Oct 08 09:28",
+    place: "Walmart",
+    balance: "$30.60",
+    image_url: "https://i.imgur.com/MABUbpDl.jpg",
+    status: "Pending"
+  }
+];
 
 export default class HomeScreen extends Component {
   state = {
     spinner: false,
-    isModalVisible: false
+    isModalVisible: false,
+    receiptHistory: simReceiptHistory
   };
   options = {
     title: "New Receipt",
@@ -156,10 +143,49 @@ export default class HomeScreen extends Component {
         console.log("========");
         console.log(JSON.parse(resp.data).items);
 
-        this.props.navigation.navigate("Receipt", {
-          receipt_items: JSON.parse(resp.data).items,
-          receipt_total: JSON.parse(resp.data).accumTotal
+        let parsedData = JSON.parse(resp.data);
+        let receiptData = parsedData.items;
+        for (let i = 0; i < receiptData.length; i++) {
+          receiptData[i]["icon"] = "file";
+          receiptData[i]["name"] = receiptData[i]["display"];
+          receiptData[i]["price"] = receiptData[i]["price"];
+        }
+        let accumTotal = parsedData.accumTotal;
+        let detectedTotal = parsedData.detectedTotal;
+
+        this.setState({
+          receiptData: receiptData,
+          accumTotal: accumTotal,
+          detectedTotal: detectedTotal
         });
+        this.modal.launch(receiptData, simFriendsData);
+
+        let time = new Date();
+        let parsedTime = time.toString().split(" ");
+        let timeStr =
+          parsedTime[1] +
+          " " +
+          parsedTime[2] +
+          " " +
+          time.getHours() +
+          ":" +
+          time.getMinutes();
+        let receiptRecord = {
+          title: "Default Name",
+          time: timeStr,
+          place: "Unknown",
+          balance: "$" + accumTotal.toFixed(2).toString(),
+          image_url: "https://i.imgur.com/UYiroysl.jpg",
+          status: "Pending"
+        };
+        let history = this.state.receiptHistory;
+        history.push(receiptRecord);
+        this.setState({ receiptHistory: history });
+
+        // this.props.navigation.navigate("Receipt", {
+        //   receipt_items: JSON.parse(resp.data).items,
+        //   receipt_total: JSON.parse(resp.data).accumTotal
+        // });
       })
       .catch(err => {
         console.error("Error: " + err);
@@ -167,7 +193,7 @@ export default class HomeScreen extends Component {
   }
 
   toggleModal = () => {
-    this.modal.toggle(); // do stuff
+    this.modal.launch(simReceiptData, simFriendsData);
   };
 
   render() {
@@ -179,38 +205,56 @@ export default class HomeScreen extends Component {
           placeholder="Search Receipt..."
         />
         <View style={styles.statsContainer}>
-          <Text>{date}</Text>
+          <Text>Unfinished</Text>
         </View>
 
-        <CustomListview
-          itemList={[
-            {
-              title: "Beautiful",
-              time: "Today 15:33",
-              place: "HMart",
-              balance: "$10.20",
-              image_url: "https://i.imgur.com/UYiroysl.jpg",
-              status: "Pending"
-            },
-            {
-              title: "NYC",
-              time: "Nov 13, 10:20",
-              place: "ACME",
-              balance: "$20.40",
-              image_url: "https://i.imgur.com/UPrs1EWl.jpg",
-              status: "Pending"
-            },
-            {
-              title: "White",
-              time: "Oct 08 09:28",
-              place: "Walmart",
-              balance: "$30.60",
-              image_url: "https://i.imgur.com/MABUbpDl.jpg",
-              status: "Pending"
-            }
-          ]}
-          onPress={this.toggleModal}
-        />
+        <View style={styles.listContainer}>
+          <FlatList
+            data={this.state.receiptHistory}
+            renderItem={({ item }) => (
+              <TouchableOpacity onPress={this.toggleModal}>
+                <View style={styles.rowContainer}>
+                  <Image
+                    source={{ uri: item.image_url }}
+                    style={styles.photo}
+                  />
+                  <View style={{ flex: 1, flexDirection: "column" }}>
+                    <View style={styles.containerText}>
+                      <Text style={{ fontSize: 16, color: "#000" }}>
+                        {item.title}
+                      </Text>
+                      <Text style={{ fontSize: 16, color: "#000" }}>
+                        {item.balance}
+                      </Text>
+                    </View>
+                    <View style={styles.containerText}>
+                      <Text style={{ fontSize: 10, color: "#aaa" }}>
+                        {item.place}
+                      </Text>
+                      <Text style={{ fontSize: 10, color: "#aaa" }}>
+                        {item.time}
+                      </Text>
+                    </View>
+                    <View style={styles.containerText}>
+                      <View style={styles.tagContainer}>
+                        <Text
+                          style={{
+                            fontSize: 10,
+                            color: "#ffffff"
+                          }}
+                        >
+                          {item.status}
+                        </Text>
+                      </View>
+                      <Text style={{ fontSize: 12, color: "#000" }}>{"✘"}</Text>
+                    </View>
+                  </View>
+                </View>
+              </TouchableOpacity>
+            )}
+            keyExtractor={(item, index) => index.toString()}
+          />
+        </View>
 
         <View style={{ alignItems: "center", margin: 10 }}>
           <Text>End of Receipts</Text>
@@ -219,48 +263,8 @@ export default class HomeScreen extends Component {
           <ReceiptModal
             onRef={ref => (this.modal = ref)}
             text="I love to blinkkkk"
-            data={[
-              {
-                name: "Amy Farha",
-                avatar_url:
-                  "https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg",
-                subtitle: "Vice President",
-                icon: "apple"
-              },
-              {
-                name: "Chris Jackson",
-                avatar_url:
-                  "https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg",
-                subtitle: "Vice Chairman",
-                icon: "flight-takeoff"
-              }
-            ]}
-            friends={[
-              {
-                name: "Amy Farha",
-                avatar:
-                  "https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg",
-                selected: false
-              },
-              {
-                name: "Chris Jackson",
-                avatar:
-                  "https://s3.amazonaws.com/uifaces/faces/twitter/kfriedson/128.jpg",
-                selected: true
-              },
-              {
-                name: "Amy Farha",
-                avatar:
-                  "https://s3.amazonaws.com/uifaces/faces/twitter/brynn/128.jpg",
-                selected: false
-              },
-              {
-                name: "Chris Jackson",
-                avatar:
-                  "https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg",
-                selected: true
-              }
-            ]}
+            data={this.state.receiptData}
+            friends={simFriendsData}
           />
         </View>
         <Divider style={{ backgroundColor: "rgb(200, 200, 200)" }} />
@@ -278,15 +282,19 @@ export default class HomeScreen extends Component {
             title="New Photo"
             onPress={this.selectPhoto.bind(this)}
           >
-            <Icon name="md-add" style={styles.actionButtonIcon} />
+            <Icon
+              // type="font-awesome"
+              name="md-camera"
+              style={styles.actionButtonIcon}
+            />
           </ActionButton.Item>
-          <ActionButton.Item
+          {/* <ActionButton.Item
             buttonColor="#3498db"
             title="Gallery"
             onPress={() => this.props.navigation.navigate("Form")}
           >
             <Icon name="md-card" style={styles.actionButtonIcon} />
-          </ActionButton.Item>
+          </ActionButton.Item> */}
           <ActionButton.Item
             buttonColor="#1abc9c"
             title="Refresh"
@@ -331,7 +339,8 @@ const styles = StyleSheet.create({
   },
   listContainer: {},
   statsContainer: {
-    margin: 10
+    marginLeft: 10,
+    marginTop: 10
   },
   tagContainer: {
     backgroundColor: "steelblue",

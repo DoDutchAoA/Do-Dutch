@@ -41,6 +41,7 @@ class Item extends React.Component {
   changeEditable() {
     this.setState({ isEditable: !this.state.isEditable });
   }
+
   render() {
     let name;
     if (!this.state.isEditable) {
@@ -147,7 +148,23 @@ class Item extends React.Component {
 export default class ReceiptModal extends Component {
   constructor(props) {
     super(props);
-    this.state = { isModalVisible: false, friends: props.friends };
+    this.state = {
+      isModalVisible: false,
+      friendsData: [
+        {
+          name: "Amy Farha",
+          avatar:
+            "https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg",
+          selected: false
+        }
+      ],
+      receiptData: [
+        {
+          name: "name",
+          icon: "file"
+        }
+      ]
+    };
   }
 
   onClick = () => {
@@ -161,8 +178,12 @@ export default class ReceiptModal extends Component {
     this.props.onRef(undefined);
   }
 
-  toggle() {
-    this.setState({ isModalVisible: !this.state.isModalVisible });
+  launch(receiptData, friendsData) {
+    this.setState({
+      isModalVisible: true,
+      receiptData: receiptData,
+      friendsData: friendsData
+    });
   }
 
   render() {
@@ -176,14 +197,41 @@ export default class ReceiptModal extends Component {
           contentContainerStyle={styles.modalContent}
           scrollEnabled={true}
         >
-          <Text style={{ fontSize: 20, fontWeight: "bold" }}>Receipt</Text>
+          <View
+            style={{
+              alignItems: "flex-end",
+              marginTop: -30,
+              marginBottom: -40
+            }}
+          >
+            <Text style={{ fontSize: 80, color: "#e1e1e1" }}>NOV 16</Text>
+          </View>
+
+          <Text style={{ fontSize: 30, fontWeight: "bold" }}>Receipt</Text>
+          <Text style={{ fontSize: 15, fontWeight: "bold" }}>Friends</Text>
           <ScrollView
             horizontal={true}
             scrollEnabled={true}
             contentContainerStyle={styles.modalContent}
+            style={{ height: 110 }}
           >
-            {this.state.friends.map((l, index) => {
+            {this.state.friendsData.map((l, index) => {
+              l.key = index.toString();
               let opacity = l.selected ? 1.0 : 0.3;
+              let icon = l.selected ? (
+                <Icon
+                  reverse
+                  raised
+                  name="check"
+                  type="font-awesome"
+                  color="#0d0"
+                  size={10}
+                  containerStyle={{
+                    marginTop: -20,
+                    marginRight: -30
+                  }}
+                />
+              ) : null;
               return (
                 <View
                   style={{
@@ -199,21 +247,34 @@ export default class ReceiptModal extends Component {
                       uri: l.avatar
                     }}
                     onPress={() => {
-                      console.log(this.state.friends[index]);
-                      let friends = this.state.friends;
+                      let friends = this.state.friendsData;
                       friends[index].selected = !friends[index].selected;
                       this.setState({ friends: friends });
                     }}
                     activeOpacity={0.7}
                     avatarStyle={{ opacity: opacity, backgroundColor: "#fff" }}
                   />
-                  <Text>{l.name}</Text>
+                  <Text style={{ marginTop: 10, marginBottom: 5 }}>
+                    {l.name}
+                  </Text>
+                  <View style={{ marginTop: -35 }}>{icon}</View>
                 </View>
               );
             })}
           </ScrollView>
+          <Text
+            style={{
+              marginTop: 20,
+              marginBottom: -10,
+              fontSize: 15,
+              backgroundColor: "#fff",
+              fontWeight: "bold"
+            }}
+          >
+            My Choice
+          </Text>
           <List containerStyle={{ marginBottom: 20 }}>
-            {this.props.data.map(l => (
+            {this.state.receiptData.map(l => (
               <Item onRef={ref => (this.item = ref)} data={l} />
             ))}
           </List>
