@@ -7,62 +7,7 @@ import {
   Image,
   Dimensions
 } from "react-native";
-import { Text } from "react-native-elements";
-
-const simReceiptData = [
-  { name: "pizza", icon: "file" },
-  { name: "apple", icon: "file" }
-];
-const simFriendsData = [
-  {
-    name: "Amy Farha",
-    avatar: "https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg",
-    selected: false
-  },
-  {
-    name: "Chris Jackson",
-    avatar: "https://s3.amazonaws.com/uifaces/faces/twitter/kfriedson/128.jpg",
-    selected: true
-  },
-  {
-    name: "Amy Farha",
-    avatar: "https://s3.amazonaws.com/uifaces/faces/twitter/brynn/128.jpg",
-    selected: false
-  },
-  {
-    name: "Chris Jackson",
-    avatar:
-      "https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg",
-    selected: true
-  }
-];
-
-const simReceiptHistory = [
-  {
-    title: "Beautiful",
-    time: "Today 15:33",
-    place: "HMart",
-    balance: "$10.20",
-    image_url: "https://i.imgur.com/UYiroysl.jpg",
-    status: "Pending"
-  },
-  {
-    title: "NYC",
-    time: "Nov 13, 10:20",
-    place: "ACME",
-    balance: "$20.40",
-    image_url: "https://i.imgur.com/UPrs1EWl.jpg",
-    status: "Pending"
-  },
-  {
-    title: "White",
-    time: "Oct 08 09:28",
-    place: "Walmart",
-    balance: "$30.60",
-    image_url: "https://i.imgur.com/MABUbpDl.jpg",
-    status: "Pending"
-  }
-];
+import { Text, Divider } from "react-native-elements";
 
 class ReceiptListItem extends Component {
   constructor(props) {
@@ -70,10 +15,6 @@ class ReceiptListItem extends Component {
 
     this.state = {
       isModalVisible: false,
-      receiptData: simReceiptData,
-      friendsData: simFriendsData,
-      receiptHistory: simReceiptHistory,
-
       image_url: props.image_url,
       title: props.title,
       balance: props.balance,
@@ -131,9 +72,7 @@ export default class ReceiptList extends Component {
 
     this.state = {
       isModalVisible: false,
-      receiptData: simReceiptData,
-      friendsData: simFriendsData,
-      receiptHistory: simReceiptHistory
+      receiptHistory: this.props.receiptHistory
     };
   }
 
@@ -149,8 +88,9 @@ export default class ReceiptList extends Component {
   }
 
   render() {
-    return (
-      <View style={styles.listContainer}>
+    let content;
+    if (this.state.receiptHistory.length > 0) {
+      content = (
         <FlatList
           data={this.state.receiptHistory}
           renderItem={({ item }) => (
@@ -166,6 +106,23 @@ export default class ReceiptList extends Component {
           )}
           keyExtractor={(item, index) => index.toString()}
         />
+      );
+    } else {
+      content = <Text>{this.props.prompt}</Text>;
+    }
+    return (
+      <View>
+        <View style={styles.groupTitleContainer}>
+          <Text style={styles.groupTitle}>{this.props.groupTitle}</Text>
+        </View>
+        <Divider
+          style={{
+            marginLeft: 150,
+            marginRight: 150,
+            backgroundColor: "rgb(100, 100, 100)"
+          }}
+        />
+        {content}
       </View>
     );
   }
@@ -181,10 +138,16 @@ const marginLR = 5;
 const itemWidth = viewportWidth - 2 * marginLR;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    // alignItems: "center",
-    backgroundColor: "#ffffff"
+  groupTitle: {
+    fontWeight: "bold",
+    backgroundColor: "#ffffff",
+    color: "#000000",
+    padding: 3
+  },
+  groupTitleContainer: {
+    marginLeft: 10,
+    marginTop: 10,
+    alignItems: "center"
   },
   rowContainer: {
     flex: 1,
@@ -200,10 +163,15 @@ const styles = StyleSheet.create({
     elevation: 0.1,
     width: itemWidth
   },
-  listContainer: {},
-  statsContainer: {
-    marginLeft: 10,
-    marginTop: 10
+  photo: {
+    height: 50,
+    width: itemWidth / 10
+  },
+  containerText: {
+    flex: 1,
+    flexDirection: "row",
+    marginLeft: 12,
+    justifyContent: "space-between"
   },
   tagContainer: {
     backgroundColor: "steelblue",
@@ -213,68 +181,5 @@ const styles = StyleSheet.create({
     width: 70,
     alignItems: "center",
     marginTop: 3
-  },
-
-  title: {
-    fontSize: 16,
-    color: "#000"
-  },
-  actionButtonIcon: {
-    fontSize: 20,
-    height: 22,
-    color: "white"
-  },
-  containerText: {
-    flex: 1,
-    flexDirection: "row",
-    marginLeft: 12,
-    justifyContent: "space-between"
-  },
-  balance: {
-    fontSize: 11,
-    fontStyle: "italic"
-  },
-  photo: {
-    height: 50,
-    width: itemWidth / 10
-  },
-  button: {
-    width: 250,
-    height: 50,
-    backgroundColor: "#330066",
-    borderRadius: 30,
-    justifyContent: "center",
-    marginTop: 15
-  },
-  text: {
-    color: "white",
-    fontSize: 18,
-    textAlign: "center"
-  },
-  view: {
-    flex: 1
-    // justifyContent: "flex-end",
-    // alignItems: "center"
-  },
-
-  // Modal Contents
-  modalContent: {
-    backgroundColor: "white",
-    padding: 22,
-    justifyContent: "center",
-    // alignItems: "center",
-    borderRadius: 4,
-    borderColor: "rgba(0, 0, 0, 0.1)"
-  },
-  modalBtnContainer: {
-    flex: 1,
-    flexDirection: "row",
-    justifyContent: "flex-end",
-    marginBottom: 15
-  },
-  modalBtn: {
-    marginLeft: -20
-    // width: 50,
-    // height: 10
   }
 });

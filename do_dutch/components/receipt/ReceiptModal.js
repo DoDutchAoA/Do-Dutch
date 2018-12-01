@@ -178,11 +178,12 @@ export default class ReceiptModal extends Component {
     this.props.onRef(undefined);
   }
 
-  launch(receiptData, friendsData) {
+  launch(receiptData, friendsData, confirmCallback) {
     this.setState({
       isModalVisible: true,
       receiptData: receiptData,
-      friendsData: friendsData
+      friendsData: friendsData,
+      confirmCallback: confirmCallback
     });
   }
 
@@ -317,6 +318,7 @@ export default class ReceiptModal extends Component {
               fontSize={15}
               buttonStyle={styles.modalBtn}
               onPress={() => {
+                this.state.confirmCallback();
                 this.setState({ isModalVisible: false });
               }}
             />

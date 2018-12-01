@@ -1,199 +1,70 @@
 import React, { Component } from "react";
-import {
-  View,
-  FlatList,
-  TouchableOpacity,
-  StyleSheet,
-  Image,
-  Dimensions
-} from "react-native";
-import {
-  Button,
-  SearchBar,
-  Text,
-  Divider,
-  List,
-  ListItem
-} from "react-native-elements";
+import { View, StyleSheet, Dimensions, ScrollView } from "react-native";
+import { SearchBar, Text } from "react-native-elements";
 import ReceiptModal from "./receipt/ReceiptModal.js";
 
 import Spinner from "react-native-loading-spinner-overlay";
-// import ReceiptScreen from "./receipt_actions/receipt_screen";
 
 import ActionButton from "react-native-action-button";
 import Icon from "react-native-vector-icons/Ionicons";
 
-import ImagePicker from "react-native-image-picker";
-import RNFetchBlob from "react-native-fetch-blob";
-
 import ReceiptList from "./receipt/ReceiptList.js";
 
-const date = new Date().toDateString();
+import { loadPhoto } from "./receipt/UploadingTools.js";
 
-const simReceiptData = [
-  { name: "pizza", icon: "file" },
-  { name: "apple", icon: "file" }
-];
-const simFriendsData = [
-  {
-    name: "Amy Farha",
-    avatar: "https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg",
-    selected: false
-  },
-  {
-    name: "Chris Jackson",
-    avatar: "https://s3.amazonaws.com/uifaces/faces/twitter/kfriedson/128.jpg",
-    selected: true
-  },
-  {
-    name: "Amy Farha",
-    avatar: "https://s3.amazonaws.com/uifaces/faces/twitter/brynn/128.jpg",
-    selected: false
-  },
-  {
-    name: "Chris Jackson",
-    avatar:
-      "https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg",
-    selected: true
-  }
-];
-
-const simReceiptHistory = [
-  {
-    title: "Beautiful",
-    time: "Today 15:33",
-    place: "HMart",
-    balance: "$10.20",
-    image_url: "https://i.imgur.com/UYiroysl.jpg",
-    status: "Pending"
-  },
-  {
-    title: "NYC",
-    time: "Nov 13, 10:20",
-    place: "ACME",
-    balance: "$20.40",
-    image_url: "https://i.imgur.com/UPrs1EWl.jpg",
-    status: "Pending"
-  },
-  {
-    title: "White",
-    time: "Oct 08 09:28",
-    place: "Walmart",
-    balance: "$30.60",
-    image_url: "https://i.imgur.com/MABUbpDl.jpg",
-    status: "Pending"
-  }
-];
+import {
+  receiptData,
+  friendsData,
+  receiptHistory
+} from "./receipt/SimulationData";
 
 export default class HomeScreen extends Component {
   state = {
     spinner: false,
     isModalVisible: false,
-    receiptHistory: simReceiptHistory
-  };
-  options = {
-    title: "New Receipt",
-    takePhotoButtonTitle: "Take a photo",
-    chooseFromLibraryButtonTitle: "Choose from gallery",
-    quality: 1
+    receiptHistory: receiptHistory
   };
 
-  selectPhoto() {
-    ImagePicker.showImagePicker(this.options, response => {
-      console.log("Response = ", response);
-
-      if (response.didCancel) {
-        console.log("User cancelled image picker");
-      } else if (response.error) {
-        console.log("ImagePicker Error: ", response.error);
-      } else {
-        let source = { uri: response.uri };
+  selectPhoto = () => {
+    loadPhoto(
+      (source, data, spinner) => {
         this.setState({
           imageSource: source,
-          data: response.data,
-          spinner: true
+          data: data,
+          spinner: spinner
         });
-        this.uploadPhoto();
-      }
-    });
-  }
-
-  uploadPhoto() {
-    RNFetchBlob.fetch(
-      "POST",
-      "http://52.12.74.177:5000/upload",
-      {
-        "Content-Type": "multipart/form-data"
       },
-      [
-        {
-          name: "image",
-          filename: window.user_id + "image.png",
-          type: "image/png",
-          data: this.state.data
-        }
-      ]
-    )
-      .then(resp => {
+      (receiptData, accumTotal, detectedTotal, timeStamp) => {
         this.setState({
-          spinner: false
-        });
-        console.log("upload successfully!");
-        console.log(resp);
-        console.log("========");
-        console.log(JSON.parse(resp.data).items);
-
-        let parsedData = JSON.parse(resp.data);
-        let receiptData = parsedData.items;
-        for (let i = 0; i < receiptData.length; i++) {
-          receiptData[i]["icon"] = "file";
-          receiptData[i]["name"] = receiptData[i]["display"];
-          receiptData[i]["price"] = receiptData[i]["price"];
-        }
-        let accumTotal = parsedData.accumTotal;
-        let detectedTotal = parsedData.detectedTotal;
-
-        this.setState({
+          spinner: false,
           receiptData: receiptData,
           accumTotal: accumTotal,
           detectedTotal: detectedTotal
         });
-        this.modal.launch(receiptData, simFriendsData);
-
-        let time = new Date();
-        let parsedTime = time.toString().split(" ");
-        let timeStr =
-          parsedTime[1] +
-          " " +
-          parsedTime[2] +
-          " " +
-          time.getHours() +
-          ":" +
-          time.getMinutes();
-        let receiptRecord = {
-          title: "Default Name",
-          time: timeStr,
-          place: "Unknown",
-          balance: "$" + accumTotal.toFixed(2).toString(),
-          image_url: "https://i.imgur.com/UYiroysl.jpg",
-          status: "Pending"
-        };
-        let history = this.state.receiptHistory;
-        history.push(receiptRecord);
-        this.setState({ receiptHistory: history });
+        this.modal.launch(receiptData, friendsData, () => {
+          let receiptRecord = {
+            title: "Default Name",
+            time: timeStamp,
+            place: "Unknown",
+            balance: "$" + accumTotal.toFixed(2).toString(),
+            image_url: "https://i.imgur.com/UYiroysl.jpg",
+            status: "Pending"
+          };
+          let history = this.state.receiptHistory;
+          history.push(receiptRecord);
+          this.setState({ receiptHistory: history });
+        });
 
         // this.props.navigation.navigate("Receipt", {
         //   receipt_items: JSON.parse(resp.data).items,
         //   receipt_total: JSON.parse(resp.data).accumTotal
         // });
-      })
-      .catch(err => {
-        console.error("Error: " + err);
-      });
-  }
+      }
+    );
+  };
 
   toggleModal = () => {
-    this.modal.launch(simReceiptData, simFriendsData);
+    this.modal.launch(receiptData, friendsData);
   };
 
   render() {
@@ -204,24 +75,33 @@ export default class HomeScreen extends Component {
           lightTheme
           placeholder="Search Receipt..."
         />
-        <View style={styles.statsContainer}>
-          <Text>Unfinished</Text>
-        </View>
+        <ScrollView scrollEnabled={true}>
+          <ReceiptList
+            groupTitle="ONGOING"
+            prompt="All Done!"
+            onPress={this.toggleModal}
+            receiptHistory={receiptHistory}
+          />
+          <ReceiptList
+            groupTitle="PAST"
+            prompt="No Record"
+            onPress={this.toggleModal}
+            receiptHistory={receiptHistory}
+          />
 
-        <ReceiptList onPress={this.toggleModal} />
+          <View style={{ alignItems: "center", margin: 10 }}>
+            <Text>End of Receipts</Text>
+          </View>
+        </ScrollView>
 
-        <View style={{ alignItems: "center", margin: 10 }}>
-          <Text>End of Receipts</Text>
-        </View>
         <View>
           <ReceiptModal
             onRef={ref => (this.modal = ref)}
             text="I love to blinkkkk"
             data={this.state.receiptData}
-            friends={simFriendsData}
+            friends={friendsData}
           />
         </View>
-        <Divider style={{ backgroundColor: "rgb(200, 200, 200)" }} />
 
         <Spinner
           cancelable={true}
@@ -320,6 +200,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     marginLeft: 12,
     justifyContent: "space-between"
+  },
+  spinnerTextStyle: {
+    color: "#fff"
   },
   balance: {
     fontSize: 11,
