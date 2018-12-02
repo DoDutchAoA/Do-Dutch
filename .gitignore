@@ -13,3 +13,7 @@
 *.yaml
 do_dutch/ios/do_dutch.xcodeproj/project.pbxproj
 .vscode/launch.json
+do_dutch/.vscode/.react/index.bundle
+do_dutch/.vscode/.react/index.map
+do_dutch/ios/do_dutch.xcodeproj/project.pbxproj
+do_dutch/.vscode/.react/debuggerWorker.js

@@ -12,7 +12,6 @@ import {
 export default class ReceiptScreen extends Component {
   constructor() {
     super();
-
     this.state = {};
   }
 
