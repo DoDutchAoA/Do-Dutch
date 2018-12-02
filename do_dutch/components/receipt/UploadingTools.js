@@ -8,7 +8,7 @@ const options = {
   quality: 1
 };
 
-photoTools = {
+export default photoTools (photoTools = {
   loadPhoto(loadedCallback, uploadedCallback) {
     ImagePicker.showImagePicker(options, response => {
       if (response.didCancel) {
@@ -84,6 +84,6 @@ photoTools = {
         console.error("Error: " + err);
       });
   }
-};
+});
 
 export default photoTools;
