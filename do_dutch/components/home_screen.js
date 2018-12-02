@@ -1,275 +1,138 @@
 import React, { Component } from "react";
-import {
-  View,
-  FlatList,
-  Platform,
-  TouchableOpacity,
-  StyleSheet,
-  Image,
-  Dimensions,
-  TouchableNativeFeedback
-} from "react-native";
-import {
-  Button,
-  SearchBar,
-  Text,
-  Divider,
-  List,
-  ListItem
-} from "react-native-elements";
-
+import { View, StyleSheet, Dimensions, ScrollView } from "react-native";
+import { SearchBar, Text } from "react-native-elements";
 import Spinner from "react-native-loading-spinner-overlay";
-// import ReceiptScreen from "./receipt_actions/receipt_screen";
-import Modal from "react-native-modal";
-
-// import { Button, Container, Header, Content, Left } from "native-base";
-// import Ripple from "react-native-material-ripple";
 import ActionButton from "react-native-action-button";
 import Icon from "react-native-vector-icons/Ionicons";
 
-import ImagePicker from "react-native-image-picker";
-import RNFetchBlob from "react-native-fetch-blob";
-
-const date = new Date().toDateString();
-
-const list = [
-  {
-    name: "Amy Farha",
-    avatar_url:
-      "https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg",
-    subtitle: "Vice President"
-  },
-  {
-    name: "Chris Jackson",
-    avatar_url:
-      "https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg",
-    subtitle: "Vice Chairman"
-  }
-];
-
-const CustomRow = ({
-  title,
-  time,
-  place,
-  balance,
-  image_url,
-  status,
-  onPress
-}) => (
-  // <Ripple>
-  <TouchableOpacity onPress={onPress}>
-    <View style={styles.rowContainer}>
-      <Image
-        source={{ uri: image_url }}
-        style={styles.photo}
-        onPress={onPress}
-      />
-      <View style={{ flex: 1, flexDirection: "column" }}>
-        <View style={styles.containerText}>
-          <Text style={{ fontSize: 16, color: "#000" }}>{title}</Text>
-          <Text style={{ fontSize: 16, color: "#000" }}>{balance}</Text>
-        </View>
-        <View style={styles.containerText}>
-          <Text style={{ fontSize: 10, color: "#aaa" }}>{place}</Text>
-          <Text style={{ fontSize: 10, color: "#aaa" }}>{time}</Text>
-        </View>
-        <View style={styles.containerText}>
-          <View style={styles.tagContainer}>
-            <Text
-              style={{
-                fontSize: 10,
-                color: "#ffffff"
-              }}
-            >
-              {status}
-            </Text>
-          </View>
-          <Text style={{ fontSize: 12, color: "#000" }}>{"✘"}</Text>
-        </View>
-      </View>
-    </View>
-  </TouchableOpacity>
-);
-
-const CustomListview = ({ itemList, onPress }) => (
-  <View style={styles.listContainer}>
-    <FlatList
-      data={itemList}
-      renderItem={({ item }) => (
-        <CustomRow
-          title={item.title}
-          place={item.place}
-          time={item.time}
-          balance={item.balance}
-          image_url={item.image_url}
-          status={item.status}
-          onPress={onPress}
-        />
-      )}
-      keyExtractor={(item, index) => index.toString()}
-    />
-  </View>
-);
+import ReceiptList from "./receipt/ReceiptList.js";
+import ReceiptModal from "./receipt/ReceiptModal.js";
+import photoTools from "./receipt/UploadingTools.js";
+import {
+  // receiptData,
+  friendsData1,
+  receiptHistory
+  // receiptData
+} from "./receipt/SimulationData";
 
 export default class HomeScreen extends Component {
+  constructor(props) {
+    super(props);
+  }
 
   state = {
     spinner: false,
-    isModalVisible: false
+    isModalVisible: false,
+    receiptHistory: receiptHistory,
+    searching: false,
+    searchText: ""
   };
 
-  options = {
-    title: "New Receipt",
-    takePhotoButtonTitle: "Take a photo",
-    chooseFromLibraryButtonTitle: "Choose from gallery",
-    quality: 1
-  };
-
-  selectPhoto() {
-    ImagePicker.showImagePicker(this.options, response => {
-      console.log("Response = ", response);
-
-      if (response.didCancel) {
-        console.log("User cancelled image picker");
-      } else if (response.error) {
-        console.log("ImagePicker Error: ", response.error);
-      } else {
-        let source = { uri: response.uri };
+  selectPhoto = () => {
+    photoTools.loadPhoto(
+      (source, data, spinner) => {
         this.setState({
           imageSource: source,
-          data: response.data,
-          spinner: true
+          data: data,
+          spinner: spinner
         });
-        this.uploadPhoto();
-      }
-    });
-  }
-
-  uploadPhoto() {
-    RNFetchBlob.fetch(
-      "POST",
-      "http://52.12.74.177:5000/upload",
-      {
-        "Content-Type": "multipart/form-data"
       },
-      [
-        {
-          name: "image",
-          filename: window.user_id + "image.png",
-          type: "image/png",
-          data: this.state.data
-        }
-      ]
-    )
-      .then(resp => {
+      receiptRecord => {
         this.setState({
           spinner: false
         });
-        console.log("upload successfully!");
-        console.log(resp);
-        console.log("========");
-        console.log(JSON.parse(resp.data).items);
-
-        this.props.navigation.navigate("Receipt", {
-          receipt_items: JSON.parse(resp.data).items,
-          receipt_total: JSON.parse(resp.data).accumTotal
+        receiptRecord.friends = friendsData1;
+        this.modal.launch(receiptRecord, recordData => {
+          let history = this.state.receiptHistory;
+          history.push(recordData);
+          this.setState({ receiptHistory: history });
+          this.ongoingList.setReceiptHistory(history);
         });
-      })
-      .catch(err => {
-        console.error("Error: " + err);
-      });
-  }
-
-  _toggleModal = () =>
-    this.setState({ isModalVisible: !this.state.isModalVisible });
+      }
+    );
+  };
 
   render() {
+    let list;
+    if (this.state.searchText.length > 0) {
+      list = (
+        <ReceiptList
+          onRef={ref => (this.searchList = ref)}
+          groupTitle="SEARCH RESULT"
+          prompt="All Done!"
+          keyword={this.state.searchText}
+          onPressRecord={(listKey, receiptItemData, setDataCallback) => {
+            this.modal.launch(receiptItemData, recordData => {
+              setDataCallback(recordData);
+            });
+          }}
+          receiptHistory={this.state.receiptHistory}
+        />
+      );
+    } else {
+      list = (
+        <View>
+          <ReceiptList
+            onRef={ref => (this.ongoingList = ref)}
+            groupTitle="ONGOING"
+            prompt="All Done!"
+            keyword=""
+            onPressRecord={(index, receiptItemData) => {
+              this.modal.launch(receiptItemData, recordData => {
+                console.log(recordData);
+                let history = this.state.receiptHistory;
+                history[index] = recordData;
+                this.setState({ receiptHistory: history });
+                this.ongoingList.setReceiptHistory(history);
+              });
+            }}
+            receiptHistory={this.state.receiptHistory}
+          />
+          <ReceiptList
+            onRef={ref => (this.pastList = ref)}
+            groupTitle="PAST"
+            prompt="No Record"
+            keyword=""
+            onPressRecord={(index, receiptItemData) => {
+              this.modal.launch(receiptItemData, recordData => {
+                let history = this.state.receiptHistory;
+                history[index] = recordData;
+                this.setState({ receiptHistory: history });
+                this.pastList.setReceiptHistory(history);
+              });
+            }}
+            receiptHistory={this.state.receiptHistory}
+          />
+        </View>
+      );
+    }
+
     return (
       <View style={styles.container}>
         <SearchBar
           containerStyle={{ backgroundColor: "#fff" }}
           lightTheme
-          placeholder="Search Receipt..."
+          placeholder="Search receipt name, merchant, or status..."
+          onChangeText={text => {
+            this.setState({ searchText: text });
+            if (this.searchList !== undefined && text.length > 0)
+              this.searchList.setReceiptHistory(this.state.receiptHistory);
+          }}
         />
-        <View style={styles.statsContainer}>
-          <Text>{date}</Text>
-        </View>
-
-        <CustomListview
-          itemList={[
-            {
-              title: "Beautiful",
-              time: "Today 15:33",
-              place: "HMart",
-              balance: "$10.20",
-              image_url: "https://i.imgur.com/UYiroysl.jpg",
-              status: "Pending"
-            },
-            {
-              title: "NYC",
-              time: "Nov 13, 10:20",
-              place: "ACME",
-              balance: "$20.40",
-              image_url: "https://i.imgur.com/UPrs1EWl.jpg",
-              status: "Pending"
-            },
-            {
-              title: "White",
-              time: "Oct 08 09:28",
-              place: "Walmart",
-              balance: "$30.60",
-              image_url: "https://i.imgur.com/MABUbpDl.jpg",
-              status: "Pending"
-            }
-          ]}
-          onPress={this._toggleModal}
-        />
-
-        <View style={{ alignItems: "center", margin: 10 }}>
-          <Text>End of Receipts</Text>
-        </View>
-
-        <Modal
-          isVisible={this.state.isModalVisible}
-          onSwipe={() => this.setState({ isModalVisible: false })}
-          swipeDirection="down"
-        >
-          <View style={styles.modalContent}>
-            <Text h4>Checkout Items</Text>
-            <List>
-              <FlatList
-                data={list}
-                renderItem={item => (
-                  <ListItem
-                    roundAvatar
-                    title={item.name}
-                    subtitle={item.subtitle}
-                    avatar={{ uri: item.avatar_url }}
-                  />
-                )}
-                keyExtractor={item => item.name}
-              />
-            </List>
-            <Button onPress={this._toggleModal}>
-              <Text>Hide me!</Text>
-            </Button>
+        <ScrollView scrollEnabled={true}>
+          {list}
+          <View style={{ alignItems: "center", margin: 10 }}>
+            <Text>End of Receipts</Text>
           </View>
-        </Modal>
-        <List>
-          <FlatList
-            data={list}
-            renderItem={item => (
-              <ListItem
-                roundAvatar
-                title={item.name}
-                subtitle={item.subtitle}
-                avatar={{ uri: item.avatar_url }}
-              />
-            )}
-            keyExtractor={item => item.name}
+        </ScrollView>
+
+        <View>
+          <ReceiptModal
+            onRef={ref => (this.modal = ref)}
+            data={[]}
+            friends={[]}
           />
-        </List>
-        <Divider style={{ backgroundColor: "rgb(200, 200, 200)" }} />
+        </View>
 
         <Spinner
           cancelable={true}
@@ -282,16 +145,13 @@ export default class HomeScreen extends Component {
           <ActionButton.Item
             buttonColor="#9b59b6"
             title="New Photo"
-            onPress={this.selectPhoto.bind(this)}
+            onPress={() => this.selectPhoto()}
           >
-            <Icon name="md-add" style={styles.actionButtonIcon} />
-          </ActionButton.Item>
-          <ActionButton.Item
-            buttonColor="#3498db"
-            title="Gallery"
-            onPress={() => this.props.navigation.navigate("Form")}
-          >
-            <Icon name="md-card" style={styles.actionButtonIcon} />
+            <Icon
+              // type="font-awesome"
+              name="md-camera"
+              style={styles.actionButtonIcon}
+            />
           </ActionButton.Item>
           <ActionButton.Item
             buttonColor="#1abc9c"
@@ -318,7 +178,6 @@ const itemWidth = viewportWidth - 2 * marginLR;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // alignItems: "center",
     backgroundColor: "#ffffff"
   },
   rowContainer: {
@@ -329,14 +188,15 @@ const styles = StyleSheet.create({
     marginRight: marginLR,
     marginTop: 2,
     marginBottom: 2,
-    borderRadius: 5,
-    // backgroundColor: "#FFF",
-    elevation: 1,
+    borderRadius: 2,
+    borderWidth: 0,
+    elevation: 0.1,
     width: itemWidth
   },
   listContainer: {},
   statsContainer: {
-    margin: 10
+    marginLeft: 10,
+    marginTop: 10
   },
   tagContainer: {
     backgroundColor: "steelblue",
@@ -347,14 +207,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginTop: 3
   },
-  modalContent: {
-    backgroundColor: "white",
-    padding: 22,
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 4,
-    borderColor: "rgba(0, 0, 0, 0.1)"
-  },
+
   title: {
     fontSize: 16,
     color: "#000"
@@ -369,6 +222,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     marginLeft: 12,
     justifyContent: "space-between"
+  },
+  spinnerTextStyle: {
+    color: "#fff"
   },
   balance: {
     fontSize: 11,
@@ -395,5 +251,26 @@ const styles = StyleSheet.create({
     flex: 1
     // justifyContent: "flex-end",
     // alignItems: "center"
+  },
+
+  // Modal Contents
+  modalContent: {
+    backgroundColor: "white",
+    padding: 22,
+    justifyContent: "center",
+    // alignItems: "center",
+    borderRadius: 4,
+    borderColor: "rgba(0, 0, 0, 0.1)"
+  },
+  modalBtnContainer: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "flex-end",
+    marginBottom: 15
+  },
+  modalBtn: {
+    marginLeft: -20
+    // width: 50,
+    // height: 10
   }
 });
