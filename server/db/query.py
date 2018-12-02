@@ -262,6 +262,10 @@ def selectUserByUsername(conn, username):
     result = runQuery(conn, query, username, True)
     return result[0]
 
+def searchUserByUsername(conn, keyword):
+    query = "SELECT user_id, user_name FROM Users WHERE user_name LIKE %s;"
+    result = runQuery(conn, query, keyword, True)
+    result result
 
 def deleteUserByUsername(conn, username):
     query = "DELETE FROM Users WHERE user_name = %s;"

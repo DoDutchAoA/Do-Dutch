@@ -1,0 +1,204 @@
+************* Module server
+C: 49, 0: Line too long (103/100) (line-too-long)
+C: 55, 0: Line too long (104/100) (line-too-long)
+C: 61, 0: Line too long (140/100) (line-too-long)
+C: 73, 0: Line too long (107/100) (line-too-long)
+C: 79, 0: Line too long (101/100) (line-too-long)
+C: 96, 0: Line too long (167/100) (line-too-long)
+C:102, 0: Line too long (132/100) (line-too-long)
+C:124, 0: Line too long (127/100) (line-too-long)
+C:183, 0: No space allowed after keyword argument assignment
+    app.run(host= '0.0.0.0')
+                ^ (bad-whitespace)
+C:184, 0: Trailing newlines (trailing-newlines)
+C:  1, 0: Missing module docstring (missing-docstring)
+C:  1, 0: Multiple imports on one line (os, sys, json) (multiple-imports)
+C:  7, 0: Invalid constant name "app" (invalid-name)
+C: 12, 0: Missing function docstring (missing-docstring)
+W: 22, 8: Redefining built-in 'file' (redefined-builtin)
+C: 17, 0: Missing function docstring (missing-docstring)
+C: 35, 0: Invalid function name "signUp" (invalid-name)
+C: 35, 0: Missing function docstring (missing-docstring)
+C: 41, 0: Missing function docstring (missing-docstring)
+C: 47, 0: Invalid function name "createEmptyGroup" (invalid-name)
+C: 47, 0: Missing function docstring (missing-docstring)
+C: 53, 0: Invalid function name "addMembersToGroup" (invalid-name)
+C: 53, 0: Missing function docstring (missing-docstring)
+C: 59, 0: Invalid function name "createGroupWithMembers" (invalid-name)
+C: 59, 0: Missing function docstring (missing-docstring)
+C: 65, 0: Invalid function name "removeGroup" (invalid-name)
+C: 65, 0: Missing function docstring (missing-docstring)
+C: 71, 0: Invalid function name "removeMemberFromGroup" (invalid-name)
+C: 71, 0: Missing function docstring (missing-docstring)
+E: 73,17: Module 'db.dbhelper.functions' has no 'removeMemberFromGroup' member (no-member)
+C: 77, 0: Invalid function name "createOrder" (invalid-name)
+C: 77, 0: Missing function docstring (missing-docstring)
+E: 79,17: No value for argument 'numOfItems' in function call (no-value-for-parameter)
+C: 83, 0: Invalid function name "deleteOrder" (invalid-name)
+C: 83, 0: Missing function docstring (missing-docstring)
+E: 85, 8: Too many positional arguments for function call (too-many-function-args)
+C: 88, 0: Invalid function name "orderExists" (invalid-name)
+C: 88, 0: Missing function docstring (missing-docstring)
+E: 90,17: Module 'db.dbhelper.functions' has no 'orderExists' member (no-member)
+C: 94, 0: Invalid function name "insertRecieptInfo" (invalid-name)
+C: 94, 0: Missing function docstring (missing-docstring)
+E: 96,17: Module 'db.dbhelper.functions' has no 'insertRecieptInfo' member (no-member)
+C:100, 0: Invalid function name "addItemToOrder" (invalid-name)
+C:100, 0: Missing function docstring (missing-docstring)
+E:102,17: Module 'db.dbhelper.functions' has no 'addItemToOrder' member (no-member)
+W:102, 8: Unused variable 'result' (unused-variable)
+C:105, 0: Invalid function name "modifyItemName" (invalid-name)
+C:105, 0: Missing function docstring (missing-docstring)
+C:111, 0: Invalid function name "modifyItemTotalAmount" (invalid-name)
+C:111, 0: Missing function docstring (missing-docstring)
+E:113, 8: Module 'db.dbhelper.functions' has no 'modifyItemTotalAmount' member (no-member)
+C:116, 0: Invalid function name "validAllocation" (invalid-name)
+C:116, 0: Missing function docstring (missing-docstring)
+E:118,17: Module 'db.dbhelper.functions' has no 'validAllocation' member (no-member)
+C:122, 0: Invalid function name "createAllocation" (invalid-name)
+C:122, 0: Missing function docstring (missing-docstring)
+C:128, 0: Invalid function name "modifyAllocation" (invalid-name)
+C:128, 0: Missing function docstring (missing-docstring)
+C:134, 0: Invalid function name "getUserIdByUsername" (invalid-name)
+C:134, 0: Missing function docstring (missing-docstring)
+E:136,17: Module 'db.dbhelper.functions' has no 'getUserIdByUsername' member (no-member)
+C:140, 0: Invalid function name "deleteUserByUsername" (invalid-name)
+C:140, 0: Missing function docstring (missing-docstring)
+E:142,17: Module 'db.dbhelper.functions' has no 'deleteUserByUsername' member (no-member)
+C:146, 0: Invalid function name "searchUserByUsername" (invalid-name)
+C:146, 0: Missing function docstring (missing-docstring)
+C:152, 0: Invalid function name "addFriend" (invalid-name)
+C:152, 0: Missing function docstring (missing-docstring)
+C:158, 0: Invalid function name "removeFriend" (invalid-name)
+C:158, 0: Missing function docstring (missing-docstring)
+C:164, 0: Invalid function name "getAllFriends" (invalid-name)
+C:164, 0: Missing function docstring (missing-docstring)
+C:170, 0: Invalid function name "getAllGroups" (invalid-name)
+C:170, 0: Missing function docstring (missing-docstring)
+C:176, 0: Invalid function name "getAllMembersByGroupId" (invalid-name)
+C:176, 0: Missing function docstring (missing-docstring)
+W:  1, 0: Unused import sys (unused-import)
+W:  3, 0: Unused url_for imported from flask (unused-import)
+
+
+Report
+======
+126 statements analysed.
+
+Statistics by type
+------------------
+
++---------+-------+-----------+-----------+------------+---------+
+|type     |number |old number |difference |%documented |%badname |
++=========+=======+===========+===========+============+=========+
+|module   |1      |NC         |NC         |0.00        |0.00     |
++---------+-------+-----------+-----------+------------+---------+
+|class    |0      |NC         |NC         |0           |0        |
++---------+-------+-----------+-----------+------------+---------+
+|method   |0      |NC         |NC         |0           |0        |
++---------+-------+-----------+-----------+------------+---------+
+|function |27     |NC         |NC         |0.00        |88.89    |
++---------+-------+-----------+-----------+------------+---------+
+
+
+
+External dependencies
+---------------------
+::
+
+    db 
+      \-dbhelper 
+        \-functions (server)
+    flask (server)
+    ocr 
+      \-ocr 
+        \-ocr (server)
+    werkzeug 
+      \-utils (server)
+
+
+
+Raw metrics
+-----------
+
++----------+-------+------+---------+-----------+
+|type      |number |%     |previous |difference |
++==========+=======+======+=========+===========+
+|code      |154    |83.24 |NC       |NC         |
++----------+-------+------+---------+-----------+
+|docstring |0      |0.00  |NC       |NC         |
++----------+-------+------+---------+-----------+
+|comment   |0      |0.00  |NC       |NC         |
++----------+-------+------+---------+-----------+
+|empty     |31     |16.76 |NC       |NC         |
++----------+-------+------+---------+-----------+
+
+
+
+Duplication
+-----------
+
++-------------------------+------+---------+-----------+
+|                         |now   |previous |difference |
++=========================+======+=========+===========+
+|nb duplicated lines      |0     |NC       |NC         |
++-------------------------+------+---------+-----------+
+|percent duplicated lines |0.000 |NC       |NC         |
++-------------------------+------+---------+-----------+
+
+
+
+Messages by category
+--------------------
+
++-----------+-------+---------+-----------+
+|type       |number |previous |difference |
++===========+=======+=========+===========+
+|convention |64     |NC       |NC         |
++-----------+-------+---------+-----------+
+|refactor   |0      |NC       |NC         |
++-----------+-------+---------+-----------+
+|warning    |4      |NC       |NC         |
++-----------+-------+---------+-----------+
+|error      |10     |NC       |NC         |
++-----------+-------+---------+-----------+
+
+
+
+Messages
+--------
+
++-----------------------+------------+
+|message id             |occurrences |
++=======================+============+
+|missing-docstring      |28          |
++-----------------------+------------+
+|invalid-name           |25          |
++-----------------------+------------+
+|no-member              |8           |
++-----------------------+------------+
+|line-too-long          |8           |
++-----------------------+------------+
+|unused-import          |2           |
++-----------------------+------------+
+|unused-variable        |1           |
++-----------------------+------------+
+|trailing-newlines      |1           |
++-----------------------+------------+
+|too-many-function-args |1           |
++-----------------------+------------+
+|redefined-builtin      |1           |
++-----------------------+------------+
+|no-value-for-parameter |1           |
++-----------------------+------------+
+|multiple-imports       |1           |
++-----------------------+------------+
+|bad-whitespace         |1           |
++-----------------------+------------+
+
+
+
+Global evaluation
+-----------------
+Your code has been rated at 0.63/10
+

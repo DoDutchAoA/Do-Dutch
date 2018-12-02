@@ -1,0 +1,662 @@
+************* Module db.query
+E:268, 0: invalid syntax (syntax-error)
+************* Module db.dbhelper.functions
+C:  1, 0: Missing module docstring (missing-docstring)
+W:  1, 0: Relative import 'orderutils', should be 'db.dbhelper.orderutils' (relative-import)
+W:  2, 0: Relative import 'userutils', should be 'db.dbhelper.userutils' (relative-import)
+C:  5, 0: Invalid function name "signUp" (invalid-name)
+C:  5, 0: Missing function docstring (missing-docstring)
+C:  9, 0: Missing function docstring (missing-docstring)
+C: 13, 0: Invalid function name "createEmptyGroup" (invalid-name)
+C: 13, 0: Invalid argument name "groupName" (invalid-name)
+C: 13, 0: Invalid argument name "ownerId" (invalid-name)
+C: 13, 0: Missing function docstring (missing-docstring)
+C: 17, 0: Invalid function name "addMembersToGroup" (invalid-name)
+C: 17, 0: Invalid argument name "groupId" (invalid-name)
+C: 17, 0: Invalid argument name "memberIds" (invalid-name)
+C: 17, 0: Missing function docstring (missing-docstring)
+C: 20, 0: Invalid function name "searchUserByUsername" (invalid-name)
+C: 20, 0: Missing function docstring (missing-docstring)
+C: 23, 0: Invalid function name "getAllFriends" (invalid-name)
+C: 23, 0: Invalid argument name "userId" (invalid-name)
+C: 23, 0: Missing function docstring (missing-docstring)
+C: 26, 0: Invalid function name "addFriend" (invalid-name)
+C: 26, 0: Missing function docstring (missing-docstring)
+C: 29, 0: Invalid function name "removeFriend" (invalid-name)
+C: 29, 0: Missing function docstring (missing-docstring)
+C: 32, 0: Invalid function name "createGroupWithMembers" (invalid-name)
+C: 32, 0: Invalid argument name "groupName" (invalid-name)
+C: 32, 0: Invalid argument name "ownerId" (invalid-name)
+C: 32, 0: Invalid argument name "memberIds" (invalid-name)
+C: 32, 0: Missing function docstring (missing-docstring)
+C: 35, 0: Invalid function name "getAllMembersByGroupId" (invalid-name)
+C: 35, 0: Invalid argument name "groupId" (invalid-name)
+C: 35, 0: Missing function docstring (missing-docstring)
+C: 38, 0: Invalid function name "removeMembersFromGroup" (invalid-name)
+C: 38, 0: Invalid argument name "groupId" (invalid-name)
+C: 38, 0: Invalid argument name "memberIds" (invalid-name)
+C: 38, 0: Missing function docstring (missing-docstring)
+C: 41, 0: Invalid function name "deleteGroup" (invalid-name)
+C: 41, 0: Invalid argument name "groupId" (invalid-name)
+C: 41, 0: Missing function docstring (missing-docstring)
+C: 44, 0: Invalid function name "getAllGroups" (invalid-name)
+C: 44, 0: Invalid argument name "userId" (invalid-name)
+C: 44, 0: Missing function docstring (missing-docstring)
+C: 47, 0: Invalid function name "createOrder" (invalid-name)
+C: 47, 0: Invalid argument name "groupId" (invalid-name)
+C: 47, 0: Invalid argument name "orderName" (invalid-name)
+C: 47, 0: Invalid argument name "numOfItems" (invalid-name)
+C: 47, 0: Missing function docstring (missing-docstring)
+C: 51, 0: Invalid function name "deleteOrder" (invalid-name)
+C: 51, 0: Invalid argument name "orderId" (invalid-name)
+C: 51, 0: Missing function docstring (missing-docstring)
+C: 55, 0: Invalid function name "createReceipt" (invalid-name)
+C: 55, 0: Invalid argument name "orderId" (invalid-name)
+C: 55, 0: Invalid argument name "receiptPath" (invalid-name)
+C: 55, 0: Invalid argument name "ReceiptIdx" (invalid-name)
+C: 55, 0: Missing function docstring (missing-docstring)
+C: 59, 0: Invalid function name "deleteReceipt" (invalid-name)
+C: 59, 0: Invalid argument name "orderId" (invalid-name)
+C: 59, 0: Invalid argument name "receiptIdx" (invalid-name)
+C: 59, 0: Missing function docstring (missing-docstring)
+C: 63, 0: Invalid function name "createItem" (invalid-name)
+C: 63, 0: Invalid argument name "itemName" (invalid-name)
+C: 63, 0: Invalid argument name "leftAmount" (invalid-name)
+C: 63, 0: Invalid argument name "orderId" (invalid-name)
+C: 63, 0: Missing function docstring (missing-docstring)
+C: 67, 0: Invalid function name "deleteItem" (invalid-name)
+C: 67, 0: Invalid argument name "itemId" (invalid-name)
+C: 67, 0: Missing function docstring (missing-docstring)
+C: 71, 0: Invalid function name "modifyItemName" (invalid-name)
+C: 71, 0: Invalid argument name "itemId" (invalid-name)
+C: 71, 0: Invalid argument name "itemName" (invalid-name)
+C: 71, 0: Missing function docstring (missing-docstring)
+C: 75, 0: Invalid function name "modifyItemAmount" (invalid-name)
+C: 75, 0: Invalid argument name "itemId" (invalid-name)
+C: 75, 0: Invalid argument name "itemAmount" (invalid-name)
+C: 75, 0: Missing function docstring (missing-docstring)
+C: 79, 0: Invalid function name "createAllocation" (invalid-name)
+C: 79, 0: Invalid argument name "userId" (invalid-name)
+C: 79, 0: Invalid argument name "itemId" (invalid-name)
+C: 79, 0: Invalid argument name "alloAmount" (invalid-name)
+C: 79, 0: Missing function docstring (missing-docstring)
+C: 83, 0: Invalid function name "deleteAllocation" (invalid-name)
+C: 83, 0: Invalid argument name "alloId" (invalid-name)
+C: 83, 0: Missing function docstring (missing-docstring)
+C: 87, 0: Invalid function name "modifyAllocatedAmount" (invalid-name)
+C: 87, 0: Invalid argument name "alloId" (invalid-name)
+C: 87, 0: Invalid argument name "alloAmount" (invalid-name)
+C: 87, 0: Missing function docstring (missing-docstring)
+************* Module db.dbhelper.queries
+C: 63, 0: Trailing whitespace (trailing-whitespace)
+C: 69, 0: Trailing whitespace (trailing-whitespace)
+C: 81, 0: Unnecessary parens after 'return' keyword (superfluous-parens)
+C:  1, 0: Missing module docstring (missing-docstring)
+W:  1, 0: Relative import 'data', should be 'db.dbhelper.data' (relative-import)
+E:  2, 0: Unable to import 'pymysql' (import-error)
+W:  3, 0: Relative import 'connection', should be 'db.dbhelper.connection' (relative-import)
+C:  6, 0: Invalid function name "runQuery" (invalid-name)
+C:  6, 0: Invalid argument name "db" (invalid-name)
+C:  6, 0: Missing function docstring (missing-docstring)
+C:  7, 4: Invalid variable name "cw" (invalid-name)
+C: 23, 0: Invalid function name "createTestingDB" (invalid-name)
+C: 23, 0: Missing function docstring (missing-docstring)
+C: 28, 0: Invalid function name "dropTestingDB" (invalid-name)
+C: 28, 0: Missing function docstring (missing-docstring)
+C: 33, 0: Invalid function name "createTables" (invalid-name)
+C: 33, 0: Missing function docstring (missing-docstring)
+C: 46, 0: Invalid function name "selectInfoByConditions" (invalid-name)
+C: 46, 0: Invalid argument name "tableName" (invalid-name)
+C: 46, 0: Missing function docstring (missing-docstring)
+C: 48, 7: Comparison to None should be 'expr is None' (singleton-comparison)
+C: 48,31: Comparison to None should be 'expr is None' (singleton-comparison)
+C: 59, 0: Invalid function name "searchInfoByConditions" (invalid-name)
+C: 59, 0: Invalid argument name "tableName" (invalid-name)
+C: 59, 0: Missing function docstring (missing-docstring)
+C: 61, 7: Comparison to None should be 'expr is None' (singleton-comparison)
+C: 61,31: Comparison to None should be 'expr is None' (singleton-comparison)
+C: 72, 0: Invalid function name "selectAllByConditions" (invalid-name)
+C: 72, 0: Invalid argument name "tableName" (invalid-name)
+C: 72, 0: Missing function docstring (missing-docstring)
+C: 76, 0: Invalid function name "getNumOfRecordByConditions" (invalid-name)
+C: 76, 0: Invalid argument name "tableName" (invalid-name)
+C: 76, 0: Missing function docstring (missing-docstring)
+C: 80, 0: Invalid function name "checkRecordExistByConditions" (invalid-name)
+C: 80, 0: Invalid argument name "tableName" (invalid-name)
+C: 80, 0: Missing function docstring (missing-docstring)
+C: 84, 0: Invalid function name "deleteRecordByCondition" (invalid-name)
+C: 84, 0: Invalid argument name "tableName" (invalid-name)
+C: 84, 0: Missing function docstring (missing-docstring)
+C: 92, 0: Invalid function name "insertRecordTo" (invalid-name)
+C: 92, 0: Invalid argument name "tableName" (invalid-name)
+C: 92, 0: Missing function docstring (missing-docstring)
+C: 98, 0: Invalid function name "updateRecordByConditions" (invalid-name)
+C: 98, 0: Invalid argument name "tableName" (invalid-name)
+C: 98, 0: Missing function docstring (missing-docstring)
+C:108, 0: Invalid function name "getValsByKey" (invalid-name)
+C:108, 0: Missing function docstring (missing-docstring)
+C:113, 4: Consider using enumerate instead of iterating with range and len (consider-using-enumerate)
+W:  2, 0: Unused import pymysql (unused-import)
+C:  3, 0: Imports from package db are not grouped (ungrouped-imports)
+************* Module db.dbhelper.userutils
+C: 41, 0: Line too long (136/100) (line-too-long)
+C: 50, 0: Line too long (140/100) (line-too-long)
+C: 60, 0: Wrong hanging indentation before block (add 4 spaces).
+            "Users", "(user_name, user_pwd)",
+            ^   | (bad-continuation)
+C: 61, 0: Wrong hanging indentation before block (add 4 spaces).
+            (username, userpwd), "(%s, %s)",
+            ^   | (bad-continuation)
+C: 88, 0: Unnecessary parens after 'if' keyword (superfluous-parens)
+C: 89, 0: Unnecessary parens after 'print' keyword (superfluous-parens)
+C:114, 0: Unnecessary parens after 'if' keyword (superfluous-parens)
+C:122, 0: Trailing whitespace (trailing-whitespace)
+C:132, 0: Trailing whitespace (trailing-whitespace)
+C:137, 0: Trailing whitespace (trailing-whitespace)
+W:141, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+C:141, 0: Unnecessary parens after 'print' keyword (superfluous-parens)
+C:145, 0: Line too long (131/100) (line-too-long)
+C:149, 0: Line too long (129/100) (line-too-long)
+C:208, 0: Unnecessary parens after 'if' keyword (superfluous-parens)
+C:220, 0: Unnecessary parens after 'if' keyword (superfluous-parens)
+C:  1, 0: Missing module docstring (missing-docstring)
+W:  1, 0: Relative import 'queries', should be 'db.dbhelper.queries' (relative-import)
+C:  4, 0: Invalid function name "usernameExists" (invalid-name)
+C:  4, 0: Missing function docstring (missing-docstring)
+C:  8, 0: Invalid function name "groupExists" (invalid-name)
+C:  8, 0: Invalid argument name "groupId" (invalid-name)
+C:  8, 0: Missing function docstring (missing-docstring)
+C: 12, 0: Invalid function name "groupNameExists" (invalid-name)
+C: 12, 0: Invalid argument name "groupName" (invalid-name)
+C: 12, 0: Missing function docstring (missing-docstring)
+C: 16, 0: Invalid function name "userInGroup" (invalid-name)
+C: 16, 0: Invalid argument name "groupId" (invalid-name)
+C: 16, 0: Invalid argument name "userId" (invalid-name)
+C: 16, 0: Missing function docstring (missing-docstring)
+C: 22, 0: Invalid function name "createEmptyGroup" (invalid-name)
+C: 22, 0: Invalid argument name "groupName" (invalid-name)
+C: 22, 0: Invalid argument name "ownerId" (invalid-name)
+C: 22, 0: Missing function docstring (missing-docstring)
+C: 24, 8: Invalid variable name "groupId" (invalid-name)
+C: 32, 0: Invalid function name "createGroupWithMembers" (invalid-name)
+C: 32, 0: Invalid argument name "groupName" (invalid-name)
+C: 32, 0: Invalid argument name "ownerId" (invalid-name)
+C: 32, 0: Invalid argument name "memberIds" (invalid-name)
+C: 32, 0: Missing function docstring (missing-docstring)
+C: 33, 4: Invalid variable name "groupId" (invalid-name)
+C: 39, 0: Invalid function name "getAllGroups" (invalid-name)
+C: 39, 0: Invalid argument name "userId" (invalid-name)
+C: 39, 0: Missing function docstring (missing-docstring)
+C: 48, 0: Invalid function name "getAllMembersByGroupId" (invalid-name)
+C: 48, 0: Invalid argument name "groupId" (invalid-name)
+C: 48, 0: Missing function docstring (missing-docstring)
+C: 57, 0: Invalid function name "createUser" (invalid-name)
+C: 57, 0: Missing function docstring (missing-docstring)
+C: 67, 0: Invalid function name "createGroup" (invalid-name)
+C: 67, 0: Invalid argument name "gName" (invalid-name)
+C: 67, 0: Invalid argument name "ownerId" (invalid-name)
+C: 67, 0: Missing function docstring (missing-docstring)
+C: 76, 0: Invalid function name "addMembersToGroup" (invalid-name)
+C: 76, 0: Invalid argument name "groupId" (invalid-name)
+C: 76, 0: Invalid argument name "memberIds" (invalid-name)
+C: 76, 0: Missing function docstring (missing-docstring)
+C: 82, 0: Invalid function name "insertMemberToGroup" (invalid-name)
+C: 82, 0: Invalid argument name "groupId" (invalid-name)
+C: 82, 0: Invalid argument name "memberId" (invalid-name)
+C: 82, 0: Missing function docstring (missing-docstring)
+C: 98, 0: Invalid function name "insertMembersToGroup" (invalid-name)
+C: 98, 0: Invalid argument name "groupId" (invalid-name)
+C: 98, 0: Invalid argument name "memberIds" (invalid-name)
+C: 98, 0: Missing function docstring (missing-docstring)
+C: 99, 7: Using type() instead of isinstance() for a typecheck. (unidiomatic-typecheck)
+C:102, 8: Consider using enumerate instead of iterating with range and len (consider-using-enumerate)
+C:108, 0: Invalid function name "getUserIdByUsername" (invalid-name)
+C:108, 0: Missing function docstring (missing-docstring)
+C:120, 0: Invalid function name "addFriend" (invalid-name)
+C:120, 0: Missing function docstring (missing-docstring)
+C:155, 0: Invalid function name "removeFriend" (invalid-name)
+C:155, 0: Missing function docstring (missing-docstring)
+C:178, 0: Invalid function name "searchUserByKeyword" (invalid-name)
+C:178, 0: Missing function docstring (missing-docstring)
+C:187, 0: Invalid function name "getAllFriends" (invalid-name)
+C:187, 0: Invalid argument name "userId" (invalid-name)
+C:187, 0: Missing function docstring (missing-docstring)
+C:202, 0: Invalid function name "getUserIdByAuthentication" (invalid-name)
+C:202, 0: Missing function docstring (missing-docstring)
+C:214, 0: Invalid function name "getGroupIdBygName" (invalid-name)
+C:214, 0: Invalid argument name "gName" (invalid-name)
+C:214, 0: Missing function docstring (missing-docstring)
+C:226, 0: Invalid function name "deleteUserByUserId" (invalid-name)
+C:226, 0: Invalid argument name "userId" (invalid-name)
+C:226, 0: Missing function docstring (missing-docstring)
+C:230, 0: Invalid function name "deleteGroup" (invalid-name)
+C:230, 0: Invalid argument name "groupId" (invalid-name)
+C:230, 0: Missing function docstring (missing-docstring)
+C:237, 0: Invalid function name "deleteGroupById" (invalid-name)
+C:237, 0: Invalid argument name "groupId" (invalid-name)
+C:237, 0: Missing function docstring (missing-docstring)
+C:244, 0: Invalid function name "removeMemberFromGroupById" (invalid-name)
+C:244, 0: Invalid argument name "groupId" (invalid-name)
+C:244, 0: Invalid argument name "memberId" (invalid-name)
+C:244, 0: Missing function docstring (missing-docstring)
+C:254, 0: Invalid function name "removeMembersFromGroupByIds" (invalid-name)
+C:254, 0: Invalid argument name "groupId" (invalid-name)
+C:254, 0: Invalid argument name "memberIds" (invalid-name)
+C:254, 0: Missing function docstring (missing-docstring)
+C:255, 7: Using type() instead of isinstance() for a typecheck. (unidiomatic-typecheck)
+C:258, 8: Consider using enumerate instead of iterating with range and len (consider-using-enumerate)
+C:264, 0: Invalid function name "getAllMemberIds" (invalid-name)
+C:264, 0: Invalid argument name "groupId" (invalid-name)
+C:264, 0: Missing function docstring (missing-docstring)
+C:273, 0: Invalid function name "removeAllMembersFromGroup" (invalid-name)
+C:273, 0: Invalid argument name "groupId" (invalid-name)
+C:273, 0: Missing function docstring (missing-docstring)
+************* Module db.dbhelper.orderutils
+C: 38, 0: Unnecessary parens after 'not' keyword (superfluous-parens)
+C: 42, 0: Wrong hanging indentation before block (add 4 spaces).
+        "OrderReceipts", "(order_id, receipt_idx, "
+        ^   | (bad-continuation)
+C: 43, 0: Wrong hanging indentation before block.
+        "receipt_path)", (orderId, receiptIdx, receiptPath), "(%s, %s, %s)",
+        ^   |            | (bad-continuation)
+C:120, 0: Wrong hanging indentation before block (add 4 spaces).
+        "Allocations", "(item_id, user_id, allo_amount)",
+        ^   | (bad-continuation)
+C:121, 0: Wrong hanging indentation before block (add 4 spaces).
+        (str(itemId), str(userId), str(alloAmount)), "(%s, %s, %s)",
+        ^   | (bad-continuation)
+C:170, 0: Wrong hanging indentation before block (add 4 spaces).
+        "Allocations", "allo_amount = '%s'",
+        ^   | (bad-continuation)
+C:171, 0: Wrong hanging indentation before block (add 4 spaces).
+        "allo_id = '%s'", (alloAmount, alloId),
+        ^   | (bad-continuation)
+C:  1, 0: Missing module docstring (missing-docstring)
+W:  1, 0: Relative import 'data', should be 'db.dbhelper.data' (relative-import)
+W:  2, 0: Relative import 'queries', should be 'db.dbhelper.queries' (relative-import)
+C:  5, 0: Invalid function name "orderExists" (invalid-name)
+C:  5, 0: Invalid argument name "orderId" (invalid-name)
+C:  5, 0: Missing function docstring (missing-docstring)
+C:  9, 0: Invalid function name "itemExists" (invalid-name)
+C:  9, 0: Invalid argument name "itemId" (invalid-name)
+C:  9, 0: Missing function docstring (missing-docstring)
+C: 13, 0: Invalid function name "allocationExists" (invalid-name)
+C: 13, 0: Invalid argument name "alloId" (invalid-name)
+C: 13, 0: Missing function docstring (missing-docstring)
+C: 17, 0: Invalid function name "createOrder" (invalid-name)
+C: 17, 0: Invalid argument name "groupId" (invalid-name)
+C: 17, 0: Invalid argument name "orderName" (invalid-name)
+C: 17, 0: Invalid argument name "numOfItems" (invalid-name)
+C: 17, 0: Missing function docstring (missing-docstring)
+C: 33, 0: Invalid function name "deleteOrderById" (invalid-name)
+C: 33, 0: Invalid argument name "orderId" (invalid-name)
+C: 33, 0: Missing function docstring (missing-docstring)
+C: 37, 0: Invalid function name "createReceipt" (invalid-name)
+C: 37, 0: Invalid argument name "orderId" (invalid-name)
+C: 37, 0: Invalid argument name "receiptPath" (invalid-name)
+C: 37, 0: Invalid argument name "receiptIdx" (invalid-name)
+C: 37, 0: Missing function docstring (missing-docstring)
+C: 50, 0: Invalid function name "deleteReceipt" (invalid-name)
+C: 50, 0: Invalid argument name "orderId" (invalid-name)
+C: 50, 0: Invalid argument name "receiptIdx" (invalid-name)
+C: 50, 0: Missing function docstring (missing-docstring)
+C: 57, 0: Invalid function name "createItem" (invalid-name)
+C: 57, 0: Invalid argument name "itemName" (invalid-name)
+C: 57, 0: Invalid argument name "leftAmount" (invalid-name)
+C: 57, 0: Invalid argument name "orderId" (invalid-name)
+C: 57, 0: Missing function docstring (missing-docstring)
+C: 72, 0: Invalid function name "deleteItemById" (invalid-name)
+C: 72, 0: Invalid argument name "itemId" (invalid-name)
+C: 72, 0: Missing function docstring (missing-docstring)
+C: 76, 0: Invalid function name "modifyItemName" (invalid-name)
+C: 76, 0: Invalid argument name "itemId" (invalid-name)
+C: 76, 0: Invalid argument name "itemName" (invalid-name)
+C: 76, 0: Missing function docstring (missing-docstring)
+C: 85, 0: Invalid function name "modifyItemAmount" (invalid-name)
+C: 85, 0: Invalid argument name "itemId" (invalid-name)
+C: 85, 0: Invalid argument name "itemAmount" (invalid-name)
+C: 85, 0: Missing function docstring (missing-docstring)
+C: 96, 0: Invalid function name "deductItemAmount" (invalid-name)
+C: 96, 0: Invalid argument name "itemId" (invalid-name)
+C: 96, 0: Missing function docstring (missing-docstring)
+C: 98, 4: Invalid variable name "prevAmount" (invalid-name)
+C:105, 0: Invalid function name "createAllocation" (invalid-name)
+C:105, 0: Invalid argument name "userId" (invalid-name)
+C:105, 0: Invalid argument name "itemId" (invalid-name)
+C:105, 0: Invalid argument name "alloAmount" (invalid-name)
+C:105, 0: Missing function docstring (missing-docstring)
+C:109, 4: Invalid variable name "leftAmount" (invalid-name)
+C:131, 0: Invalid function name "deleteAllocation" (invalid-name)
+C:131, 0: Invalid argument name "alloId" (invalid-name)
+C:131, 0: Missing function docstring (missing-docstring)
+C:138, 4: Invalid variable name "itemId" (invalid-name)
+C:139, 4: Invalid variable name "alloAmount" (invalid-name)
+C:140, 4: Invalid variable name "curAmount" (invalid-name)
+C:150, 0: Invalid function name "modifyAllocatedAmount" (invalid-name)
+C:150, 0: Invalid argument name "alloId" (invalid-name)
+C:150, 0: Invalid argument name "alloAmount" (invalid-name)
+C:150, 0: Missing function docstring (missing-docstring)
+C:157, 4: Invalid variable name "itemId" (invalid-name)
+C:158, 4: Invalid variable name "curAllo" (invalid-name)
+C:159, 4: Invalid variable name "curAmount" (invalid-name)
+C:164, 4: Invalid variable name "recoverAmount" (invalid-name)
+************* Module db.dbhelper.data
+C:  1, 0: Missing module docstring (missing-docstring)
+E:  1, 0: Unable to import 'pymysql.cursors' (import-error)
+************* Module db.dbhelper.connection
+C:  8, 0: Wrong hanging indentation before block (add 4 spaces).
+        self, db, hostname=data.HOSTNAME, user=data.USER,
+        ^   | (bad-continuation)
+C:  9, 0: Wrong hanging indentation before block (add 4 spaces).
+        password=data.PASSWORD, charset=data.CHARSET,
+        ^   | (bad-continuation)
+C: 24, 0: Unnecessary parens after 'return' keyword (superfluous-parens)
+C:  1, 0: Missing module docstring (missing-docstring)
+W:  1, 0: Relative import 'data', should be 'db.dbhelper.data' (relative-import)
+E:  2, 0: Unable to import 'pymysql' (import-error)
+C:  5, 0: Missing class docstring (missing-docstring)
+C:  5, 0: Old-style class defined. (old-style-class)
+C:  7, 4: Invalid argument name "db" (invalid-name)
+R:  7, 4: Too many arguments (6/5) (too-many-arguments)
+C: 18, 4: Missing method docstring (missing-docstring)
+C: 23, 4: Invalid method name "isOn" (invalid-name)
+C: 23, 4: Missing method docstring (missing-docstring)
+C: 26, 4: Missing method docstring (missing-docstring)
+C: 29, 4: Invalid method name "getCursor" (invalid-name)
+C: 29, 4: Missing method docstring (missing-docstring)
+************* Module db.dbhelper.tests
+C:  1, 0: Missing module docstring (missing-docstring)
+W:  3, 0: Relative import 'functions', should be 'db.dbhelper.functions' (relative-import)
+W:  4, 0: Relative import 'orderutils', should be 'db.dbhelper.orderutils' (relative-import)
+W:  5, 0: Relative import 'queries', should be 'db.dbhelper.queries' (relative-import)
+W:  6, 0: Relative import 'userutils', should be 'db.dbhelper.userutils' (relative-import)
+E:  7, 0: Unable to import 'xmlrunner' (import-error)
+W:  8, 0: Relative import 'connection', should be 'db.dbhelper.connection' (relative-import)
+C: 10, 0: Invalid constant name "create_script" (invalid-name)
+C: 13, 0: Invalid function name "buildTestEnv" (invalid-name)
+C: 13, 0: Missing function docstring (missing-docstring)
+C: 19, 0: Missing class docstring (missing-docstring)
+C: 27, 4: Missing method docstring (missing-docstring)
+C: 44, 4: Missing method docstring (missing-docstring)
+C: 58, 4: Missing method docstring (missing-docstring)
+C: 74, 4: Missing method docstring (missing-docstring)
+C: 88, 4: Missing method docstring (missing-docstring)
+C: 89, 8: Invalid variable name "ownerId" (invalid-name)
+C: 90, 8: Invalid variable name "groupName" (invalid-name)
+C:109, 4: Invalid method name "test_create_empty_group_notexist" (invalid-name)
+C:109, 4: Missing method docstring (missing-docstring)
+C:110, 8: Invalid variable name "ownerId" (invalid-name)
+C:111, 8: Invalid variable name "groupName" (invalid-name)
+C:132, 4: Missing method docstring (missing-docstring)
+C:138, 8: Invalid variable name "memberIds" (invalid-name)
+C:139, 8: Invalid variable name "ownerId" (invalid-name)
+C:144, 8: Invalid variable name "groupName" (invalid-name)
+C:147, 8: Invalid variable name "groupId" (invalid-name)
+C:165, 8: Invalid variable name "membersDB" (invalid-name)
+C:169, 4: Missing method docstring (missing-docstring)
+C:173, 8: Invalid variable name "memberIds" (invalid-name)
+C:174, 8: Invalid variable name "removedIds" (invalid-name)
+C:175, 8: Invalid variable name "ownerId" (invalid-name)
+C:180, 8: Invalid variable name "groupName" (invalid-name)
+C:187, 8: Invalid variable name "groupId" (invalid-name)
+C:193, 8: Invalid variable name "membersDB" (invalid-name)
+C:195, 8: Consider using enumerate instead of iterating with range and len (consider-using-enumerate)
+C:200, 4: Missing method docstring (missing-docstring)
+C:204, 8: Invalid variable name "memberIds" (invalid-name)
+C:205, 8: Invalid variable name "ownerId" (invalid-name)
+C:210, 8: Invalid variable name "groupName" (invalid-name)
+C:214, 8: Invalid variable name "groupId" (invalid-name)
+C:229, 4: Missing method docstring (missing-docstring)
+C:230, 8: Invalid variable name "ownerId" (invalid-name)
+C:231, 8: Invalid variable name "groupId" (invalid-name)
+C:233, 8: Invalid variable name "orderName" (invalid-name)
+C:234, 8: Invalid variable name "numOfItems" (invalid-name)
+C:240, 8: Invalid variable name "orderId" (invalid-name)
+W:240, 8: Unused variable 'orderId' (unused-variable)
+C:250, 4: Missing method docstring (missing-docstring)
+C:251, 8: Invalid variable name "ownerId" (invalid-name)
+C:252, 8: Invalid variable name "groupId" (invalid-name)
+C:253, 8: Invalid variable name "orderName" (invalid-name)
+C:254, 8: Invalid variable name "numOfItems" (invalid-name)
+C:255, 8: Invalid variable name "orderId" (invalid-name)
+C:259, 8: Invalid variable name "numOfRecord" (invalid-name)
+C:265, 4: Missing method docstring (missing-docstring)
+C:269, 8: Invalid variable name "groupId" (invalid-name)
+C:270, 8: Invalid variable name "orderId" (invalid-name)
+C:271, 8: Invalid variable name "receiptIdx" (invalid-name)
+C:274, 8: Invalid variable name "numOfRecords" (invalid-name)
+C:280, 4: Missing method docstring (missing-docstring)
+C:283, 8: Invalid variable name "groupId" (invalid-name)
+C:284, 8: Invalid variable name "orderId" (invalid-name)
+C:285, 8: Invalid variable name "receiptIdx" (invalid-name)
+C:290, 8: Invalid variable name "numOfRecords" (invalid-name)
+C:296, 4: Missing method docstring (missing-docstring)
+C:300, 8: Invalid variable name "groupId" (invalid-name)
+C:301, 8: Invalid variable name "orderId" (invalid-name)
+C:303, 8: Invalid variable name "itemName" (invalid-name)
+C:304, 8: Invalid variable name "leftAmount" (invalid-name)
+C:306, 8: Invalid variable name "itemId" (invalid-name)
+C:308, 8: Invalid variable name "numOfRecords" (invalid-name)
+C:316, 4: Missing method docstring (missing-docstring)
+C:317, 8: Invalid variable name "groupId" (invalid-name)
+C:318, 8: Invalid variable name "orderId" (invalid-name)
+C:320, 8: Invalid variable name "itemId" (invalid-name)
+C:323, 8: Invalid variable name "numOfRecords" (invalid-name)
+C:329, 4: Missing method docstring (missing-docstring)
+C:330, 8: Invalid variable name "groupId" (invalid-name)
+C:331, 8: Invalid variable name "orderId" (invalid-name)
+C:333, 8: Invalid variable name "itemOldName" (invalid-name)
+C:334, 8: Invalid variable name "itemNewName" (invalid-name)
+C:336, 8: Invalid variable name "itemId" (invalid-name)
+C:348, 4: Missing method docstring (missing-docstring)
+C:349, 8: Invalid variable name "groupId" (invalid-name)
+C:350, 8: Invalid variable name "orderId" (invalid-name)
+C:352, 8: Invalid variable name "itemPrevAmount" (invalid-name)
+C:353, 8: Invalid variable name "itemCurAmount_valid" (invalid-name)
+C:354, 8: Invalid variable name "itemCurAmount_small" (invalid-name)
+C:355, 8: Invalid variable name "itemCurAmount_Large" (invalid-name)
+C:357, 8: Invalid variable name "itemId" (invalid-name)
+C:395, 4: Missing method docstring (missing-docstring)
+C:403, 8: Invalid variable name "userId" (invalid-name)
+C:404, 8: Invalid variable name "groupId" (invalid-name)
+C:405, 8: Invalid variable name "orderId" (invalid-name)
+C:406, 8: Invalid variable name "oriAmount" (invalid-name)
+C:407, 8: Invalid variable name "itemId" (invalid-name)
+C:409, 8: Invalid variable name "alloAmount" (invalid-name)
+C:425, 8: Invalid variable name "numOfRecords" (invalid-name)
+C:431, 4: Missing method docstring (missing-docstring)
+C:439, 8: Invalid variable name "userId" (invalid-name)
+C:440, 8: Invalid variable name "groupId" (invalid-name)
+C:441, 8: Invalid variable name "orderId" (invalid-name)
+C:442, 8: Invalid variable name "oriAmount" (invalid-name)
+C:443, 8: Invalid variable name "itemId" (invalid-name)
+C:445, 8: Invalid variable name "alloAmount" (invalid-name)
+C:458, 8: Invalid variable name "numOfRecords" (invalid-name)
+C:464, 4: Missing method docstring (missing-docstring)
+C:465, 8: Invalid variable name "userId" (invalid-name)
+C:466, 8: Invalid variable name "groupId" (invalid-name)
+C:467, 8: Invalid variable name "orderId" (invalid-name)
+C:468, 8: Invalid variable name "oriAmount" (invalid-name)
+C:469, 8: Invalid variable name "itemId" (invalid-name)
+C:470, 8: Invalid variable name "alloAmount" (invalid-name)
+C:489, 4: Missing method docstring (missing-docstring)
+C:490, 8: Invalid variable name "userId" (invalid-name)
+C:491, 8: Invalid variable name "groupId" (invalid-name)
+C:492, 8: Invalid variable name "orderId" (invalid-name)
+C:493, 8: Invalid variable name "oriAmount" (invalid-name)
+C:494, 8: Invalid variable name "itemId" (invalid-name)
+C:495, 8: Invalid variable name "prevAlloAmount" (invalid-name)
+C:496, 8: Invalid variable name "curAlloAmount" (invalid-name)
+C:515, 4: Missing method docstring (missing-docstring)
+C:516, 8: Invalid variable name "userId" (invalid-name)
+C:517, 8: Invalid variable name "groupId" (invalid-name)
+C:518, 8: Invalid variable name "orderId" (invalid-name)
+C:519, 8: Invalid variable name "oriAmount" (invalid-name)
+C:520, 8: Invalid variable name "itemId" (invalid-name)
+C:521, 8: Invalid variable name "prevAlloAmount" (invalid-name)
+C:522, 8: Invalid variable name "curAlloAmount" (invalid-name)
+R: 19, 0: Too many public methods (24/20) (too-many-public-methods)
+W:  4, 0: Unused orderutils imported as o (unused-import)
+W:  8, 0: Unused ConnectionWrapper imported from connection (unused-import)
+C:  8, 0: Imports from package db are not grouped (ungrouped-imports)
+
+
+Report
+======
+632 statements analysed.
+
+Statistics by type
+------------------
+
++---------+-------+-----------+-----------+------------+---------+
+|type     |number |old number |difference |%documented |%badname |
++=========+=======+===========+===========+============+=========+
+|module   |9      |9          |=          |22.22       |0.00     |
++---------+-------+-----------+-----------+------------+---------+
+|class    |2      |2          |=          |0.00        |0.00     |
++---------+-------+-----------+-----------+------------+---------+
+|method   |29     |29         |=          |10.34       |10.34    |
++---------+-------+-----------+-----------+------------+---------+
+|function |80     |80         |=          |0.00        |98.75    |
++---------+-------+-----------+-----------+------------+---------+
+
+
+
+External dependencies
+---------------------
+::
+
+    db 
+      \-dbhelper 
+        \-connection (db.dbhelper.tests,db.dbhelper.queries)
+        \-data (db.dbhelper.connection,db.dbhelper.orderutils,db.dbhelper.queries)
+        \-functions (db.dbhelper.tests)
+        \-orderutils (db.dbhelper.functions,db.dbhelper.tests)
+        \-queries (db.dbhelper.tests,db.dbhelper.userutils,db.dbhelper.orderutils)
+        \-userutils (db.dbhelper.functions,db.dbhelper.tests)
+
+
+
+Raw metrics
+-----------
+
++----------+-------+------+---------+-----------+
+|type      |number |%     |previous |difference |
++==========+=======+======+=========+===========+
+|code      |793    |62.89 |793      |=          |
++----------+-------+------+---------+-----------+
+|docstring |132    |10.47 |132      |=          |
++----------+-------+------+---------+-----------+
+|comment   |28     |2.22  |28       |=          |
++----------+-------+------+---------+-----------+
+|empty     |308    |24.43 |308      |=          |
++----------+-------+------+---------+-----------+
+
+
+
+Duplication
+-----------
+
++-------------------------+------+---------+-----------+
+|                         |now   |previous |difference |
++=========================+======+=========+===========+
+|nb duplicated lines      |0     |0        |=          |
++-------------------------+------+---------+-----------+
+|percent duplicated lines |0.000 |0.000    |=          |
++-------------------------+------+---------+-----------+
+
+
+
+Messages by category
+--------------------
+
++-----------+-------+---------+-----------+
+|type       |number |previous |difference |
++===========+=======+=========+===========+
+|convention |448    |448      |=          |
++-----------+-------+---------+-----------+
+|refactor   |2      |2        |=          |
++-----------+-------+---------+-----------+
+|warning    |18     |18       |=          |
++-----------+-------+---------+-----------+
+|error      |5      |5        |=          |
++-----------+-------+---------+-----------+
+
+
+
+% errors / warnings by module
+-----------------------------
+
++-----------------------+------+--------+---------+-----------+
+|module                 |error |warning |refactor |convention |
++=======================+======+========+=========+===========+
+|db.dbhelper.tests      |20.00 |44.44   |50.00    |27.68      |
++-----------------------+------+--------+---------+-----------+
+|db.dbhelper.queries    |20.00 |16.67   |0.00     |10.27      |
++-----------------------+------+--------+---------+-----------+
+|db.dbhelper.connection |20.00 |5.56    |50.00    |2.90       |
++-----------------------+------+--------+---------+-----------+
+|db.dbhelper.data       |20.00 |0.00    |0.00     |0.22       |
++-----------------------+------+--------+---------+-----------+
+|db.query               |20.00 |0.00    |0.00     |0.00       |
++-----------------------+------+--------+---------+-----------+
+|db.dbhelper.userutils  |0.00  |11.11   |0.00     |23.66      |
++-----------------------+------+--------+---------+-----------+
+|db.dbhelper.functions  |0.00  |11.11   |0.00     |18.75      |
++-----------------------+------+--------+---------+-----------+
+|db.dbhelper.orderutils |0.00  |11.11   |0.00     |16.52      |
++-----------------------+------+--------+---------+-----------+
+
+
+
+Messages
+--------
+
++-------------------------+------------+
+|message id               |occurrences |
++=========================+============+
+|invalid-name             |292         |
++-------------------------+------------+
+|missing-docstring        |115         |
++-------------------------+------------+
+|relative-import          |13          |
++-------------------------+------------+
+|bad-continuation         |10          |
++-------------------------+------------+
+|superfluous-parens       |9           |
++-------------------------+------------+
+|trailing-whitespace      |5           |
++-------------------------+------------+
+|singleton-comparison     |4           |
++-------------------------+------------+
+|line-too-long            |4           |
++-------------------------+------------+
+|import-error             |4           |
++-------------------------+------------+
+|consider-using-enumerate |4           |
++-------------------------+------------+
+|unused-import            |3           |
++-------------------------+------------+
+|unidiomatic-typecheck    |2           |
++-------------------------+------------+
+|ungrouped-imports        |2           |
++-------------------------+------------+
+|unused-variable          |1           |
++-------------------------+------------+
+|too-many-public-methods  |1           |
++-------------------------+------------+
+|too-many-arguments       |1           |
++-------------------------+------------+
+|syntax-error             |1           |
++-------------------------+------------+
+|old-style-class          |1           |
++-------------------------+------------+
+|mixed-indentation        |1           |
++-------------------------+------------+
+
+
+
+Global evaluation
+-----------------
+Your code has been rated at 2.20/10 (previous run: 2.20/10, +0.00)
+
