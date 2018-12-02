@@ -14,19 +14,22 @@ class ReceiptListItem extends Component {
     super(props);
 
     this.state = {
-      isModalVisible: false,
       image_url: props.image_url,
       title: props.title,
       balance: props.balance,
       place: props.place,
       time: props.time,
-      status: props.status
+      status: props.status,
+      items: props.items,
+      friends: props.friends
     };
   }
 
   render() {
     return (
-      <TouchableOpacity onPress={this.props.onPress}>
+      <TouchableOpacity
+        onPress={() => this.props.onPressRecord(this.props.index, this.state)}
+      >
         <View style={styles.rowContainer}>
           <Image source={{ uri: this.state.image_url }} style={styles.photo} />
           <View style={{ flex: 1, flexDirection: "column" }}>
@@ -35,7 +38,7 @@ class ReceiptListItem extends Component {
                 {this.state.title}
               </Text>
               <Text style={{ fontSize: 16, color: "#000" }}>
-                {this.state.balance}
+                ${this.state.balance.toFixed(2)}
               </Text>
             </View>
             <View style={styles.containerText}>
@@ -71,39 +74,67 @@ export default class ReceiptList extends Component {
     super(props);
 
     this.state = {
-      isModalVisible: false,
       receiptHistory: this.props.receiptHistory
     };
   }
 
-  onClick = () => {
-    this.item.method(); // do stuff
-  };
+  componentDidMount() {
+    this.props.onRef(this);
+  }
+  componentWillUnmount() {
+    this.props.onRef(undefined);
+  }
 
-  launch(receiptData, friendsData) {
+  setReceiptHistory(receiptHistory) {
     this.setState({
-      receiptData: receiptData,
-      friendsData: friendsData
+      receiptHistory: []
     });
+    setTimeout(() => {
+      this.setState({
+        receiptHistory: receiptHistory
+      });
+    }, 0);
   }
 
   render() {
     let content;
+    let keyword = this.props.keyword;
     if (this.state.receiptHistory.length > 0) {
       content = (
         <FlatList
           data={this.state.receiptHistory}
-          renderItem={({ item }) => (
-            <ReceiptListItem
-              onPress={this.props.onPress}
-              image_url={item.image_url}
-              title={item.title}
-              balance={item.balance}
-              place={item.place}
-              time={item.time}
-              status={item.status}
-            />
-          )}
+          extraData={this.state}
+          renderItem={({ item, index }) => {
+            if (keyword.length > 0) {
+              if (
+                !item.title
+                  .toLowerCase()
+                  .includes(this.props.keyword.toLowerCase()) &&
+                !item.place
+                  .toLowerCase()
+                  .includes(this.props.keyword.toLowerCase()) &&
+                !item.status
+                  .toLowerCase()
+                  .includes(this.props.keyword.toLowerCase())
+              )
+                return;
+            }
+            return (
+              ///////////////// DATA DEFINE ///////////////////
+              <ReceiptListItem
+                onPressRecord={this.props.onPressRecord}
+                image_url={item.image_url}
+                title={item.title}
+                balance={item.accumTotal}
+                place={item.place}
+                time={item.time}
+                status={item.status}
+                items={item.items}
+                friends={item.friends}
+                index={index}
+              />
+            );
+          }}
           keyExtractor={(item, index) => index.toString()}
         />
       );
@@ -175,10 +206,8 @@ const styles = StyleSheet.create({
   },
   tagContainer: {
     backgroundColor: "steelblue",
-    paddingLeft: 10,
-    paddingRight: 10,
     borderRadius: 2,
-    width: 70,
+    width: 60,
     alignItems: "center",
     marginTop: 3
   }

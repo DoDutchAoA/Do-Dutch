@@ -1,32 +1,35 @@
 import React, { Component } from "react";
 import { View, StyleSheet, Dimensions, ScrollView } from "react-native";
 import { SearchBar, Text } from "react-native-elements";
-import ReceiptModal from "./receipt/ReceiptModal.js";
-
 import Spinner from "react-native-loading-spinner-overlay";
-
 import ActionButton from "react-native-action-button";
 import Icon from "react-native-vector-icons/Ionicons";
 
 import ReceiptList from "./receipt/ReceiptList.js";
-
-import { loadPhoto } from "./receipt/UploadingTools.js";
-
+import ReceiptModal from "./receipt/ReceiptModal.js";
+import photoTools from "./receipt/UploadingTools.js";
 import {
-  receiptData,
-  friendsData,
+  // receiptData,
+  friendsData1,
   receiptHistory
+  // receiptData
 } from "./receipt/SimulationData";
 
 export default class HomeScreen extends Component {
+  constructor(props) {
+    super(props);
+  }
+
   state = {
     spinner: false,
     isModalVisible: false,
-    receiptHistory: receiptHistory
+    receiptHistory: receiptHistory,
+    searching: false,
+    searchText: ""
   };
 
   selectPhoto = () => {
-    loadPhoto(
+    photoTools.loadPhoto(
       (source, data, spinner) => {
         this.setState({
           imageSource: source,
@@ -34,61 +37,90 @@ export default class HomeScreen extends Component {
           spinner: spinner
         });
       },
-      (receiptData, accumTotal, detectedTotal, timeStamp) => {
+      receiptRecord => {
         this.setState({
-          spinner: false,
-          receiptData: receiptData,
-          accumTotal: accumTotal,
-          detectedTotal: detectedTotal
+          spinner: false
         });
-        this.modal.launch(receiptData, friendsData, () => {
-          let receiptRecord = {
-            title: "Default Name",
-            time: timeStamp,
-            place: "Unknown",
-            balance: "$" + accumTotal.toFixed(2).toString(),
-            image_url: "https://i.imgur.com/UYiroysl.jpg",
-            status: "Pending"
-          };
+        receiptRecord.friends = friendsData1;
+        this.modal.launch(receiptRecord, recordData => {
           let history = this.state.receiptHistory;
-          history.push(receiptRecord);
+          history.push(recordData);
           this.setState({ receiptHistory: history });
+          this.ongoingList.setReceiptHistory(history);
         });
-
-        // this.props.navigation.navigate("Receipt", {
-        //   receipt_items: JSON.parse(resp.data).items,
-        //   receipt_total: JSON.parse(resp.data).accumTotal
-        // });
       }
     );
   };
 
-  toggleModal = () => {
-    this.modal.launch(receiptData, friendsData);
-  };
-
   render() {
+    let list;
+    if (this.state.searchText.length > 0) {
+      list = (
+        <ReceiptList
+          onRef={ref => (this.searchList = ref)}
+          groupTitle="SEARCH RESULT"
+          prompt="All Done!"
+          keyword={this.state.searchText}
+          onPressRecord={(listKey, receiptItemData, setDataCallback) => {
+            this.modal.launch(receiptItemData, recordData => {
+              setDataCallback(recordData);
+            });
+          }}
+          receiptHistory={this.state.receiptHistory}
+        />
+      );
+    } else {
+      list = (
+        <View>
+          <ReceiptList
+            onRef={ref => (this.ongoingList = ref)}
+            groupTitle="ONGOING"
+            prompt="All Done!"
+            keyword=""
+            onPressRecord={(index, receiptItemData) => {
+              this.modal.launch(receiptItemData, recordData => {
+                console.log(recordData);
+                let history = this.state.receiptHistory;
+                history[index] = recordData;
+                this.setState({ receiptHistory: history });
+                this.ongoingList.setReceiptHistory(history);
+              });
+            }}
+            receiptHistory={this.state.receiptHistory}
+          />
+          <ReceiptList
+            onRef={ref => (this.pastList = ref)}
+            groupTitle="PAST"
+            prompt="No Record"
+            keyword=""
+            onPressRecord={(index, receiptItemData) => {
+              this.modal.launch(receiptItemData, recordData => {
+                let history = this.state.receiptHistory;
+                history[index] = recordData;
+                this.setState({ receiptHistory: history });
+                this.pastList.setReceiptHistory(history);
+              });
+            }}
+            receiptHistory={this.state.receiptHistory}
+          />
+        </View>
+      );
+    }
+
     return (
       <View style={styles.container}>
         <SearchBar
           containerStyle={{ backgroundColor: "#fff" }}
           lightTheme
-          placeholder="Search Receipt..."
+          placeholder="Search receipt name, merchant, or status..."
+          onChangeText={text => {
+            this.setState({ searchText: text });
+            if (this.searchList !== undefined && text.length > 0)
+              this.searchList.setReceiptHistory(this.state.receiptHistory);
+          }}
         />
         <ScrollView scrollEnabled={true}>
-          <ReceiptList
-            groupTitle="ONGOING"
-            prompt="All Done!"
-            onPress={this.toggleModal}
-            receiptHistory={receiptHistory}
-          />
-          <ReceiptList
-            groupTitle="PAST"
-            prompt="No Record"
-            onPress={this.toggleModal}
-            receiptHistory={receiptHistory}
-          />
-
+          {list}
           <View style={{ alignItems: "center", margin: 10 }}>
             <Text>End of Receipts</Text>
           </View>
@@ -97,9 +129,8 @@ export default class HomeScreen extends Component {
         <View>
           <ReceiptModal
             onRef={ref => (this.modal = ref)}
-            text="I love to blinkkkk"
-            data={this.state.receiptData}
-            friends={friendsData}
+            data={[]}
+            friends={[]}
           />
         </View>
 
@@ -114,7 +145,7 @@ export default class HomeScreen extends Component {
           <ActionButton.Item
             buttonColor="#9b59b6"
             title="New Photo"
-            onPress={this.selectPhoto.bind(this)}
+            onPress={() => this.selectPhoto()}
           >
             <Icon
               // type="font-awesome"
@@ -122,13 +153,6 @@ export default class HomeScreen extends Component {
               style={styles.actionButtonIcon}
             />
           </ActionButton.Item>
-          {/* <ActionButton.Item
-            buttonColor="#3498db"
-            title="Gallery"
-            onPress={() => this.props.navigation.navigate("Form")}
-          >
-            <Icon name="md-card" style={styles.actionButtonIcon} />
-          </ActionButton.Item> */}
           <ActionButton.Item
             buttonColor="#1abc9c"
             title="Refresh"
@@ -154,7 +178,6 @@ const itemWidth = viewportWidth - 2 * marginLR;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // alignItems: "center",
     backgroundColor: "#ffffff"
   },
   rowContainer: {
@@ -167,7 +190,6 @@ const styles = StyleSheet.create({
     marginBottom: 2,
     borderRadius: 2,
     borderWidth: 0,
-    // backgroundColor: "#FFF",
     elevation: 0.1,
     width: itemWidth
   },

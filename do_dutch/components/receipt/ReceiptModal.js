@@ -13,11 +13,93 @@ import {
   List,
   ListItem,
   Icon,
-  Avatar
+  Avatar,
+  ButtonGroup
 } from "react-native-elements";
 
 import Modal from "react-native-modal";
 import NumericInput from "react-native-numeric-input";
+
+class Title extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isEditable: false,
+      title: props.title,
+      tempText: props.title
+    };
+  }
+
+  changeEditable() {
+    this.setState({ isEditable: !this.state.isEditable });
+  }
+
+  render() {
+    let title;
+    if (!this.state.isEditable) {
+      title = (
+        <TouchableOpacity onPress={() => this.changeEditable()}>
+          <Text style={{ fontSize: 30, fontWeight: "bold" }}>
+            {this.state.title}
+          </Text>
+        </TouchableOpacity>
+      );
+    } else {
+      title = (
+        <View
+          style={{
+            flexDirection: "row"
+          }}
+        >
+          <TextInput
+            value={this.state.tempText}
+            style={{
+              height: 60,
+              marginRight: -50,
+              fontSize: 30,
+              fontWeight: "bold"
+            }}
+            placeholder="Title of receipt"
+            onChangeText={text =>
+              this.setState({
+                tempText: text
+              })
+            }
+          />
+
+          <Icon
+            raised
+            name="check"
+            type="font-awesome"
+            color="#0f0"
+            size={10}
+            onPress={() => {
+              let newTitle = this.state.tempText;
+              this.setState({ title: newTitle });
+              this.props.changeTitleCallback(newTitle);
+              this.changeEditable();
+            }}
+            containerStyle={{ marginRight: 0, marginTop: 20 }}
+          />
+          <Icon
+            raised
+            name="times"
+            type="font-awesome"
+            color="#f00"
+            size={10}
+            onPress={() => {
+              this.setState({ tempText: this.state.title });
+              this.changeEditable();
+            }}
+            containerStyle={{ marginRight: 0, marginTop: 20 }}
+          />
+        </View>
+      );
+    }
+
+    return title;
+  }
+}
 
 class Item extends React.Component {
   constructor(props) {
@@ -26,16 +108,8 @@ class Item extends React.Component {
       isEditable: false,
       data: props.data,
       tempText: props.data.name,
-      amount: 5,
-      total: 5
+      split: true
     };
-  }
-
-  componentDidMount() {
-    this.props.onRef(this);
-  }
-  componentWillUnmount() {
-    this.props.onRef(undefined);
   }
 
   changeEditable() {
@@ -46,10 +120,7 @@ class Item extends React.Component {
     let name;
     if (!this.state.isEditable) {
       name = (
-        <TouchableOpacity
-          // style={{ width: 100, height: 50 }}
-          onPress={() => this.changeEditable()}
-        >
+        <TouchableOpacity onPress={() => this.changeEditable()}>
           <Text>{this.state.data.name}</Text>
         </TouchableOpacity>
       );
@@ -78,9 +149,7 @@ class Item extends React.Component {
             color="#0f0"
             size={10}
             onPress={() => {
-              let _data = this.state.data;
-              _data.name = this.state.tempText;
-              this.setState({ data: _data });
+              this.state.data.name = this.state.tempText;
               this.changeEditable();
             }}
             containerStyle={{ marginRight: 0 }}
@@ -100,6 +169,13 @@ class Item extends React.Component {
       );
     }
 
+    let splitTotal;
+    if (this.state.data.split) {
+      splitTotal = (this.props.data.price / this.props.sharerCount).toFixed(2);
+    } else {
+      splitTotal = this.props.data.price.toFixed(2);
+    }
+
     return (
       <ListItem
         leftIcon={
@@ -117,10 +193,32 @@ class Item extends React.Component {
         badge={{
           element: (
             <View style={{ flexDirection: "row" }}>
-              <Text style={{ marginTop: 5, marginRight: 10 }}>
-                ${this.state.total}
+              <Text style={{ marginTop: 5, marginRight: 5 }}>$</Text>
+              <Text style={{ marginTop: 5, marginRight: 1 }}>{splitTotal}</Text>
+              <Text
+                style={{
+                  color: "#aaa",
+                  marginTop: 10,
+                  marginRight: 1,
+                  fontSize: 10
+                }}
+              >
+                {"/" + this.props.data.price.toFixed(2)}
               </Text>
-              <NumericInput
+              <ButtonGroup
+                onPress={index => {
+                  let data = this.state.data;
+                  data.split = index == 0;
+                  this.setState({ data: data });
+                  this.props.updateReceipt(this.state.data);
+                }}
+                selectedIndex={this.state.data.split ? 0 : 1}
+                buttons={["Split", "All"]}
+                textStyle={{ fontSize: 12 }}
+                containerStyle={{ height: 20, width: 70, marginRight: -10 }}
+                selectedButtonStyle={{ backgroundColor: "#a5d6a7" }}
+              />
+              {/* <NumericInput
                 rounded
                 type="up-down"
                 initValue={this.state.amount}
@@ -136,7 +234,7 @@ class Item extends React.Component {
                 upDownButtonsBackgroundColor="#aecdc2"
                 rightButtonBackgroundColor="#aecdc2"
                 leftButtonBackgroundColor="#f0b8b8"
-              />
+              /> */}
             </View>
           )
         }}
@@ -150,20 +248,12 @@ export default class ReceiptModal extends Component {
     super(props);
     this.state = {
       isModalVisible: false,
-      friendsData: [
-        {
-          name: "Amy Farha",
-          avatar:
-            "https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg",
-          selected: false
-        }
-      ],
-      receiptData: [
-        {
-          name: "name",
-          icon: "file"
-        }
-      ]
+      sharerCount: 0,
+      friends: [],
+      receiptData: [],
+      confirmCallback: () => {},
+      total: 0,
+      image_url: ""
     };
   }
 
@@ -178,22 +268,39 @@ export default class ReceiptModal extends Component {
     this.props.onRef(undefined);
   }
 
-  launch(receiptData, friendsData, confirmCallback) {
+  calculateTotal(receiptData, sharerCount) {
+    total = 0;
+    for (index in receiptData) {
+      if (receiptData[index].split) {
+        total += receiptData[index].price / sharerCount;
+      } else {
+        total += receiptData[index].price;
+      }
+    }
+    this.setState({ total: total });
+  }
+
+  launch(receiptRecord, confirmCallback) {
+    let sharerCount = 1;
+    for (i in receiptRecord.friends) {
+      if (receiptRecord.friends[i].selected) sharerCount++;
+    }
     this.setState({
       isModalVisible: true,
-      receiptData: receiptData,
-      friendsData: friendsData,
+      title: receiptRecord.title,
+      time: receiptRecord.time,
+      receiptData: receiptRecord.items,
+      image_url: receiptRecord.image_url,
+      friends: receiptRecord.friends,
+      sharerCount: sharerCount,
       confirmCallback: confirmCallback
     });
+    this.calculateTotal(receiptRecord.items, sharerCount);
   }
 
   render() {
     return (
-      <Modal
-        isVisible={this.state.isModalVisible}
-        // onSwipe={() => this.setState({ isModalVisible: false })}
-        // swipeDirection="down"
-      >
+      <Modal isVisible={this.state.isModalVisible}>
         <ScrollView
           contentContainerStyle={styles.modalContent}
           scrollEnabled={true}
@@ -205,10 +312,18 @@ export default class ReceiptModal extends Component {
               marginBottom: -40
             }}
           >
-            <Text style={{ fontSize: 80, color: "#e1e1e1" }}>NOV 16</Text>
+            <Text style={{ fontSize: 80, color: "#e1e1e1" }}>
+              {this.state.time}
+            </Text>
           </View>
 
-          <Text style={{ fontSize: 30, fontWeight: "bold" }}>Receipt</Text>
+          <Title
+            title={this.state.title}
+            changeTitleCallback={title => {
+              this.setState({ title: title });
+            }}
+          />
+
           <Text style={{ fontSize: 15, fontWeight: "bold" }}>Friends</Text>
           <ScrollView
             horizontal={true}
@@ -216,7 +331,7 @@ export default class ReceiptModal extends Component {
             contentContainerStyle={styles.modalContent}
             style={{ height: 110 }}
           >
-            {this.state.friendsData.map((l, index) => {
+            {this.state.friends.map((l, index) => {
               l.key = index.toString();
               let opacity = l.selected ? 1.0 : 0.3;
               let icon = l.selected ? (
@@ -240,6 +355,7 @@ export default class ReceiptModal extends Component {
                     alignItems: "center",
                     marginRight: 10
                   }}
+                  key={index.toString()}
                 >
                   <Avatar
                     medium
@@ -248,9 +364,16 @@ export default class ReceiptModal extends Component {
                       uri: l.avatar
                     }}
                     onPress={() => {
-                      let friends = this.state.friendsData;
+                      let friends = this.state.friends;
                       friends[index].selected = !friends[index].selected;
-                      this.setState({ friends: friends });
+                      let sharerCount = this.state.sharerCount;
+                      if (friends[index].selected) sharerCount += 1;
+                      else sharerCount -= 1;
+                      this.setState({
+                        friends: friends,
+                        sharerCount: sharerCount
+                      });
+                      this.calculateTotal(this.state.receiptData, sharerCount);
                     }}
                     activeOpacity={0.7}
                     avatarStyle={{ opacity: opacity, backgroundColor: "#fff" }}
@@ -275,8 +398,18 @@ export default class ReceiptModal extends Component {
             My Choice
           </Text>
           <List containerStyle={{ marginBottom: 20 }}>
-            {this.state.receiptData.map(l => (
-              <Item onRef={ref => (this.item = ref)} data={l} />
+            {this.state.receiptData.map((l, index) => (
+              <Item
+                data={l}
+                key={index.toString()}
+                sharerCount={this.state.sharerCount}
+                updateReceipt={receipt => {
+                  let receiptData = this.state.receiptData;
+                  receiptData[index] = receipt;
+                  this.setState({ receiptData: receiptData });
+                  this.calculateTotal(receiptData, this.state.sharerCount);
+                }}
+              />
             ))}
           </List>
           <View
@@ -299,7 +432,9 @@ export default class ReceiptModal extends Component {
             <Text style={{ marginRight: 5, fontWeight: "bold", marginTop: 2 }}>
               Total:
             </Text>
-            <Text style={{ fontSize: 20, fontWeight: "bold" }}>$50.00</Text>
+            <Text style={{ fontSize: 20, fontWeight: "bold" }}>
+              {"$" + this.state.total.toFixed(2)}
+            </Text>
           </View>
           <View style={styles.modalBtnContainer}>
             <Button
@@ -309,6 +444,9 @@ export default class ReceiptModal extends Component {
               backgroundColor="rgba(0, 0, 0, 0.0)"
               fontSize={15}
               buttonStyle={styles.modalBtn}
+              onPress={() => {
+                this.setState({ isModalVisible: false });
+              }}
             />
             <Button
               rounded
@@ -318,7 +456,17 @@ export default class ReceiptModal extends Component {
               fontSize={15}
               buttonStyle={styles.modalBtn}
               onPress={() => {
-                this.state.confirmCallback();
+                this.state.confirmCallback({
+                  accumTotal: this.state.total,
+                  detectedTotal: "$114.58",
+                  image_url: this.state.image_url,
+                  items: this.state.receiptData,
+                  place: "Unknown",
+                  status: "Pending",
+                  time: this.state.time,
+                  title: this.state.title,
+                  friends: this.state.friends
+                });
                 this.setState({ isModalVisible: false });
               }}
             />

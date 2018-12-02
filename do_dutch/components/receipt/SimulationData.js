@@ -3,7 +3,31 @@ export const receiptData = [
   { name: "apple", icon: "file" }
 ];
 
-export const friendsData = [
+export const friendsData1 = [
+  {
+    name: "Amy Farha",
+    avatar: "https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg",
+    selected: false
+  },
+  {
+    name: "Chris Jackson",
+    avatar: "https://s3.amazonaws.com/uifaces/faces/twitter/kfriedson/128.jpg",
+    selected: true
+  },
+  {
+    name: "Amy Farha",
+    avatar: "https://s3.amazonaws.com/uifaces/faces/twitter/brynn/128.jpg",
+    selected: false
+  },
+  {
+    name: "Chris Jackson",
+    avatar:
+      "https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg",
+    selected: true
+  }
+];
+
+export const friendsData2 = [
   {
     name: "Amy Farha",
     avatar: "https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg",
@@ -29,35 +53,61 @@ export const friendsData = [
 
 export const receiptHistory = [
   {
-    title: "Beautiful",
-    time: "Today 15:33",
+    title: "Receipt 1",
+    time: "DEC 1",
     place: "HMart",
-    balance: "$10.20",
     image_url: "https://i.imgur.com/UYiroysl.jpg",
-    status: "Pending"
+    status: "Pending",
+    items: [
+      {
+        icon: "file",
+        name: "display",
+        price: 8.0,
+        split: true
+      },
+      {
+        icon: "file",
+        name: "display",
+        price: 5.0,
+        split: true
+      }
+    ],
+    accumTotal: 0.0,
+    detectedTotal: 0.0,
+    friends: friendsData1
   },
   {
-    title: "NYC",
-    time: "Nov 13, 10:20",
+    title: "Receipt 2",
+    time: "NOV 30",
     place: "ACME",
-    balance: "$20.40",
     image_url: "https://i.imgur.com/UPrs1EWl.jpg",
-    status: "Pending"
+    status: "Pending",
+    items: [
+      {
+        icon: "file",
+        name: "display",
+        price: 8.0,
+        split: true
+      },
+      {
+        icon: "file",
+        name: "display",
+        price: 5.0,
+        split: true
+      }
+    ],
+    accumTotal: 10.55,
+    detectedTotal: 10.67,
+    friends: friendsData2
   },
   {
-    title: "White",
-    time: "Oct 08 09:28",
+    title: "Receipt 3",
+    time: "NOV 25",
     place: "Walmart",
-    balance: "$30.60",
     image_url: "https://i.imgur.com/MABUbpDl.jpg",
-    status: "Pending"
-  },
-  {
-    title: "White",
-    time: "Oct 08 09:28",
-    place: "Walmart",
-    balance: "$30.60",
-    image_url: "https://i.imgur.com/MABUbpDl.jpg",
-    status: "Pending"
+    status: "Pending",
+    items: [],
+    accumTotal: 10.55,
+    detectedTotal: 10.67
   }
 ];
