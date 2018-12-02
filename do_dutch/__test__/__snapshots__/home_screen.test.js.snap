@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Receipt part Clicking on gallery should navigate to gallery  1`] = `
+exports[`Receipt part Clicking on refresh a navigation func should be called  1`] = `
 <View
   style={
     Object {
