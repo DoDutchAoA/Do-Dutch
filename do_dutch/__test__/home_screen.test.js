@@ -1,3 +1,4 @@
+// import 'jsdom-global/register';
 import React from 'react';
 import * as enzyme from 'enzyme';
 import { shallow, mount } from 'enzyme';
@@ -5,7 +6,8 @@ import renderer from 'react-test-renderer';
 
 import ReactSixteenAdapter from 'enzyme-adapter-react-16';
 
-import { HomeScreen, ActionButtonItem} from '../components/home_screen';
+import HomeScreen from '../components/home_screen';
+import ActionButtonItem from '../components/home_screen';
 
 enzyme.configure({ adapter: new ReactSixteenAdapter() });
 
@@ -22,15 +24,15 @@ describe('Receipt part', () => {
     })
 
     it('Custom list view should be rendered', () => {
-        expect(wrapper.find('CustomListview').exists()).toEqual(true);
+        expect(wrapper.find('ReceiptList').exists()).toEqual(true);
     })
 
     it('Action button should be rendered', () => {
         expect(wrapper.find('ActionButton').exists()).toEqual(true);
     })
 
-    it('3 action buttons should be rendered', () => {   //tag name?
-        expect(wrapper.find('ActionButtonItem')).toHaveLength(3);
+    it('3 action buttons should be rendered', () => {
+        expect(wrapper.find('ActionButtonItem')).toHaveLength(2);
     })
 
     it('Clicking on refresh should stay ', () => {
