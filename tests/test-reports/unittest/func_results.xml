@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<testsuite errors="0" failures="0" name="TestFunctions-20181203154122" tests="11" time="1.746">
+	<testcase classname="TestFunctions" name="test_add_friend" time="0.203"/>
+	<testcase classname="TestFunctions" name="test_add_friend_non_exist_friend" time="0.151"/>
+	<testcase classname="TestFunctions" name="test_create_empty_group" time="0.158"/>
+	<testcase classname="TestFunctions" name="test_create_empty_group_exist_name" time="0.158"/>
+	<testcase classname="TestFunctions" name="test_create_group_with_members" time="0.174"/>
+	<testcase classname="TestFunctions" name="test_create_group_with_members_zero_member" time="0.156"/>
+	<testcase classname="TestFunctions" name="test_delete_group_non_exist_group" time="0.141"/>
+	<testcase classname="TestFunctions" name="test_remove_friend" time="0.159"/>
+	<testcase classname="TestFunctions" name="test_remove_friend_non_exist_user" time="0.147"/>
+	<testcase classname="TestFunctions" name="test_remove_friend_not_friend" time="0.148"/>
+	<testcase classname="TestFunctions" name="test_search_friend" time="0.152"/>
+	<system-out>
+<![CDATA[]]>	</system-out>
+	<system-err>
+<![CDATA[/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pymysql/cursors.py:329: Warning: (1008, "Can't drop database 'testtest'; database doesn't exist")
+  self._do_get_result()
+]]>	</system-err>
+</testsuite>

@@ -1,27 +1,27 @@
 <?xml version="1.0" ?>
-<testsuite errors="0" failures="0" name="TestDB-20181203023841" tests="22" time="3.337">
-	<testcase classname="TestDB" name="test_create_allocation_invalid" time="0.238"/>
-	<testcase classname="TestDB" name="test_create_allocation_valid" time="0.175"/>
-	<testcase classname="TestDB" name="test_create_empty_group_exist" time="0.141"/>
-	<testcase classname="TestDB" name="test_create_empty_group_notexist" time="0.135"/>
-	<testcase classname="TestDB" name="test_create_group_with_members" time="0.151"/>
-	<testcase classname="TestDB" name="test_create_item" time="0.143"/>
-	<testcase classname="TestDB" name="test_create_order" time="0.136"/>
-	<testcase classname="TestDB" name="test_create_receipt" time="0.141"/>
-	<testcase classname="TestDB" name="test_delete_allocation" time="0.162"/>
-	<testcase classname="TestDB" name="test_delete_group" time="0.152"/>
-	<testcase classname="TestDB" name="test_delete_item" time="0.140"/>
-	<testcase classname="TestDB" name="test_delete_order" time="0.142"/>
-	<testcase classname="TestDB" name="test_delete_receipt" time="0.138"/>
-	<testcase classname="TestDB" name="test_login_exist" time="0.124"/>
-	<testcase classname="TestDB" name="test_login_notexist" time="0.121"/>
-	<testcase classname="TestDB" name="test_modify_allocation_invalid" time="0.156"/>
-	<testcase classname="TestDB" name="test_modify_allocation_valid" time="0.158"/>
-	<testcase classname="TestDB" name="test_modify_item_amount" time="0.160"/>
-	<testcase classname="TestDB" name="test_modify_item_name" time="0.176"/>
-	<testcase classname="TestDB" name="test_remove_members_from_group" time="0.161"/>
-	<testcase classname="TestDB" name="test_sign_up_exist" time="0.142"/>
-	<testcase classname="TestDB" name="test_sign_up_notexist" time="0.146"/>
+<testsuite errors="0" failures="0" name="TestDB-20181203154117" tests="22" time="3.970">
+	<testcase classname="TestDB" name="test_create_allocation_invalid" time="0.258"/>
+	<testcase classname="TestDB" name="test_create_allocation_valid" time="0.197"/>
+	<testcase classname="TestDB" name="test_create_empty_group_exist" time="0.162"/>
+	<testcase classname="TestDB" name="test_create_empty_group_notexist" time="0.163"/>
+	<testcase classname="TestDB" name="test_create_group_with_members" time="0.192"/>
+	<testcase classname="TestDB" name="test_create_item" time="0.178"/>
+	<testcase classname="TestDB" name="test_create_order" time="0.205"/>
+	<testcase classname="TestDB" name="test_create_receipt" time="0.214"/>
+	<testcase classname="TestDB" name="test_delete_allocation" time="0.181"/>
+	<testcase classname="TestDB" name="test_delete_group" time="0.235"/>
+	<testcase classname="TestDB" name="test_delete_item" time="0.178"/>
+	<testcase classname="TestDB" name="test_delete_order" time="0.158"/>
+	<testcase classname="TestDB" name="test_delete_receipt" time="0.188"/>
+	<testcase classname="TestDB" name="test_login_exist" time="0.149"/>
+	<testcase classname="TestDB" name="test_login_notexist" time="0.138"/>
+	<testcase classname="TestDB" name="test_modify_allocation_invalid" time="0.172"/>
+	<testcase classname="TestDB" name="test_modify_allocation_valid" time="0.177"/>
+	<testcase classname="TestDB" name="test_modify_item_amount" time="0.211"/>
+	<testcase classname="TestDB" name="test_modify_item_name" time="0.164"/>
+	<testcase classname="TestDB" name="test_remove_members_from_group" time="0.164"/>
+	<testcase classname="TestDB" name="test_sign_up_exist" time="0.141"/>
+	<testcase classname="TestDB" name="test_sign_up_notexist" time="0.145"/>
 	<system-out>
 <![CDATA[]]>	</system-out>
 	<system-err>
