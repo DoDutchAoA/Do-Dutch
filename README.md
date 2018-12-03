@@ -20,7 +20,11 @@ After the first iteration, tasks were classified into the users-related part and
 
 ### 2. Coverage report
 
-In this iteration, we started to test our Android application, by using Jest and Enzyme. We utilized two different tools to generate the code coverage reports for our database and the Android app part: [coverage.py](https://coverage.readthedocs.io/en/latest/cmd.html) and [jest-sonar-reporter](https://www.npmjs.com/package/jest-sonar-reporter). The test script for the database can be found [here](https://github.com/DoDutchAoA/Do-Dutch/blob/jenkins/database/server/tests.py), and [here](https://github.com/DoDutchAoA/Do-Dutch/tree/jenkins/do_dutch/__test__) for our mobile programming. Two coverage reports (XML version) can be both found [here](https://github.com/DoDutchAoA/Do-Dutch/tree/jenkins/tests/test-reports/coverage). Also, [this](https://github.com/DoDutchAoA/Do-Dutch/blob/jenkins/coverage_local.png) is a script version of coverage report for our React code generated locally. Just in case, the report for unit tests can be found via this [link](https://github.com/DoDutchAoA/Do-Dutch/tree/jenkins/tests/test-reports/unittest).
+In this iteration, we started to test our Android application, by using Jest and Enzyme. We utilized two different tools to generate the code coverage reports for our database and the Android app part: [coverage.py](https://coverage.readthedocs.io/en/latest/cmd.html) and [jest-sonar-reporter](https://www.npmjs.com/package/jest-sonar-reporter). The test script for the database can be found [here](https://github.com/DoDutchAoA/Do-Dutch/blob/jenkins/database/server/tests.py), and [here](https://github.com/DoDutchAoA/Do-Dutch/tree/jenkins/do_dutch/__test__) for our mobile programming. Two coverage reports (XML version) can be both found [here](https://github.com/DoDutchAoA/Do-Dutch/tree/jenkins/tests/test-reports/coverage). The image below shows the coverage report for our React code generated locally. 
+
+![alt text](https://github.com/DoDutchAoA/Do-Dutch/blob/jenkins/coverage_local.png)
+
+Just in case, the report for unit tests can be found via this [link](https://github.com/DoDutchAoA/Do-Dutch/tree/jenkins/tests/test-reports/unittest).
 
 ### 3. CI server (Jenkins)
 
