@@ -32,7 +32,7 @@ describe('Receipt part', () => {
     })
 
     it('3 action buttons should be rendered', () => {   //tag name?
-        expect(wrapper.find('ActionButtonItem')).toHaveLength(3);
+        expect(wrapper.find('ActionButtonItem')).toHaveLength(2);
     })
 
     it('A func should be called when the ActionButtonItem is pressed', () => {
