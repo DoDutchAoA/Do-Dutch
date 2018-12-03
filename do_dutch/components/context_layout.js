@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { AppRegistry, Image } from "react-native";
 import { Platform, StyleSheet, Text, View } from "react-native";
 import { Button, Container, Header, Content, Left } from "native-base";
-import { DrawerNavigator, StackNavigator } from "react-navigation";
+import { StackNavigator } from "react-navigation";
 import Icon from "react-native-vector-icons/FontAwesome";
 import HeaderButtons, {
   HeaderButton,

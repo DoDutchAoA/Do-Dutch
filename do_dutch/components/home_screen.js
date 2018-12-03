@@ -14,6 +14,7 @@ import Icon from "react-native-vector-icons/Ionicons";
 import ReceiptList from "./receipt/ReceiptList.js";
 import ReceiptModal from "./receipt/ReceiptModal.js";
 import photoTools from "./receipt/UploadingTools.js";
+
 import {
   // receiptData,
   friendsData1,

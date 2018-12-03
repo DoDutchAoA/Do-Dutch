@@ -18,7 +18,7 @@ import {
 } from "react-native-elements";
 
 import Modal from "react-native-modal";
-import NumericInput from "react-native-numeric-input";
+//import NumericInput from "react-native-numeric-input";
 
 class Title extends React.Component {
   constructor(props) {
