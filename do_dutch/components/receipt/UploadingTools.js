@@ -9,6 +9,7 @@ const options = {
 };
 
 let photoTools = {
+
   loadPhoto(loadedCallback, uploadedCallback) {
     ImagePicker.showImagePicker(options, response => {
       if (response.didCancel) {
@@ -86,4 +87,4 @@ let photoTools = {
   }
 };
 
-export default photoTools;
+// export default photoTools;
