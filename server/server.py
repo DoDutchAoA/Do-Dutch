@@ -1,4 +1,4 @@
-import os, sys, json
+import os, sys, json, re
 from ocr.ocr import ocr
 from flask import Flask, flash, request, redirect, url_for
 from werkzeug.utils import secure_filename
@@ -34,13 +34,25 @@ def server():
 @app.route("/signUp", methods=['POST', 'GET'])
 def signUp():
     if request.method == 'POST':
-        result = functions.signUp(request.json.get('username'), request.json.get('userpwd'))
+	_username = request.json.get('username')
+	_userpwd = request.json.get('userpwd')
+	_username = _username[0:16]
+	_userpwd = _userpwd[0:16]
+	username = re.sub(r'[^a-zA-Z0-9@_]', '', _username)
+	userpwd = re.sub(r'[^a-zA-Z0-9@_]', '', _userpwd)
+        result = functions.signUp(username, userpwd)
         return str(result)
 
 @app.route("/login", methods=['POST', 'GET'])
 def login():
     if request.method == 'POST':
-        result = functions.login(request.json.get('username'), request.json.get('userpwd'))
+	_username = request.json.get('username')
+	_userpwd = request.json.get('userpwd')
+	_username = _username[0:16]
+	_userpwd = _userpwd[0:16]
+	username = re.sub(r'[^a-zA-Z0-9@_]', '', _username)
+	userpwd = re.sub(r'[^a-zA-Z0-9@_]', '', _userpwd)
+        result = functions.login(username, userpwd)
         return str(result)
 
 @app.route("/createEmptyGroup", methods=['POST', 'GET'])
