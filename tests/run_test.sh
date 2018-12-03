@@ -1,6 +1,6 @@
 # run db test
 cd ../database/server
-python run tests.py
+python tests.py
 #coverage run tests.py
 coverage xml --omit=/usr/* -o ../../tests/test-reports/coverage/coverage.xml
 
