@@ -34,24 +34,24 @@ def server():
 @app.route("/signUp", methods=['POST', 'GET'])
 def signUp():
     if request.method == 'POST':
-	_username = request.json.get('username')
-	_userpwd = request.json.get('userpwd')
-	_username = _username[0:16]
-	_userpwd = _userpwd[0:16]
-	username = re.sub(r'[^a-zA-Z0-9@_]', '', _username)
-	userpwd = re.sub(r'[^a-zA-Z0-9@_]', '', _userpwd)
+        _username = request.json.get('username')
+        _userpwd = request.json.get('userpwd')
+        _username = _username[0:16]
+        _userpwd = _userpwd[0:16]
+        username = re.sub(r'[^a-zA-Z0-9@_]', '', _username)
+        userpwd = re.sub(r'[^a-zA-Z0-9@_]', '', _userpwd)
         result = functions.signUp(username, userpwd)
         return str(result)
 
 @app.route("/login", methods=['POST', 'GET'])
 def login():
     if request.method == 'POST':
-	_username = request.json.get('username')
-	_userpwd = request.json.get('userpwd')
-	_username = _username[0:16]
-	_userpwd = _userpwd[0:16]
-	username = re.sub(r'[^a-zA-Z0-9@_]', '', _username)
-	userpwd = re.sub(r'[^a-zA-Z0-9@_]', '', _userpwd)
+        _username = request.json.get('username')
+        _userpwd = request.json.get('userpwd')
+        _username = _username[0:16]
+        _userpwd = _userpwd[0:16]
+        username = re.sub(r'[^a-zA-Z0-9@_]', '', _username)
+        userpwd = re.sub(r'[^a-zA-Z0-9@_]', '', _userpwd)
         result = functions.login(username, userpwd)
         return str(result)
 
