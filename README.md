@@ -20,7 +20,7 @@ After the first iteration, tasks were classified into the users-related part and
 
 ### 2. Coverage report
 
-In this iteration, we started to test our Android application, by using Jest and Enzyme. We utilized two different tools to generate the code coverage reports for our database and the Android app part: [coverage.py](https://coverage.readthedocs.io/en/latest/cmd.html) and [jest-sonar-reporter](https://www.npmjs.com/package/jest-sonar-reporter). The test script for the database can be found [here](https://github.com/DoDutchAoA/Do-Dutch/blob/jenkins/database/server/tests.py), and [here](https://github.com/DoDutchAoA/Do-Dutch/tree/jenkins/do_dutch/__test__) for our mobile programming. Two coverage reports (XML version) can be both found [here](https://github.com/DoDutchAoA/Do-Dutch/tree/jenkins/tests/test-reports/coverage). Just in case, the report for unit tests can be found via this [link](https://github.com/DoDutchAoA/Do-Dutch/tree/jenkins/tests/test-reports/unittest).
+In this iteration, we started to test our Android application, by using Jest and Enzyme. We utilized two different tools to generate the code coverage reports for our database and the Android app part: [coverage.py](https://coverage.readthedocs.io/en/latest/cmd.html) and [jest-sonar-reporter](https://www.npmjs.com/package/jest-sonar-reporter). The test script for the database can be found [here](https://github.com/DoDutchAoA/Do-Dutch/blob/jenkins/database/server/tests.py), and [here](https://github.com/DoDutchAoA/Do-Dutch/tree/jenkins/do_dutch/__test__) for our mobile programming. Two coverage reports (XML version) can be both found [here](https://github.com/DoDutchAoA/Do-Dutch/tree/jenkins/tests/test-reports/coverage). Also, [this](https://github.com/DoDutchAoA/Do-Dutch/blob/jenkins/coverage_local.png) is a script version of coverage report for our React code generated locally. Just in case, the report for unit tests can be found via this [link](https://github.com/DoDutchAoA/Do-Dutch/tree/jenkins/tests/test-reports/unittest).
 
 ### 3. CI server (Jenkins)
 
@@ -33,6 +33,12 @@ Even though we did not have our CI server configured, we still got the coverage 
 The reasons why the coverage rate is not so high is there are still some functions we have not figured out how to test by test scripts, such as functions involved in POST and GET requests, and functions declared inside namespace instead of class. We are trying hard to figure out them and hopefully, we can test as much as possible functions by the end of the final demo.
 
 
-### 3. Future work
+### 4. Miscellaneous
+
+Static analysis reports 
+  - For Python code: https://github.com/DoDutchAoA/Do-Dutch/tree/jenkins/first_iteration
+  - For React code: https://github.com/DoDutchAoA/Do-Dutch/tree/jenkins/static_analysis
+
+### 5. Future work
 
 By the demo day for the second iteration, the receipt team is expected to complete the development of all user stories related to the receipt. If time allows, the progress of corresponding tests should be caught up. In the demo for the second iteration, functions mentioned in all user stories should work both individually and integrally. After that, the main tasks for us would be the user testing, maintenance, and UI polishing, if time allows.
