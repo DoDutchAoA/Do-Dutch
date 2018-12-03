@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<checkstyle version="4.3">
+	<file name="camera.js">
+		<error line="9" column="1" severity="warning" message="&apos;import&apos; is only available in ES6 (use &apos;esversion: 6&apos;)." source="jshint.W119" />
+		<error line="10" column="1" severity="warning" message="&apos;import&apos; is only available in ES6 (use &apos;esversion: 6&apos;)." source="jshint.W119" />
+		<error line="19" column="1" severity="warning" message="&apos;import&apos; is only available in ES6 (use &apos;esversion: 6&apos;)." source="jshint.W119" />
+		<error line="20" column="1" severity="warning" message="&apos;import&apos; is only available in ES6 (use &apos;esversion: 6&apos;)." source="jshint.W119" />
+		<error line="21" column="1" severity="warning" message="&apos;import&apos; is only available in ES6 (use &apos;esversion: 6&apos;)." source="jshint.W119" />
+		<error line="23" column="1" severity="warning" message="&apos;const&apos; is available in ES6 (use &apos;esversion: 6&apos;) or Mozilla JS extensions (use moz)." source="jshint.W104" />
+		<error line="30" column="1" severity="warning" message="&apos;export&apos; is only available in ES6 (use &apos;esversion: 6&apos;)." source="jshint.W119" />
+		<error line="30" column="16" severity="warning" message="&apos;class&apos; is available in ES6 (use &apos;esversion: 6&apos;) or Mozilla JS extensions (use moz)." source="jshint.W104" />
+		<error line="41" column="51" severity="warning" message="&apos;arrow function syntax (=&gt;)&apos; is only available in ES6 (use &apos;esversion: 6&apos;)." source="jshint.W119" />
+		<error line="49" column="9" severity="warning" message="&apos;let&apos; is available in ES6 (use &apos;esversion: 6&apos;) or Mozilla JS extensions (use moz)." source="jshint.W104" />
+		<error line="75" column="18" severity="warning" message="&apos;arrow function syntax (=&gt;)&apos; is only available in ES6 (use &apos;esversion: 6&apos;)." source="jshint.W119" />
+		<error line="86" column="18" severity="warning" message="&apos;arrow function syntax (=&gt;)&apos; is only available in ES6 (use &apos;esversion: 6&apos;)." source="jshint.W119" />
+		<error line="95" column="40" severity="error" message="Unclosed regular expression." source="jshint.E015" />
+		<error line="95" column="40" severity="error" message="Unrecoverable syntax error. (57% scanned)." source="jshint.E041" />
+	</file>
+</checkstyle>

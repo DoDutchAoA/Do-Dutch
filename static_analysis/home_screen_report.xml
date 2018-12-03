@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<checkstyle version="4.3">
+	<file name="home_screen.js">
+		<error line="1" column="1" severity="warning" message="&apos;import&apos; is only available in ES6 (use &apos;esversion: 6&apos;)." source="jshint.W119" />
+		<error line="2" column="1" severity="warning" message="&apos;import&apos; is only available in ES6 (use &apos;esversion: 6&apos;)." source="jshint.W119" />
+		<error line="3" column="1" severity="warning" message="&apos;import&apos; is only available in ES6 (use &apos;esversion: 6&apos;)." source="jshint.W119" />
+		<error line="4" column="1" severity="warning" message="&apos;import&apos; is only available in ES6 (use &apos;esversion: 6&apos;)." source="jshint.W119" />
+		<error line="5" column="1" severity="warning" message="&apos;import&apos; is only available in ES6 (use &apos;esversion: 6&apos;)." source="jshint.W119" />
+		<error line="6" column="1" severity="warning" message="&apos;import&apos; is only available in ES6 (use &apos;esversion: 6&apos;)." source="jshint.W119" />
+		<error line="8" column="1" severity="warning" message="&apos;import&apos; is only available in ES6 (use &apos;esversion: 6&apos;)." source="jshint.W119" />
+		<error line="9" column="1" severity="warning" message="&apos;import&apos; is only available in ES6 (use &apos;esversion: 6&apos;)." source="jshint.W119" />
+		<error line="10" column="1" severity="warning" message="&apos;import&apos; is only available in ES6 (use &apos;esversion: 6&apos;)." source="jshint.W119" />
+		<error line="12" column="1" severity="warning" message="&apos;import&apos; is only available in ES6 (use &apos;esversion: 6&apos;)." source="jshint.W119" />
+		<error line="19" column="1" severity="warning" message="&apos;export&apos; is only available in ES6 (use &apos;esversion: 6&apos;)." source="jshint.W119" />
+		<error line="19" column="16" severity="warning" message="&apos;class&apos; is available in ES6 (use &apos;esversion: 6&apos;) or Mozilla JS extensions (use moz)." source="jshint.W104" />
+		<error line="24" column="9" severity="error" message="Class properties must be methods. Expected &apos;(&apos; but instead saw &apos;=&apos;." source="jshint.E054" />
+		<error line="30" column="3" severity="warning" message="Expected &apos;(&apos; and instead saw &apos;}&apos;." source="jshint.W116" />
+		<error line="30" column="4" severity="error" message="Expected an identifier and instead saw &apos;;&apos;." source="jshint.E030" />
+		<error line="32" column="18" severity="warning" message="&apos;function closure expressions&apos; is only available in Mozilla JavaScript extensions (use moz option)." source="jshint.W118" />
+		<error line="32" column="20" severity="error" message="Expected an identifier and instead saw &apos;=&gt;&apos;." source="jshint.E030" />
+		<error line="32" column="23" severity="warning" message="Expected &apos;(&apos; and instead saw &apos;{&apos;." source="jshint.W116" />
+		<error line="33" column="15" severity="error" message="Expected &apos;)&apos; to match &apos;{&apos; from line 32 and instead saw &apos;.&apos;." source="jshint.E020" />
+		<error line="33" column="15" severity="warning" message="&apos;function closure expressions&apos; is only available in Mozilla JavaScript extensions (use moz option)." source="jshint.W118" />
+		<error line="34" column="29" severity="warning" message="&apos;arrow function syntax (=&gt;)&apos; is only available in ES6 (use &apos;esversion: 6&apos;)." source="jshint.W119" />
+		<error line="41" column="21" severity="warning" message="&apos;arrow function syntax (=&gt;)&apos; is only available in ES6 (use &apos;esversion: 6&apos;)." source="jshint.W119" />
+		<error line="46" column="53" severity="warning" message="&apos;arrow function syntax (=&gt;)&apos; is only available in ES6 (use &apos;esversion: 6&apos;)." source="jshint.W119" />
+		<error line="47" column="11" severity="warning" message="&apos;let&apos; is available in ES6 (use &apos;esversion: 6&apos;) or Mozilla JS extensions (use moz)." source="jshint.W104" />
+		<error line="53" column="6" severity="warning" message="Unnecessary semicolon." source="jshint.W032" />
+		<error line="54" column="4" severity="warning" message="Unnecessary semicolon." source="jshint.W032" />
+		<error line="56" column="11" severity="error" message="Missing semicolon." source="jshint.E058" />
+		<error line="57" column="5" severity="warning" message="&apos;let&apos; is available in ES6 (use &apos;esversion: 6&apos;) or Mozilla JS extensions (use moz)." source="jshint.W104" />
+		<error line="60" column="9" severity="error" message="Expected an identifier and instead saw &apos;&lt;&apos;." source="jshint.E030" />
+		<error line="60" column="10" severity="error" message="Expected &apos;)&apos; to match &apos;(&apos; from line 59 and instead saw &apos;ReceiptList&apos;." source="jshint.E020" />
+		<error line="60" column="21" severity="warning" message="Missing semicolon." source="jshint.W033" />
+		<error line="61" column="22" severity="warning" message="Expected &apos;:&apos; and instead saw &apos;=&gt;&apos;." source="jshint.W116" />
+		<error line="61" column="49" severity="warning" message="Missing semicolon." source="jshint.W033" />
+		<error line="62" column="37" severity="warning" message="Missing semicolon." source="jshint.W033" />
+		<error line="63" column="29" severity="warning" message="Missing semicolon." source="jshint.W033" />
+		<error line="64" column="24" severity="warning" message="Expected &apos;:&apos; and instead saw &apos;.&apos;." source="jshint.W116" />
+		<error line="64" column="42" severity="warning" message="Missing semicolon." source="jshint.W033" />
+		<error line="65" column="26" severity="error" message="Expected &apos;}&apos; to match &apos;{&apos; from line 65 and instead saw &apos;(&apos;." source="jshint.E020" />
+		<error line="65" column="27" severity="error" message="Missing semicolon." source="jshint.E058" />
+		<error line="65" column="53" severity="warning" message="Expected an assignment or function call and instead saw an expression." source="jshint.W030" />
+		<error line="65" column="68" severity="error" message="Missing semicolon." source="jshint.E058" />
+		<error line="65" column="68" severity="error" message="Expected an identifier and instead saw &apos;)&apos;." source="jshint.E030" />
+		<error line="65" column="70" severity="error" message="Expected an operator and instead saw &apos;=&gt;&apos;." source="jshint.E033" />
+		<error line="65" column="70" severity="warning" message="Expected an assignment or function call and instead saw an expression." source="jshint.W030" />
+		<error line="65" column="72" severity="error" message="Missing semicolon." source="jshint.E058" />
+		<error line="66" column="59" severity="warning" message="&apos;arrow function syntax (=&gt;)&apos; is only available in ES6 (use &apos;esversion: 6&apos;)." source="jshint.W119" />
+		<error line="70" column="31" severity="warning" message="Expected &apos;:&apos; and instead saw &apos;.&apos;." source="jshint.W116" />
+		<error line="71" column="9" severity="warning" message="Misleading line break before &apos;/&apos;; readers may interpret this as an expression boundary." source="jshint.W014" />
+		<error line="71" column="10" severity="error" message="Expected an identifier and instead saw &apos;&gt;&apos;." source="jshint.E030" />
+		<error line="71" column="11" severity="warning" message="Missing semicolon." source="jshint.W033" />
+		<error line="71" column="11" severity="error" message="Too many errors. (25% scanned)." source="jshint.E043" />
+	</file>
+</checkstyle>

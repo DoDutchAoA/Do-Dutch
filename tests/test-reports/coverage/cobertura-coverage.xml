@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <!DOCTYPE coverage SYSTEM "http://cobertura.sourceforge.net/xml/coverage-04.dtd">
-<coverage lines-valid="255" lines-covered="117" line-rate="0.45880000000000004" branches-valid="239" branches-covered="123" branch-rate="0.5146000000000001" timestamp="1543820696628" complexity="0" version="0.1">
+<coverage lines-valid="255" lines-covered="117" line-rate="0.45880000000000004" branches-valid="239" branches-covered="123" branch-rate="0.5146000000000001" timestamp="1543873619984" complexity="0" version="0.1">
   <sources>
     <source>/Users/fionazheng/GoDutch/Do-Dutch/do_dutch</source>
   </sources>
