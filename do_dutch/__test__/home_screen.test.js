@@ -19,12 +19,11 @@ const setup = () => {
 describe('Receipt part', () => {
     const wrapper = setup()
 
-    // it('Search bar should be rendered', () => {
-    //     console.log(wrapper.find('SearchBar').debug());
-    //     // expect(wrapper.find('SearchBar').exists()).toEqual(true);
-    // })
+    it('Search bar should be rendered', () => {
+        expect(wrapper.find('Search').exists()).toEqual(true);
+    })
 
-    it('Custom list view should be rendered', () => {
+    it('ReceiptList should be rendered', () => {
         expect(wrapper.find('ReceiptList').exists()).toEqual(true);
     })
 
