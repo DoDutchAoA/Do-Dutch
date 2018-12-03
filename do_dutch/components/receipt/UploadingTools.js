@@ -8,7 +8,7 @@ const options = {
   quality: 1
 };
 
-photoTools = {
+let photoTools = {
   loadPhoto(loadedCallback, uploadedCallback) {
     ImagePicker.showImagePicker(options, response => {
       if (response.didCancel) {
