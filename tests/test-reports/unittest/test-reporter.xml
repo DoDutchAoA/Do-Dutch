@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testExecutions version="1">
+    <file path="/Users/fionazheng/GoDutch/Do-Dutch/do_dutch/__test__/home_screen.test.js">
+        <testCase name="Receipt part Search bar should be rendered" duration="8"/>
+        <testCase name="Receipt part ReceiptList should be rendered" duration="2"/>
+        <testCase name="Receipt part Action button should be rendered" duration="1"/>
+        <testCase name="Receipt part 3 action buttons should be rendered" duration="1"/>
+        <testCase name="Receipt part Clicking on refresh a navigation func should be called " duration="135"/>
+    </file>
+    <file path="/Users/fionazheng/GoDutch/Do-Dutch/do_dutch/__test__/login.test.js">
+        <testCase name="LogIn Two input areas should be rendered" duration="9"/>
+        <testCase name="LogIn Button should be rendered" duration="1"/>
+    </file>
+</testExecutions>
