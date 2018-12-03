@@ -1,5 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+<<<<<<< HEAD
 exports[`Receipt part Clicking on gallery should navigate to gallery  1`] = `
 <View
   style={
@@ -2827,6 +2828,9 @@ exports[`Receipt part Clicking on gallery should navigate to gallery  1`] = `
 `;
 
 exports[`Receipt part Clicking on refresh should stay  1`] = `
+=======
+exports[`Receipt part Clicking on refresh a navigation func should be called  1`] = `
+>>>>>>> c44f23f33667dc8a44a090a9d20454fe5daef6ed
 <View
   style={
     Object {

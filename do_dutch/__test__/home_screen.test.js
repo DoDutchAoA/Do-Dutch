@@ -31,25 +31,19 @@ describe('Receipt part', () => {
         expect(wrapper.find('ActionButton').exists()).toEqual(true);
     })
 
-    it('3 action buttons should be rendered', () => {
-        expect(wrapper.find('ActionButtonItem')).toHaveLength(2);
+    it('3 action buttons should be rendered', () => {   //tag name?
+        expect(wrapper.find('ActionButtonItem')).toHaveLength(3);
     })
 
-    it('Clicking on refresh should stay ', () => {
+    it('A func should be called when the ActionButtonItem is pressed', () => {
+        const onPressEvent = jest.fn();
+        wrapper.find('ActionButtonItem').first().props().onPress();
+        expect(onPressEvent.mock.calls.length).toBe(1);
+    })
 
-        const navigation = jest.fn();
-
+    it('Clicking on refresh a navigation func should be called ', () => {
         expect(renderer.create(<ActionButtonItem buttonColor="#1abc9c" title="Refresh"
-        onPress={navigation} />)).toMatchSnapshot();
+        onPress={jest.fn()} />)).toMatchSnapshot();
       });
-
-    it('Clicking on gallery should navigate to gallery ', () => {
-
-        const navigation = jest.fn();
-
-        expect(renderer.create(<ActionButtonItem buttonColor="#3498db" title="Gallery"
-        onPress={navigation} />)).toMatchSnapshot();
-    });
-
 
   })
