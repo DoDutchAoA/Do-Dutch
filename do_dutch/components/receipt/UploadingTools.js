@@ -24,6 +24,7 @@ let photoTools = {
   },
 
   uploadPhoto(data, uploadedCallback) {
+    // console.log(window.user_id, data);
     RNFetchBlob.fetch(
       "POST",
       "http://52.12.74.177:5000/upload",
