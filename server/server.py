@@ -12,6 +12,9 @@ ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
+def sanitizeInput(_str):
+        _str = _str[0:16]
+        return re.sub(r'[^a-zA-Z0-9@_]','',_str)
 
 @app.route("/upload", methods=['POST', 'GET'])
 def server():
@@ -35,11 +38,9 @@ def server():
 def signUp():
     if request.method == 'POST':
         _username = request.json.get('username')
-        _userpwd = request.json.get('userpwd')
-        _username = _username[0:16]
-        _userpwd = _userpwd[0:16]
-        username = re.sub(r'[^a-zA-Z0-9@_]', '', _username)
-        userpwd = re.sub(r'[^a-zA-Z0-9@_]', '', _userpwd)
+        _userpwd = request.json.get('userpwd')  
+        username = sanitizeInput(_username)
+        userpwd = sanitizeInput(_userpwd)
         result = functions.signUp(username, userpwd)
         return str(result)
 
@@ -48,10 +49,8 @@ def login():
     if request.method == 'POST':
         _username = request.json.get('username')
         _userpwd = request.json.get('userpwd')
-        _username = _username[0:16]
-        _userpwd = _userpwd[0:16]
-        username = re.sub(r'[^a-zA-Z0-9@_]', '', _username)
-        userpwd = re.sub(r'[^a-zA-Z0-9@_]', '', _userpwd)
+        username = sanitizeInput(_username)
+        userpwd = sanitizeInput(_userpwd)
         result = functions.login(username, userpwd)
         return str(result)
 
@@ -175,7 +174,9 @@ def removeFriend():
 @app.route("/getAllFriends", methods=['POST', 'GET'])
 def getAllFriends():
     if request.method == 'POST':
-        result = functions.getAllFriends(request.json.get('user_id'))
+        _userId = request.json.get('user_id')
+        userId = sanitizeInput(_userId)
+        result = functions.getAllFriends(userId)
         return json.dumps(result)
 
 @app.route("/getAllGroups", methods=['POST', 'GET'])
