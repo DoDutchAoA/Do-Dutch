@@ -133,7 +133,7 @@ class TestFunctions(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    with open('../../tests/test-reports/unittest/func_results.xml', 'wb') as output:
+    with open('test-reports/func_results.xml', 'wb') as output:
         unittest.main(
             testRunner=xmlrunner.XMLTestRunner(output=output),
             failfast=False, buffer=False, catchbreak=False,

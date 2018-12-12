@@ -143,6 +143,7 @@ def addFriend(first_user_id, second_user_id):
             res["status"] = False
             return res
 
+        print(first_res)
         res["status"] = True
         q.insertRecordTo(
             "Friends", "(user_id, friend_id, friend_name, title)",
@@ -151,7 +152,6 @@ def addFriend(first_user_id, second_user_id):
                 second_res[0]["user_name"], second_res[0]["user_name"][0].upper(),
             ), "(%s, %s, %s, %s)",
         )
-
         q.insertRecordTo(
             "Friends", "(user_id, friend_id, friend_name, title)",
             (

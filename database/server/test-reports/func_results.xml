@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+	<testsuite errors="0" failures="0" name="TestFunctions-20181203212331" skipped="0" tests="11" time="2.620" timestamp="2018-12-03T21:23:34">
+		<testcase classname="TestFunctions" name="test_add_friend" time="0.247" timestamp="2018-12-03T21:23:31"/>
+		<testcase classname="TestFunctions" name="test_add_friend_non_exist_friend" time="0.226" timestamp="2018-12-03T21:23:32"/>
+		<testcase classname="TestFunctions" name="test_create_empty_group" time="0.231" timestamp="2018-12-03T21:23:32"/>
+		<testcase classname="TestFunctions" name="test_create_empty_group_exist_name" time="0.231" timestamp="2018-12-03T21:23:32"/>
+		<testcase classname="TestFunctions" name="test_create_group_with_members" time="0.248" timestamp="2018-12-03T21:23:32"/>
+		<testcase classname="TestFunctions" name="test_create_group_with_members_zero_member" time="0.241" timestamp="2018-12-03T21:23:33"/>
+		<testcase classname="TestFunctions" name="test_delete_group_non_exist_group" time="0.228" timestamp="2018-12-03T21:23:33"/>
+		<testcase classname="TestFunctions" name="test_remove_friend" time="0.249" timestamp="2018-12-03T21:23:33"/>
+		<testcase classname="TestFunctions" name="test_remove_friend_non_exist_user" time="0.246" timestamp="2018-12-03T21:23:33"/>
+		<testcase classname="TestFunctions" name="test_remove_friend_not_friend" time="0.250" timestamp="2018-12-03T21:23:34"/>
+		<testcase classname="TestFunctions" name="test_search_friend" time="0.223" timestamp="2018-12-03T21:23:34"/>
+		<system-out>
+<![CDATA[[{u'user_name': u'owner'}]
+[{u'user_name': u'owner'}]
+]]>		</system-out>
+		<system-err>
+<![CDATA[/usr/local/lib/python2.7/dist-packages/pymysql/cursors.py:329: Warning: (1008, u"Can't drop database 'TESTTEST'; database doesn't exist")
+  self._do_get_result()
+]]>		</system-err>
+	</testsuite>
+</testsuites>
