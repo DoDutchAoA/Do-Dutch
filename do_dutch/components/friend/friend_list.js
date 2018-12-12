@@ -14,7 +14,7 @@ export default class FriendList extends Component {
   constructor() {
     super();
 
-    window.user_id = 22;
+    // window.user_id = 2;
 
     this.state = {
       user_id: -1,

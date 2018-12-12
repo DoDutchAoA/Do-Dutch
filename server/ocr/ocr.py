@@ -11,7 +11,7 @@ import json
 from flask import Flask, flash, request, redirect, url_for
 from werkzeug.utils import secure_filename
 
-def textAnalysis(text):
+def textAnalysis(text, copyPath):
     rules = []
     titles = []
     with open(sys.path[0] + '/ocr/rules.csv', 'r') as rulesFile:
@@ -25,7 +25,7 @@ def textAnalysis(text):
             for i, col in enumerate(line):
                 template[titles[i]] = col
             rules.append(template)
-    result = {'detectedTotal': 0, 'accumTotal': 0, 'items': []}
+    result = {'detectedTotal': 0, 'accumTotal': 0, 'items': [], 'path': copyPath}
     text = text.split('\n')
     for line in text:
         line = line.lower()
@@ -50,7 +50,7 @@ def textAnalysis(text):
                         break
     return result
                 
-def ocr(inPath):
+def ocr(inPath, copyPath):
     outPath = 'ocr/output/receipt.jpg'
     pdfPath = 'ocr/output/output.pdf'
 
@@ -64,7 +64,7 @@ def ocr(inPath):
     text = pytesseract.image_to_string(img, lang='eng', config='--psm 4 --oem 1')
     # os.remove(filename)
     # print(text)
-    result = textAnalysis(text)
+    result = textAnalysis(text, copyPath)
     # Generate a PDF
     pdf = pytesseract.image_to_pdf_or_hocr(img, extension='pdf')
     try:

@@ -19,6 +19,7 @@ def userInGroup(groupId, userId):
         " = '%s'", (groupId, userId),
     )
 
+
 def createEmptyGroup(groupName, ownerId):  # return g_id
     if createGroup(groupName, ownerId):
         groupId = getGroupIdBygName(groupName)
@@ -119,7 +120,7 @@ def getUserIdByUsername(username):
 
 def addFriend(first_user_id, second_user_id):
     result_list = q.selectInfoByConditions(
-        "Friends", "user_id", 
+        "Friends", "user_id",
         "user_id = '%s' AND friend_id = '%s'", (first_user_id, second_user_id),
     )
 
@@ -129,24 +130,34 @@ def addFriend(first_user_id, second_user_id):
     else:
 
         first_res = q.selectInfoByConditions(
-            "Users", "user_name", 
+            "Users", "user_name",
             "user_id = '%s'", (first_user_id),
         )
 
         second_res = q.selectInfoByConditions(
-            "Users", "user_name", 
+            "Users", "user_name",
             "user_id = '%s'", (second_user_id),
         )
 
-	print(first_res)
+        if len(first_res) == 0 or len(second_res) == 0:
+            res["status"] = False
+            return res
+
+        print(first_res)
         res["status"] = True
         q.insertRecordTo(
             "Friends", "(user_id, friend_id, friend_name, title)",
-            (first_user_id, second_user_id, second_res[0]["user_name"], second_res[0]["user_name"][0].upper()), "(%s, %s, %s, %s)",
+            (
+                first_user_id, second_user_id,
+                second_res[0]["user_name"], second_res[0]["user_name"][0].upper(),
+            ), "(%s, %s, %s, %s)",
         )
         q.insertRecordTo(
             "Friends", "(user_id, friend_id, friend_name, title)",
-            (second_user_id, first_user_id, first_res[0]["user_name"], first_res[0]["user_name"][0].upper()), "(%s, %s, %s, %s)",
+            (
+                second_user_id, first_user_id,
+                first_res[0]["user_name"], first_res[0]["user_name"][0].upper(),
+            ), "(%s, %s, %s, %s)",
         )
 
     return res
@@ -155,7 +166,7 @@ def addFriend(first_user_id, second_user_id):
 def removeFriend(first_user_id, second_user_id):
     result_list = q.selectInfoByConditions(
         "Friends", "user_id",
-        "user_id = '%s' AND friend_id = '%s'", (first_user_id, second_user_id)
+        "user_id = '%s' AND friend_id = '%s'", (first_user_id, second_user_id),
     )
 
     res = {}
@@ -165,11 +176,11 @@ def removeFriend(first_user_id, second_user_id):
         res["status"] = True
         q.deleteRecordByCondition(
             "Friends", "user_id = '%s' AND friend_id = '%s'",
-            (first_user_id, second_user_id)
+            (first_user_id, second_user_id),
         )
         q.deleteRecordByCondition(
             "Friends", "user_id = '%s' AND friend_id = '%s'",
-            (second_user_id, first_user_id)
+            (second_user_id, first_user_id),
         )
 
     return res
@@ -187,7 +198,7 @@ def searchUserByKeyword(keyword):
 def getAllFriends(userId):
     result_list = q.searchInfoByConditions(
         "Friends", "friend_id, friend_name, title",
-        "user_id = '%s'", userId
+        "user_id = '%s'", userId,
     )
 
     res = {}

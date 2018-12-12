@@ -1,4 +1,3 @@
-import 'jsdom-global/register';
 import React from 'react';
 import * as enzyme from 'enzyme';
 import { shallow, mount } from 'enzyme';

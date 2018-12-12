@@ -1,15 +1,4 @@
 import React, { Component } from "react";
-import { AppRegistry, Image } from "react-native";
-import { Platform, StyleSheet, Text, View } from "react-native";
-import { Button, Container, Header, Content, Left } from "native-base";
-import { StackNavigator } from "react-navigation";
-import Icon from "react-native-vector-icons/FontAwesome";
-import HeaderButtons, {
-  HeaderButton,
-  Item
-} from "react-navigation-header-buttons";
-import { NavigationActions } from "react-navigation";
-
 import { createStackNavigator } from "react-navigation";
 import Camera from "./receipt_actions/camera.js";
 import Form from "./receipt_actions/fetch.js";
