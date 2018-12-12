@@ -53,7 +53,19 @@ def selectInfoByConditions(tableName, info_format, cons_format=None, vals=None):
             cons_format + ";"
         )
         query = query % vals
+    return runQuery(query, None, True)
 
+
+def searchInfoByConditions(tableName, info_format, cons_format=None, vals=None):  # quotes
+    query = ""
+    if cons_format == None and vals == None:
+        query = ("SELECT " + info_format + " FROM " + tableName + ";")
+    else:
+        query = (
+            "SELECT " + info_format + " FROM " + tableName + " WHERE " +
+            cons_format + ";"
+        )
+        query = query % vals
     return runQuery(query, None, True)
 
 
