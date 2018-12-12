@@ -11,7 +11,9 @@ let DataHelper = {
 
   getFromLocal: async (key, callback) => {
     let data = await AsyncStorage.getItem(key);
+    if (data === null) data = [];
     callback(data);
+    console.log("yes");
   }
 };
 
