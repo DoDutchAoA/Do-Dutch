@@ -1,6 +1,5 @@
 import json
 import os
-import re
 import sys
 from shutil import copyfile
 
@@ -53,26 +52,22 @@ def server():
 @app.route("/signUp", methods=['POST', 'GET'])
 def signUp():
     if request.method == 'POST':
-        _username = request.json.get('username')
-        _userpwd = request.json.get('userpwd')
-        _username = _username[0:16]
-        _userpwd = _userpwd[0:16]
-        username = re.sub(r'[^a-zA-Z0-9@_]', '', _username)
-        userpwd = re.sub(r'[^a-zA-Z0-9@_]', '', _userpwd)
-        result = functions.signUp(username, userpwd)
+        result = functions.signUp(
+            request.json.get(
+                'username',
+            ), request.json.get('userpwd'),
+        )
         return str(result)
 
 
 @app.route("/login", methods=['POST', 'GET'])
 def login():
     if request.method == 'POST':
-        _username = request.json.get('username')
-        _userpwd = request.json.get('userpwd')
-        _username = _username[0:16]
-        _userpwd = _userpwd[0:16]
-        username = re.sub(r'[^a-zA-Z0-9@_]', '', _username)
-        userpwd = re.sub(r'[^a-zA-Z0-9@_]', '', _userpwd)
-        result = functions.login(username, userpwd)
+        result = functions.login(
+            request.json.get(
+                'username',
+            ), request.json.get('userpwd'),
+        )
         return str(result)
 
 
@@ -283,24 +278,6 @@ def getAllGroups():
 def getAllMembersByGroupId():
     if request.method == 'POST':
         result = functions.getAllMembersByGroupId(request.json.get('group_id'))
-        return json.dumps(result)
-
-
-@app.route("/newReceipt", methods=['POST', 'GET'])
-def newReceipt():
-    if request.method == 'POST':
-        result = functions.insertNewReceipt(
-            request.json.get('sender'), request.json.get(
-                'receiver',
-            ), request.json.get('receiptId'), request.json.get('data'),
-        )
-        return json.dumps(result)
-
-
-@app.route("/pollingReceipt", methods=['POST', 'GET'])
-def pollingReceipt():
-    if request.method == 'POST':
-        result = functions.pollingMessage(request.json.get('receiver'))
         return json.dumps(result)
 
 
