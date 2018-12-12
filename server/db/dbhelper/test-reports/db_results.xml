@@ -1,0 +1,524 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+	<testsuite errors="0" failures="0" name="TestDB-20181203160612" skipped="0" tests="22" time="6.289" timestamp="2018-12-03T16:06:18">
+		<testcase classname="TestDB" name="test_create_allocation_invalid" time="0.702" timestamp="2018-12-03T16:06:13"/>
+		<testcase classname="TestDB" name="test_create_allocation_valid" time="0.389" timestamp="2018-12-03T16:06:13"/>
+		<testcase classname="TestDB" name="test_create_empty_group_exist" time="0.285" timestamp="2018-12-03T16:06:13"/>
+		<testcase classname="TestDB" name="test_create_empty_group_notexist" time="0.279" timestamp="2018-12-03T16:06:14"/>
+		<testcase classname="TestDB" name="test_create_group_with_members" time="0.343" timestamp="2018-12-03T16:06:14"/>
+		<testcase classname="TestDB" name="test_create_item" time="0.289" timestamp="2018-12-03T16:06:14"/>
+		<testcase classname="TestDB" name="test_create_order" time="0.268" timestamp="2018-12-03T16:06:15"/>
+		<testcase classname="TestDB" name="test_create_receipt" time="0.256" timestamp="2018-12-03T16:06:15"/>
+		<testcase classname="TestDB" name="test_delete_allocation" time="0.254" timestamp="2018-12-03T16:06:15"/>
+		<testcase classname="TestDB" name="test_delete_group" time="0.249" timestamp="2018-12-03T16:06:15"/>
+		<testcase classname="TestDB" name="test_delete_item" time="0.222" timestamp="2018-12-03T16:06:16"/>
+		<testcase classname="TestDB" name="test_delete_order" time="0.230" timestamp="2018-12-03T16:06:16"/>
+		<testcase classname="TestDB" name="test_delete_receipt" time="0.207" timestamp="2018-12-03T16:06:16"/>
+		<testcase classname="TestDB" name="test_login_exist" time="0.258" timestamp="2018-12-03T16:06:16"/>
+		<testcase classname="TestDB" name="test_login_notexist" time="0.223" timestamp="2018-12-03T16:06:16"/>
+		<testcase classname="TestDB" name="test_modify_allocation_invalid" time="0.272" timestamp="2018-12-03T16:06:17"/>
+		<testcase classname="TestDB" name="test_modify_allocation_valid" time="0.257" timestamp="2018-12-03T16:06:17"/>
+		<testcase classname="TestDB" name="test_modify_item_amount" time="0.316" timestamp="2018-12-03T16:06:17"/>
+		<testcase classname="TestDB" name="test_modify_item_name" time="0.222" timestamp="2018-12-03T16:06:17"/>
+		<testcase classname="TestDB" name="test_remove_members_from_group" time="0.250" timestamp="2018-12-03T16:06:18"/>
+		<testcase classname="TestDB" name="test_sign_up_exist" time="0.210" timestamp="2018-12-03T16:06:18"/>
+		<testcase classname="TestDB" name="test_sign_up_notexist" time="0.307" timestamp="2018-12-03T16:06:18"/>
+		<system-out>
+<![CDATA[SELECT * FROM Allocations;
+("user_name = '%s'", 'Amy')
+SELECT * FROM Users WHERE user_name = 'Amy';
+("user_name = '%s'", 'Amy')
+SELECT user_id FROM Users WHERE user_name = 'Amy';
+("group_name = '%s'", 'Group')
+SELECT * FROM gGroups WHERE group_name = 'Group';
+("group_name = '%s'", 'Group')
+SELECT group_id FROM gGroups WHERE group_name = 'Group';
+("group_id = '%s'", 1)
+SELECT * FROM gGroups WHERE group_id = '1';
+("group_id = '%s' AND member_id = '%s'", (1, 1))
+SELECT group_id FROM GroupUsers WHERE group_id = '1' AND member_id = '1';
+("order_name = '%s' AND group_id = '%s'", ('Order', 1))
+SELECT order_id FROM Orders WHERE order_name = 'Order' AND group_id = '1';
+("order_id = '%s' AND item_name = '%s'", (1, 'item'))
+SELECT item_id FROM Items WHERE order_id = '1' AND item_name = 'item';
+("item_id = '%s'", 1)
+SELECT * FROM Items WHERE item_id = '1';
+("item_id = '%s'", 1)
+SELECT left_amount FROM Items WHERE item_id = '1';
+("item_id = '%s'", 1)
+SELECT left_amount FROM Items WHERE item_id = '1';
+("item_id = '%s' AND user_id = '%s'", (1, 1))
+SELECT * FROM Allocations WHERE item_id = '1' AND user_id = '1';
+SELECT * FROM Allocations;
+("user_name = '%s'", 'Amy')
+SELECT * FROM Users WHERE user_name = 'Amy';
+("user_name = '%s'", 'Amy')
+SELECT user_id FROM Users WHERE user_name = 'Amy';
+("user_name = '%s'", 'Owner')
+SELECT * FROM Users WHERE user_name = 'Owner';
+("user_name = '%s'", 'Owner')
+SELECT user_id FROM Users WHERE user_name = 'Owner';
+("group_name = '%s'", 'Group')
+SELECT * FROM gGroups WHERE group_name = 'Group';
+("group_name = '%s'", 'Group')
+SELECT group_id FROM gGroups WHERE group_name = 'Group';
+("group_id = '%s'", 1)
+SELECT * FROM gGroups WHERE group_id = '1';
+("group_id = '%s' AND member_id = '%s'", (1, 2))
+SELECT group_id FROM GroupUsers WHERE group_id = '1' AND member_id = '2';
+("order_name = '%s' AND group_id = '%s'", ('Order', 1))
+SELECT order_id FROM Orders WHERE order_name = 'Order' AND group_id = '1';
+("order_id = '%s' AND item_name = '%s'", (1, 'item'))
+SELECT item_id FROM Items WHERE order_id = '1' AND item_name = 'item';
+("item_id = '%s'", 1)
+SELECT * FROM Items WHERE item_id = '1';
+("item_id = '%s'", 1)
+SELECT left_amount FROM Items WHERE item_id = '1';
+("item_id = '%s'", '1')
+SELECT left_amount FROM Items WHERE item_id = '1';
+("item_id = '%s'", 1)
+SELECT * FROM Items WHERE item_id = '1';
+("item_id = '%s' AND user_id = '%s'", (1, 1))
+SELECT allo_id FROM Allocations WHERE item_id = '1' AND user_id = '1';
+("item_id = '%s'", 1)
+SELECT left_amount FROM Items WHERE item_id = '1';
+("item_id = '%s' AND user_id = '%s'", (1, 1))
+SELECT * FROM Allocations WHERE item_id = '1' AND user_id = '1';
+("user_name = '%s'", 'Jason')
+SELECT * FROM Users WHERE user_name = 'Jason';
+("user_name = '%s'", 'Jason')
+SELECT user_id FROM Users WHERE user_name = 'Jason';
+("group_name = '%s'", 'group1')
+SELECT * FROM gGroups WHERE group_name = 'group1';
+("group_name = '%s'", 'group1')
+SELECT group_id FROM gGroups WHERE group_name = 'group1';
+("group_id = '%s'", 1)
+SELECT * FROM gGroups WHERE group_id = '1';
+("group_id = '%s' AND member_id = '%s'", (1, 1))
+SELECT group_id FROM GroupUsers WHERE group_id = '1' AND member_id = '1';
+("group_name = '%s'", 'group1')
+SELECT * FROM gGroups WHERE group_name = 'group1';
+("group_name = '%s'", 'group1')
+SELECT * FROM gGroups WHERE group_name = 'group1';
+("group_name = '%s'", 'group1')
+SELECT * FROM gGroups WHERE group_name = 'group1';
+("user_name = '%s'", 'Jason')
+SELECT * FROM Users WHERE user_name = 'Jason';
+("user_name = '%s'", 'Jason')
+SELECT user_id FROM Users WHERE user_name = 'Jason';
+("group_name = '%s'", 'group1')
+SELECT * FROM gGroups WHERE group_name = 'group1';
+("group_name = '%s'", 'group1')
+SELECT * FROM gGroups WHERE group_name = 'group1';
+("group_name = '%s'", 'group1')
+SELECT group_id FROM gGroups WHERE group_name = 'group1';
+("group_id = '%s'", 1)
+SELECT * FROM gGroups WHERE group_id = '1';
+("group_id = '%s' AND member_id = '%s'", (1, 1))
+SELECT group_id FROM GroupUsers WHERE group_id = '1' AND member_id = '1';
+("group_name = '%s' AND owner_id = '%s'", ('group1', 1))
+SELECT * FROM gGroups WHERE group_name = 'group1' AND owner_id = '1';
+("group_id = '%s' AND member_id = '%s'", (1, 1))
+SELECT * FROM GroupUsers WHERE group_id = '1' AND member_id = '1';
+SELECT * FROM gGroups;
+("user_name = '%s'", 'Amy')
+SELECT * FROM Users WHERE user_name = 'Amy';
+("user_name = '%s'", 'Amy')
+SELECT user_id FROM Users WHERE user_name = 'Amy';
+("user_name = '%s'", 'Bob')
+SELECT * FROM Users WHERE user_name = 'Bob';
+("user_name = '%s'", 'Bob')
+SELECT user_id FROM Users WHERE user_name = 'Bob';
+("user_name = '%s'", 'Candy')
+SELECT * FROM Users WHERE user_name = 'Candy';
+("user_name = '%s'", 'Candy')
+SELECT user_id FROM Users WHERE user_name = 'Candy';
+("group_name = '%s'", 'group1')
+SELECT * FROM gGroups WHERE group_name = 'group1';
+("group_name = '%s'", 'group1')
+SELECT group_id FROM gGroups WHERE group_name = 'group1';
+("group_id = '%s'", 1)
+SELECT * FROM gGroups WHERE group_id = '1';
+("group_id = '%s' AND member_id = '%s'", (1, 1))
+SELECT group_id FROM GroupUsers WHERE group_id = '1' AND member_id = '1';
+("group_id = '%s'", 1)
+SELECT * FROM gGroups WHERE group_id = '1';
+("group_id = '%s' AND member_id = '%s'", (1, 2))
+SELECT group_id FROM GroupUsers WHERE group_id = '1' AND member_id = '2';
+("group_id = '%s' AND member_id = '%s'", (1, 3))
+SELECT group_id FROM GroupUsers WHERE group_id = '1' AND member_id = '3';
+("group_name = '%s' AND owner_id = '%s'", ('group1', 1))
+SELECT * FROM gGroups WHERE group_name = 'group1' AND owner_id = '1';
+("group_id = '%s'", '1')
+SELECT member_id FROM GroupUsers WHERE group_id = '1';
+("group_id = '%s'", '1')
+SELECT member_id FROM GroupUsers WHERE group_id = '1';
+SELECT * FROM Items;
+("user_name = '%s'", 'Owner')
+SELECT * FROM Users WHERE user_name = 'Owner';
+("user_name = '%s'", 'Owner')
+SELECT user_id FROM Users WHERE user_name = 'Owner';
+("group_name = '%s'", 'Group')
+SELECT * FROM gGroups WHERE group_name = 'Group';
+("group_name = '%s'", 'Group')
+SELECT group_id FROM gGroups WHERE group_name = 'Group';
+("group_id = '%s'", 1)
+SELECT * FROM gGroups WHERE group_id = '1';
+("group_id = '%s' AND member_id = '%s'", (1, 1))
+SELECT group_id FROM GroupUsers WHERE group_id = '1' AND member_id = '1';
+("order_name = '%s' AND group_id = '%s'", ('Order', 1))
+SELECT order_id FROM Orders WHERE order_name = 'Order' AND group_id = '1';
+("order_id = '%s' AND item_name = '%s'", (1, 'item1'))
+SELECT item_id FROM Items WHERE order_id = '1' AND item_name = 'item1';
+(" order_id = '%s' AND item_name = '%s' AND left_amount = '%s'", (1, 'item1', 124.3))
+SELECT * FROM Items WHERE  order_id = '1' AND item_name = 'item1' AND left_amount = '124.3';
+("user_name = '%s'", 'Owner')
+SELECT * FROM Users WHERE user_name = 'Owner';
+("user_name = '%s'", 'Owner')
+SELECT user_id FROM Users WHERE user_name = 'Owner';
+("group_name = '%s'", 'Group')
+SELECT * FROM gGroups WHERE group_name = 'Group';
+("group_name = '%s'", 'Group')
+SELECT group_id FROM gGroups WHERE group_name = 'Group';
+("group_id = '%s'", 1)
+SELECT * FROM gGroups WHERE group_id = '1';
+("group_id = '%s' AND member_id = '%s'", (1, 1))
+SELECT group_id FROM GroupUsers WHERE group_id = '1' AND member_id = '1';
+SELECT * FROM Orders;
+("order_name = '%s' AND group_id = '%s'", ('Order0', 1))
+SELECT order_id FROM Orders WHERE order_name = 'Order0' AND group_id = '1';
+SELECT * FROM Orders;
+SELECT * FROM OrderReceipts;
+("user_name = '%s'", 'Owner')
+SELECT * FROM Users WHERE user_name = 'Owner';
+("user_name = '%s'", 'Owner')
+SELECT user_id FROM Users WHERE user_name = 'Owner';
+("group_name = '%s'", 'Group')
+SELECT * FROM gGroups WHERE group_name = 'Group';
+("group_name = '%s'", 'Group')
+SELECT group_id FROM gGroups WHERE group_name = 'Group';
+("group_id = '%s'", 1)
+SELECT * FROM gGroups WHERE group_id = '1';
+("group_id = '%s' AND member_id = '%s'", (1, 1))
+SELECT group_id FROM GroupUsers WHERE group_id = '1' AND member_id = '1';
+("order_name = '%s' AND group_id = '%s'", ('Order', 1))
+SELECT order_id FROM Orders WHERE order_name = 'Order' AND group_id = '1';
+("order_id = '%s'", 1)
+SELECT * FROM Orders WHERE order_id = '1';
+(" order_id = '%s' AND receipt_idx = '%s'", (1, 1))
+SELECT * FROM OrderReceipts WHERE  order_id = '1' AND receipt_idx = '1';
+("user_name = '%s'", 'Amy')
+SELECT * FROM Users WHERE user_name = 'Amy';
+("user_name = '%s'", 'Amy')
+SELECT user_id FROM Users WHERE user_name = 'Amy';
+("group_name = '%s'", 'Group')
+SELECT * FROM gGroups WHERE group_name = 'Group';
+("group_name = '%s'", 'Group')
+SELECT group_id FROM gGroups WHERE group_name = 'Group';
+("group_id = '%s'", 1)
+SELECT * FROM gGroups WHERE group_id = '1';
+("group_id = '%s' AND member_id = '%s'", (1, 1))
+SELECT group_id FROM GroupUsers WHERE group_id = '1' AND member_id = '1';
+("order_name = '%s' AND group_id = '%s'", ('Order', 1))
+SELECT order_id FROM Orders WHERE order_name = 'Order' AND group_id = '1';
+("order_id = '%s' AND item_name = '%s'", (1, 'item'))
+SELECT item_id FROM Items WHERE order_id = '1' AND item_name = 'item';
+("item_id = '%s'", 1)
+SELECT * FROM Items WHERE item_id = '1';
+("item_id = '%s'", 1)
+SELECT left_amount FROM Items WHERE item_id = '1';
+("item_id = '%s'", '1')
+SELECT left_amount FROM Items WHERE item_id = '1';
+("item_id = '%s'", 1)
+SELECT * FROM Items WHERE item_id = '1';
+("item_id = '%s' AND user_id = '%s'", (1, 1))
+SELECT allo_id FROM Allocations WHERE item_id = '1' AND user_id = '1';
+("allo_id = '%s'", 1)
+SELECT * FROM Allocations WHERE allo_id = '1';
+("allo_id = '%s'", 1)
+SELECT * FROM Allocations WHERE allo_id = '1';
+("item_id = '%s'", 1)
+SELECT left_amount FROM Items WHERE item_id = '1';
+("item_id = '%s'", 1)
+SELECT * FROM Items WHERE item_id = '1';
+("allo_id = '%s'", 1)
+SELECT * FROM Allocations WHERE allo_id = '1';
+("item_id = '%s'", 1)
+SELECT left_amount FROM Items WHERE item_id = '1';
+SELECT * FROM gGroups;
+("user_name = '%s'", 'Amy')
+SELECT * FROM Users WHERE user_name = 'Amy';
+("user_name = '%s'", 'Amy')
+SELECT user_id FROM Users WHERE user_name = 'Amy';
+("user_name = '%s'", 'Bob')
+SELECT * FROM Users WHERE user_name = 'Bob';
+("user_name = '%s'", 'Bob')
+SELECT user_id FROM Users WHERE user_name = 'Bob';
+("user_name = '%s'", 'Candy')
+SELECT * FROM Users WHERE user_name = 'Candy';
+("user_name = '%s'", 'Candy')
+SELECT user_id FROM Users WHERE user_name = 'Candy';
+("group_name = '%s'", 'group1')
+SELECT * FROM gGroups WHERE group_name = 'group1';
+("group_name = '%s'", 'group1')
+SELECT group_id FROM gGroups WHERE group_name = 'group1';
+("group_id = '%s'", 1)
+SELECT * FROM gGroups WHERE group_id = '1';
+("group_id = '%s' AND member_id = '%s'", (1, 1))
+SELECT group_id FROM GroupUsers WHERE group_id = '1' AND member_id = '1';
+("group_id = '%s'", 1)
+SELECT * FROM gGroups WHERE group_id = '1';
+("group_id = '%s' AND member_id = '%s'", (1, 2))
+SELECT group_id FROM GroupUsers WHERE group_id = '1' AND member_id = '2';
+("group_id = '%s' AND member_id = '%s'", (1, 3))
+SELECT group_id FROM GroupUsers WHERE group_id = '1' AND member_id = '3';
+("group_id = '%s'", 1)
+SELECT * FROM gGroups WHERE group_id = '1';
+("group_id = '%s'", 1)
+SELECT * FROM gGroups WHERE group_id = '1';
+SELECT * FROM gGroups;
+("group_id = '%s'", 1)
+SELECT * FROM GroupUsers WHERE group_id = '1';
+("user_name = '%s'", 'Owner')
+SELECT * FROM Users WHERE user_name = 'Owner';
+("user_name = '%s'", 'Owner')
+SELECT user_id FROM Users WHERE user_name = 'Owner';
+("group_name = '%s'", 'Group')
+SELECT * FROM gGroups WHERE group_name = 'Group';
+("group_name = '%s'", 'Group')
+SELECT group_id FROM gGroups WHERE group_name = 'Group';
+("group_id = '%s'", 1)
+SELECT * FROM gGroups WHERE group_id = '1';
+("group_id = '%s' AND member_id = '%s'", (1, 1))
+SELECT group_id FROM GroupUsers WHERE group_id = '1' AND member_id = '1';
+("order_name = '%s' AND group_id = '%s'", ('Order', 1))
+SELECT order_id FROM Orders WHERE order_name = 'Order' AND group_id = '1';
+("order_id = '%s' AND item_name = '%s'", (1, 'item1'))
+SELECT item_id FROM Items WHERE order_id = '1' AND item_name = 'item1';
+("item_id = '%s'", 1)
+SELECT * FROM Items WHERE item_id = '1';
+("user_name = '%s'", 'Owner')
+SELECT * FROM Users WHERE user_name = 'Owner';
+("user_name = '%s'", 'Owner')
+SELECT user_id FROM Users WHERE user_name = 'Owner';
+("group_name = '%s'", 'Group')
+SELECT * FROM gGroups WHERE group_name = 'Group';
+("group_name = '%s'", 'Group')
+SELECT group_id FROM gGroups WHERE group_name = 'Group';
+("group_id = '%s'", 1)
+SELECT * FROM gGroups WHERE group_id = '1';
+("group_id = '%s' AND member_id = '%s'", (1, 1))
+SELECT group_id FROM GroupUsers WHERE group_id = '1' AND member_id = '1';
+("order_name = '%s' AND group_id = '%s'", ('Order0', 1))
+SELECT order_id FROM Orders WHERE order_name = 'Order0' AND group_id = '1';
+("order_id = '%s'", '1')
+SELECT * FROM Orders WHERE order_id = '1';
+SELECT * FROM OrderReceipts;
+("user_name = '%s'", 'Owner')
+SELECT * FROM Users WHERE user_name = 'Owner';
+("user_name = '%s'", 'Owner')
+SELECT user_id FROM Users WHERE user_name = 'Owner';
+("group_name = '%s'", 'Group')
+SELECT * FROM gGroups WHERE group_name = 'Group';
+("group_name = '%s'", 'Group')
+SELECT group_id FROM gGroups WHERE group_name = 'Group';
+("group_id = '%s'", 1)
+SELECT * FROM gGroups WHERE group_id = '1';
+("group_id = '%s' AND member_id = '%s'", (1, 1))
+SELECT group_id FROM GroupUsers WHERE group_id = '1' AND member_id = '1';
+("order_name = '%s' AND group_id = '%s'", ('Order', 1))
+SELECT order_id FROM Orders WHERE order_name = 'Order' AND group_id = '1';
+("order_id = '%s'", 1)
+SELECT * FROM Orders WHERE order_id = '1';
+(" order_id = '%s' AND receipt_idx = '%s'", (1, 1))
+SELECT * FROM OrderReceipts WHERE  order_id = '1' AND receipt_idx = '1';
+("user_name = '%s'", 'Jason')
+SELECT * FROM Users WHERE user_name = 'Jason';
+("user_name = '%s'", 'Jason')
+SELECT user_id FROM Users WHERE user_name = 'Jason';
+("user_name = '%s' AND user_pwd = '%s'", ('Jason', '12345'))
+SELECT user_id FROM Users WHERE user_name = 'Jason' AND user_pwd = '12345';
+("user_name = '%s' AND user_pwd = '%s'", ('Jason', '12345'))
+SELECT user_id FROM Users WHERE user_name = 'Jason' AND user_pwd = '12345';
+("user_name = '%s' AND user_pwd = '%s'", ('Jason', '12345'))
+SELECT * FROM Users WHERE user_name = 'Jason' AND user_pwd = '12345';
+("user_name = '%s' AND user_pwd = '%s'", ('Jason', '12345'))
+SELECT user_id FROM Users WHERE user_name = 'Jason' AND user_pwd = '12345';
+("user_name = '%s'", 'Amy')
+SELECT * FROM Users WHERE user_name = 'Amy';
+("user_name = '%s'", 'Amy')
+SELECT user_id FROM Users WHERE user_name = 'Amy';
+("group_name = '%s'", 'Group')
+SELECT * FROM gGroups WHERE group_name = 'Group';
+("group_name = '%s'", 'Group')
+SELECT group_id FROM gGroups WHERE group_name = 'Group';
+("group_id = '%s'", 1)
+SELECT * FROM gGroups WHERE group_id = '1';
+("group_id = '%s' AND member_id = '%s'", (1, 1))
+SELECT group_id FROM GroupUsers WHERE group_id = '1' AND member_id = '1';
+("order_name = '%s' AND group_id = '%s'", ('Order', 1))
+SELECT order_id FROM Orders WHERE order_name = 'Order' AND group_id = '1';
+("order_id = '%s' AND item_name = '%s'", (1, 'item'))
+SELECT item_id FROM Items WHERE order_id = '1' AND item_name = 'item';
+("item_id = '%s'", 1)
+SELECT * FROM Items WHERE item_id = '1';
+("item_id = '%s'", 1)
+SELECT left_amount FROM Items WHERE item_id = '1';
+("item_id = '%s'", '1')
+SELECT left_amount FROM Items WHERE item_id = '1';
+("item_id = '%s'", 1)
+SELECT * FROM Items WHERE item_id = '1';
+("item_id = '%s' AND user_id = '%s'", (1, 1))
+SELECT allo_id FROM Allocations WHERE item_id = '1' AND user_id = '1';
+("allo_id = '%s'", 1)
+SELECT * FROM Allocations WHERE allo_id = '1';
+("allo_id = '%s'", 1)
+SELECT * FROM Allocations WHERE allo_id = '1';
+("item_id = '%s'", 1)
+SELECT left_amount FROM Items WHERE item_id = '1';
+("allo_id = '%s'", '1')
+SELECT * FROM Allocations WHERE allo_id = '1';
+("item_id = '%s'", 1)
+SELECT left_amount FROM Items WHERE item_id = '1';
+("user_name = '%s'", 'Amy')
+SELECT * FROM Users WHERE user_name = 'Amy';
+("user_name = '%s'", 'Amy')
+SELECT user_id FROM Users WHERE user_name = 'Amy';
+("group_name = '%s'", 'Group')
+SELECT * FROM gGroups WHERE group_name = 'Group';
+("group_name = '%s'", 'Group')
+SELECT group_id FROM gGroups WHERE group_name = 'Group';
+("group_id = '%s'", 1)
+SELECT * FROM gGroups WHERE group_id = '1';
+("group_id = '%s' AND member_id = '%s'", (1, 1))
+SELECT group_id FROM GroupUsers WHERE group_id = '1' AND member_id = '1';
+("order_name = '%s' AND group_id = '%s'", ('Order', 1))
+SELECT order_id FROM Orders WHERE order_name = 'Order' AND group_id = '1';
+("order_id = '%s' AND item_name = '%s'", (1, 'item'))
+SELECT item_id FROM Items WHERE order_id = '1' AND item_name = 'item';
+("item_id = '%s'", 1)
+SELECT * FROM Items WHERE item_id = '1';
+("item_id = '%s'", 1)
+SELECT left_amount FROM Items WHERE item_id = '1';
+("item_id = '%s'", '1')
+SELECT left_amount FROM Items WHERE item_id = '1';
+("item_id = '%s'", 1)
+SELECT * FROM Items WHERE item_id = '1';
+("item_id = '%s' AND user_id = '%s'", (1, 1))
+SELECT allo_id FROM Allocations WHERE item_id = '1' AND user_id = '1';
+("allo_id = '%s'", 1)
+SELECT * FROM Allocations WHERE allo_id = '1';
+("allo_id = '%s'", 1)
+SELECT * FROM Allocations WHERE allo_id = '1';
+("item_id = '%s'", 1)
+SELECT left_amount FROM Items WHERE item_id = '1';
+("allo_id = '%s'", '1')
+SELECT * FROM Allocations WHERE allo_id = '1';
+("item_id = '%s'", 1)
+SELECT left_amount FROM Items WHERE item_id = '1';
+("user_name = '%s'", 'Owner')
+SELECT * FROM Users WHERE user_name = 'Owner';
+("user_name = '%s'", 'Owner')
+SELECT user_id FROM Users WHERE user_name = 'Owner';
+("group_name = '%s'", 'Group')
+SELECT * FROM gGroups WHERE group_name = 'Group';
+("group_name = '%s'", 'Group')
+SELECT group_id FROM gGroups WHERE group_name = 'Group';
+("group_id = '%s'", 1)
+SELECT * FROM gGroups WHERE group_id = '1';
+("group_id = '%s' AND member_id = '%s'", (1, 1))
+SELECT group_id FROM GroupUsers WHERE group_id = '1' AND member_id = '1';
+("order_name = '%s' AND group_id = '%s'", ('Order', 1))
+SELECT order_id FROM Orders WHERE order_name = 'Order' AND group_id = '1';
+("order_id = '%s' AND item_name = '%s'", (1, 'itemOld'))
+SELECT item_id FROM Items WHERE order_id = '1' AND item_name = 'itemOld';
+("item_id = '%s'", 1)
+SELECT * FROM Items WHERE item_id = '1';
+("item_id = '%s'", 1)
+SELECT left_amount FROM Items WHERE item_id = '1';
+("item_id = '%s'", 1)
+SELECT * FROM Items WHERE item_id = '1';
+("item_id = '%s'", 1)
+SELECT * FROM Items WHERE item_id = '1';
+("item_id = '%s'", 1)
+SELECT left_amount FROM Items WHERE item_id = '1';
+("item_id = '%s'", 1)
+SELECT * FROM Items WHERE item_id = '1';
+("item_id = '%s'", 1)
+SELECT left_amount FROM Items WHERE item_id = '1';
+("user_name = '%s'", 'Owner')
+SELECT * FROM Users WHERE user_name = 'Owner';
+("user_name = '%s'", 'Owner')
+SELECT user_id FROM Users WHERE user_name = 'Owner';
+("group_name = '%s'", 'Group')
+SELECT * FROM gGroups WHERE group_name = 'Group';
+("group_name = '%s'", 'Group')
+SELECT group_id FROM gGroups WHERE group_name = 'Group';
+("group_id = '%s'", 1)
+SELECT * FROM gGroups WHERE group_id = '1';
+("group_id = '%s' AND member_id = '%s'", (1, 1))
+SELECT group_id FROM GroupUsers WHERE group_id = '1' AND member_id = '1';
+("order_name = '%s' AND group_id = '%s'", ('Order', 1))
+SELECT order_id FROM Orders WHERE order_name = 'Order' AND group_id = '1';
+("order_id = '%s' AND item_name = '%s'", (1, 'itemOld'))
+SELECT item_id FROM Items WHERE order_id = '1' AND item_name = 'itemOld';
+("item_id = '%s'", 1)
+SELECT * FROM Items WHERE item_id = '1';
+("item_id = '%s'", 1)
+SELECT item_name FROM Items WHERE item_id = '1';
+SELECT * FROM gGroups;
+("user_name = '%s'", 'Amy')
+SELECT * FROM Users WHERE user_name = 'Amy';
+("user_name = '%s'", 'Amy')
+SELECT user_id FROM Users WHERE user_name = 'Amy';
+("user_name = '%s'", 'Bob')
+SELECT * FROM Users WHERE user_name = 'Bob';
+("user_name = '%s'", 'Bob')
+SELECT user_id FROM Users WHERE user_name = 'Bob';
+("user_name = '%s'", 'Candy')
+SELECT * FROM Users WHERE user_name = 'Candy';
+("user_name = '%s'", 'Candy')
+SELECT user_id FROM Users WHERE user_name = 'Candy';
+("group_name = '%s'", 'group1')
+SELECT * FROM gGroups WHERE group_name = 'group1';
+("group_name = '%s'", 'group1')
+SELECT group_id FROM gGroups WHERE group_name = 'group1';
+("group_id = '%s'", 1)
+SELECT * FROM gGroups WHERE group_id = '1';
+("group_id = '%s' AND member_id = '%s'", (1, 1))
+SELECT group_id FROM GroupUsers WHERE group_id = '1' AND member_id = '1';
+("group_id = '%s'", 1)
+SELECT * FROM gGroups WHERE group_id = '1';
+("group_id = '%s' AND member_id = '%s'", (1, 2))
+SELECT group_id FROM GroupUsers WHERE group_id = '1' AND member_id = '2';
+("group_id = '%s' AND member_id = '%s'", (1, 3))
+SELECT group_id FROM GroupUsers WHERE group_id = '1' AND member_id = '3';
+("group_id = '%s' AND member_id  = '%s'", (1, 2))
+SELECT * FROM GroupUsers WHERE group_id = '1' AND member_id  = '2';
+("group_id = '%s' AND member_id  = '%s'", (1, 3))
+SELECT * FROM GroupUsers WHERE group_id = '1' AND member_id  = '3';
+("group_id = '%s'", '1')
+SELECT member_id FROM GroupUsers WHERE group_id = '1';
+("user_name = '%s'", 'Jason')
+SELECT * FROM Users WHERE user_name = 'Jason';
+("user_name = '%s'", 'Jason')
+SELECT user_id FROM Users WHERE user_name = 'Jason';
+("user_name = '%s'", 'Jason')
+SELECT * FROM Users WHERE user_name = 'Jason';
+("user_name = '%s' AND user_pwd = '%s'", ('Jason', '123456'))
+SELECT * FROM Users WHERE user_name = 'Jason' AND user_pwd = '123456';
+("user_name = '%s' AND user_pwd = '%s'", ('Jason', '12345'))
+SELECT * FROM Users WHERE user_name = 'Jason' AND user_pwd = '12345';
+("user_name = '%s'", 'Jason')
+SELECT * FROM Users WHERE user_name = 'Jason';
+("user_name = '%s'", 'Jason')
+SELECT user_id FROM Users WHERE user_name = 'Jason';
+("user_name = '%s' AND user_pwd = '%s'", ('Jason', '12345'))
+SELECT * FROM Users WHERE user_name = 'Jason' AND user_pwd = '12345';
+]]>		</system-out>
+		<system-err>
+<![CDATA[/usr/local/lib/python2.7/dist-packages/pymysql/cursors.py:329: Warning: (1008, u"Can't drop database 'GODUTCH'; database doesn't exist")
+  self._do_get_result()
+]]>		</system-err>
+	</testsuite>
+</testsuites>
