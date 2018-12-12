@@ -14,6 +14,9 @@ CREATE TABLE Friends (
 	FOREIGN KEY (friend_id) REFERENCES Users(user_id)
 );
 
+ALTER TABLE Friends ADD COLUMN friend_name VARCHAR(100);
+ALTER TABLE Friends ADD COLUMN title VARCHAR(2);
+
 
 CREATE TABLE gGroups (
 	group_id INT NOT NULL AUTO_INCREMENT,
