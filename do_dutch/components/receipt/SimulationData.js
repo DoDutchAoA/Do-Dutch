@@ -5,14 +5,14 @@ export const receiptData = [
 
 export const friendsData1 = [
   {
-    name: "Amy Farha",
+    name: "Sharer",
     avatar: "https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg",
     selected: false
   },
   {
     name: "Chris Jackson",
     avatar: "https://s3.amazonaws.com/uifaces/faces/twitter/kfriedson/128.jpg",
-    selected: true
+    selected: false
   },
   {
     name: "Amy Farha",
@@ -23,7 +23,7 @@ export const friendsData1 = [
     name: "Chris Jackson",
     avatar:
       "https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg",
-    selected: true
+    selected: false
   }
 ];
 
@@ -36,7 +36,7 @@ export const friendsData2 = [
   {
     name: "Chris Jackson",
     avatar: "https://s3.amazonaws.com/uifaces/faces/twitter/kfriedson/128.jpg",
-    selected: true
+    selected: false
   },
   {
     name: "Amy Farha",
@@ -47,7 +47,7 @@ export const friendsData2 = [
     name: "Chris Jackson",
     avatar:
       "https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg",
-    selected: true
+    selected: false
   }
 ];
 

@@ -24,6 +24,7 @@ let photoTools = {
   },
 
   uploadPhoto(data, uploadedCallback) {
+    // console.log(window.user_id, data);
     RNFetchBlob.fetch(
       "POST",
       "http://52.12.74.177:5000/upload",
@@ -68,14 +69,14 @@ let photoTools = {
           time.getMinutes();
 
         let receiptRecord = {
-          title: "Default Name",
+          title: "Receipt Name",
           time: timeStamp,
-          place: "Unknown",
+          place: "Walmart",
           items: goods,
           accumTotal: "$" + accumTotal.toFixed(2).toString(),
           detectedTotal: "$" + detectedTotal.toFixed(2).toString(),
           image_url: parsedData.path,
-          status: "Pending"
+          status: "Payer"
         };
 
         uploadedCallback(receiptRecord);
