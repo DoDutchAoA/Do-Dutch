@@ -26,8 +26,11 @@ export default class HomeScreen extends Component {
   constructor(props) {
     super(props);
 
-    // this._storeData();
-    this._retrieveData();
+    // this._storeLocalData();
+    this._retrieveLocalData();
+    setInterval(() => {
+      this._pollingReceipt(this);
+    }, 5000);
   }
 
   state = {
@@ -40,7 +43,52 @@ export default class HomeScreen extends Component {
     searchText: ""
   };
 
-  _storeData = async history => {
+  _pushNewReceipt(receipt) {
+    fetch("http://52.12.74.177:5000/newReceipt", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        sender: window.username,
+        receiver: "sharer",
+        receiptId: "someid",
+        data: JSON.stringify(receipt)
+      })
+    });
+  }
+
+  _pollingReceipt(that) {
+    fetch("http://52.12.74.177:5000/pollingReceipt", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        receiver: window.username
+      })
+    })
+      .then(response => response.json())
+      .then(responseJson => {
+        console.log(responseJson[0]);
+        if (responseJson.length > 0) {
+          let receiptRecord = JSON.parse(responseJson[0].data);
+          receiptRecord.status = "Sharer";
+          let history = that.state.receiptHistory;
+          history.push(receiptRecord);
+          this.setState({ receiptHistory: history });
+          this.ongoingList.setReceiptHistory(history);
+          this._storeLocalData(history);
+        }
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }
+
+  _storeLocalData = async history => {
     try {
       await AsyncStorage.setItem("history", JSON.stringify(history));
     } catch (error) {
@@ -48,7 +96,7 @@ export default class HomeScreen extends Component {
     }
   };
 
-  _retrieveData = async () => {
+  _retrieveLocalData = async () => {
     try {
       const value = await AsyncStorage.getItem("history");
       if (value !== null) {
@@ -80,7 +128,8 @@ export default class HomeScreen extends Component {
           history.push(recordData);
           this.setState({ receiptHistory: history });
           this.ongoingList.setReceiptHistory(history);
-          this._storeData(history);
+          this._storeLocalData(history);
+          this._pushNewReceipt(recordData);
         });
       }
     );
@@ -104,33 +153,33 @@ export default class HomeScreen extends Component {
               history[index] = recordData;
               this.setState({ receiptHistory: history });
               this.ongoingList.setReceiptHistory(history);
-              this._storeData(history);
+              this._storeLocalData(history);
             });
           }}
           receiptHistory={this.state.receiptHistory}
         />
       );
     } else {
-      if (this.state.receiptHistory.length > 0) {
-        ongoingListView = (
-          <ReceiptList
-            onRef={ref => (this.ongoingList = ref)}
-            groupTitle="ONGOING"
-            prompt="All Done!"
-            keyword=""
-            onPressRecord={(index, receiptItemData) => {
-              this.modal.launch(receiptItemData, recordData => {
-                let history = this.state.receiptHistory;
-                history[index] = recordData;
-                this.setState({ receiptHistory: history });
-                this.ongoingList.setReceiptHistory(history);
-                this._storeData(history);
-              });
-            }}
-            receiptHistory={this.state.receiptHistory}
-          />
-        );
-      }
+      // if (this.state.receiptHistory.length > 0) {
+      ongoingListView = (
+        <ReceiptList
+          onRef={ref => (this.ongoingList = ref)}
+          groupTitle="ONGOING"
+          prompt=""
+          keyword=""
+          onPressRecord={(index, receiptItemData) => {
+            this.modal.launch(receiptItemData, recordData => {
+              let history = this.state.receiptHistory;
+              history[index] = recordData;
+              this.setState({ receiptHistory: history });
+              this.ongoingList.setReceiptHistory(history);
+              this._storeLocalData(history);
+            });
+          }}
+          receiptHistory={this.state.receiptHistory}
+        />
+      );
+      // }
 
       if (this.state.pastHistory.length > 0) {
         pastListView = (
@@ -154,6 +203,16 @@ export default class HomeScreen extends Component {
       }
     }
 
+    let endPrompt;
+    if (
+      this.state.receiptHistory.length == 0 &&
+      this.state.pastHistory.length == 0
+    ) {
+      endPrompt = "No Receipt Yet 😕";
+    } else {
+      endPrompt = "End of Receipts";
+    }
+
     return (
       <View style={styles.container}>
         <SearchBar
@@ -171,7 +230,7 @@ export default class HomeScreen extends Component {
           {ongoingListView}
           {pastListView}
           <View style={{ alignItems: "center", margin: 10 }}>
-            <Text>End of Receipts</Text>
+            <Text>{endPrompt}</Text>
           </View>
         </ScrollView>
 
@@ -188,6 +247,7 @@ export default class HomeScreen extends Component {
           visible={this.state.spinner}
           textContent={"Processing Receipt..."}
           textStyle={styles.spinnerTextStyle}
+          overlayColor={"rgba(0, 0, 0, 0.50)"}
         />
 
         <ActionButton buttonColor="rgba(231,76,60,1)" position="center">

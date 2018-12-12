@@ -285,6 +285,7 @@ export default class ReceiptModal extends Component {
     for (i in receiptRecord.friends) {
       if (receiptRecord.friends[i].selected) sharerCount++;
     }
+    let d = new Date();
     this.setState({
       isModalVisible: true,
       title: receiptRecord.title,
@@ -293,12 +294,17 @@ export default class ReceiptModal extends Component {
       image_url: receiptRecord.image_url,
       friends: receiptRecord.friends,
       sharerCount: sharerCount,
+      status: receiptRecord.status,
       confirmCallback: confirmCallback
     });
     this.calculateTotal(receiptRecord.items, sharerCount);
   }
 
   render() {
+    let processedTime;
+    if (this.state.time)
+      processedTime =
+        this.state.time.split(" ")[0] + " " + this.state.time.split(" ")[1];
     return (
       <Modal isVisible={this.state.isModalVisible}>
         <ScrollView
@@ -313,7 +319,7 @@ export default class ReceiptModal extends Component {
             }}
           >
             <Text style={{ fontSize: 80, color: "#e1e1e1" }}>
-              {this.state.time}
+              {processedTime}
             </Text>
           </View>
 
@@ -461,8 +467,8 @@ export default class ReceiptModal extends Component {
                   detectedTotal: "$114.58",
                   image_url: this.state.image_url,
                   items: this.state.receiptData,
-                  place: "Unknown",
-                  status: "Pending",
+                  place: "Walmart",
+                  status: this.state.status,
                   time: this.state.time,
                   title: this.state.title,
                   friends: this.state.friends

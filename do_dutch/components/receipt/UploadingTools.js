@@ -69,14 +69,14 @@ let photoTools = {
           time.getMinutes();
 
         let receiptRecord = {
-          title: "Default Name",
+          title: "Receipt Name",
           time: timeStamp,
-          place: "Unknown",
+          place: "Walmart",
           items: goods,
           accumTotal: "$" + accumTotal.toFixed(2).toString(),
           detectedTotal: "$" + detectedTotal.toFixed(2).toString(),
           image_url: parsedData.path,
-          status: "Pending"
+          status: "Payer"
         };
 
         uploadedCallback(receiptRecord);

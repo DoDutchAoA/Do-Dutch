@@ -26,6 +26,14 @@ class ReceiptListItem extends Component {
   }
 
   render() {
+    let statusStyle;
+    if (this.state) {
+      if (this.state.status == "Sharer") {
+        statusStyle = styles.sharerTagContainer;
+      } else {
+        statusStyle = styles.payerTagContainer;
+      }
+    }
     return (
       <TouchableOpacity
         onPress={() => this.props.onPressRecord(this.props.index, this.state)}
@@ -50,7 +58,7 @@ class ReceiptListItem extends Component {
               </Text>
             </View>
             <View style={styles.containerText}>
-              <View style={styles.tagContainer}>
+              <View style={statusStyle}>
                 <Text
                   style={{
                     fontSize: 10,
@@ -204,8 +212,15 @@ const styles = StyleSheet.create({
     marginLeft: 12,
     justifyContent: "space-between"
   },
-  tagContainer: {
+  sharerTagContainer: {
     backgroundColor: "steelblue",
+    borderRadius: 2,
+    width: 60,
+    alignItems: "center",
+    marginTop: 3
+  },
+  payerTagContainer: {
+    backgroundColor: "green",
     borderRadius: 2,
     width: 60,
     alignItems: "center",
