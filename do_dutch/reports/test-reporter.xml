@@ -1,14 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testExecutions version="1">
-    <file path="/Users/fionazheng/GoDutch/Do-Dutch/do_dutch/__test__/home_screen.test.js">
-        <testCase name="Receipt part Search bar should be rendered" duration="14"/>
-        <testCase name="Receipt part ReceiptList should be rendered" duration="1"/>
-        <testCase name="Receipt part Action button should be rendered" duration="2"/>
-        <testCase name="Receipt part 3 action buttons should be rendered" duration="4"/>
-        <testCase name="Receipt part Clicking on refresh a navigation func should be called " duration="259"/>
-    </file>
-    <file path="/Users/fionazheng/GoDutch/Do-Dutch/do_dutch/__test__/login.test.js">
-        <testCase name="LogIn Two input areas should be rendered" duration="13"/>
-        <testCase name="LogIn Button should be rendered" duration="1"/>
+    <file path="/Users/fionazheng/GoDutch/Do-Dutch/do_dutch/__test__/ReceiptList.test.js">
+        <testCase name="Checking the rendering of ReceiptList A divider should be rendered" duration="21"/>
+        <testCase name="Checking the rendering of ReceiptList If no history, a prompt should be rendered" duration="3"/>
+        <testCase name="Checking the rendering of ReceiptList If no history, a prompt should be rendered" duration="3"/>
+        <testCase name="Checking the rendering of ReceiptListItem A touchableOpacity should be rendered" duration="4"/>
+        <testCase name="Checking the rendering of ReceiptListItem Items should be rendered in a correct style" duration="28">
+            <failure message="Error: expect(object)[.not].toHaveProperty(path, value)"><![CDATA[Error: expect(object)[.not].toHaveProperty(path, value)
+
+Expected object to be an object. Received:
+  undefined: undefined
+    at Object.<anonymous> (/Users/fionazheng/GoDutch/Do-Dutch/do_dutch/__test__/ReceiptList.test.js:57:28)
+    at Object.asyncJestTest (/Users/fionazheng/GoDutch/Do-Dutch/do_dutch/node_modules/jest-jasmine2/build/jasmine_async.js:108:37)
+    at resolve (/Users/fionazheng/GoDutch/Do-Dutch/do_dutch/node_modules/jest-jasmine2/build/queue_runner.js:56:12)
+    at new Promise (<anonymous>)
+    at mapper (/Users/fionazheng/GoDutch/Do-Dutch/do_dutch/node_modules/jest-jasmine2/build/queue_runner.js:43:19)
+    at promise.then (/Users/fionazheng/GoDutch/Do-Dutch/do_dutch/node_modules/jest-jasmine2/build/queue_runner.js:87:41)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:189:7)]]></failure>
+        </testCase>
     </file>
 </testExecutions>
