@@ -3,71 +3,71 @@
 # Developed by Fred Weinhaus 6/9/2009 .......... revised 4/24/18
 #
 # ------------------------------------------------------------------------------
-# 
+#
 # Licensing:
-# 
+#
 # Copyright © Fred Weinhaus
-# 
+#
 # My scripts are available free of charge for non-commercial use, ONLY.
-# 
-# For use of my scripts in commercial (for-profit) environments or 
-# non-free applications, please contact me (Fred Weinhaus) for 
+#
+# For use of my scripts in commercial (for-profit) environments or
+# non-free applications, please contact me (Fred Weinhaus) for
 # licensing arrangements. My email address is fmw at alink dot net.
-# 
-# If you: 1) redistribute, 2) incorporate any of these scripts into other 
-# free applications or 3) reprogram them in another scripting language, 
-# then you must contact me for permission, especially if the result might 
+#
+# If you: 1) redistribute, 2) incorporate any of these scripts into other
+# free applications or 3) reprogram them in another scripting language,
+# then you must contact me for permission, especially if the result might
 # be used in a commercial or for-profit environment.
-# 
-# My scripts are also subject, in a subordinate manner, to the ImageMagick 
+#
+# My scripts are also subject, in a subordinate manner, to the ImageMagick
 # license, which can be found at: http://www.imagemagick.org/script/license.php
-# 
+#
 # ------------------------------------------------------------------------------
-# 
+#
 ####
 #
-# USAGE: textcleaner [-r rotate] [-l layout] [-c cropoff] [-g] [-e enhance ] 
-# [-f filtersize] [-o offset] [-u]  [-t threshold] [-s sharpamt] [-s saturation] 
+# USAGE: textcleaner [-r rotate] [-l layout] [-c cropoff] [-g] [-e enhance ]
+# [-f filtersize] [-o offset] [-u]  [-t threshold] [-s sharpamt] [-s saturation]
 # [-a adaptblur] [-T] [-p padamt] [-b bgcolor] [-F fuzzval] [-i invert] infile outfile
 # USAGE: textcleaner [-help]
 #
 # OPTIONS:
 #
-# -r	  rotate			rotate image 90 degrees in direction specified if 
-#                           aspect ratio does not match layout; options are cw 
-#                           (or clockwise), ccw (or counterclockwise) and n 
+# -r	  rotate			rotate image 90 degrees in direction specified if
+#                           aspect ratio does not match layout; options are cw
+#                           (or clockwise), ccw (or counterclockwise) and n
 #                           (or none); default=none or no rotation
-# -l      layout            desired layout; options are p (or portrait) or 
+# -l      layout            desired layout; options are p (or portrait) or
 #                           l (or landscape); default=portrait
-# -c      cropoff			image cropping offsets after potential rotate 90; 
-#                           choices: one, two or four non-negative integer comma 
-#                           separated values; one value will crop all around; 
-#                           two values will crop at left/right,top/bottom; 
+# -c      cropoff			image cropping offsets after potential rotate 90;
+#                           choices: one, two or four non-negative integer comma
+#                           separated values; one value will crop all around;
+#                           two values will crop at left/right,top/bottom;
 #                           four values will crop left,top,right,bottom
 # -g                        convert document to grayscale before enhancing
 # -e      enhance           enhance image brightness before cleaning;
-#                           choices are: none, stretch or normalize; 
+#                           choices are: none, stretch or normalize;
 #                           default=stretch
 # -f      filtersize        size of filter used to clean background;
 #                           integer>0; default=15
 # -o      offset            offset of filter in percent used to reduce noise;
 #                           integer>=0; default=5
-# -u                        unrotate image; cannot unrotate more than 
+# -u                        unrotate image; cannot unrotate more than
 #                           about 5 degrees
-# -t      threshold			text smoothing threshold; 0<=threshold<=100; 
+# -t      threshold			text smoothing threshold; 0<=threshold<=100;
 #                           nominal value is about 50; default is no smoothing
-# -s      sharpamt          sharpening amount in pixels; float>=0; 
+# -s      sharpamt          sharpening amount in pixels; float>=0;
 #                           nominal about 1; default=0
-# -S      saturation        color saturation expressed as percent; integer>=0; 
-#                           only applicable if -g not set; a value of 100 is 
+# -S      saturation        color saturation expressed as percent; integer>=0;
+#                           only applicable if -g not set; a value of 100 is
 #                           no change; default=200 (double saturation)
-# -a      adaptblur         alternate text smoothing using adaptive blur; 
+# -a      adaptblur         alternate text smoothing using adaptive blur;
 #                           floats>=0; default=0 (no smoothing)
-# -T         				trim background around outer part of image 
+# -T         				trim background around outer part of image
 # -p      padamt			border pad amount around outer part of image;
 #                           integer>=0; default=0
 # -b      bgcolor           desired color for background or "image"; default=white
-# -F      fuzzval           fuzz value for determining bgcolor when bgcolor=image; 
+# -F      fuzzval           fuzz value for determining bgcolor when bgcolor=image;
 #                           integer>=0; default=10
 # -i      invert            invert colors; choices are: 1 or 2 for one-way or two-ways
 #                           (input or input and output); default is no inversion
@@ -75,95 +75,95 @@
 ###
 #
 # NAME: TEXTCLEANER
-# 
+#
 # PURPOSE: To process a scanned document of text to clean the text background.
-# 
+#
 # DESCRIPTION: TEXTCLEANER processses a scanned document of text to clean
 # the text background and enhance the text. The order of processing is:
 # 1) optional 90 degree rotate if aspect does not match layout
-# 2) optional crop, 
-# 3) optional convert to grayscale, 
-# 4) optional enhance, 
-# 5) filter to clean background and optionally smooth/antialias, 
-# 6) optional unrotate (limited to about 5 degrees or less), 
+# 2) optional crop,
+# 3) optional convert to grayscale,
+# 4) optional enhance,
+# 5) filter to clean background and optionally smooth/antialias,
+# 6) optional unrotate (limited to about 5 degrees or less),
 # 7) optional text smoothing,
-# 8) optional sharpening, 
-# 9) optional saturation change (if -g is not specified), 
+# 8) optional sharpening,
+# 9) optional saturation change (if -g is not specified),
 # 10) optional alternate text smoothing via adaptive blur
 # 11) optional auto trim of border (effective only if background well-cleaned),
 # 12) optional pad of border
-# 
-# OPTIONS: 
-# 
+#
+# OPTIONS:
+#
 # -r rotate ... ROTATE image either clockwise or counterclockwise by 90 degrees,
-# if image aspect ratio does not match the layout mode. Choices are: cc (or 
+# if image aspect ratio does not match the layout mode. Choices are: cc (or
 # clockwise), ccw (or counterclockwise) and n (or none). The default is no rotation.
-# 
-# -l layout ... LAYOUT for determining if rotation is to be applied. The choices 
-# are p (or portrait) or l (or landscape). The image will be rotated if rotate is 
-# specified and the aspect ratio of the image does not match the layout chosen. 
+#
+# -l layout ... LAYOUT for determining if rotation is to be applied. The choices
+# are p (or portrait) or l (or landscape). The image will be rotated if rotate is
+# specified and the aspect ratio of the image does not match the layout chosen.
 # The default is portrait.
 #
-# -c cropoffsets ... CROPOFFSETS are the image cropping offsets after potential 
-# rotate 90. Choices: one, two or four non-negative integer comma separated 
-# values. One value will crop all around. Two values will crop at 
+# -c cropoffsets ... CROPOFFSETS are the image cropping offsets after potential
+# rotate 90. Choices: one, two or four non-negative integer comma separated
+# values. One value will crop all around. Two values will crop at
 # left/right,top/bottom. Four values will crop left,top,right,bottom.
-# 
-# -g ... Convert the document to grayscale.
-# 
-# -e enhance ... ENHANCE brightness of image. The choices are: none, stretch, 
-# or normalize. The default=stretch.
-# 
-# -f filtersize ... FILTERSIZE is the size of the filter used to clean up the 
-# background. Values are integers>0. The filtersize needs to be larger than 
-# the thickness of the writing, but the smaller the better beyond this. Making it 
-# larger will increase the processing time and may lose text. The default is 15. 
 #
-# -o offset ... OFFSET is the offset threshold in percent used by the filter  
-# to eliminate noise. Values are integers>=0. Values too small will leave much 
-# noise and artifacts in the result. Values too large will remove too much 
-# text leaving gaps. The default is 5. 
-# 
+# -g ... Convert the document to grayscale.
+#
+# -e enhance ... ENHANCE brightness of image. The choices are: none, stretch,
+# or normalize. The default=stretch.
+#
+# -f filtersize ... FILTERSIZE is the size of the filter used to clean up the
+# background. Values are integers>0. The filtersize needs to be larger than
+# the thickness of the writing, but the smaller the better beyond this. Making it
+# larger will increase the processing time and may lose text. The default is 15.
+#
+# -o offset ... OFFSET is the offset threshold in percent used by the filter
+# to eliminate noise. Values are integers>=0. Values too small will leave much
+# noise and artifacts in the result. Values too large will remove too much
+# text leaving gaps. The default is 5.
+#
 # -u ... UNROTATE the image. This is limited to about 5 degrees or less.
-# 
-# -t threshold ... THRESHOLD is the text smoothing threshold. Values are integers 
-# between 0 and 100. Smaller values smooth/thicken the text more. Larger values 
-# thin, but can result in gaps in the text. Nominal value is in the middle at 
+#
+# -t threshold ... THRESHOLD is the text smoothing threshold. Values are integers
+# between 0 and 100. Smaller values smooth/thicken the text more. Larger values
+# thin, but can result in gaps in the text. Nominal value is in the middle at
 # about 50. The default is to disable smoothing.
 #
-# -s sharpamt ... SHARPAMT is the amount of pixel sharpening to be applied to  
-# the resulting text. Values are floats>=0. If used, it should be small 
-# (suggested about 1). The default=0 (no sharpening). 
-# 
-# -S saturation ... SATURATION is the desired color saturation of the text 
-# expressed as a percentage. Values are integers>=0. A value of 100 is no change. 
-# Larger values will make the text colors more saturated. The default=200  
+# -s sharpamt ... SHARPAMT is the amount of pixel sharpening to be applied to
+# the resulting text. Values are floats>=0. If used, it should be small
+# (suggested about 1). The default=0 (no sharpening).
+#
+# -S saturation ... SATURATION is the desired color saturation of the text
+# expressed as a percentage. Values are integers>=0. A value of 100 is no change.
+# Larger values will make the text colors more saturated. The default=200
 # indicates double saturation. Not applicable when -g option specified.
-# 
-# -a adaptblur ... ADAPTBLUR applies an alternate text smoothing using 
-# an adaptive blur. The values are floats>=0. The default=0 indicates no 
+#
+# -a adaptblur ... ADAPTBLUR applies an alternate text smoothing using
+# an adaptive blur. The values are floats>=0. The default=0 indicates no
 # blurring.
-# 
+#
 # -T ... TRIM the border around the image.
-# 
+#
 # -p padamt ... PADAMT is the border pad amount in pixels. The default=0.
-# 
-# -b bgcolor ... BGCOLOR is the desired background color after it has been 
-# cleaned up. Any valid IM color may be use. If bgcolor=image, then the color will 
-# be computed from the top left corner pixel and a fuzzval. The final color will be 
+#
+# -b bgcolor ... BGCOLOR is the desired background color after it has been
+# cleaned up. Any valid IM color may be use. If bgcolor=image, then the color will
+# be computed from the top left corner pixel and a fuzzval. The final color will be
 # computed subsequently as an average over the whole image. The default is white.
 #
-# -F fuzzval ... FUZZVAL is the fuzz value for determining bgcolor when bgcolor=image. 
+# -F fuzzval ... FUZZVAL is the fuzz value for determining bgcolor when bgcolor=image.
 # Values are integers>=0. The default=10.
 #
-# -i invert ... INVERT colors for example to convert white text on black background to 
+# -i invert ... INVERT colors for example to convert white text on black background to
 # black text on white background. The choices are: 1 or 2 for one-way or two-ways
 # (input or input and output). The default is no inversion.
-# 
-# CAVEAT: No guarantee that this script will work on all platforms, 
-# nor that trapping of inconsistent parameters is complete and 
-# foolproof. Use At Your Own Risk. 
-# 
+#
+# CAVEAT: No guarantee that this script will work on all platforms,
+# nor that trapping of inconsistent parameters is complete and
+# foolproof. Use At Your Own Risk.
+#
 ######
 #
 
@@ -194,13 +194,13 @@ dir="."    # suggestions are dir="." or dir="/tmp"
 PROGNAME=`type $0 | awk '{print $3}'`  # search for executable on path
 PROGDIR=`dirname $PROGNAME`            # extract directory of program
 PROGNAME=`basename $PROGNAME`          # base name of program
-usage1() 
+usage1()
 	{
 	echo >&2 ""
 	echo >&2 "$PROGNAME:" "$@"
 	sed >&2 -e '1,/^####/d;  /^###/g;  /^#/!q;  s/^#//;  s/^ //;  4,$p' "$PROGDIR/$PROGNAME"
 	}
-usage2() 
+usage2()
 	{
 	echo >&2 ""
 	echo >&2 "$PROGNAME:" "$@"
@@ -248,7 +248,7 @@ else
 					   ;;
 			   	-r)    # rotate
 					   shift  # to get the next parameter
-					   # test if parameter starts with minus sign 
+					   # test if parameter starts with minus sign
 					   errorMsg="--- INVALID ROTATE SPECIFICATION ---"
 					   checkMinus "$1"
 					   rotate=`echo "$1" | tr "[:upper:]" "[:lower:]"`
@@ -261,7 +261,7 @@ else
 					   ;;
 			   	-l)    # layout
 					   shift  # to get the next parameter
-					   # test if parameter starts with minus sign 
+					   # test if parameter starts with minus sign
 					   errorMsg="--- INVALID LAYOUT SPECIFICATION ---"
 					   checkMinus "$1"
 					   layout=`echo "$1" | tr "[:upper:]" "[:lower:]"`
@@ -273,13 +273,13 @@ else
 					   ;;
 				-c)    # get cropoffsets
 					   shift  # to get the next parameter
-					   # test if parameter starts with minus sign 
+					   # test if parameter starts with minus sign
 					   errorMsg="--- INVALID CROPOFFSETS SPECIFICATION ---"
 					   checkMinus "$1"
 					   cropoff="$1"
 					   cropoff="${cropoff},"
 					   cropoff=`expr "$cropoff" : '\([,0-9]*\)'`
-					   numcrops=`echo "$cropoff" | tr "," " " | wc -w` 
+					   numcrops=`echo "$cropoff" | tr "," " " | wc -w`
 					   [ "$cropoff" = "" ] && errMsg "--- ONE OR TWO OR FOUR OFFSETS MUST BE PROVIDED ---"
 					   [ $numcrops -ne 1 -a $numcrops -ne 2 -a $numcrops -ne 4 ] && errMsg "--- ONE OR TWO OR FOUR OFFSETS MUST BE PROVIDED ---"
 					   crop1=`echo "$cropoff" | cut -d, -f1`
@@ -292,7 +292,7 @@ else
 					   ;;
 			   	-e)    # get enhance
 					   shift  # to get the next parameter
-					   # test if parameter starts with minus sign 
+					   # test if parameter starts with minus sign
 					   errorMsg="--- INVALID ENHANCE SPECIFICATION ---"
 					   checkMinus "$1"
 					   enhance="$1"
@@ -305,7 +305,7 @@ else
 					   ;;
 				-f)    # get filtersize
 					   shift  # to get the next parameter
-					   # test if parameter starts with minus sign 
+					   # test if parameter starts with minus sign
 					   errorMsg="--- INVALID FILTERSIZE SPECIFICATION ---"
 					   checkMinus "$1"
 					   filtersize=`expr "$1" : '\([0-9]*\)'`
@@ -315,7 +315,7 @@ else
 					   ;;
 				-o)    # get offset
 					   shift  # to get the next parameter
-					   # test if parameter starts with minus sign 
+					   # test if parameter starts with minus sign
 					   errorMsg="--- INVALID OFFSET SPECIFICATION ---"
 					   checkMinus "$1"
 					   offset=`expr "$1" : '\([0-9]*\)'`
@@ -323,7 +323,7 @@ else
 					   ;;
 				-t)    # get threshold
 					   shift  # to get the next parameter
-					   # test if parameter starts with minus sign 
+					   # test if parameter starts with minus sign
 					   errorMsg="--- INVALID THRESHOLD SPECIFICATION ---"
 					   checkMinus "$1"
 					   threshold=`expr "$1" : '\([0-9]*\)'`
@@ -334,7 +334,7 @@ else
 					   ;;
 				-s)    # get sharpamt
 					   shift  # to get the next parameter
-					   # test if parameter starts with minus sign 
+					   # test if parameter starts with minus sign
 					   errorMsg="--- INVALID SHARPAMT SPECIFICATION ---"
 					   checkMinus "$1"
 					   sharpamt=`expr "$1" : '\([.0-9]*\)'`
@@ -342,7 +342,7 @@ else
 					   ;;
 				-S)    # get saturation
 					   shift  # to get the next parameter
-					   # test if parameter starts with minus sign 
+					   # test if parameter starts with minus sign
 					   errorMsg="--- INVALID SATURATION SPECIFICATION ---"
 					   checkMinus "$1"
 					   saturation=`expr "$1" : '\([0-9]*\)'`
@@ -350,7 +350,7 @@ else
 					   ;;
 				-a)    # get adaptblur
 					   shift  # to get the next parameter
-					   # test if parameter starts with minus sign 
+					   # test if parameter starts with minus sign
 					   errorMsg="--- INVALID ADAPTBLUR SPECIFICATION ---"
 					   checkMinus "$1"
 					   adaptblur=`expr "$1" : '\([.0-9]*\)'`
@@ -364,7 +364,7 @@ else
 					   ;;
 				-p)    # get padamt
 					   shift  # to get the next parameter
-					   # test if parameter starts with minus sign 
+					   # test if parameter starts with minus sign
 					   errorMsg="--- INVALID PADAMT SPECIFICATION ---"
 					   checkMinus "$1"
 					   padamt=`expr "$1" : '\([0-9]*\)'`
@@ -372,14 +372,14 @@ else
 					   ;;
 			   	-b)    # get bgcolor
 					   shift  # to get the next parameter
-					   # test if parameter starts with minus sign 
+					   # test if parameter starts with minus sign
 					   errorMsg="--- INVALID BACKGROUND COLOR SPECIFICATION ---"
 					   checkMinus "$1"
 					   bgcolor="$1"
 					   ;;
 				-F)    # get fuzzval
 					   shift  # to get the next parameter
-					   # test if parameter starts with minus sign 
+					   # test if parameter starts with minus sign
 					   errorMsg="--- INVALID FUZZVAL SPECIFICATION ---"
 					   checkMinus "$1"
 					   fuzzval=`expr "$1" : '\([0-9]*\)'`
@@ -387,7 +387,7 @@ else
 					   ;;
 				-i)    # get invert
 					   shift  # to get the next parameter
-					   # test if parameter starts with minus sign 
+					   # test if parameter starts with minus sign
 					   errorMsg="--- INVALID INVERT SPECIFICATION ---"
 					   checkMinus "$1"
 					   invert=`expr "$1" : '\([0-9]*\)'`
@@ -434,15 +434,15 @@ trap "rm -f $tmpA1 $tmpA2; exit 1" 1 2 3 15
 # test for hdri enabled
 # NOTE: must put grep before trap using ERR in case it does not find a match
 if [ "$im_version" -ge "07000000" ]; then
-	hdri_on=`convert -version | grep "HDRI"`	
+	hdri_on=`convert -version | grep "HDRI"`
 else
 	hdri_on=`convert -list configure | grep "enable-hdri"`
 fi
 
 
-# colorspace RGB and sRGB swapped between 6.7.5.5 and 6.7.6.7 
+# colorspace RGB and sRGB swapped between 6.7.5.5 and 6.7.6.7
 # though probably not resolved until the latter
-# then -colorspace gray changed to linear between 6.7.6.7 and 6.7.8.2 
+# then -colorspace gray changed to linear between 6.7.6.7 and 6.7.8.2
 # then -separate converted to linear gray channels between 6.7.6.7 and 6.7.8.2,
 # though probably not resolved until the latter
 # so -colorspace HSL/HSB -separate and -colorspace gray became linear
@@ -464,7 +464,7 @@ if [ "$invert" != "" ]; then
 	inversion1="-negate"
 else
 	inversion1=""
-fi	
+fi
 
 # read the input image into the TMP cached image.
 convert -quiet "$infile" +repage $inversion1 "$tmpA1" ||
@@ -476,7 +476,7 @@ hh=`convert $tmpA1 -ping -format "%h" info:`
 
 # get image h/w aspect ratio and determine if portrait=1 (h/w>1) or landscape=0 (h/w<1)
 aspect=`convert xc: -format "%[fx:($hh/$ww)>=1?1:0]" info:`
- 
+
 #echo "ww=$ww; hh=$hh; aspect=$aspect"
 
 # set up rotation
@@ -491,7 +491,7 @@ elif [ "$layout" = "landscape" -a $aspect -eq 1 -a "$rotate" = "ccw" ]; then
 else
 	rotation=""
 fi
-	
+
 # set up cropping
 if [ "$cropoff" != "" -a $numcrops -eq 1 ]; then
 	wwc=`convert xc: -format "%[fx:$ww-2*$crop1]" info:`
@@ -513,7 +513,7 @@ fi
 # test if grayscale
 grayscale=`convert $tmpA1 -format "%[colorspace]" info:`
 typegray=`convert $tmpA1 -format '%r' info: | grep 'Gray'`
-if [ "$gray" = "yes" -o "$grayscale" = "Gray" -o "$typegray" != "" ]; then 
+if [ "$gray" = "yes" -o "$grayscale" = "Gray" -o "$typegray" != "" ]; then
 	makegray="$setcspace -colorspace gray -type grayscale"
 else
 	makegray=""
@@ -608,7 +608,7 @@ if [ "$invert" = 2 ]; then
 	inversion2="-negate"
 else
 	inversion2=""
-fi	
+fi
 
 # process image
 convert -respect-parenthesis \( $tmpA1 $rotation $cropping $makegray $enhancing \) \

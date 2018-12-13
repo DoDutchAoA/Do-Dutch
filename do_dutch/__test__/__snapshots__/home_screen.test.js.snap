@@ -1,0 +1,2827 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Receipt part Clicking on refresh a navigation func should be called  1`] = `
+<View
+  style={
+    Object {
+      "backgroundColor": "#ffffff",
+      "flex": 1,
+    }
+  }
+>
+  <View
+    style={
+      Array [
+        Object {
+          "backgroundColor": "#393e42",
+          "borderBottomColor": "#000",
+          "borderBottomWidth": 1,
+          "borderTopColor": "#000",
+          "borderTopWidth": 1,
+        },
+        Object {
+          "backgroundColor": "#e1e8ee",
+          "borderBottomColor": "#e1e1e1",
+          "borderTopColor": "#e1e1e1",
+        },
+        Object {
+          "backgroundColor": "#fff",
+        },
+      ]
+    }
+  >
+    <TextInput
+      allowFontScaling={true}
+      onChangeText={[Function]}
+      placeholder="Search receipt name, merchant, or status..."
+      placeholderTextColor="#86939e"
+      style={
+        Array [
+          Object {
+            "backgroundColor": "#303337",
+            "borderRadius": 3,
+            "color": "#86939e",
+            "fontSize": 17.5,
+            "height": 30,
+            "margin": 8,
+            "overflow": "hidden",
+            "paddingLeft": 26,
+            "paddingRight": 19,
+          },
+          Object {
+            "backgroundColor": "#bdc6cf",
+          },
+          false,
+          false,
+          undefined,
+          undefined,
+          false,
+        ]
+      }
+      underlineColorAndroid="transparent"
+    />
+    <Text
+      allowFontScaling={false}
+      style={
+        Array [
+          Object {
+            "color": "#86939e",
+            "fontSize": 16,
+          },
+          Array [
+            Object {
+              "backgroundColor": "transparent",
+              "position": "absolute",
+              "top": 15.5,
+            },
+            Object {
+              "left": 16,
+            },
+            undefined,
+          ],
+          Object {
+            "fontFamily": "Material Icons",
+            "fontStyle": "normal",
+            "fontWeight": "normal",
+          },
+          Object {},
+        ]
+      }
+    >
+      
+    </Text>
+  </View>
+  <RCTScrollView
+    scrollEnabled={true}
+  >
+    <View>
+      <View>
+        <View>
+          <View
+            style={
+              Object {
+                "alignItems": "center",
+                "marginLeft": 10,
+                "marginTop": 10,
+              }
+            }
+          >
+            <Text
+              style={
+                Array [
+                  Object {},
+                  undefined,
+                  undefined,
+                  undefined,
+                  undefined,
+                  undefined,
+                  undefined,
+                  undefined,
+                  undefined,
+                  undefined,
+                  Object {
+                    "backgroundColor": "#ffffff",
+                    "color": "#000000",
+                    "fontWeight": "bold",
+                    "padding": 3,
+                  },
+                ]
+              }
+            >
+              ONGOING
+            </Text>
+          </View>
+          <View
+            style={
+              Array [
+                Object {
+                  "backgroundColor": "#e1e8ee",
+                  "height": 1,
+                },
+                Object {
+                  "backgroundColor": "rgb(100, 100, 100)",
+                  "marginLeft": 150,
+                  "marginRight": 150,
+                },
+              ]
+            }
+          />
+          <RCTScrollView
+            data={
+              Array [
+                Object {
+                  "accumTotal": 0,
+                  "detectedTotal": 0,
+                  "friends": Array [
+                    Object {
+                      "avatar": "https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg",
+                      "name": "Amy Farha",
+                      "selected": false,
+                    },
+                    Object {
+                      "avatar": "https://s3.amazonaws.com/uifaces/faces/twitter/kfriedson/128.jpg",
+                      "name": "Chris Jackson",
+                      "selected": true,
+                    },
+                    Object {
+                      "avatar": "https://s3.amazonaws.com/uifaces/faces/twitter/brynn/128.jpg",
+                      "name": "Amy Farha",
+                      "selected": false,
+                    },
+                    Object {
+                      "avatar": "https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg",
+                      "name": "Chris Jackson",
+                      "selected": true,
+                    },
+                  ],
+                  "image_url": "https://i.imgur.com/UYiroysl.jpg",
+                  "items": Array [
+                    Object {
+                      "icon": "file",
+                      "name": "display",
+                      "price": 8,
+                      "split": true,
+                    },
+                    Object {
+                      "icon": "file",
+                      "name": "display",
+                      "price": 5,
+                      "split": true,
+                    },
+                  ],
+                  "place": "HMart",
+                  "status": "Pending",
+                  "time": "DEC 1",
+                  "title": "Receipt 1",
+                },
+                Object {
+                  "accumTotal": 10.55,
+                  "detectedTotal": 10.67,
+                  "friends": Array [
+                    Object {
+                      "avatar": "https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg",
+                      "name": "Amy Farha",
+                      "selected": false,
+                    },
+                    Object {
+                      "avatar": "https://s3.amazonaws.com/uifaces/faces/twitter/kfriedson/128.jpg",
+                      "name": "Chris Jackson",
+                      "selected": true,
+                    },
+                    Object {
+                      "avatar": "https://s3.amazonaws.com/uifaces/faces/twitter/brynn/128.jpg",
+                      "name": "Amy Farha",
+                      "selected": false,
+                    },
+                    Object {
+                      "avatar": "https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg",
+                      "name": "Chris Jackson",
+                      "selected": true,
+                    },
+                  ],
+                  "image_url": "https://i.imgur.com/UPrs1EWl.jpg",
+                  "items": Array [
+                    Object {
+                      "icon": "file",
+                      "name": "display",
+                      "price": 8,
+                      "split": true,
+                    },
+                    Object {
+                      "icon": "file",
+                      "name": "display",
+                      "price": 5,
+                      "split": true,
+                    },
+                  ],
+                  "place": "ACME",
+                  "status": "Pending",
+                  "time": "NOV 30",
+                  "title": "Receipt 2",
+                },
+                Object {
+                  "accumTotal": 10.55,
+                  "detectedTotal": 10.67,
+                  "image_url": "https://i.imgur.com/MABUbpDl.jpg",
+                  "items": Array [],
+                  "place": "Walmart",
+                  "status": "Pending",
+                  "time": "NOV 25",
+                  "title": "Receipt 3",
+                },
+              ]
+            }
+            disableVirtualization={false}
+            extraData={
+              Object {
+                "receiptHistory": Array [
+                  Object {
+                    "accumTotal": 0,
+                    "detectedTotal": 0,
+                    "friends": Array [
+                      Object {
+                        "avatar": "https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg",
+                        "name": "Amy Farha",
+                        "selected": false,
+                      },
+                      Object {
+                        "avatar": "https://s3.amazonaws.com/uifaces/faces/twitter/kfriedson/128.jpg",
+                        "name": "Chris Jackson",
+                        "selected": true,
+                      },
+                      Object {
+                        "avatar": "https://s3.amazonaws.com/uifaces/faces/twitter/brynn/128.jpg",
+                        "name": "Amy Farha",
+                        "selected": false,
+                      },
+                      Object {
+                        "avatar": "https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg",
+                        "name": "Chris Jackson",
+                        "selected": true,
+                      },
+                    ],
+                    "image_url": "https://i.imgur.com/UYiroysl.jpg",
+                    "items": Array [
+                      Object {
+                        "icon": "file",
+                        "name": "display",
+                        "price": 8,
+                        "split": true,
+                      },
+                      Object {
+                        "icon": "file",
+                        "name": "display",
+                        "price": 5,
+                        "split": true,
+                      },
+                    ],
+                    "place": "HMart",
+                    "status": "Pending",
+                    "time": "DEC 1",
+                    "title": "Receipt 1",
+                  },
+                  Object {
+                    "accumTotal": 10.55,
+                    "detectedTotal": 10.67,
+                    "friends": Array [
+                      Object {
+                        "avatar": "https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg",
+                        "name": "Amy Farha",
+                        "selected": false,
+                      },
+                      Object {
+                        "avatar": "https://s3.amazonaws.com/uifaces/faces/twitter/kfriedson/128.jpg",
+                        "name": "Chris Jackson",
+                        "selected": true,
+                      },
+                      Object {
+                        "avatar": "https://s3.amazonaws.com/uifaces/faces/twitter/brynn/128.jpg",
+                        "name": "Amy Farha",
+                        "selected": false,
+                      },
+                      Object {
+                        "avatar": "https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg",
+                        "name": "Chris Jackson",
+                        "selected": true,
+                      },
+                    ],
+                    "image_url": "https://i.imgur.com/UPrs1EWl.jpg",
+                    "items": Array [
+                      Object {
+                        "icon": "file",
+                        "name": "display",
+                        "price": 8,
+                        "split": true,
+                      },
+                      Object {
+                        "icon": "file",
+                        "name": "display",
+                        "price": 5,
+                        "split": true,
+                      },
+                    ],
+                    "place": "ACME",
+                    "status": "Pending",
+                    "time": "NOV 30",
+                    "title": "Receipt 2",
+                  },
+                  Object {
+                    "accumTotal": 10.55,
+                    "detectedTotal": 10.67,
+                    "image_url": "https://i.imgur.com/MABUbpDl.jpg",
+                    "items": Array [],
+                    "place": "Walmart",
+                    "status": "Pending",
+                    "time": "NOV 25",
+                    "title": "Receipt 3",
+                  },
+                ],
+              }
+            }
+            getItem={[Function]}
+            getItemCount={[Function]}
+            horizontal={false}
+            initialNumToRender={10}
+            keyExtractor={[Function]}
+            maxToRenderPerBatch={10}
+            numColumns={1}
+            onContentSizeChange={[Function]}
+            onEndReachedThreshold={2}
+            onLayout={[Function]}
+            onMomentumScrollEnd={[Function]}
+            onScroll={[Function]}
+            onScrollBeginDrag={[Function]}
+            onScrollEndDrag={[Function]}
+            renderItem={[Function]}
+            scrollEventThrottle={50}
+            stickyHeaderIndices={Array []}
+            updateCellsBatchingPeriod={50}
+            viewabilityConfigCallbackPairs={Array []}
+            windowSize={21}
+          >
+            <View>
+              <View
+                onLayout={[Function]}
+                style={null}
+              >
+                <View
+                  accessible={true}
+                  isTVSelectable={true}
+                  onResponderGrant={[Function]}
+                  onResponderMove={[Function]}
+                  onResponderRelease={[Function]}
+                  onResponderTerminate={[Function]}
+                  onResponderTerminationRequest={[Function]}
+                  onStartShouldSetResponder={[Function]}
+                  style={
+                    Object {
+                      "opacity": 1,
+                    }
+                  }
+                >
+                  <View
+                    style={
+                      Object {
+                        "borderRadius": 2,
+                        "borderWidth": 0,
+                        "elevation": 0.1,
+                        "flex": 1,
+                        "flexDirection": "row",
+                        "marginBottom": 2,
+                        "marginLeft": 5,
+                        "marginRight": 5,
+                        "marginTop": 2,
+                        "padding": 10,
+                        "width": 740,
+                      }
+                    }
+                  >
+                    <Image
+                      source={
+                        Object {
+                          "uri": "https://i.imgur.com/UYiroysl.jpg",
+                        }
+                      }
+                      style={
+                        Object {
+                          "height": 50,
+                          "width": 74,
+                        }
+                      }
+                    />
+                    <View
+                      style={
+                        Object {
+                          "flex": 1,
+                          "flexDirection": "column",
+                        }
+                      }
+                    >
+                      <View
+                        style={
+                          Object {
+                            "flex": 1,
+                            "flexDirection": "row",
+                            "justifyContent": "space-between",
+                            "marginLeft": 12,
+                          }
+                        }
+                      >
+                        <Text
+                          style={
+                            Array [
+                              Object {},
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              Object {
+                                "color": "#000",
+                                "fontSize": 16,
+                              },
+                            ]
+                          }
+                        >
+                          Receipt 1
+                        </Text>
+                        <Text
+                          style={
+                            Array [
+                              Object {},
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              Object {
+                                "color": "#000",
+                                "fontSize": 16,
+                              },
+                            ]
+                          }
+                        >
+                          $
+                          0.00
+                        </Text>
+                      </View>
+                      <View
+                        style={
+                          Object {
+                            "flex": 1,
+                            "flexDirection": "row",
+                            "justifyContent": "space-between",
+                            "marginLeft": 12,
+                          }
+                        }
+                      >
+                        <Text
+                          style={
+                            Array [
+                              Object {},
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              Object {
+                                "color": "#aaa",
+                                "fontSize": 10,
+                              },
+                            ]
+                          }
+                        >
+                          HMart
+                        </Text>
+                        <Text
+                          style={
+                            Array [
+                              Object {},
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              Object {
+                                "color": "#aaa",
+                                "fontSize": 10,
+                              },
+                            ]
+                          }
+                        >
+                          DEC 1
+                        </Text>
+                      </View>
+                      <View
+                        style={
+                          Object {
+                            "flex": 1,
+                            "flexDirection": "row",
+                            "justifyContent": "space-between",
+                            "marginLeft": 12,
+                          }
+                        }
+                      >
+                        <View
+                          style={
+                            Object {
+                              "alignItems": "center",
+                              "backgroundColor": "steelblue",
+                              "borderRadius": 2,
+                              "marginTop": 3,
+                              "width": 60,
+                            }
+                          }
+                        >
+                          <Text
+                            style={
+                              Array [
+                                Object {},
+                                undefined,
+                                undefined,
+                                undefined,
+                                undefined,
+                                undefined,
+                                undefined,
+                                undefined,
+                                undefined,
+                                undefined,
+                                Object {
+                                  "color": "#ffffff",
+                                  "fontSize": 10,
+                                },
+                              ]
+                            }
+                          >
+                            Pending
+                          </Text>
+                        </View>
+                        <Text
+                          style={
+                            Array [
+                              Object {},
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              Object {
+                                "color": "#000",
+                                "fontSize": 12,
+                              },
+                            ]
+                          }
+                        >
+                          ✘
+                        </Text>
+                      </View>
+                    </View>
+                  </View>
+                </View>
+              </View>
+              <View
+                onLayout={[Function]}
+                style={null}
+              >
+                <View
+                  accessible={true}
+                  isTVSelectable={true}
+                  onResponderGrant={[Function]}
+                  onResponderMove={[Function]}
+                  onResponderRelease={[Function]}
+                  onResponderTerminate={[Function]}
+                  onResponderTerminationRequest={[Function]}
+                  onStartShouldSetResponder={[Function]}
+                  style={
+                    Object {
+                      "opacity": 1,
+                    }
+                  }
+                >
+                  <View
+                    style={
+                      Object {
+                        "borderRadius": 2,
+                        "borderWidth": 0,
+                        "elevation": 0.1,
+                        "flex": 1,
+                        "flexDirection": "row",
+                        "marginBottom": 2,
+                        "marginLeft": 5,
+                        "marginRight": 5,
+                        "marginTop": 2,
+                        "padding": 10,
+                        "width": 740,
+                      }
+                    }
+                  >
+                    <Image
+                      source={
+                        Object {
+                          "uri": "https://i.imgur.com/UPrs1EWl.jpg",
+                        }
+                      }
+                      style={
+                        Object {
+                          "height": 50,
+                          "width": 74,
+                        }
+                      }
+                    />
+                    <View
+                      style={
+                        Object {
+                          "flex": 1,
+                          "flexDirection": "column",
+                        }
+                      }
+                    >
+                      <View
+                        style={
+                          Object {
+                            "flex": 1,
+                            "flexDirection": "row",
+                            "justifyContent": "space-between",
+                            "marginLeft": 12,
+                          }
+                        }
+                      >
+                        <Text
+                          style={
+                            Array [
+                              Object {},
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              Object {
+                                "color": "#000",
+                                "fontSize": 16,
+                              },
+                            ]
+                          }
+                        >
+                          Receipt 2
+                        </Text>
+                        <Text
+                          style={
+                            Array [
+                              Object {},
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              Object {
+                                "color": "#000",
+                                "fontSize": 16,
+                              },
+                            ]
+                          }
+                        >
+                          $
+                          10.55
+                        </Text>
+                      </View>
+                      <View
+                        style={
+                          Object {
+                            "flex": 1,
+                            "flexDirection": "row",
+                            "justifyContent": "space-between",
+                            "marginLeft": 12,
+                          }
+                        }
+                      >
+                        <Text
+                          style={
+                            Array [
+                              Object {},
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              Object {
+                                "color": "#aaa",
+                                "fontSize": 10,
+                              },
+                            ]
+                          }
+                        >
+                          ACME
+                        </Text>
+                        <Text
+                          style={
+                            Array [
+                              Object {},
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              Object {
+                                "color": "#aaa",
+                                "fontSize": 10,
+                              },
+                            ]
+                          }
+                        >
+                          NOV 30
+                        </Text>
+                      </View>
+                      <View
+                        style={
+                          Object {
+                            "flex": 1,
+                            "flexDirection": "row",
+                            "justifyContent": "space-between",
+                            "marginLeft": 12,
+                          }
+                        }
+                      >
+                        <View
+                          style={
+                            Object {
+                              "alignItems": "center",
+                              "backgroundColor": "steelblue",
+                              "borderRadius": 2,
+                              "marginTop": 3,
+                              "width": 60,
+                            }
+                          }
+                        >
+                          <Text
+                            style={
+                              Array [
+                                Object {},
+                                undefined,
+                                undefined,
+                                undefined,
+                                undefined,
+                                undefined,
+                                undefined,
+                                undefined,
+                                undefined,
+                                undefined,
+                                Object {
+                                  "color": "#ffffff",
+                                  "fontSize": 10,
+                                },
+                              ]
+                            }
+                          >
+                            Pending
+                          </Text>
+                        </View>
+                        <Text
+                          style={
+                            Array [
+                              Object {},
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              Object {
+                                "color": "#000",
+                                "fontSize": 12,
+                              },
+                            ]
+                          }
+                        >
+                          ✘
+                        </Text>
+                      </View>
+                    </View>
+                  </View>
+                </View>
+              </View>
+              <View
+                onLayout={[Function]}
+                style={null}
+              >
+                <View
+                  accessible={true}
+                  isTVSelectable={true}
+                  onResponderGrant={[Function]}
+                  onResponderMove={[Function]}
+                  onResponderRelease={[Function]}
+                  onResponderTerminate={[Function]}
+                  onResponderTerminationRequest={[Function]}
+                  onStartShouldSetResponder={[Function]}
+                  style={
+                    Object {
+                      "opacity": 1,
+                    }
+                  }
+                >
+                  <View
+                    style={
+                      Object {
+                        "borderRadius": 2,
+                        "borderWidth": 0,
+                        "elevation": 0.1,
+                        "flex": 1,
+                        "flexDirection": "row",
+                        "marginBottom": 2,
+                        "marginLeft": 5,
+                        "marginRight": 5,
+                        "marginTop": 2,
+                        "padding": 10,
+                        "width": 740,
+                      }
+                    }
+                  >
+                    <Image
+                      source={
+                        Object {
+                          "uri": "https://i.imgur.com/MABUbpDl.jpg",
+                        }
+                      }
+                      style={
+                        Object {
+                          "height": 50,
+                          "width": 74,
+                        }
+                      }
+                    />
+                    <View
+                      style={
+                        Object {
+                          "flex": 1,
+                          "flexDirection": "column",
+                        }
+                      }
+                    >
+                      <View
+                        style={
+                          Object {
+                            "flex": 1,
+                            "flexDirection": "row",
+                            "justifyContent": "space-between",
+                            "marginLeft": 12,
+                          }
+                        }
+                      >
+                        <Text
+                          style={
+                            Array [
+                              Object {},
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              Object {
+                                "color": "#000",
+                                "fontSize": 16,
+                              },
+                            ]
+                          }
+                        >
+                          Receipt 3
+                        </Text>
+                        <Text
+                          style={
+                            Array [
+                              Object {},
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              Object {
+                                "color": "#000",
+                                "fontSize": 16,
+                              },
+                            ]
+                          }
+                        >
+                          $
+                          10.55
+                        </Text>
+                      </View>
+                      <View
+                        style={
+                          Object {
+                            "flex": 1,
+                            "flexDirection": "row",
+                            "justifyContent": "space-between",
+                            "marginLeft": 12,
+                          }
+                        }
+                      >
+                        <Text
+                          style={
+                            Array [
+                              Object {},
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              Object {
+                                "color": "#aaa",
+                                "fontSize": 10,
+                              },
+                            ]
+                          }
+                        >
+                          Walmart
+                        </Text>
+                        <Text
+                          style={
+                            Array [
+                              Object {},
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              Object {
+                                "color": "#aaa",
+                                "fontSize": 10,
+                              },
+                            ]
+                          }
+                        >
+                          NOV 25
+                        </Text>
+                      </View>
+                      <View
+                        style={
+                          Object {
+                            "flex": 1,
+                            "flexDirection": "row",
+                            "justifyContent": "space-between",
+                            "marginLeft": 12,
+                          }
+                        }
+                      >
+                        <View
+                          style={
+                            Object {
+                              "alignItems": "center",
+                              "backgroundColor": "steelblue",
+                              "borderRadius": 2,
+                              "marginTop": 3,
+                              "width": 60,
+                            }
+                          }
+                        >
+                          <Text
+                            style={
+                              Array [
+                                Object {},
+                                undefined,
+                                undefined,
+                                undefined,
+                                undefined,
+                                undefined,
+                                undefined,
+                                undefined,
+                                undefined,
+                                undefined,
+                                Object {
+                                  "color": "#ffffff",
+                                  "fontSize": 10,
+                                },
+                              ]
+                            }
+                          >
+                            Pending
+                          </Text>
+                        </View>
+                        <Text
+                          style={
+                            Array [
+                              Object {},
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              Object {
+                                "color": "#000",
+                                "fontSize": 12,
+                              },
+                            ]
+                          }
+                        >
+                          ✘
+                        </Text>
+                      </View>
+                    </View>
+                  </View>
+                </View>
+              </View>
+            </View>
+          </RCTScrollView>
+        </View>
+        <View>
+          <View
+            style={
+              Object {
+                "alignItems": "center",
+                "marginLeft": 10,
+                "marginTop": 10,
+              }
+            }
+          >
+            <Text
+              style={
+                Array [
+                  Object {},
+                  undefined,
+                  undefined,
+                  undefined,
+                  undefined,
+                  undefined,
+                  undefined,
+                  undefined,
+                  undefined,
+                  undefined,
+                  Object {
+                    "backgroundColor": "#ffffff",
+                    "color": "#000000",
+                    "fontWeight": "bold",
+                    "padding": 3,
+                  },
+                ]
+              }
+            >
+              PAST
+            </Text>
+          </View>
+          <View
+            style={
+              Array [
+                Object {
+                  "backgroundColor": "#e1e8ee",
+                  "height": 1,
+                },
+                Object {
+                  "backgroundColor": "rgb(100, 100, 100)",
+                  "marginLeft": 150,
+                  "marginRight": 150,
+                },
+              ]
+            }
+          />
+          <RCTScrollView
+            data={
+              Array [
+                Object {
+                  "accumTotal": 0,
+                  "detectedTotal": 0,
+                  "friends": Array [
+                    Object {
+                      "avatar": "https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg",
+                      "name": "Amy Farha",
+                      "selected": false,
+                    },
+                    Object {
+                      "avatar": "https://s3.amazonaws.com/uifaces/faces/twitter/kfriedson/128.jpg",
+                      "name": "Chris Jackson",
+                      "selected": true,
+                    },
+                    Object {
+                      "avatar": "https://s3.amazonaws.com/uifaces/faces/twitter/brynn/128.jpg",
+                      "name": "Amy Farha",
+                      "selected": false,
+                    },
+                    Object {
+                      "avatar": "https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg",
+                      "name": "Chris Jackson",
+                      "selected": true,
+                    },
+                  ],
+                  "image_url": "https://i.imgur.com/UYiroysl.jpg",
+                  "items": Array [
+                    Object {
+                      "icon": "file",
+                      "name": "display",
+                      "price": 8,
+                      "split": true,
+                    },
+                    Object {
+                      "icon": "file",
+                      "name": "display",
+                      "price": 5,
+                      "split": true,
+                    },
+                  ],
+                  "place": "HMart",
+                  "status": "Pending",
+                  "time": "DEC 1",
+                  "title": "Receipt 1",
+                },
+                Object {
+                  "accumTotal": 10.55,
+                  "detectedTotal": 10.67,
+                  "friends": Array [
+                    Object {
+                      "avatar": "https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg",
+                      "name": "Amy Farha",
+                      "selected": false,
+                    },
+                    Object {
+                      "avatar": "https://s3.amazonaws.com/uifaces/faces/twitter/kfriedson/128.jpg",
+                      "name": "Chris Jackson",
+                      "selected": true,
+                    },
+                    Object {
+                      "avatar": "https://s3.amazonaws.com/uifaces/faces/twitter/brynn/128.jpg",
+                      "name": "Amy Farha",
+                      "selected": false,
+                    },
+                    Object {
+                      "avatar": "https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg",
+                      "name": "Chris Jackson",
+                      "selected": true,
+                    },
+                  ],
+                  "image_url": "https://i.imgur.com/UPrs1EWl.jpg",
+                  "items": Array [
+                    Object {
+                      "icon": "file",
+                      "name": "display",
+                      "price": 8,
+                      "split": true,
+                    },
+                    Object {
+                      "icon": "file",
+                      "name": "display",
+                      "price": 5,
+                      "split": true,
+                    },
+                  ],
+                  "place": "ACME",
+                  "status": "Pending",
+                  "time": "NOV 30",
+                  "title": "Receipt 2",
+                },
+                Object {
+                  "accumTotal": 10.55,
+                  "detectedTotal": 10.67,
+                  "image_url": "https://i.imgur.com/MABUbpDl.jpg",
+                  "items": Array [],
+                  "place": "Walmart",
+                  "status": "Pending",
+                  "time": "NOV 25",
+                  "title": "Receipt 3",
+                },
+              ]
+            }
+            disableVirtualization={false}
+            extraData={
+              Object {
+                "receiptHistory": Array [
+                  Object {
+                    "accumTotal": 0,
+                    "detectedTotal": 0,
+                    "friends": Array [
+                      Object {
+                        "avatar": "https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg",
+                        "name": "Amy Farha",
+                        "selected": false,
+                      },
+                      Object {
+                        "avatar": "https://s3.amazonaws.com/uifaces/faces/twitter/kfriedson/128.jpg",
+                        "name": "Chris Jackson",
+                        "selected": true,
+                      },
+                      Object {
+                        "avatar": "https://s3.amazonaws.com/uifaces/faces/twitter/brynn/128.jpg",
+                        "name": "Amy Farha",
+                        "selected": false,
+                      },
+                      Object {
+                        "avatar": "https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg",
+                        "name": "Chris Jackson",
+                        "selected": true,
+                      },
+                    ],
+                    "image_url": "https://i.imgur.com/UYiroysl.jpg",
+                    "items": Array [
+                      Object {
+                        "icon": "file",
+                        "name": "display",
+                        "price": 8,
+                        "split": true,
+                      },
+                      Object {
+                        "icon": "file",
+                        "name": "display",
+                        "price": 5,
+                        "split": true,
+                      },
+                    ],
+                    "place": "HMart",
+                    "status": "Pending",
+                    "time": "DEC 1",
+                    "title": "Receipt 1",
+                  },
+                  Object {
+                    "accumTotal": 10.55,
+                    "detectedTotal": 10.67,
+                    "friends": Array [
+                      Object {
+                        "avatar": "https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg",
+                        "name": "Amy Farha",
+                        "selected": false,
+                      },
+                      Object {
+                        "avatar": "https://s3.amazonaws.com/uifaces/faces/twitter/kfriedson/128.jpg",
+                        "name": "Chris Jackson",
+                        "selected": true,
+                      },
+                      Object {
+                        "avatar": "https://s3.amazonaws.com/uifaces/faces/twitter/brynn/128.jpg",
+                        "name": "Amy Farha",
+                        "selected": false,
+                      },
+                      Object {
+                        "avatar": "https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg",
+                        "name": "Chris Jackson",
+                        "selected": true,
+                      },
+                    ],
+                    "image_url": "https://i.imgur.com/UPrs1EWl.jpg",
+                    "items": Array [
+                      Object {
+                        "icon": "file",
+                        "name": "display",
+                        "price": 8,
+                        "split": true,
+                      },
+                      Object {
+                        "icon": "file",
+                        "name": "display",
+                        "price": 5,
+                        "split": true,
+                      },
+                    ],
+                    "place": "ACME",
+                    "status": "Pending",
+                    "time": "NOV 30",
+                    "title": "Receipt 2",
+                  },
+                  Object {
+                    "accumTotal": 10.55,
+                    "detectedTotal": 10.67,
+                    "image_url": "https://i.imgur.com/MABUbpDl.jpg",
+                    "items": Array [],
+                    "place": "Walmart",
+                    "status": "Pending",
+                    "time": "NOV 25",
+                    "title": "Receipt 3",
+                  },
+                ],
+              }
+            }
+            getItem={[Function]}
+            getItemCount={[Function]}
+            horizontal={false}
+            initialNumToRender={10}
+            keyExtractor={[Function]}
+            maxToRenderPerBatch={10}
+            numColumns={1}
+            onContentSizeChange={[Function]}
+            onEndReachedThreshold={2}
+            onLayout={[Function]}
+            onMomentumScrollEnd={[Function]}
+            onScroll={[Function]}
+            onScrollBeginDrag={[Function]}
+            onScrollEndDrag={[Function]}
+            renderItem={[Function]}
+            scrollEventThrottle={50}
+            stickyHeaderIndices={Array []}
+            updateCellsBatchingPeriod={50}
+            viewabilityConfigCallbackPairs={Array []}
+            windowSize={21}
+          >
+            <View>
+              <View
+                onLayout={[Function]}
+                style={null}
+              >
+                <View
+                  accessible={true}
+                  isTVSelectable={true}
+                  onResponderGrant={[Function]}
+                  onResponderMove={[Function]}
+                  onResponderRelease={[Function]}
+                  onResponderTerminate={[Function]}
+                  onResponderTerminationRequest={[Function]}
+                  onStartShouldSetResponder={[Function]}
+                  style={
+                    Object {
+                      "opacity": 1,
+                    }
+                  }
+                >
+                  <View
+                    style={
+                      Object {
+                        "borderRadius": 2,
+                        "borderWidth": 0,
+                        "elevation": 0.1,
+                        "flex": 1,
+                        "flexDirection": "row",
+                        "marginBottom": 2,
+                        "marginLeft": 5,
+                        "marginRight": 5,
+                        "marginTop": 2,
+                        "padding": 10,
+                        "width": 740,
+                      }
+                    }
+                  >
+                    <Image
+                      source={
+                        Object {
+                          "uri": "https://i.imgur.com/UYiroysl.jpg",
+                        }
+                      }
+                      style={
+                        Object {
+                          "height": 50,
+                          "width": 74,
+                        }
+                      }
+                    />
+                    <View
+                      style={
+                        Object {
+                          "flex": 1,
+                          "flexDirection": "column",
+                        }
+                      }
+                    >
+                      <View
+                        style={
+                          Object {
+                            "flex": 1,
+                            "flexDirection": "row",
+                            "justifyContent": "space-between",
+                            "marginLeft": 12,
+                          }
+                        }
+                      >
+                        <Text
+                          style={
+                            Array [
+                              Object {},
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              Object {
+                                "color": "#000",
+                                "fontSize": 16,
+                              },
+                            ]
+                          }
+                        >
+                          Receipt 1
+                        </Text>
+                        <Text
+                          style={
+                            Array [
+                              Object {},
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              Object {
+                                "color": "#000",
+                                "fontSize": 16,
+                              },
+                            ]
+                          }
+                        >
+                          $
+                          0.00
+                        </Text>
+                      </View>
+                      <View
+                        style={
+                          Object {
+                            "flex": 1,
+                            "flexDirection": "row",
+                            "justifyContent": "space-between",
+                            "marginLeft": 12,
+                          }
+                        }
+                      >
+                        <Text
+                          style={
+                            Array [
+                              Object {},
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              Object {
+                                "color": "#aaa",
+                                "fontSize": 10,
+                              },
+                            ]
+                          }
+                        >
+                          HMart
+                        </Text>
+                        <Text
+                          style={
+                            Array [
+                              Object {},
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              Object {
+                                "color": "#aaa",
+                                "fontSize": 10,
+                              },
+                            ]
+                          }
+                        >
+                          DEC 1
+                        </Text>
+                      </View>
+                      <View
+                        style={
+                          Object {
+                            "flex": 1,
+                            "flexDirection": "row",
+                            "justifyContent": "space-between",
+                            "marginLeft": 12,
+                          }
+                        }
+                      >
+                        <View
+                          style={
+                            Object {
+                              "alignItems": "center",
+                              "backgroundColor": "steelblue",
+                              "borderRadius": 2,
+                              "marginTop": 3,
+                              "width": 60,
+                            }
+                          }
+                        >
+                          <Text
+                            style={
+                              Array [
+                                Object {},
+                                undefined,
+                                undefined,
+                                undefined,
+                                undefined,
+                                undefined,
+                                undefined,
+                                undefined,
+                                undefined,
+                                undefined,
+                                Object {
+                                  "color": "#ffffff",
+                                  "fontSize": 10,
+                                },
+                              ]
+                            }
+                          >
+                            Pending
+                          </Text>
+                        </View>
+                        <Text
+                          style={
+                            Array [
+                              Object {},
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              Object {
+                                "color": "#000",
+                                "fontSize": 12,
+                              },
+                            ]
+                          }
+                        >
+                          ✘
+                        </Text>
+                      </View>
+                    </View>
+                  </View>
+                </View>
+              </View>
+              <View
+                onLayout={[Function]}
+                style={null}
+              >
+                <View
+                  accessible={true}
+                  isTVSelectable={true}
+                  onResponderGrant={[Function]}
+                  onResponderMove={[Function]}
+                  onResponderRelease={[Function]}
+                  onResponderTerminate={[Function]}
+                  onResponderTerminationRequest={[Function]}
+                  onStartShouldSetResponder={[Function]}
+                  style={
+                    Object {
+                      "opacity": 1,
+                    }
+                  }
+                >
+                  <View
+                    style={
+                      Object {
+                        "borderRadius": 2,
+                        "borderWidth": 0,
+                        "elevation": 0.1,
+                        "flex": 1,
+                        "flexDirection": "row",
+                        "marginBottom": 2,
+                        "marginLeft": 5,
+                        "marginRight": 5,
+                        "marginTop": 2,
+                        "padding": 10,
+                        "width": 740,
+                      }
+                    }
+                  >
+                    <Image
+                      source={
+                        Object {
+                          "uri": "https://i.imgur.com/UPrs1EWl.jpg",
+                        }
+                      }
+                      style={
+                        Object {
+                          "height": 50,
+                          "width": 74,
+                        }
+                      }
+                    />
+                    <View
+                      style={
+                        Object {
+                          "flex": 1,
+                          "flexDirection": "column",
+                        }
+                      }
+                    >
+                      <View
+                        style={
+                          Object {
+                            "flex": 1,
+                            "flexDirection": "row",
+                            "justifyContent": "space-between",
+                            "marginLeft": 12,
+                          }
+                        }
+                      >
+                        <Text
+                          style={
+                            Array [
+                              Object {},
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              Object {
+                                "color": "#000",
+                                "fontSize": 16,
+                              },
+                            ]
+                          }
+                        >
+                          Receipt 2
+                        </Text>
+                        <Text
+                          style={
+                            Array [
+                              Object {},
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              Object {
+                                "color": "#000",
+                                "fontSize": 16,
+                              },
+                            ]
+                          }
+                        >
+                          $
+                          10.55
+                        </Text>
+                      </View>
+                      <View
+                        style={
+                          Object {
+                            "flex": 1,
+                            "flexDirection": "row",
+                            "justifyContent": "space-between",
+                            "marginLeft": 12,
+                          }
+                        }
+                      >
+                        <Text
+                          style={
+                            Array [
+                              Object {},
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              Object {
+                                "color": "#aaa",
+                                "fontSize": 10,
+                              },
+                            ]
+                          }
+                        >
+                          ACME
+                        </Text>
+                        <Text
+                          style={
+                            Array [
+                              Object {},
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              Object {
+                                "color": "#aaa",
+                                "fontSize": 10,
+                              },
+                            ]
+                          }
+                        >
+                          NOV 30
+                        </Text>
+                      </View>
+                      <View
+                        style={
+                          Object {
+                            "flex": 1,
+                            "flexDirection": "row",
+                            "justifyContent": "space-between",
+                            "marginLeft": 12,
+                          }
+                        }
+                      >
+                        <View
+                          style={
+                            Object {
+                              "alignItems": "center",
+                              "backgroundColor": "steelblue",
+                              "borderRadius": 2,
+                              "marginTop": 3,
+                              "width": 60,
+                            }
+                          }
+                        >
+                          <Text
+                            style={
+                              Array [
+                                Object {},
+                                undefined,
+                                undefined,
+                                undefined,
+                                undefined,
+                                undefined,
+                                undefined,
+                                undefined,
+                                undefined,
+                                undefined,
+                                Object {
+                                  "color": "#ffffff",
+                                  "fontSize": 10,
+                                },
+                              ]
+                            }
+                          >
+                            Pending
+                          </Text>
+                        </View>
+                        <Text
+                          style={
+                            Array [
+                              Object {},
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              Object {
+                                "color": "#000",
+                                "fontSize": 12,
+                              },
+                            ]
+                          }
+                        >
+                          ✘
+                        </Text>
+                      </View>
+                    </View>
+                  </View>
+                </View>
+              </View>
+              <View
+                onLayout={[Function]}
+                style={null}
+              >
+                <View
+                  accessible={true}
+                  isTVSelectable={true}
+                  onResponderGrant={[Function]}
+                  onResponderMove={[Function]}
+                  onResponderRelease={[Function]}
+                  onResponderTerminate={[Function]}
+                  onResponderTerminationRequest={[Function]}
+                  onStartShouldSetResponder={[Function]}
+                  style={
+                    Object {
+                      "opacity": 1,
+                    }
+                  }
+                >
+                  <View
+                    style={
+                      Object {
+                        "borderRadius": 2,
+                        "borderWidth": 0,
+                        "elevation": 0.1,
+                        "flex": 1,
+                        "flexDirection": "row",
+                        "marginBottom": 2,
+                        "marginLeft": 5,
+                        "marginRight": 5,
+                        "marginTop": 2,
+                        "padding": 10,
+                        "width": 740,
+                      }
+                    }
+                  >
+                    <Image
+                      source={
+                        Object {
+                          "uri": "https://i.imgur.com/MABUbpDl.jpg",
+                        }
+                      }
+                      style={
+                        Object {
+                          "height": 50,
+                          "width": 74,
+                        }
+                      }
+                    />
+                    <View
+                      style={
+                        Object {
+                          "flex": 1,
+                          "flexDirection": "column",
+                        }
+                      }
+                    >
+                      <View
+                        style={
+                          Object {
+                            "flex": 1,
+                            "flexDirection": "row",
+                            "justifyContent": "space-between",
+                            "marginLeft": 12,
+                          }
+                        }
+                      >
+                        <Text
+                          style={
+                            Array [
+                              Object {},
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              Object {
+                                "color": "#000",
+                                "fontSize": 16,
+                              },
+                            ]
+                          }
+                        >
+                          Receipt 3
+                        </Text>
+                        <Text
+                          style={
+                            Array [
+                              Object {},
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              Object {
+                                "color": "#000",
+                                "fontSize": 16,
+                              },
+                            ]
+                          }
+                        >
+                          $
+                          10.55
+                        </Text>
+                      </View>
+                      <View
+                        style={
+                          Object {
+                            "flex": 1,
+                            "flexDirection": "row",
+                            "justifyContent": "space-between",
+                            "marginLeft": 12,
+                          }
+                        }
+                      >
+                        <Text
+                          style={
+                            Array [
+                              Object {},
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              Object {
+                                "color": "#aaa",
+                                "fontSize": 10,
+                              },
+                            ]
+                          }
+                        >
+                          Walmart
+                        </Text>
+                        <Text
+                          style={
+                            Array [
+                              Object {},
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              Object {
+                                "color": "#aaa",
+                                "fontSize": 10,
+                              },
+                            ]
+                          }
+                        >
+                          NOV 25
+                        </Text>
+                      </View>
+                      <View
+                        style={
+                          Object {
+                            "flex": 1,
+                            "flexDirection": "row",
+                            "justifyContent": "space-between",
+                            "marginLeft": 12,
+                          }
+                        }
+                      >
+                        <View
+                          style={
+                            Object {
+                              "alignItems": "center",
+                              "backgroundColor": "steelblue",
+                              "borderRadius": 2,
+                              "marginTop": 3,
+                              "width": 60,
+                            }
+                          }
+                        >
+                          <Text
+                            style={
+                              Array [
+                                Object {},
+                                undefined,
+                                undefined,
+                                undefined,
+                                undefined,
+                                undefined,
+                                undefined,
+                                undefined,
+                                undefined,
+                                undefined,
+                                Object {
+                                  "color": "#ffffff",
+                                  "fontSize": 10,
+                                },
+                              ]
+                            }
+                          >
+                            Pending
+                          </Text>
+                        </View>
+                        <Text
+                          style={
+                            Array [
+                              Object {},
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              undefined,
+                              Object {
+                                "color": "#000",
+                                "fontSize": 12,
+                              },
+                            ]
+                          }
+                        >
+                          ✘
+                        </Text>
+                      </View>
+                    </View>
+                  </View>
+                </View>
+              </View>
+            </View>
+          </RCTScrollView>
+        </View>
+      </View>
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "margin": 10,
+          }
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {},
+              undefined,
+              undefined,
+              undefined,
+              undefined,
+              undefined,
+              undefined,
+              undefined,
+              undefined,
+              undefined,
+              undefined,
+            ]
+          }
+        >
+          End of Receipts
+        </Text>
+      </View>
+    </View>
+  </RCTScrollView>
+  <View>
+    <Modal
+      animationType="none"
+      hardwareAccelerated={false}
+      hideModalContentWhileAnimating={false}
+      onModalHide={[Function]}
+      onRequestClose={[Function]}
+      scrollOffset={0}
+      scrollOffsetMax={0}
+      scrollTo={null}
+      supportedOrientations={
+        Array [
+          "portrait",
+          "landscape",
+        ]
+      }
+      swipeThreshold={100}
+      transparent={true}
+      visible={false}
+    >
+      <View
+        accessible={true}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "backgroundColor": "black",
+            "bottom": 0,
+            "height": 1334,
+            "left": 0,
+            "opacity": 0,
+            "position": "absolute",
+            "right": 0,
+            "top": 0,
+            "width": 750,
+          }
+        }
+      />
+      <View
+        hideModalContentWhileAnimating={false}
+        onModalHide={[Function]}
+        pointerEvents="box-none"
+        scrollOffset={0}
+        scrollOffsetMax={0}
+        scrollTo={null}
+        style={
+          Object {
+            "flex": 1,
+            "justifyContent": "center",
+            "margin": 37.5,
+            "transform": Array [
+              Object {
+                "translateY": 0,
+              },
+            ],
+          }
+        }
+        supportedOrientations={
+          Array [
+            "portrait",
+            "landscape",
+          ]
+        }
+        swipeThreshold={100}
+      >
+        <RCTScrollView
+          contentContainerStyle={
+            Object {
+              "backgroundColor": "white",
+              "borderColor": "rgba(0, 0, 0, 0.1)",
+              "borderRadius": 4,
+              "justifyContent": "center",
+              "padding": 22,
+            }
+          }
+          scrollEnabled={true}
+        >
+          <View>
+            <View
+              style={
+                Object {
+                  "alignItems": "flex-end",
+                  "marginBottom": -40,
+                  "marginTop": -30,
+                }
+              }
+            >
+              <Text
+                style={
+                  Array [
+                    Object {},
+                    undefined,
+                    undefined,
+                    undefined,
+                    undefined,
+                    undefined,
+                    undefined,
+                    undefined,
+                    undefined,
+                    undefined,
+                    Object {
+                      "color": "#e1e1e1",
+                      "fontSize": 80,
+                    },
+                  ]
+                }
+              />
+            </View>
+            <View
+              accessible={true}
+              isTVSelectable={true}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+              style={
+                Object {
+                  "opacity": 1,
+                }
+              }
+            >
+              <Text
+                style={
+                  Array [
+                    Object {},
+                    undefined,
+                    undefined,
+                    undefined,
+                    undefined,
+                    undefined,
+                    undefined,
+                    undefined,
+                    undefined,
+                    undefined,
+                    Object {
+                      "fontSize": 30,
+                      "fontWeight": "bold",
+                    },
+                  ]
+                }
+              />
+            </View>
+            <Text
+              style={
+                Array [
+                  Object {},
+                  undefined,
+                  undefined,
+                  undefined,
+                  undefined,
+                  undefined,
+                  undefined,
+                  undefined,
+                  undefined,
+                  undefined,
+                  Object {
+                    "fontSize": 15,
+                    "fontWeight": "bold",
+                  },
+                ]
+              }
+            >
+              Friends
+            </Text>
+            <RCTScrollView
+              contentContainerStyle={
+                Object {
+                  "backgroundColor": "white",
+                  "borderColor": "rgba(0, 0, 0, 0.1)",
+                  "borderRadius": 4,
+                  "justifyContent": "center",
+                  "padding": 22,
+                }
+              }
+              horizontal={true}
+              scrollEnabled={true}
+              style={
+                Object {
+                  "height": 110,
+                }
+              }
+            >
+              <View />
+            </RCTScrollView>
+            <Text
+              style={
+                Array [
+                  Object {},
+                  undefined,
+                  undefined,
+                  undefined,
+                  undefined,
+                  undefined,
+                  undefined,
+                  undefined,
+                  undefined,
+                  undefined,
+                  Object {
+                    "backgroundColor": "#fff",
+                    "fontSize": 15,
+                    "fontWeight": "bold",
+                    "marginBottom": -10,
+                    "marginTop": 20,
+                  },
+                ]
+              }
+            >
+              My Choice
+            </Text>
+            <View
+              style={
+                Array [
+                  Object {
+                    "backgroundColor": "#ffffff",
+                    "borderColor": "#bbb",
+                    "borderTopWidth": 1,
+                    "marginTop": 20,
+                  },
+                  Object {
+                    "marginBottom": 20,
+                  },
+                ]
+              }
+            />
+            <View
+              style={
+                Object {
+                  "flexDirection": "row",
+                  "justifyContent": "flex-end",
+                }
+              }
+            >
+              <Text
+                style={
+                  Array [
+                    Object {},
+                    undefined,
+                    undefined,
+                    undefined,
+                    undefined,
+                    undefined,
+                    undefined,
+                    undefined,
+                    undefined,
+                    undefined,
+                    Object {
+                      "color": "#868686",
+                      "fontSize": 10,
+                      "marginRight": 10,
+                    },
+                  ]
+                }
+              >
+                $xx (balance) + $xx (amortized tax)
+              </Text>
+            </View>
+            <View
+              style={
+                Object {
+                  "flexDirection": "row",
+                  "justifyContent": "flex-end",
+                  "margin": 5,
+                }
+              }
+            >
+              <Text
+                style={
+                  Array [
+                    Object {},
+                    undefined,
+                    undefined,
+                    undefined,
+                    undefined,
+                    undefined,
+                    undefined,
+                    undefined,
+                    undefined,
+                    undefined,
+                    Object {
+                      "fontWeight": "bold",
+                      "marginRight": 5,
+                      "marginTop": 2,
+                    },
+                  ]
+                }
+              >
+                Total:
+              </Text>
+              <Text
+                style={
+                  Array [
+                    Object {},
+                    undefined,
+                    undefined,
+                    undefined,
+                    undefined,
+                    undefined,
+                    undefined,
+                    undefined,
+                    undefined,
+                    undefined,
+                    Object {
+                      "fontSize": 20,
+                      "fontWeight": "bold",
+                    },
+                  ]
+                }
+              >
+                $0.00
+              </Text>
+            </View>
+            <View
+              style={
+                Object {
+                  "flex": 1,
+                  "flexDirection": "row",
+                  "justifyContent": "flex-end",
+                  "marginBottom": 15,
+                }
+              }
+            >
+              <View
+                style={
+                  Array [
+                    Object {
+                      "marginLeft": 15,
+                      "marginRight": 15,
+                    },
+                    undefined,
+                    undefined,
+                    undefined,
+                  ]
+                }
+              >
+                <View
+                  accessible={true}
+                  isTVSelectable={true}
+                  onResponderGrant={[Function]}
+                  onResponderMove={[Function]}
+                  onResponderRelease={[Function]}
+                  onResponderTerminate={[Function]}
+                  onResponderTerminationRequest={[Function]}
+                  onStartShouldSetResponder={[Function]}
+                  style={null}
+                >
+                  <View
+                    pointerEvents="box-only"
+                    style={
+                      Array [
+                        Object {
+                          "alignItems": "center",
+                          "backgroundColor": "#9E9E9E",
+                          "flexDirection": "row",
+                          "justifyContent": "center",
+                          "padding": 19,
+                        },
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        Object {
+                          "backgroundColor": "rgba(0, 0, 0, 0.0)",
+                        },
+                        undefined,
+                        Object {
+                          "padding": 12,
+                        },
+                        Object {
+                          "borderRadius": 57,
+                          "paddingHorizontal": 18,
+                        },
+                        undefined,
+                        undefined,
+                        Object {
+                          "marginLeft": -30,
+                          "marginRight": -20,
+                        },
+                        undefined,
+                        undefined,
+                      ]
+                    }
+                  >
+                    <Text
+                      style={
+                        Array [
+                          Object {},
+                          undefined,
+                          undefined,
+                          undefined,
+                          undefined,
+                          undefined,
+                          undefined,
+                          undefined,
+                          undefined,
+                          undefined,
+                          Array [
+                            Object {
+                              "color": "white",
+                              "fontSize": 20,
+                            },
+                            Object {
+                              "color": "#868686",
+                            },
+                            Object {
+                              "fontSize": 17.5,
+                            },
+                            Object {
+                              "fontSize": 15,
+                            },
+                            undefined,
+                            undefined,
+                            undefined,
+                            undefined,
+                          ],
+                        ]
+                      }
+                    >
+                      Cancel
+                    </Text>
+                  </View>
+                </View>
+              </View>
+              <View
+                style={
+                  Array [
+                    Object {
+                      "marginLeft": 15,
+                      "marginRight": 15,
+                    },
+                    undefined,
+                    undefined,
+                    undefined,
+                  ]
+                }
+              >
+                <View
+                  accessible={true}
+                  isTVSelectable={true}
+                  onResponderGrant={[Function]}
+                  onResponderMove={[Function]}
+                  onResponderRelease={[Function]}
+                  onResponderTerminate={[Function]}
+                  onResponderTerminationRequest={[Function]}
+                  onStartShouldSetResponder={[Function]}
+                  style={null}
+                >
+                  <View
+                    pointerEvents="box-only"
+                    style={
+                      Array [
+                        Object {
+                          "alignItems": "center",
+                          "backgroundColor": "#9E9E9E",
+                          "flexDirection": "row",
+                          "justifyContent": "center",
+                          "padding": 19,
+                        },
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        Object {
+                          "backgroundColor": "rgba(0, 0, 0, 0.0)",
+                        },
+                        undefined,
+                        Object {
+                          "padding": 12,
+                        },
+                        Object {
+                          "borderRadius": 57,
+                          "paddingHorizontal": 18,
+                        },
+                        undefined,
+                        undefined,
+                        Object {
+                          "marginLeft": -30,
+                          "marginRight": -20,
+                        },
+                        undefined,
+                        undefined,
+                      ]
+                    }
+                  >
+                    <Text
+                      style={
+                        Array [
+                          Object {},
+                          undefined,
+                          undefined,
+                          undefined,
+                          undefined,
+                          undefined,
+                          undefined,
+                          undefined,
+                          undefined,
+                          undefined,
+                          Array [
+                            Object {
+                              "color": "white",
+                              "fontSize": 20,
+                            },
+                            Object {
+                              "color": "#9ccc65",
+                            },
+                            Object {
+                              "fontSize": 17.5,
+                            },
+                            Object {
+                              "fontSize": 15,
+                            },
+                            undefined,
+                            undefined,
+                            undefined,
+                            undefined,
+                          ],
+                        ]
+                      }
+                    >
+                      OK
+                    </Text>
+                  </View>
+                </View>
+              </View>
+            </View>
+          </View>
+        </RCTScrollView>
+      </View>
+    </Modal>
+  </View>
+  <View
+    pointerEvents="box-none"
+    style={
+      Array [
+        Array [
+          Object {
+            "backgroundColor": "transparent",
+            "bottom": 0,
+            "left": 0,
+            "position": "absolute",
+            "right": 0,
+            "top": 0,
+          },
+          Object {
+            "elevation": undefined,
+            "justifyContent": "flex-end",
+            "zIndex": undefined,
+          },
+        ],
+        undefined,
+      ]
+    }
+  >
+    <View
+      pointerEvents="none"
+      style={
+        Object {
+          "backgroundColor": "transparent",
+          "bottom": 0,
+          "elevation": undefined,
+          "justifyContent": "flex-end",
+          "left": 0,
+          "opacity": 0,
+          "position": "absolute",
+          "right": 0,
+          "top": 0,
+          "zIndex": undefined,
+        }
+      }
+    />
+    <View
+      pointerEvents="box-none"
+      style={
+        Array [
+          Array [
+            Object {
+              "backgroundColor": "transparent",
+              "bottom": 0,
+              "left": 0,
+              "position": "absolute",
+              "right": 0,
+              "top": 0,
+            },
+            Object {
+              "elevation": undefined,
+              "justifyContent": "flex-end",
+              "zIndex": undefined,
+            },
+          ],
+          Object {
+            "alignItems": "center",
+          },
+          Object {
+            "paddingVertical": 30,
+          },
+        ]
+      }
+    >
+      <View
+        style={
+          Array [
+            Object {
+              "marginHorizontal": 30,
+              "zIndex": undefined,
+            },
+            Object {
+              "elevation": 5,
+              "shadowColor": "#000",
+              "shadowOffset": Object {
+                "height": 5,
+                "width": 0,
+              },
+              "shadowOpacity": 0.35,
+              "shadowRadius": 3,
+            },
+            undefined,
+          ]
+        }
+      >
+        <View
+          accessible={true}
+          isTVSelectable={true}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+        >
+          <View
+            style={
+              Object {
+                "backgroundColor": "rgba(231, 76, 60, 1)",
+                "borderRadius": 28,
+                "height": 56,
+                "width": 56,
+              }
+            }
+          >
+            <View
+              style={
+                Object {
+                  "alignItems": "center",
+                  "borderRadius": 28,
+                  "height": 56,
+                  "justifyContent": "center",
+                  "transform": Array [
+                    Object {
+                      "scale": 1,
+                    },
+                    Object {
+                      "rotate": "0deg",
+                    },
+                  ],
+                  "width": 56,
+                }
+              }
+            >
+              <Text
+                style={
+                  Object {
+                    "backgroundColor": "transparent",
+                    "color": "rgba(255, 255, 255, 1)",
+                    "fontSize": 24,
+                    "marginTop": -4,
+                  }
+                }
+              >
+                +
+              </Text>
+            </View>
+          </View>
+        </View>
+      </View>
+    </View>
+  </View>
+</View>
+`;

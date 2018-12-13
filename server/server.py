@@ -1,17 +1,28 @@
-import os, sys, json
-from ocr.ocr import ocr
-from flask import Flask, flash, request, redirect, url_for
-from werkzeug.utils import secure_filename
+import json
+import os
+import re
+import sys
+from shutil import copyfile
+
 from db.dbhelper import functions
+from flask import flash
+from flask import Flask
+from flask import redirect
+from flask import request
+from flask import url_for
+from ocr.ocr import ocr
+from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = './upload'
 app.secret_key = "super secret key"
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
 
+
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
+
 
 @app.route("/upload", methods=['POST', 'GET'])
 def server():
@@ -28,38 +39,71 @@ def server():
             filename = secure_filename(file.filename)
             path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
             file.save(path)
-            return ocr(path)
+            copyPath = os.path.join('../../www/upload', filename)
+            copyfile(path, copyPath)
+            response = ocr(
+                path, os.path.join(
+                    'http://52.12.74.177/upload', filename,
+                ),
+            )
+            return response
     return 'error'
+
 
 @app.route("/signUp", methods=['POST', 'GET'])
 def signUp():
     if request.method == 'POST':
-        result = functions.signUp(request.json.get('username'), request.json.get('userpwd'))
+        _username = request.json.get('username')
+        _userpwd = request.json.get('userpwd')
+        _username = _username[0:16]
+        _userpwd = _userpwd[0:16]
+        username = re.sub(r'[^a-zA-Z0-9@_]', '', _username)
+        userpwd = re.sub(r'[^a-zA-Z0-9@_]', '', _userpwd)
+        result = functions.signUp(username, userpwd)
         return str(result)
+
 
 @app.route("/login", methods=['POST', 'GET'])
 def login():
     if request.method == 'POST':
-        result = functions.login(request.json.get('username'), request.json.get('userpwd'))
+        _username = request.json.get('username')
+        _userpwd = request.json.get('userpwd')
+        _username = _username[0:16]
+        _userpwd = _userpwd[0:16]
+        username = re.sub(r'[^a-zA-Z0-9@_]', '', _username)
+        userpwd = re.sub(r'[^a-zA-Z0-9@_]', '', _userpwd)
+        result = functions.login(username, userpwd)
         return str(result)
+
 
 @app.route("/createEmptyGroup", methods=['POST', 'GET'])
 def createEmptyGroup():
     if request.method == 'POST':
-        result = functions.createEmptyGroup(request.json.get('groupName'), request.json.get('ownerId'))
+        result = functions.createEmptyGroup(
+            request.json.get('groupName'), request.json.get('ownerId'),
+        )
         return str(result)
+
 
 @app.route("/addMembersToGroup", methods=['POST', 'GET'])
 def addMembersToGroup():
     if request.method == 'POST':
-        result = functions.addMembersToGroup(request.json.get('groupId'), request.json.get('memberIds'))
+        result = functions.addMembersToGroup(
+            request.json.get('groupId'), request.json.get('memberIds'),
+        )
         return str(result)
+
 
 @app.route("/createGroupWithMembers", methods=['POST', 'GET'])
 def createGroupWithMembers():
     if request.method == 'POST':
-        result = functions.createGroupWithMembers(request.json.get('groupName'), request.json.get('ownerId'), request.json.get('memberIds'))
+        result = functions.createGroupWithMembers(
+            request.json.get(
+                'groupName',
+            ), request.json.get('ownerId'), request.json.get('memberIds'),
+        )
         return str(result)
+
 
 @app.route("/removeGroup", methods=['POST', 'GET'])
 def removeGroup():
@@ -67,68 +111,116 @@ def removeGroup():
         result = functions.deleteGroup(request.json.get('groupId'))
         return json.dumps(result)
 
+
 @app.route("/removeMemberFromGroup", methods=['POST', 'GET'])
 def removeMemberFromGroup():
     if request.method == 'POST':
-        result = functions.removeMemberFromGroup(request.json.get('groupId'), request.json.get('memberId'))
+        result = functions.removeMemberFromGroup(
+            request.json.get('groupId'), request.json.get('memberId'),
+        )
         return str(result)
+
 
 @app.route("/createOrder", methods=['POST', 'GET'])
 def createOrder():
     if request.method == 'POST':
-        result = functions.createOrder(request.json.get('orderName'), request.json.get('totalItems'))
+        result = functions.createOrder(
+            request.json.get(
+                'orderName',
+            ), request.json.get('totalItems'),
+        )
         return str(result)
+
 
 @app.route("/deleteOrder", methods=['POST', 'GET'])
 def deleteOrder():
     if request.method == 'POST':
-        functions.deleteOrder(request.json.get('username'), request.json.get('pwd'))
+        functions.deleteOrder(
+            request.json.get(
+                'username',
+            ), request.json.get('pwd'),
+        )
+
 
 @app.route("/orderExists", methods=['POST', 'GET'])
 def orderExists():
     if request.method == 'POST':
-        result = functions.orderExists(request.json.get('username'), request.json.get('pwd'))
+        result = functions.orderExists(
+            request.json.get('username'), request.json.get('pwd'),
+        )
         return str(result)
+
 
 @app.route("/insertRecieptInfo", methods=['POST', 'GET'])
 def insertRecieptInfo():
     if request.method == 'POST':
-        result = functions.insertRecieptInfo(request.json.get('orderId'), request.json.get('groupId'), request.json.get('receiptPath'), request.json.get('receiptIdx'))
+        result = functions.insertRecieptInfo(
+            request.json.get('orderId'), request.json.get(
+                'groupId',
+            ), request.json.get('receiptPath'), request.json.get('receiptIdx'),
+        )
         return str(result)
+
 
 @app.route("/addItemToOrder", methods=['POST', 'GET'])
 def addItemToOrder():
     if request.method == 'POST':
-        result = functions.addItemToOrder(request.json.get('itemName'), request.json.get('orderId'), request.json.get('itemAmount'))
+        result = functions.addItemToOrder(
+            request.json.get(
+                'itemName',
+            ), request.json.get('orderId'), request.json.get('itemAmount'),
+        )
+
 
 @app.route("/modifyItemName", methods=['POST', 'GET'])
 def modifyItemName():
     if request.method == 'POST':
-        result = functions.modifyItemName(request.json.get('itemId'), request.json.get('itemName'))
+        result = functions.modifyItemName(
+            request.json.get('itemId'), request.json.get('itemName'),
+        )
         return str(result)
+
 
 @app.route("/modifyItemTotalAmount", methods=['POST', 'GET'])
 def modifyItemTotalAmount():
     if request.method == 'POST':
-        functions.modifyItemTotalAmount(request.json.get('itemId'), request.json.get('totalAmount'))
+        functions.modifyItemTotalAmount(
+            request.json.get(
+                'itemId',
+            ), request.json.get('totalAmount'),
+        )
+
 
 @app.route("/validAllocation", methods=['POST', 'GET'])
 def validAllocation():
     if request.method == 'POST':
-        result = functions.validAllocation(request.json.get('itemId'), request.json.get('amount'))
+        result = functions.validAllocation(
+            request.json.get('itemId'), request.json.get('amount'),
+        )
         return str(result)
+
 
 @app.route("/createAllocation", methods=['POST', 'GET'])
 def createAllocation():
     if request.method == 'POST':
-        result = functions.createAllocation(request.json.get('userId'), request.json.get('itemId'), request.json.get('amount'))
+        result = functions.createAllocation(
+            request.json.get(
+                'userId',
+            ), request.json.get('itemId'), request.json.get('amount'),
+        )
         return str(result)
+
 
 @app.route("/modifyAllocation", methods=['POST', 'GET'])
 def modifyAllocation():
     if request.method == 'POST':
-        result = functions.signUp(request.json.get('allId'), request.json.get('updatedAmount'))
+        result = functions.signUp(
+            request.json.get(
+                'allId',
+            ), request.json.get('updatedAmount'),
+        )
         return str(result)
+
 
 @app.route("/getUserIdByUsername", methods=['POST', 'GET'])
 def getUserIdByUsername():
@@ -136,11 +228,13 @@ def getUserIdByUsername():
         result = functions.getUserIdByUsername(request.json.get('username'))
         return str(result)
 
+
 @app.route("/deleteUserByUsername", methods=['POST', 'GET'])
 def deleteUserByUsername():
     if request.method == 'POST':
         result = functions.deleteUserByUsername(request.json.get('username'))
         return str(result)
+
 
 @app.route("/searchUserByUsername", methods=['POST', 'GET'])
 def searchUserByUsername():
@@ -148,17 +242,28 @@ def searchUserByUsername():
         result = functions.searchUserByUsername(request.json.get('keyword'))
         return json.dumps(result)
 
+
 @app.route("/addFriend", methods=['POST', 'GET'])
 def addFriend():
     if request.method == 'POST':
-        result = functions.addFriend(request.json.get('first_id'), request.json.get('second_id'))
+        result = functions.addFriend(
+            request.json.get(
+                'first_id',
+            ), request.json.get('second_id'),
+        )
         return json.dumps(result)
+
 
 @app.route("/removeFriend", methods=['POST', 'GET'])
 def removeFriend():
     if request.method == 'POST':
-        result = functions.removeFriend(request.json.get('first_id'), request.json.get('second_id'))
+        result = functions.removeFriend(
+            request.json.get(
+                'first_id',
+            ), request.json.get('second_id'),
+        )
         return json.dumps(result)
+
 
 @app.route("/getAllFriends", methods=['POST', 'GET'])
 def getAllFriends():
@@ -166,11 +271,13 @@ def getAllFriends():
         result = functions.getAllFriends(request.json.get('user_id'))
         return json.dumps(result)
 
+
 @app.route("/getAllGroups", methods=['POST', 'GET'])
 def getAllGroups():
     if request.method == 'POST':
         result = functions.getAllGroups(request.json.get('user_id'))
         return json.dumps(result)
+
 
 @app.route("/getAllMembersByGroupId", methods=['POST', 'GET'])
 def getAllMembersByGroupId():
@@ -178,7 +285,25 @@ def getAllMembersByGroupId():
         result = functions.getAllMembersByGroupId(request.json.get('group_id'))
         return json.dumps(result)
 
+
+@app.route("/newReceipt", methods=['POST', 'GET'])
+def newReceipt():
+    if request.method == 'POST':
+        result = functions.insertNewReceipt(
+            request.json.get('sender'), request.json.get(
+                'receiver',
+            ), request.json.get('receiptId'), request.json.get('data'),
+        )
+        return json.dumps(result)
+
+
+@app.route("/pollingReceipt", methods=['POST', 'GET'])
+def pollingReceipt():
+    if request.method == 'POST':
+        result = functions.pollingMessage(request.json.get('receiver'))
+        return json.dumps(result)
+
+
 if __name__ == '__main__':
     app.debug = True
-    app.run(host= '0.0.0.0')
-
+    app.run(host='0.0.0.0')

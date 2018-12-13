@@ -1,3 +1,3 @@
 cd ../database/server
-python3 tests.py
-python3 -m coverage xml
+coverage run tests.py
+coverage xml --omit=/usr/* -o ../../tests/test-reports/coverage.xml
