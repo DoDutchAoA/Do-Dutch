@@ -62,7 +62,7 @@ export class ReceiptListItem extends Component {
               </Text>
             </View>
             <View style={styles.containerText}>
-              <View style={statusStyle}>
+              <View style={statusStyle} className="itemOnwerStatus">
                 <Text
                   style={{
                     fontSize: 10,
@@ -157,7 +157,7 @@ export default class ReceiptList extends Component {
   }
 
   renderPrompt() {
-    return <Text>{this.props.prompt}</Text>;
+    return <Text className="prompt">{this.props.prompt}</Text>;
   }
 
   render() {
@@ -168,7 +168,7 @@ export default class ReceiptList extends Component {
       && this.state.receiptHistory.length > 0) {
       content = this.renderList();
 
-      console.log("history", this.state.receiptHistory);
+      // console.log("history", this.state.receiptHistory);
     }
     else {
       content = this.renderPrompt();

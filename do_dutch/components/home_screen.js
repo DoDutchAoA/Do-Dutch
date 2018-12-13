@@ -27,9 +27,7 @@ export default class HomeScreen extends Component {
     super(props);
 
     DataHelper.getFromLocal("history", data => {
-      console.log("data", data);
       let history = JSON.parse(data);
-      console.log("history", history);
       this.setState({ receiptHistory: history });
       this.state.ongoingList.setReceiptHistory(history);
     });
