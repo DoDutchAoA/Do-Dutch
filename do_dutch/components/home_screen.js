@@ -43,8 +43,12 @@ export default class HomeScreen extends Component {
   }
 
   refreshLists() {
-    this.ongoingList.setReceiptHistory(this.state.receiptHistory);
-    this.pastList.setReceiptHistory(this.state.pastHistory);
+    if (this.ongoingList) {
+      this.ongoingList.setReceiptHistory(this.state.receiptHistory);
+    }
+    if (this.pastList) {
+      this.pastList.setReceiptHistory(this.state.pastHistory);
+    }
     DataHelper.saveToLocal("history", this.state.receiptHistory);
   }
 
@@ -180,13 +184,13 @@ export default class HomeScreen extends Component {
                 receiptRecord => {
                   this.setState({ spinner: false });
                   receiptRecord.friends = friendsData1;
-                  this.modal.launch(
-                    receiptRecord,
-                    ///////////  MODAL CONFIRMED CALLBACK  ////////////
-                    recordData => {
-                      this.launchModal(true, recordData);
-                    }
-                  );
+                  this.launchModal(true, receiptRecord);
+                  // this.modal.launch(
+                  //   receiptRecord,
+                  //   ///////////  MODAL CONFIRMED CALLBACK  ////////////
+                  //   recordData => {
+                  //   }
+                  // );
                 }
               );
             }}
