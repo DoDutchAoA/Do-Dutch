@@ -5,9 +5,10 @@ import {
   StyleSheet,
   Text,
   View,
-  ScrollView
+  ScrollView,
+  Alert
 } from "react-native";
-
+import Dialog from "react-native-dialog";
 import { Button, CheckBox, SearchBar } from "react-native-elements";
 
 export default class FriendSearch extends Component {
@@ -21,10 +22,50 @@ export default class FriendSearch extends Component {
     };
   }
 
-  addFriend(friend_id) {
-    if (window.user_id == -1) {
+  addFriend(friend_name, friend_id) {
+    fetch("http://52.12.74.177:5000/addFriend", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        first_id: window.user_id,
+        second_id: friend_id
+      })
+    })
+      .then(response => {
+        var data = [];
+        var responseData = JSON.parse(response._bodyText);
+        if (responseData["status"] == true) {
+          alert(friend_name + " is your friend now.");
+        } else {
+          alert("Fail to add " + friend_name + " as your friend.");
+        }
+      })
+      .catch(error => {
+        console.error("Error: friend list fetch error." + error);
+      });
+  }
+
+  addFriendConfirm(friend_name, friend_id) {
+    if (window.user_id == undefined || window.user_id == -1) {
       alert("You haven't log in. Please log in first.");
     }
+
+    Alert.alert(
+      "Do you want to add " + friend_name + " as your friend?",
+      "",
+      [
+        {
+          text: "Cancel",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel"
+        },
+        { text: "OK", onPress: () => this.addFriend(friend_name, friend_id) }
+      ],
+      { cancelable: false }
+    );
   }
 
   loadUserList(keyword) {
@@ -41,7 +82,9 @@ export default class FriendSearch extends Component {
       .then(response => {
         var data = [];
         var responseData = JSON.parse(response._bodyText);
-        this.setState({ usersData: responseData });
+        if (responseData.length > 0) {
+          this.setState({ usersData: responseData });
+        }
       })
       .catch(error => {
         console.error("Error: friend list fetch error." + error);
@@ -62,7 +105,10 @@ export default class FriendSearch extends Component {
           data={this.state.usersData}
           renderItem={({ item }) => (
             <Text
-              onClick={() => this.addFriend(item.user_id)}
+              onPress={() =>
+                this.addFriendConfirm(item.user_name, item.user_id)
+              }
+              key={item.user_id}
               style={styles.item}
             >
               {item.user_name}
