@@ -191,9 +191,9 @@ def removeFriend(first_user_id, second_user_id):
 
 
 def searchUserByKeyword(keyword):
-    result_list = q.searchInfoByConditions(
+    result_list = q.searchInfoByPartialConditions(
         "Users", "user_id, user_name",
-        "user_name LIKE '%s'", keyword,
+        "user_name", keyword
     )
 
     return result_list

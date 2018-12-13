@@ -43,16 +43,18 @@ def createTables(create_script_name):
         runQuery(queries[i] + ";", None, False)
 
 
-def selectInfoByConditions(tableName, info_format, cons_format=None, vals=None):  # quotes
+    
+def searchInfoByPartialConditions(tableName, info_format, cons_format=None, keyword=None):  # quotes
     query = ""
-    if cons_format == None and vals == None:
+    if cons_format == None and keyword == None:
         query = ("SELECT " + info_format + " FROM " + tableName + ";")
     else:
+        kword = ('%s'%keyword)
+        cons_format = (cons_format + " like '%" + kword + "%'")
         query = (
             "SELECT " + info_format + " FROM " + tableName + " WHERE " +
             cons_format + ";"
         )
-        query = query % vals
     return runQuery(query, None, True)
 
 
