@@ -95,6 +95,13 @@ def insertRecordTo(tableName, cols, vals, vals_format):
     return True
 
 
+def insertRecordForcibly(tableName, user_id, info):
+    query = 'INSERT INTO %s (user_id, info) VALUES ("%s", "%s") ON DUPLICATE KEY UPDATE info="%s";' % (
+        tableName, user_id, info, info)
+    runQuery(query, None, False)
+    return True
+
+
 def updateRecordByConditions(tableName, info_format, cons_format, vals):
     query = (
         "UPDATE " + tableName + " SET " + info_format + " WHERE "

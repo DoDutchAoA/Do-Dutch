@@ -1,6 +1,10 @@
 import queries as q
 
 
+def updateUserReceipt(userId, info):
+    return q.insertRecordForcibly("Receipts", userId, info)
+
+
 def usernameExists(username):
     return q.checkRecordExistByConditions("Users", "user_name = '%s'", username)
 
