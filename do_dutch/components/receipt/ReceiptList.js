@@ -1,16 +1,17 @@
 import React, { Component } from "react";
 import {
   View,
-  FlatList,
   TouchableOpacity,
   StyleSheet,
   Image,
   Dimensions,
   Text
 } from "react-native";
+
+import { FlatList } from "react-native";
 import { Divider } from "react-native-elements";
 
-class ReceiptListItem extends Component {
+export class ReceiptListItem extends Component {
   constructor(props) {
     super(props);
 
@@ -28,13 +29,16 @@ class ReceiptListItem extends Component {
 
   render() {
     let statusStyle;
-    if (this.state) {
+
+    if (this.state.status) {
       if (this.state.status == "Sharer") {
         statusStyle = styles.sharerTagContainer;
-      } else {
+      }
+      else {
         statusStyle = styles.payerTagContainer;
       }
     }
+
     return (
       <TouchableOpacity
         onPress={() => this.props.onPressRecord(this.props.index, this.state)} >
@@ -46,7 +50,7 @@ class ReceiptListItem extends Component {
                 {this.state.title}
               </Text>
               <Text style={{ fontSize: 16, color: "#000" }}>
-                ${this.state.balance.toFixed(2)}
+                ${this.state.balance ? this.state.balance.toFixed(2) : 0.00}
               </Text>
             </View>
             <View style={styles.containerText}>
@@ -63,8 +67,7 @@ class ReceiptListItem extends Component {
                   style={{
                     fontSize: 10,
                     color: "#ffffff"
-                  }}
-                >
+                  }}>
                   {this.state.status}
                 </Text>
               </View>
@@ -82,12 +85,13 @@ export default class ReceiptList extends Component {
     super(props);
 
     this.state = {
-      receiptHistory: this.props.receiptHistory
+      receiptHistory: this.props.receiptHistory,
     };
   }
 
   componentDidMount() {
-    this.props.onRef(this);
+    if (this.props.onRef)
+      this.props.onRef(this);
   }
 
   componentWillUnmount() {
@@ -98,6 +102,7 @@ export default class ReceiptList extends Component {
     this.setState({
       receiptHistory: []
     });
+
     setTimeout(() => {
       this.setState({
         receiptHistory: receiptHistory
@@ -105,58 +110,76 @@ export default class ReceiptList extends Component {
     }, 0);
   }
 
-  render() {
-    let content;
+  renderList() {
     let keyword = this.props.keyword;
+    return (
+      <FlatList
+        data={this.state.receiptHistory}
+        extraData={this.state}
+        renderItem={({ item, index }) => {
 
-    const receiptHistory = this.state.receiptHistory;
-    if (receiptHistory && receiptHistory.length > 0) {
-      content = (
-        <FlatList
-          data={receiptHistory}
-          extraData={this.state}
-          renderItem={({ item, index }) => {
-            if (keyword.length > 0) {
-              if (
-                !item.title
-                  .toLowerCase()
-                  .includes(this.props.keyword.toLowerCase()) &&
-                !item.place
-                  .toLowerCase()
-                  .includes(this.props.keyword.toLowerCase()) &&
-                !item.status
-                  .toLowerCase()
-                  .includes(this.props.keyword.toLowerCase())
-              )
-                return;
-            }
-            return (
-              ///////////////// DATA DEFINE ///////////////////
-              <ReceiptListItem
-                onPressRecord={this.props.onPressRecord}
-                image_url={item.image_url}
-                title={item.title}
-                balance={item.accumTotal}
-                place={item.place}
-                time={item.time}
-                status={item.status}
-                items={item.items}
-                friends={item.friends}
-                index={index}
-              />
-            );
-          }}
-          keyExtractor={(item, index) => index.toString()}
-        />
-      );
-    } else {
-      content = <Text>{this.props.prompt}</Text>;
+          if (keyword.length > 0) {
+            if (
+              !item.title
+                .toLowerCase()
+                .includes(this.props.keyword.toLowerCase()) &&
+              !item.place
+                .toLowerCase()
+                .includes(this.props.keyword.toLowerCase()) &&
+              !item.status
+                .toLowerCase()
+                .includes(this.props.keyword.toLowerCase())
+            )
+              return;
+          }
+
+          return (
+            ///////////////// DATA DEFINE ///////////////////
+            <ReceiptListItem
+              onPressRecord={this.props.onPressRecord}
+              image_url={item.image_url}
+              title={item.title}
+              balance={item.accumTotal}
+              place={item.place}
+              time={item.time}
+              status={item.status}
+              items={item.items}
+              friends={item.friends}
+              index={index}
+            />
+          );
+        }}
+        keyExtractor={(item, index) => index.toString()}
+      />
+    );
+
+    // return content;
+  }
+
+  renderPrompt() {
+    return <Text>{this.props.prompt}</Text>;
+  }
+
+  render() {
+
+    let content;
+
+    if (this.state.receiptHistory
+      && this.state.receiptHistory.length > 0) {
+      content = this.renderList();
+
+      console.log("history", this.state.receiptHistory);
     }
+    else {
+      content = this.renderPrompt();
+    }
+
     return (
       <View>
         <View style={styles.groupTitleContainer}>
           <Text style={styles.groupTitle}>{this.props.groupTitle}</Text>
         </View>
+
         <Divider
           style={{
             marginLeft: 150,

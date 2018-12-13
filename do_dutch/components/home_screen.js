@@ -17,7 +17,10 @@ export default class HomeScreen extends Component {
     spinner: false,
     searchText: "",
     receiptHistory: [],
-    pastHistory: []
+    pastHistory: [],
+    ongoingList: undefined,
+    pastList: undefined,
+    searchList: undefined
   };
 
   constructor(props) {
@@ -28,7 +31,7 @@ export default class HomeScreen extends Component {
       let history = JSON.parse(data);
       console.log("history", history);
       this.setState({ receiptHistory: history });
-      this.ongoingList.setReceiptHistory(history);
+      this.state.ongoingList.setReceiptHistory(history);
     });
 
     NetworkHelper.beginPollingReceipt(10000, json => {
@@ -38,17 +41,17 @@ export default class HomeScreen extends Component {
         let history = this.state.receiptHistory;
         history.push(receiptRecord);
         this.setState({ receiptHistory: history });
-        this.ongoingList.setReceiptHistory(history);
+        this.state.ongoingList.setReceiptHistory(history);
         DataHelper.saveToLocal("history", history);
       }
     });
   }
 
   refreshLists() {
-    if (this.ongoingList) {
-      this.ongoingList.setReceiptHistory(this.state.receiptHistory);
+    if (this.state.ongoingList) {
+      this.state.ongoingList.setReceiptHistory(this.state.receiptHistory);
     }
-    if (this.pastList) {
+    if (this.state.pastList) {
       this.pastList.setReceiptHistory(this.state.pastHistory);
     }
     DataHelper.saveToLocal("history", this.state.receiptHistory);
@@ -76,7 +79,7 @@ export default class HomeScreen extends Component {
     if (this.state.searchText.length > 0) {
       searchListView = (
         <ReceiptList
-          onRef={(ref) => {this.searchList = ref;}}
+          onRef={ref => this.setState({ searchList: ref })}
           groupTitle="SEARCH RESULT"
           prompt="All Done!"
           keyword={this.state.searchText}
@@ -93,7 +96,7 @@ export default class HomeScreen extends Component {
     else {
       ongoingListView = (
         <ReceiptList
-          onRef={ref => (this.ongoingList = ref)}
+          onRef={(ref) => {this.setState({ ongoingList: ref })}}
           groupTitle="ONGOING"
           prompt=""
           keyword=""
@@ -107,7 +110,7 @@ export default class HomeScreen extends Component {
       if (this.state.pastHistory.length > 0) {
         pastListView = (
           <ReceiptList
-            onRef={ref => (this.pastList = ref)}
+            onRef={ref => this.setState({ pastList: ref })}
             groupTitle="PAST"
             prompt="No Record"
             keyword=""
@@ -135,8 +138,10 @@ export default class HomeScreen extends Component {
           placeholder="Search receipt name, merchant, or status..."
           onChangeText={text => {
             this.setState({ searchText: text });
-            if (this.searchList !== undefined && text.length > 0)
-              this.searchList.setReceiptHistory(this.state.receiptHistory);
+            if (this.state.searchList !== undefined && text.length > 0)
+              this.state.searchList.setReceiptHistory(
+                this.state.receiptHistory
+              );
           }}
         />
         {/************* RECEIPT LISTS ***************/}

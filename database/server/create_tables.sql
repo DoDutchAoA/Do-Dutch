@@ -69,3 +69,10 @@ CREATE TABLE Allocations (
 	FOREIGN KEY (item_id) REFERENCES Items(item_id),
 	FOREIGN KEY (user_id) REFERENCES Users(user_id)
 );
+
+CREATE TABLE Receipts (
+  user_id INT(11) NOT NULL,
+  info MEDIUMTEXT,
+  PRIMARY KEY(user_id),
+  FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE
+);
