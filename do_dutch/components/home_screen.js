@@ -12,6 +12,7 @@ import DataHelper from "./receipt/DataHelper.js";
 import { friendsData1 } from "./receipt/SimulationData";
 
 export default class HomeScreen extends Component {
+
   state = {
     spinner: false,
     searchText: "",
@@ -27,6 +28,7 @@ export default class HomeScreen extends Component {
       this.setState({ receiptHistory: history });
       this.ongoingList.setReceiptHistory(history);
     });
+
     NetworkHelper.beginPollingReceipt(10000, json => {
       if (json.length > 0) {
         let receiptRecord = JSON.parse(json[0].data);
@@ -61,18 +63,22 @@ export default class HomeScreen extends Component {
   }
 
   render() {
+
     let searchListView, ongoingListView, pastListView;
+
     /////////////////  SEARCH LIST  //////////////////
     if (this.state.searchText.length > 0) {
       searchListView = (
         <ReceiptList
-          onRef={ref => (this.searchList = ref)}
+          onRef={(ref) => {this.searchList = ref}}
           groupTitle="SEARCH RESULT"
           prompt="All Done!"
           keyword={this.state.searchText}
+
           onPressRecord={(index, receiptItemData) => {
             this.launchModal(false, receiptItemData, index);
           }}
+
           receiptHistory={this.state.receiptHistory}
         />
       );
@@ -108,13 +114,14 @@ export default class HomeScreen extends Component {
       }
     }
 
-    let prompt =
-      !this.state.receiptHistory.length && !this.state.pastHistory.length
+    let prompt = (!this.state.receiptHistory || !this.state.pastHistory)
+       || (!this.state.receiptHistory.length && !this.state.pastHistory.length)
         ? "No Receipt Yet 😕"
         : "End of Receipts";
+
     /////////////////////// RENDERING ////////////////////////
     return (
-      <View style={styles.container}>
+      <View style={styles.container} className="Container">
         {/************** SEARCH BAR ****************/}
         <SearchBar
           containerStyle={{ backgroundColor: "#fff" }}
@@ -135,14 +142,16 @@ export default class HomeScreen extends Component {
             <Text>{prompt}</Text>
           </View>
         </ScrollView>
+
         {/************* RECEIPT MODAL ***************/}
-        <View>
+        <View className="Modal">
           <ReceiptModal
             onRef={ref => (this.modal = ref)}
             data={[]}
             friends={[]}
           />
         </View>
+
         {/**************** SPINNER ******************/}
         <Spinner
           cancelable={true}

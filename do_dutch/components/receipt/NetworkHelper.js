@@ -82,7 +82,7 @@ let NetworkHelper = {
   },
 
   uploadReceiptData(receipt) {
-    fetch(serverURL + "newReceipt", {
+    RNFetchBlob.fetch(serverURL + "newReceipt", {
       method: "POST",
       headers: headers,
       body: JSON.stringify({
@@ -96,7 +96,7 @@ let NetworkHelper = {
 
   beginPollingReceipt(interval, callback) {
     setInterval(() => {
-      fetch(serverURL + "pollingReceipt", {
+      RNFetchBlob.fetch(serverURL + "pollingReceipt", {
         method: "POST",
         headers: headers,
         body: JSON.stringify({

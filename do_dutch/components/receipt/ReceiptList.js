@@ -5,9 +5,10 @@ import {
   TouchableOpacity,
   StyleSheet,
   Image,
-  Dimensions
+  Dimensions,
+  Text
 } from "react-native";
-import { Text, Divider } from "react-native-elements";
+import { Divider } from "react-native-elements";
 
 class ReceiptListItem extends Component {
   constructor(props) {
@@ -36,8 +37,7 @@ class ReceiptListItem extends Component {
     }
     return (
       <TouchableOpacity
-        onPress={() => this.props.onPressRecord(this.props.index, this.state)}
-      >
+        onPress={() => this.props.onPressRecord(this.props.index, this.state)} >
         <View style={styles.rowContainer}>
           <Image source={{ uri: this.state.image_url }} style={styles.photo} />
           <View style={{ flex: 1, flexDirection: "column" }}>
@@ -77,6 +77,19 @@ class ReceiptListItem extends Component {
   }
 }
 
+// ReceiptListItem.PropTypes {
+//   onPressRecord: PropTypes.func
+//   image_url:
+//   title={item.title}
+//   balance={item.accumTotal}
+//   place={item.place}
+//   time={item.time}
+//   status={item.status}
+//   items={item.items}
+//   friends={item.friends}
+//   index={index}
+// };
+
 export default class ReceiptList extends Component {
   constructor(props) {
     super(props);
@@ -89,6 +102,7 @@ export default class ReceiptList extends Component {
   componentDidMount() {
     this.props.onRef(this);
   }
+
   componentWillUnmount() {
     this.props.onRef(undefined);
   }
@@ -107,10 +121,12 @@ export default class ReceiptList extends Component {
   render() {
     let content;
     let keyword = this.props.keyword;
-    if (this.state.receiptHistory.length > 0) {
+
+    const receiptHistory = this.state.receiptHistory;
+    if (receiptHistory && receiptHistory.length > 0) {
       content = (
         <FlatList
-          data={this.state.receiptHistory}
+          data={receiptHistory}
           extraData={this.state}
           renderItem={({ item, index }) => {
             if (keyword.length > 0) {
