@@ -169,11 +169,20 @@ class Item extends React.Component {
       );
     }
 
+    let splitButtons;
     let splitTotal;
-    if (this.state.data.split) {
-      splitTotal = (this.props.data.price / this.props.sharerCount).toFixed(2);
-    } else {
+    if (this.props.sharerCount == 1) {
+      splitButtons = ["All"];
       splitTotal = this.props.data.price.toFixed(2);
+    } else {
+      splitButtons = ["Split", "All"];
+      if (this.state.data.split) {
+        splitTotal = (this.props.data.price / this.props.sharerCount).toFixed(
+          2
+        );
+      } else {
+        splitTotal = this.props.data.price.toFixed(2);
+      }
     }
 
     return (
@@ -213,7 +222,7 @@ class Item extends React.Component {
                   this.props.updateReceipt(this.state.data);
                 }}
                 selectedIndex={this.state.data.split ? 0 : 1}
-                buttons={["Split", "All"]}
+                buttons={splitButtons}
                 textStyle={{ fontSize: 12 }}
                 containerStyle={{ height: 20, width: 70, marginRight: -10 }}
                 selectedButtonStyle={{ backgroundColor: "#a5d6a7" }}
