@@ -16,9 +16,9 @@ const options = {
 let NetworkHelper = {
   uploadReceiptPhoto(loadedCallback, uploadedCallback) {
     ImagePicker.showImagePicker(options, selection => {
-      if (selection.didCancel) {
-      } else if (selection.error) {
-      } else {
+      if (selection.didCancel) { }
+      else if (selection.error) { }
+      else {
         let source = { uri: selection.uri };
         loadedCallback(source, selection.data, true);
         RNFetchBlob.fetch(
@@ -82,7 +82,7 @@ let NetworkHelper = {
   },
 
   uploadReceiptData(receipt) {
-    RNFetchBlob.fetch(serverURL + "newReceipt", {
+    fetch(serverURL + "newReceipt", {
       method: "POST",
       headers: headers,
       body: JSON.stringify({
@@ -96,7 +96,7 @@ let NetworkHelper = {
 
   beginPollingReceipt(interval, callback) {
     setInterval(() => {
-      RNFetchBlob.fetch(serverURL + "pollingReceipt", {
+      fetch(serverURL + "pollingReceipt", {
         method: "POST",
         headers: headers,
         body: JSON.stringify({

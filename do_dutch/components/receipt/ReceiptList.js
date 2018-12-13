@@ -77,19 +77,6 @@ class ReceiptListItem extends Component {
   }
 }
 
-// ReceiptListItem.PropTypes {
-//   onPressRecord: PropTypes.func
-//   image_url:
-//   title={item.title}
-//   balance={item.accumTotal}
-//   place={item.place}
-//   time={item.time}
-//   status={item.status}
-//   items={item.items}
-//   friends={item.friends}
-//   index={index}
-// };
-
 export default class ReceiptList extends Component {
   constructor(props) {
     super(props);

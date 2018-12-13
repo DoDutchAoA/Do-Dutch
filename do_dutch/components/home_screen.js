@@ -24,7 +24,9 @@ export default class HomeScreen extends Component {
     super(props);
 
     DataHelper.getFromLocal("history", data => {
+      console.log("data", data);
       let history = JSON.parse(data);
+      console.log("history", history);
       this.setState({ receiptHistory: history });
       this.ongoingList.setReceiptHistory(history);
     });
@@ -74,7 +76,7 @@ export default class HomeScreen extends Component {
     if (this.state.searchText.length > 0) {
       searchListView = (
         <ReceiptList
-          onRef={(ref) => {this.searchList = ref}}
+          onRef={(ref) => {this.searchList = ref;}}
           groupTitle="SEARCH RESULT"
           prompt="All Done!"
           keyword={this.state.searchText}
