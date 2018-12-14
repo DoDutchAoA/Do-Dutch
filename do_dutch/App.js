@@ -24,14 +24,11 @@ const App = TabNavigator(
     LoginContainer: { screen: LoginContainer }
   },
   {
-    initialRouteName: "LoginContainer"
-  },
-  {
     tabBarPosition: "bottom",
     tabBarComponent: props => {
       return (
         <Footer>
-          <FooterTab style={{ backgroundColor: "#F0F3F4" }}>
+          <FooterTab>
             <Button
               vertical
               active={props.navigationState.index === 0}
@@ -79,6 +76,9 @@ const App = TabNavigator(
         </Footer>
       );
     }
+  },
+  {
+    initialRouteName: "LoginContainer"
   }
 );
 
