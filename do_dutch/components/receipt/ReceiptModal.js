@@ -294,8 +294,9 @@ export default class ReceiptModal extends Component {
   }
 
   calculateTotal() {
-    total = 0;
-    for (index in this.state.receiptItems) {
+    let total = 0;
+
+    for (let index in this.state.receiptItems) {
       if (this.state.receiptItems[index].split) {
         total += this.state.receiptItems[index].price / this.state.sharerCount;
       } else {
@@ -311,6 +312,7 @@ export default class ReceiptModal extends Component {
   }
 
   launch(receipt, groups, confirmCallback) {
+
     let sharerCount = 1;
     if (
       receipt.selectedGroup !== undefined &&
@@ -321,13 +323,14 @@ export default class ReceiptModal extends Component {
     // let d = new Date();
 
     this.setState({
-      //// Receipt Info ////
+    //   //// Receipt Info ////
       title: receipt.title,
       time: receipt.time,
-      receiptItems: receipt.items,
-      image_url: receipt.image_url,
+      // receiptItems: receipt.items,
+    //   image_url: receipt.image_url,
       status: receipt.status,
       selectedGroup: receipt.selectedGroup,
+
       //// Local Info ////
       isModalVisible: true,
       sharerCount: sharerCount,
