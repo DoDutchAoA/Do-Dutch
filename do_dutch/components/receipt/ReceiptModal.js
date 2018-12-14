@@ -257,12 +257,12 @@ export default class ReceiptModal extends Component {
     super(props);
     this.state = {
       isModalVisible: false,
-      sharerCount: 0,
-      friends: [],
-      receiptData: [],
+      sharerCount: 1,
+      receiptItems: [],
       confirmCallback: () => {},
       total: 0,
-      image_url: ""
+      image_url: "",
+      groups: []
     };
   }
 
@@ -277,79 +277,76 @@ export default class ReceiptModal extends Component {
     this.props.onRef(undefined);
   }
 
-  calculateTotal(receiptData, sharerCount) {
+  calculateTotal() {
     total = 0;
-    for (index in receiptData) {
-      if (receiptData[index].split) {
-        total += receiptData[index].price / sharerCount;
+    for (index in this.state.receiptItems) {
+      if (this.state.receiptItems[index].split) {
+        total += this.state.receiptItems[index].price / this.state.sharerCount;
       } else {
-        total += receiptData[index].price;
+        total += this.state.receiptItems[index].price;
       }
     }
     this.setState({ total: total });
   }
 
-  launch(receiptRecord, confirmCallback) {
+  launch(receipt, groups, confirmCallback) {
     let sharerCount = 1;
-    for (i in receiptRecord.friends) {
-      if (receiptRecord.friends[i].selected) sharerCount++;
+    if (
+      receipt.selectedGroup != undefined &&
+      receipt.selectedGroup.members != undefined
+    ) {
+      sharerCount = receipt.selectedGroup.members.length;
     }
-    let d = new Date();
     this.setState({
+      //// Receipt Info ////
+      title: receipt.title,
+      time: receipt.time,
+      receiptItems: receipt.items,
+      image_url: receipt.image_url,
+      status: receipt.status,
+      selectedGroup: receipt.selectedGroup,
+      //// Local Info ////
       isModalVisible: true,
-      title: receiptRecord.title,
-      time: receiptRecord.time,
-      receiptData: receiptRecord.items,
-      image_url: receiptRecord.image_url,
-      friends: receiptRecord.friends,
       sharerCount: sharerCount,
-      status: receiptRecord.status,
-      confirmCallback: confirmCallback
+      confirmCallback: confirmCallback,
+      groups: groups
     });
-    this.calculateTotal(receiptRecord.items, sharerCount);
+    this.calculateTotal();
   }
 
   render() {
     let processedTime;
-    if (this.state.time)
+    if (this.state.time) {
       processedTime =
         this.state.time.split(" ")[0] + " " + this.state.time.split(" ")[1];
-    return (
-      <Modal isVisible={this.state.isModalVisible}>
-        <ScrollView
-          contentContainerStyle={styles.modalContent}
-          scrollEnabled={true}
-        >
-          <View
-            style={{
-              alignItems: "flex-end",
-              marginTop: -30,
-              marginBottom: -40
-            }}
-          >
-            <Text style={{ fontSize: 80, color: "#e1e1e1" }}>
-              {processedTime}
-            </Text>
-          </View>
-
-          <Title
-            title={this.state.title}
-            changeTitleCallback={title => {
-              this.setState({ title: title });
-            }}
-          />
-
-          <Text style={{ fontSize: 15, fontWeight: "bold" }}>Friends</Text>
+    }
+    let groupList, memberList;
+    if (this.state.groups == undefined || this.state.groups.length == 0) {
+      groupList = (
+        <View>
+          <Text>You haven't enrolled in any group.</Text>
+        </View>
+      );
+    } else {
+      groupList = (
+        <View>
+          <Text style={{ marginTop: 10, fontSize: 15, fontWeight: "bold" }}>
+            Groups
+          </Text>
           <ScrollView
             horizontal={true}
             scrollEnabled={true}
             contentContainerStyle={styles.modalContent}
-            style={{ height: 110 }}
+            style={{ height: 100 }}
           >
-            {this.state.friends.map((l, index) => {
-              l.key = index.toString();
-              let opacity = l.selected ? 1.0 : 0.3;
-              let icon = l.selected ? (
+            {this.state.groups.map((group, index) => {
+              group.key = index.toString();
+              let selected;
+              if (this.state.selectedGroup != undefined)
+                selected = this.state.selectedGroup.group_id == group.group_id;
+              else selected = false;
+              let opacity = selected ? 1.0 : 0.3;
+              let icon = selected ? (
                 <Icon
                   reverse
                   raised
@@ -375,54 +372,137 @@ export default class ReceiptModal extends Component {
                   <Avatar
                     medium
                     rounded
-                    source={{
-                      uri: l.avatar
-                    }}
+                    source={group.avatar}
                     onPress={() => {
-                      let friends = this.state.friends;
-                      friends[index].selected = !friends[index].selected;
-                      let sharerCount = this.state.sharerCount;
-                      if (friends[index].selected) sharerCount += 1;
-                      else sharerCount -= 1;
-                      this.setState({
-                        friends: friends,
-                        sharerCount: sharerCount
-                      });
-                      this.calculateTotal(this.state.receiptData, sharerCount);
+                      if (
+                        this.state.selectedGroup != undefined &&
+                        this.state.selectedGroup.group_id == group.group_id
+                      ) {
+                        this.setState({
+                          selectedGroup: undefined,
+                          sharerCount: 1
+                        });
+                      } else {
+                        let tempGroups = this.state.groups;
+                        tempGroups[index] = group;
+                        this.setState({
+                          groups: tempGroups,
+                          selectedGroup: group,
+                          sharerCount: group.members.length
+                        });
+                      }
+                      this.calculateTotal();
                     }}
                     activeOpacity={0.7}
                     avatarStyle={{ opacity: opacity, backgroundColor: "#fff" }}
                   />
-                  <Text style={{ marginTop: 10, marginBottom: 5 }}>
-                    {l.name}
-                  </Text>
-                  <View style={{ marginTop: -35 }}>{icon}</View>
+                  <Text style={{ marginTop: 5 }}>{group.group_name}</Text>
+                  <View style={{ marginTop: -25 }}>{icon}</View>
                 </View>
               );
             })}
           </ScrollView>
+        </View>
+      );
+      if (this.state.selectedGroup != undefined) {
+        memberList = (
+          <View>
+            <Text style={{ marginTop: 5, fontSize: 13 }}>
+              Share with {this.state.sharerCount} people:
+            </Text>
+            <ScrollView
+              horizontal={true}
+              scrollEnabled={true}
+              contentContainerStyle={styles.modalContent}
+              style={{ height: 90 }}
+            >
+              {this.state.selectedGroup.members.map((member, index) => {
+                member.key = index.toString();
+                let paid = member.paid;
+                let opacity = paid ? 1.0 : 0.3;
+                let borderColor = paid ? "#0d0" : "#00dddd";
+                return (
+                  <View
+                    style={{
+                      flexDirection: "column",
+                      alignItems: "center",
+                      marginRight: 10,
+                      marginTop: -10
+                    }}
+                    key={index.toString()}
+                  >
+                    <Avatar
+                      small
+                      rounded
+                      source={member.avatar}
+                      activeOpacity={0.7}
+                      avatarStyle={{
+                        opacity: opacity,
+                        borderWidth: 2,
+                        borderColor: borderColor,
+                        backgroundColor: "#fff"
+                      }}
+                    />
+                    <Text style={{ marginTop: 0, marginBottom: 5 }}>
+                      {member.member_name}
+                    </Text>
+                  </View>
+                );
+              })}
+            </ScrollView>
+          </View>
+        );
+      }
+    }
+
+    return (
+      <Modal isVisible={this.state.isModalVisible}>
+        <ScrollView
+          contentContainerStyle={styles.modalContent}
+          scrollEnabled={true}
+        >
+          <View
+            style={{
+              alignItems: "flex-end",
+              marginTop: -30,
+              marginBottom: -40
+            }}
+          >
+            <Text style={{ fontSize: 80, color: "#e1e1e1" }}>
+              {processedTime}
+            </Text>
+          </View>
+
+          <Title
+            title={this.state.title}
+            changeTitleCallback={title => {
+              this.setState({ title: title });
+            }}
+          />
+
+          {groupList}
+          {memberList}
           <Text
             style={{
-              marginTop: 20,
               marginBottom: -10,
               fontSize: 15,
               backgroundColor: "#fff",
               fontWeight: "bold"
             }}
           >
-            My Choice
+            Your Items
           </Text>
           <List containerStyle={{ marginBottom: 20 }}>
-            {this.state.receiptData.map((l, index) => (
+            {this.state.receiptItems.map((l, index) => (
               <Item
                 data={l}
                 key={index.toString()}
                 sharerCount={this.state.sharerCount}
                 updateReceipt={receipt => {
-                  let receiptData = this.state.receiptData;
-                  receiptData[index] = receipt;
-                  this.setState({ receiptData: receiptData });
-                  this.calculateTotal(receiptData, this.state.sharerCount);
+                  let receiptItems = this.state.receiptItems;
+                  receiptItems[index] = receipt;
+                  this.setState({ receiptItems: receiptItems });
+                  this.calculateTotal();
                 }}
               />
             ))}
@@ -475,12 +555,12 @@ export default class ReceiptModal extends Component {
                   accumTotal: this.state.total,
                   detectedTotal: "$114.58",
                   image_url: this.state.image_url,
-                  items: this.state.receiptData,
+                  items: this.state.receiptItems,
                   place: "Walmart",
                   status: this.state.status,
                   time: this.state.time,
                   title: this.state.title,
-                  friends: this.state.friends
+                  selectedGroup: this.state.selectedGroup
                 });
                 this.setState({ isModalVisible: false });
               }}
@@ -491,12 +571,6 @@ export default class ReceiptModal extends Component {
     );
   }
 }
-
-const { width: viewportWidth, height: viewportHeight } = Dimensions.get(
-  "window"
-);
-const marginLR = 5;
-const itemWidth = viewportWidth - 2 * marginLR;
 
 const styles = StyleSheet.create({
   // Modal Contents
