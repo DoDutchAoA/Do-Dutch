@@ -210,8 +210,10 @@ def addItemToOrder():
 @app.route("/modifyItemName", methods=['POST', 'GET'])
 def modifyItemName():
     if request.method == 'POST':
+        itemNm = request.json.get('itemName')
+        itemNm = trimItem(itemNm)
         result = functions.modifyItemName(
-            request.json.get('itemId'), request.json.get('itemName'),
+            request.json.get('itemId'), itemNm,
         )
         return str(result)
 
