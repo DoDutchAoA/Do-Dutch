@@ -12,13 +12,13 @@ def insertNewReceipt(sender, receiver, receiptId, data):
 
 
 def pollingMessage(receiver):
-    if receiver.__len__() == 0:
+    if receiver and receiver.__len__() == 0:
         return []
     result_list = q.selectInfoByConditions(
         "MessageQueue", "sender_id, receiver_id, event, receipt_id, data", "receiver_id = '%s'", (
             receiver
         ),
     )
-    if result_list.__len__() > 0:
+    if result_list and result_list.__len__() > 0:
         q.deleteRecordByCondition("MessageQueue", "receiver = '%s'", receiver)
     return result_list
