@@ -7,7 +7,7 @@ import {
   Image,
   FlatList
 } from "react-native";
-import { Button } from "react-native-elements";
+import { Button, Badge } from "react-native-elements";
 
 export default class GroupDetail extends Component {
   constructor() {
@@ -113,10 +113,21 @@ export default class GroupDetail extends Component {
       });
   }
 
+  renderSeparator = () => (
+    <View
+      style={{
+        backgroundColor: "#ABB2B9",
+        height: 0.5
+      }}
+    />
+  );
+
   render() {
     return (
       <View>
-        <Text> Group name: {this.state.group_name} </Text>
+        <Badge containerStyle={{ backgroundColor: "#58D68D" }}>
+          <Text style={styles.groupinfo}> {this.state.group_name} </Text>
+        </Badge>
 
         {this.loadOwnerButtons()}
 
@@ -128,6 +139,7 @@ export default class GroupDetail extends Component {
                 {item.member_name}
               </Text>
             )}
+            ItemSeparatorComponent={this.renderSeparator}
           />
         </View>
       </View>
@@ -144,5 +156,10 @@ const styles = StyleSheet.create({
     padding: 10,
     fontSize: 18,
     height: 44
+  },
+  groupinfo: {
+    color: "#F7F9F9",
+    fontWeight: "bold",
+    fontSize: 25
   }
 });
