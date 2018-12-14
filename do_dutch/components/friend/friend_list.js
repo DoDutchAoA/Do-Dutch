@@ -120,7 +120,7 @@ export default class FriendList extends Component {
           }}
           icon={{ name: "clear" }}
           buttonStyle={{
-            backgroundColor: "#F5B7B1",
+            backgroundColor: "#EC7063",
             width: 370,
             height: 45,
             borderColor: "transparent",

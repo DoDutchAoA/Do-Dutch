@@ -49,8 +49,9 @@ export default class GroupDetail extends Component {
     if (window.user_id == this.state.owner_id && this.state.owner_id !== -1) {
       return (
         <View>
-          <Button onPress={() => this.deleteGroup()} title="delete group" />
           <Text> {"\n"} </Text>
+          <Button onPress={() => this.deleteGroup()} title="delete group" />
+
           <Button
             onPress={() =>
               this.props.navigation.navigate("GroupAddMembers", {

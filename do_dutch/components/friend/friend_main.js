@@ -15,7 +15,7 @@ export default class FriendMain extends Component {
           }}
           icon={{ name: "search", type: "font-awesome" }}
           buttonStyle={{
-            backgroundColor: "#AED6F1",
+            backgroundColor: "#3498DB",
             width: 370,
             height: 45,
             borderColor: "transparent",
