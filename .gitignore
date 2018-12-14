@@ -3,6 +3,7 @@ Group\ Assignemnt/
 *.DS_Store
 *.lock
 *.jpg
+*.jpeg
 *.png
 *.pdf
 
@@ -27,3 +28,4 @@ do_dutch/reports/
 tests/test-reports/
 do_dutch/package-lock.json
 server/db/.query.py.swp
+package-lock.json

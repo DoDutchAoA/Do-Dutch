@@ -14,7 +14,8 @@ import { friendsData1 } from "./receipt/SimulationData";
 export default class HomeScreen extends Component {
 
   state = {
-    spinner: false,
+    uploadingSpinner: false,
+    receiptSpinner: false,
     searchText: "",
     receiptHistory: [],
     pastHistory: [],
@@ -27,9 +28,7 @@ export default class HomeScreen extends Component {
     super(props);
 
     DataHelper.getFromLocal("history", data => {
-      let history = JSON.parse(data);
-      this.setState({ receiptHistory: history });
-      this.state.ongoingList.setReceiptHistory(history);
+      this.saveReceiptHistory(JSON.parse(data));
     });
 
     NetworkHelper.beginPollingReceipt(10000, json => {
@@ -38,93 +37,118 @@ export default class HomeScreen extends Component {
         receiptRecord.status = "Sharer";
         let history = this.state.receiptHistory;
         history.push(receiptRecord);
-        this.setState({ receiptHistory: history });
-        this.state.ongoingList.setReceiptHistory(history);
-        DataHelper.saveToLocal("history", history);
-        NetworkHelper.saveToCloud(window.user_id, history);
+        this.saveReceiptHistory(history);
       }
+    });
+  }
+
+  saveReceiptHistory(historyJSON) {
+    this.setState({ receiptHistory: historyJSON });
+    if (this.state.ongoingList) {
+      this.state.ongoingList.setReceiptHistory(historyJSON);
+    }
+    if (this.state.searchList) {
+      this.state.searchList.setReceiptHistory(historyJSON);
+    }
+    // if (this.state.pastList) {
+    //   this.state.pastList.setReceiptHistory(historyJSON);
+    // }
+    DataHelper.saveToLocal("history", historyJSON);
+    NetworkHelper.saveToCloud(window.user_id, historyJSON);
+  }
+
+  refreshLists() {
+    NetworkHelper.loadFromCloud(window.user_id, history => {
+      this.saveReceiptHistory(history);
     });
   }
 
   /////////////////  MODAL LAUNCHING  //////////////////
-  launchModal(isNewReceipt, receiptItemData, index) {
-    this.modal.launch(receiptItemData, recordData => {
-      //////////// CONFIRMATION CALLBACK /////////////
-      let history = this.state.receiptHistory;
-      if (isNewReceipt) {
-        history.push(recordData);
-        NetworkHelper.uploadReceiptData(recordData);
-      } else {
-        history[index] = recordData;
-      }
-      this.setState({ receiptHistory: history });
-      if (this.state.ongoingList) {
-        this.state.ongoingList.setReceiptHistory(this.state.receiptHistory);
-      }
-      if (this.state.pastList) {
-        this.pastList.setReceiptHistory(this.state.pastHistory);
-      }
-      DataHelper.saveToLocal("history", this.state.receiptHistory);
-      NetworkHelper.saveToCloud(window.user_id, history);
+  launchModal(isNewReceipt, index, receiptData) {
+    let receipt = isNewReceipt ? receiptData : this.state.receiptHistory[index];
+    let history = this.state.receiptHistory;
+    this.setState({
+      receiptSpinner: true
+    });
+    ///////////////////  LOAD GROUPS FIRST ///////////////////
+    NetworkHelper.loadAllGroups(window.user_id, groups => {
+      this.setState({
+        receiptSpinner: false
+      });
+      this.modal.launch(receipt, groups, confirmedReceiptData => {
+        //////////// CONFIRMATION CALLBACK /////////////
+        if (isNewReceipt) {
+          history.push(confirmedReceiptData);
+          NetworkHelper.uploadReceiptData(confirmedReceiptData);
+        } else {
+          history[index] = confirmedReceiptData;
+        }
+        this.saveReceiptHistory(history);
+      });
     });
   }
 
   render() {
-
-    let searchListView, ongoingListView, pastListView;
-
-    /////////////////  SEARCH LIST  //////////////////
-    if (this.state.searchText.length > 0) {
-      searchListView = (
-        <ReceiptList
-          onRef={ref => this.setState({ searchList: ref })}
-          groupTitle="SEARCH RESULT"
-          prompt="All Done!"
-          keyword={this.state.searchText}
-
-          onPressRecord={(index, receiptItemData) => {
-            this.launchModal(false, receiptItemData, index);
-          }}
-
-          receiptHistory={this.state.receiptHistory}
-        />
-      );
-    }
-    ////////////////  ONGOING LIST  /////////////////
-    else {
-      ongoingListView = (
-        <ReceiptList
-          onRef={(ref) => {this.setState({ ongoingList: ref })}}
-          groupTitle="ONGOING"
-          prompt=""
-          keyword=""
-          onPressRecord={(index, receiptItemData) => {
-            this.launchModal(false, receiptItemData, index);
-          }}
-          receiptHistory={this.state.receiptHistory}
-        />
-      );
-      /////////////////  PAST LIST  //////////////////
-      if (this.state.pastHistory.length > 0) {
-        pastListView = (
+    window.user_id = 1;
+    let receiptPrompt,
+      loginPrompt,
+      searchListView,
+      ongoingListView,
+      pastListView;
+    if (window.user_id == undefined || window.user_id == "") {
+      loginPrompt = "Please login first!";
+    } else {
+      loginPrompt = "";
+      receiptPrompt =
+        !this.state.receiptHistory.length && !this.state.pastHistory.length
+          ? "No Receipt Yet 😕"
+          : "End of Receipts";
+      /////////////////  SEARCH LIST  //////////////////
+      if (this.state.searchText.length > 0) {
+        searchListView = (
           <ReceiptList
-            onRef={ref => this.setState({ pastList: ref })}
-            groupTitle="PAST"
-            prompt="No Record"
-            keyword=""
-            onPressRecord={(index, receiptItemData) => {
-              this.launchModal(false, receiptItemData, index); // TODO: modify: state.pastList, state.pastHistory
+            onRef={ref => this.setState({ searchList: ref })}
+            groupTitle="SEARCH RESULT"
+            prompt="All Done!"
+            keyword={this.state.searchText}
+            onPressRecord={index => {
+              this.launchModal(false, index);
             }}
-            receiptHistory={this.state.pastHistory}
+            receiptHistory={this.state.receiptHistory}
           />
         );
       }
+      ////////////////  ONGOING LIST  /////////////////
+      else {
+        ongoingListView = (
+          <ReceiptList
+            onRef={ref => this.setState({ ongoingList: ref })}
+            groupTitle="ONGOING"
+            prompt=""
+            keyword=""
+            onPressRecord={index => {
+              this.launchModal(false, index);
+            }}
+            receiptHistory={this.state.receiptHistory}
+          />
+        );
+        /////////////////  PAST LIST  //////////////////
+        if (this.state.pastHistory.length > 0) {
+          pastListView = (
+            <ReceiptList
+              onRef={ref => this.setState({ pastList: ref })}
+              groupTitle="PAST"
+              prompt="No Record"
+              keyword=""
+              onPressRecord={index => {
+                this.launchModal(false, index); // TODO: modify: state.pastList, state.pastHistory
+              }}
+              receiptHistory={this.state.pastHistory}
+            />
+          );
+        }
+      }
     }
-
-    let prompt = (!this.state.receiptHistory || !this.state.pastHistory)
-       || (!this.state.receiptHistory.length && !this.state.pastHistory.length)
-        ? "No Receipt Yet 😕"
-        : "End of Receipts";
 
     /////////////////////// RENDERING ////////////////////////
     return (
@@ -137,9 +161,7 @@ export default class HomeScreen extends Component {
           onChangeText={text => {
             this.setState({ searchText: text });
             if (this.state.searchList !== undefined && text.length > 0)
-              this.state.searchList.setReceiptHistory(
-                this.state.receiptHistory
-              );
+              this.saveReceiptHistory(this.state.receiptHistory);
           }}
         />
         {/************* RECEIPT LISTS ***************/}
@@ -148,7 +170,8 @@ export default class HomeScreen extends Component {
           {ongoingListView}
           {pastListView}
           <View style={styles.prompt}>
-            <Text>{prompt}</Text>
+            <Text>{receiptPrompt}</Text>
+            <Text>{loginPrompt}</Text>
           </View>
         </ScrollView>
 
@@ -164,8 +187,15 @@ export default class HomeScreen extends Component {
         {/**************** SPINNER ******************/}
         <Spinner
           cancelable={true}
-          visible={this.state.spinner}
+          visible={this.state.uploadingSpinner}
           textContent={"Processing Receipt..."}
+          textStyle={styles.spinnerTextStyle}
+          overlayColor={"rgba(0, 0, 0, 0.50)"}
+        />
+        <Spinner
+          cancelable={true}
+          visible={this.state.receiptSpinner}
+          textContent={"Opening Receipt..."}
           textStyle={styles.spinnerTextStyle}
           overlayColor={"rgba(0, 0, 0, 0.50)"}
         />
@@ -182,21 +212,24 @@ export default class HomeScreen extends Component {
                   this.setState({
                     imageSource: source,
                     data: data,
-                    spinner: spinner
+                    uploadingSpinner: spinner
                   });
                 },
                 ///////  RESPONSE RECEIVED CALLBACK  ///////
                 receiptRecord => {
                   this.setState({ spinner: false });
-                  receiptRecord.friends = friendsData1;
-                  this.launchModal(true, receiptRecord);
+                  this.launchModal(true, 0, receiptRecord);
                 }
               );
             }}
           >
             <Icon name="md-camera" style={styles.actionButtonIcon} />
           </ActionButton.Item>
-          <ActionButton.Item buttonColor="#1abc9c" title="Refresh">
+          <ActionButton.Item
+            buttonColor="#1abc9c"
+            title="Refresh"
+            onPress={this.refreshLists}
+          >
             <Icon name="md-refresh" style={styles.actionButtonIcon} />
           </ActionButton.Item>
         </ActionButton>

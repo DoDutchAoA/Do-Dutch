@@ -114,7 +114,6 @@ def insertRecordForcibly(tableName, user_id, info):
     info = pymysql.escape_string(info)
     query = 'INSERT INTO %s (user_id, info) VALUES ("%s", "%s") ON DUPLICATE KEY UPDATE info="%s";' % (
         tableName, user_id, info, info)
-    print query
     runQuery(query, None, False)
     return True
 

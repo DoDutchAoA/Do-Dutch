@@ -57,7 +57,9 @@ def getAllGroups(userId):
         "GroupUsers INNER JOIN gGroups ON gGroups.group_id = GroupUsers.group_id", "gGroups.group_id as group_id, group_name, owner_id",
         "member_id = '%s'", (userId),
     )
-
+    for index, data in enumerate(result_list):
+        result_list[index]['members'] = getAllMembersByGroupId(
+            data['group_id'])
     return result_list
 
 
@@ -66,7 +68,6 @@ def getAllMembersByGroupId(groupId):
         "GroupUsers INNER JOIN Users ON GroupUsers.member_id = Users.user_id", "Users.user_id as member_id, Users.user_name as member_name",
         "group_id = '%s'", (groupId),
     )
-
     return result_list
 
 

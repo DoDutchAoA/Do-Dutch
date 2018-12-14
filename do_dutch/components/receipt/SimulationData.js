@@ -6,23 +6,22 @@ export const receiptData = [
 export const friendsData1 = [
   {
     name: "Sharer",
-    avatar: "https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg",
+    avatar: 1,
     selected: false
   },
   {
     name: "Chris Jackson",
-    avatar: "https://s3.amazonaws.com/uifaces/faces/twitter/kfriedson/128.jpg",
+    avatar: 2,
     selected: false
   },
   {
     name: "Amy Farha",
-    avatar: "https://s3.amazonaws.com/uifaces/faces/twitter/brynn/128.jpg",
+    avatar: 3,
     selected: false
   },
   {
     name: "Chris Jackson",
-    avatar:
-      "https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg",
+    avatar: 4,
     selected: false
   }
 ];
