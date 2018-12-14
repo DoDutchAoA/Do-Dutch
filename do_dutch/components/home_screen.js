@@ -39,22 +39,15 @@ export default class HomeScreen extends Component {
         this.setState({ receiptHistory: history });
         this.state.ongoingList.setReceiptHistory(history);
         DataHelper.saveToLocal("history", history);
+        NetworkHelper.saveToCloud(window.user_id, history);
       }
     });
   }
 
-  refreshLists() {
-    if (this.state.ongoingList) {
-      this.state.ongoingList.setReceiptHistory(this.state.receiptHistory);
-    }
-    if (this.state.pastList) {
-      this.pastList.setReceiptHistory(this.state.pastHistory);
-    }
-    DataHelper.saveToLocal("history", this.state.receiptHistory);
-  }
-
+  /////////////////  MODAL LAUNCHING  //////////////////
   launchModal(isNewReceipt, receiptItemData, index) {
     this.modal.launch(receiptItemData, recordData => {
+      //////////// CONFIRMATION CALLBACK /////////////
       let history = this.state.receiptHistory;
       if (isNewReceipt) {
         history.push(recordData);
@@ -63,7 +56,14 @@ export default class HomeScreen extends Component {
         history[index] = recordData;
       }
       this.setState({ receiptHistory: history });
-      this.refreshLists();
+      if (this.state.ongoingList) {
+        this.state.ongoingList.setReceiptHistory(this.state.receiptHistory);
+      }
+      if (this.state.pastList) {
+        this.pastList.setReceiptHistory(this.state.pastHistory);
+      }
+      DataHelper.saveToLocal("history", this.state.receiptHistory);
+      NetworkHelper.saveToCloud(window.user_id, history);
     });
   }
 
@@ -181,12 +181,6 @@ export default class HomeScreen extends Component {
                   this.setState({ spinner: false });
                   receiptRecord.friends = friendsData1;
                   this.launchModal(true, receiptRecord);
-                  // this.modal.launch(
-                  //   receiptRecord,
-                  //   ///////////  MODAL CONFIRMED CALLBACK  ////////////
-                  //   recordData => {
-                  //   }
-                  // );
                 }
               );
             }}

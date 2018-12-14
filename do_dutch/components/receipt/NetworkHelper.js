@@ -81,6 +81,17 @@ let NetworkHelper = {
     };
   },
 
+  saveToCloud(userID, receipts) {
+    fetch(serverURL + "updateUserReceipts", {
+      method: "POST",
+      headers: headers,
+      body: JSON.stringify({
+        user_id: userID,
+        info: JSON.stringify(receipts)
+      })
+    });
+  },
+
   uploadReceiptData(receipt) {
     fetch(serverURL + "newReceipt", {
       method: "POST",

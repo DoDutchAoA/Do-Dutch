@@ -11,8 +11,12 @@ def login(username, userpwd):
     return u.getUserIdByAuthentication(username, userpwd)
 
 
-def updateUserReceipt(userId, info):
-    return u.updateUserReceipt(userId, info)
+def updateUserReceipts(userId, info):
+    return u.updateUserReceipts(userId, info)
+
+
+def getUserReceipts(userId):
+    return u.getUserReceipts(userId)
 
 
 def createEmptyGroup(groupName, ownerId):  # return g_id

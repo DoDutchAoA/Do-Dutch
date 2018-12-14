@@ -51,12 +51,20 @@ def server():
     return 'error'
 
 
-@app.route("/updateUserReceipt", methods=['POST', 'GET'])
+@app.route("/updateUserReceipts", methods=['POST', 'GET'])
 def updateUserReceipt():
     if request.method == 'POST':
         user_id = request.json.get('user_id')
         info = request.json.get('info')
-        result = functions.updateUserReceipt(user_id, info)
+        result = functions.updateUserReceipts(user_id, info)
+        return str(result)
+
+
+@app.route("/getUserReceipts", methods=['POST', 'GET'])
+def getUserReceipts():
+    if request.method == 'POST':
+        user_id = request.json.get('user_id')
+        result = functions.getUserReceipts(user_id)
         return str(result)
 
 

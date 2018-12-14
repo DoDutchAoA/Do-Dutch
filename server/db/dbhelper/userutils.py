@@ -1,8 +1,16 @@
 import queries as q
 
 
-def updateUserReceipt(userId, info):
+def updateUserReceipts(userId, info):
     return q.insertRecordForcibly("Receipts", userId, info)
+
+
+def getUserReceipts(userId):
+    result_list = q.selectInfoByConditions(
+        "Receipts", "info",
+        "user_id = '%s'", (userId),
+    )
+    return result_list
 
 
 def usernameExists(username):
