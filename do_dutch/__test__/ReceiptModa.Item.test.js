@@ -127,23 +127,61 @@ describe('Checking the functionalities of the SplitButton', () => {
 
     })
 
-    // it('Press btn wont change the price of this item if num_owner == 1', () => {
-    //     const wrapper = mount(<Item
-    //         data={{data: {name: "Apple", price: 5},
-    //                split: undefined}}
-    //         key={"0"}
-    //         sharerCount={1}
-    //         updateReceipt={jest.fn()}
-    //     />)
+    it('Test round to 2 digits', () => {
+        const wrapper = mount(<Item
+            data={{name: "Apple",
+                  price: 2.398,
+                  split: undefined}}
+            key={"0"}
+            sharerCount={1}
+            updateReceipt={jest.fn()}
+        />)
 
-    //     // console.log(wrapper.find('Text').find('#processed').debug())
+        expect(wrapper.find('Text').find('#processed').text()).toEqual("2.40")
 
-    //     expect(wrapper.find('Text').find('#processed').text()).toEqual("5")
+    })
 
-    //     let splitbtn = wrapper.find('ButtonGroup')
-    //     splitbtn.simulate('press')
+    it('Press btn wont change the price of this item if num_owner == 1', () => {
+        const wrapper = mount(<Item
+            data={{name: "Apple",
+                  price: 5,
+                  split: undefined}}
+            key={"0"}
+            sharerCount={1}
+            updateReceipt={jest.fn()}
+        />)
 
-    //     expect(wrapper.find('Text').find('#processed').text()).toEqual("5")
+        expect(wrapper.find('Text').find('#processed').text()).toEqual("5.00")
 
-    // })
+        let splitbtn = wrapper.find('ButtonGroup')
+        splitbtn.props().onPress('press')
+
+        //Unchanged
+        expect(wrapper.find('Text').find('#processed').text()).toEqual("5.00")
+
+    })
+
+    it('Press btn change the price of this item paid by a sharer if num_owner > 1', () => {
+        const wrapper = mount(<Item
+            data={{name: "Apple",
+                  price: 5,
+                  split: 0}}
+            key={"0"}
+            sharerCount={3}
+            updateReceipt={jest.fn()}
+        />)
+
+        expect(wrapper.find('Text').find('#processed').text()).toEqual("5.00")
+
+        let splitbtn = wrapper.find('ButtonGroup')
+        splitbtn.props().onPress(0)
+
+        wrapper.update()
+
+        console.log('split status = ', wrapper.state('data').split)
+
+        //Changed!
+        expect(wrapper.find('Text').find('#processed').text()).toEqual("1.67")
+
+    })
 })

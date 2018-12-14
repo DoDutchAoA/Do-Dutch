@@ -1,38 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testExecutions version="1">
     <file path="/Users/fionazheng/GoDutch/Do-Dutch/do_dutch/__test__/home_screen_render.test.js">
-        <testCase name="Checking the rendering of the HomeScreen A parent container should be rendered" duration="27"/>
+        <testCase name="Checking the rendering of the HomeScreen A parent container should be rendered" duration="23"/>
     </file>
     <file path="/Users/fionazheng/GoDutch/Do-Dutch/do_dutch/__test__/ReceiptModa.Item.test.js">
-        <testCase name="Checking the rendering of the Item A container ListItem is rendered when Item is initialized" duration="23"/>
-        <testCase name="Checking the functionalities of the editable Item name Item name becomes editable when TouchableOpacity is pressed" duration="23"/>
-        <testCase name="Checking the functionalities of the editable Item name Pressed the checked Icon to save the Item name change" duration="10"/>
-        <testCase name="Checking the functionalities of the editable Item name Pressed the times Icon to drop the Title change" duration="12"/>
-        <testCase name="Checking the functionalities of the SplitButton If an item owned by one person, only a &quot;All&quot; btn is rendered" duration="65"/>
-        <testCase name="Checking the functionalities of the SplitButton If an item owned by more one person, &quot;All&quot; and &quot;Split&quot; are rendered" duration="18"/>
-        <testCase name="Checking the functionalities of the SplitButton Pressed on the ButtonGroup will change the data.split status" duration="30"/>
-    </file>
-    <file path="/Users/fionazheng/GoDutch/Do-Dutch/do_dutch/__test__/ReceiptModal.test.js">
-        <testCase name="Checking the rendering of the modal A Modal should be rendered" duration="7"/>
+        <testCase name="Checking the rendering of the Item A container ListItem is rendered when Item is initialized" duration="17"/>
+        <testCase name="Checking the functionalities of the editable Item name Item name becomes editable when TouchableOpacity is pressed" duration="17"/>
+        <testCase name="Checking the functionalities of the editable Item name Pressed the checked Icon to save the Item name change" duration="9"/>
+        <testCase name="Checking the functionalities of the editable Item name Pressed the times Icon to drop the Title change" duration="17"/>
+        <testCase name="Checking the functionalities of the SplitButton If an item owned by one person, only a &quot;All&quot; btn is rendered" duration="55"/>
+        <testCase name="Checking the functionalities of the SplitButton If an item owned by more one person, &quot;All&quot; and &quot;Split&quot; are rendered" duration="20"/>
+        <testCase name="Checking the functionalities of the SplitButton Pressed on the ButtonGroup will change the data.split status" duration="31"/>
+        <testCase name="Checking the functionalities of the SplitButton Test round to 2 digits" duration="20"/>
+        <testCase name="Checking the functionalities of the SplitButton Press btn wont change the price of this item if num_owner == 1" duration="32"/>
+        <testCase name="Checking the functionalities of the SplitButton Press btn change the price of this item paid by a sharer if num_owner &gt; 1" duration="32"/>
     </file>
     <file path="/Users/fionazheng/GoDutch/Do-Dutch/do_dutch/__test__/ReceiptModal.Title.test.js">
-        <testCase name="Checking the rendering of the Title A TouchableOpacity is rendered when Title is initialized" duration="3"/>
-        <testCase name="Checking the rendering of the Title Title text checking" duration="14"/>
+        <testCase name="Checking the rendering of the Title A TouchableOpacity is rendered when Title is initialized" duration="4"/>
+        <testCase name="Checking the rendering of the Title Title text checking" duration="18"/>
         <testCase name="Checking the functionalities of the Title Title renders a textInput when it is editable" duration="15"/>
         <testCase name="Checking the functionalities of the Title Title becomes editable when TouchableOpacity is pressed" duration="4"/>
-        <testCase name="Checking the functionalities of the Title Pressed the checked Icon to save the Title change" duration="5"/>
-        <testCase name="Checking the functionalities of the Title Pressed the times Icon to drop the Title change" duration="5"/>
+        <testCase name="Checking the functionalities of the Title Pressed the checked Icon to save the Title change" duration="6"/>
+        <testCase name="Checking the functionalities of the Title Pressed the times Icon to drop the Title change" duration="4"/>
+    </file>
+    <file path="/Users/fionazheng/GoDutch/Do-Dutch/do_dutch/__test__/ReceiptModal.test.js">
+        <testCase name="Checking the rendering of the modal A Modal should be rendered" duration="9"/>
     </file>
     <file path="/Users/fionazheng/GoDutch/Do-Dutch/do_dutch/__test__/login.test.js">
-        <testCase name="LogIn Two input areas should be rendered" duration="3"/>
-        <testCase name="LogIn Button should be rendered" duration="1"/>
+        <testCase name="LogIn Two input areas should be rendered" duration="2"/>
+        <testCase name="LogIn Button should be rendered" duration="2"/>
     </file>
     <file path="/Users/fionazheng/GoDutch/Do-Dutch/do_dutch/__test__/ReceiptList.test.js">
         <testCase name="Checking the rendering of ReceiptList A divider should be rendered" duration="5"/>
-        <testCase name="Checking the rendering of ReceiptList If no history, a prompt should be rendered" duration="3"/>
         <testCase name="Checking the rendering of ReceiptList If no history, a prompt should be rendered" duration="1"/>
+        <testCase name="Checking the rendering of ReceiptList If no history, a prompt should be rendered" duration="2"/>
         <testCase name="Checking the functionaliies of ReceiptList When keyword.length == 0, no receiptItem would be rendred" duration="6"/>
         <testCase name="Checking the rendering of ReceiptListItem A touchableOpacity should be rendered" duration="3"/>
-        <testCase name="Checking the rendering of ReceiptListItem When onwer is a sharer, item should be rendered in steelblue" duration="4"/>
+        <testCase name="Checking the rendering of ReceiptListItem When onwer is a sharer, item should be rendered in steelblue" duration="3"/>
     </file>
 </testExecutions>

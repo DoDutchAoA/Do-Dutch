@@ -52,6 +52,10 @@
       "cobertura",
       "text"
     ],
+    "coveragePathIgnorePatterns": [
+      "<rootDir>/components/receipt/assets/",
+      "<rootDir>/node_modules/"
+    ],
     "transform": {
       "^.+\\.js$": "<rootDir>/node_modules/react-native/jest/preprocessor.js"
     },

@@ -186,7 +186,6 @@ export class Item extends React.Component {
     let splitTotal;
     if (this.props.sharerCount == 1) {
       splitButtons = ["All"];
-      // console.log("herer!!", this.props.data.price);
       splitTotal = this.setToFix(this.props.data.price, digits);
     } else {
       splitButtons = ["Split", "All"];
