@@ -179,8 +179,6 @@ export class Item extends React.Component {
       );
     }
 
-    console.log("sharercount = ", this.props.sharerCount);
-
     const digits = 2;
     let splitButtons;
     let splitTotal;
@@ -277,13 +275,14 @@ export default class ReceiptModal extends Component {
       confirmCallback: () => {},
       total: 0,
       image_url: "",
-      groups: []
+      groups: [],  //Show all group a user enrolling in
+      selectedGroup: undefined
     };
   }
 
-  onClick = () => {
-    this.item.method();
-  };
+  // onClick = () => {
+  //   this.item.method();
+  // };
 
   componentDidMount() {
     if (this.props.onRef)
@@ -314,8 +313,8 @@ export default class ReceiptModal extends Component {
   launch(receipt, groups, confirmCallback) {
     let sharerCount = 1;
     if (
-      receipt.selectedGroup != undefined &&
-      receipt.selectedGroup.members != undefined
+      receipt.selectedGroup !== undefined &&
+      receipt.selectedGroup.members !== undefined
     ) {
       sharerCount = receipt.selectedGroup.members.length;
     }
@@ -338,22 +337,17 @@ export default class ReceiptModal extends Component {
     this.calculateTotal();
   }
 
-  render() {
-    let processedTime;
-    if (this.state.time) {
-      processedTime =
-        this.state.time.split(" ")[0] + " " + this.state.time.split(" ")[1];
-    }
-    let groupList, memberList;
-    if (this.state.groups == undefined || this.state.groups.length == 0) {
+  renderGroupList() {
+    let groupList;
+    if (this.state.groups === undefined || this.state.groups.length == 0) {
       groupList = (
-        <View>
-          <Text>"You haven't enrolled in any group."</Text>
+        <View id="NoGroupPrompt">
+          <Text >"You haven't enrolled in any group."</Text>
         </View>
       );
     } else {
       groupList = (
-        <View>
+        <View id="GroupList">
           <Text style={{ marginTop: 10, fontSize: 15, fontWeight: "bold" }}>
             Groups
           </Text>
@@ -366,14 +360,16 @@ export default class ReceiptModal extends Component {
             {this.state.groups.map((group, index) => {
               group.key = index.toString();
               let selected;
-              if (this.state.selectedGroup != undefined)
+              if (this.state.selectedGroup !== undefined)
                 selected = this.state.selectedGroup.group_id == group.group_id;
               else selected = false;
+
               let opacity = selected ? 1.0 : 0.3;
               let icon = selected ? (
                 <Icon
                   reverse
                   raised
+                  id="selected"
                   name="check"
                   type="font-awesome"
                   color="#0d0"
@@ -429,56 +425,73 @@ export default class ReceiptModal extends Component {
           </ScrollView>
         </View>
       );
-      if (this.state.selectedGroup != undefined) {
-        memberList = (
-          <View>
-            <Text style={{ marginTop: 5, fontSize: 13 }}>
-              Share with {this.state.sharerCount} people:
-            </Text>
-            <ScrollView
-              horizontal={true}
-              scrollEnabled={true}
-              contentContainerStyle={styles.modalContent}
-              style={{ height: 90 }}
-            >
-              {this.state.selectedGroup.members.map((member, index) => {
-                member.key = index.toString();
-                let paid = member.paid;
-                let opacity = paid ? 1.0 : 0.3;
-                let borderColor = paid ? "#0d0" : "#00dddd";
-                return (
-                  <View
-                    style={{
-                      flexDirection: "column",
-                      alignItems: "center",
-                      marginRight: 10,
-                      marginTop: -10
+  }
+  return groupList;
+}
+
+  renderMemberList() {
+    if (this.state.selectedGroup === undefined)
+      return "";
+
+    return (
+      <View>
+        <Text style={{ marginTop: 5, fontSize: 13 }}>
+          Share with {this.state.sharerCount} people:
+          </Text>
+        <ScrollView
+          horizontal={true}
+          scrollEnabled={true}
+          contentContainerStyle={styles.modalContent}
+          style={{ height: 90 }}
+        >
+          {
+            this.state.selectedGroup.members.map((member, index) => {
+              member.key = index.toString();
+              let paid = member.paid;
+              let opacity = paid ? 1.0 : 0.3;
+              let borderColor = paid ? "#0d0" : "#00dddd";
+              return (
+                <View
+                  style={{
+                    flexDirection: "column",
+                    alignItems: "center",
+                    marginRight: 10,
+                    marginTop: -10
+                  }}
+                  key={index.toString()}
+                >
+                  <Avatar
+                    small
+                    rounded
+                    source={member.avatar}
+                    activeOpacity={0.7}
+                    avatarStyle={{
+                      opacity: opacity,
+                      borderWidth: 2,
+                      borderColor: borderColor,
+                      backgroundColor: "#fff"
                     }}
-                    key={index.toString()}
-                  >
-                    <Avatar
-                      small
-                      rounded
-                      source={member.avatar}
-                      activeOpacity={0.7}
-                      avatarStyle={{
-                        opacity: opacity,
-                        borderWidth: 2,
-                        borderColor: borderColor,
-                        backgroundColor: "#fff"
-                      }}
-                    />
-                    <Text style={{ marginTop: 0, marginBottom: 5 }}>
-                      {member.member_name}
-                    </Text>
-                  </View>
-                );
-              })}
-            </ScrollView>
-          </View>
-        );
-      }
+                  />
+                  <Text style={{ marginTop: 0, marginBottom: 5 }}>
+                    {member.member_name}
+                  </Text>
+                </View>
+              );
+            })}
+        </ScrollView>
+      </View>
+    );
+  }
+
+  render() {
+    let processedTime;
+    if (this.state.time) {
+      processedTime =
+        this.state.time.split(" ")[0] + " " + this.state.time.split(" ")[1];
     }
+
+    let groupList = this.renderGroupList();
+    let memberList = this.renderMemberList();
 
     return (
       <Modal isVisible={this.state.isModalVisible}>
@@ -504,16 +517,12 @@ export default class ReceiptModal extends Component {
               this.setState({ title: title });
             }}
           />
-
           {groupList}
           {memberList}
+          {/************* Items **************************/}
           <Text
-            style={{
-              marginBottom: -10,
-              fontSize: 15,
-              backgroundColor: "#fff",
-              fontWeight: "bold"
-            }}
+            style={{ marginBottom: -10, fontSize: 15,
+                     backgroundColor: "#fff", fontWeight: "bold"}}
           >
             Your Items
           </Text>
@@ -524,7 +533,7 @@ export default class ReceiptModal extends Component {
                 key={index.toString()}
                 sharerCount={this.state.sharerCount}
                 updateReceipt={receipt => {
-                  let receiptItems = this.state.receiptItems;
+                  let receiptItems = this.state.receiptItems; //Receipt
                   receiptItems[index] = receipt;
                   this.setState({ receiptItems: receiptItems });
                   this.calculateTotal();
