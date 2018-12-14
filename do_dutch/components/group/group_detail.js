@@ -49,16 +49,39 @@ export default class GroupDetail extends Component {
     if (window.user_id == this.state.owner_id && this.state.owner_id !== -1) {
       return (
         <View>
-          <Text> {"\n"} </Text>
-          <Button onPress={() => this.deleteGroup()} title="delete group" />
-
           <Button
+            large
+            icon={{ name: "delete" }}
+            onPress={() => this.deleteGroup()}
+            titleStyle={{ fontWeight: "700" }}
+            buttonStyle={{
+              backgroundColor: "#FAD7A0",
+              width: 320,
+              height: 45,
+              borderColor: "transparent",
+              borderWidth: 3,
+              borderRadius: 8
+            }}
+            title="Delete Group"
+          />
+          <Button
+            large
+            icon={{ name: "person" }}
             onPress={() =>
               this.props.navigation.navigate("GroupAddMembers", {
                 group_id: this.state.group_id
               })
             }
-            title="add more members"
+            titleStyle={{ fontWeight: "700" }}
+            buttonStyle={{
+              backgroundColor: "#F7DC6F",
+              width: 320,
+              height: 45,
+              borderColor: "transparent",
+              borderWidth: 3,
+              borderRadius: 8
+            }}
+            title="Add Members"
           />
         </View>
       );
@@ -126,7 +149,10 @@ export default class GroupDetail extends Component {
   render() {
     return (
       <View>
-        <Badge containerStyle={{ backgroundColor: "#58D68D" }}>
+        <Badge
+          containerStyle={{ backgroundColor: "#D7DBDD" }}
+          textStyle={{ color: "#34495E" }}
+        >
           <Text style={styles.groupinfo}> {this.state.group_name} </Text>
         </Badge>
 
@@ -159,7 +185,7 @@ const styles = StyleSheet.create({
     height: 44
   },
   groupinfo: {
-    color: "#F7F9F9",
+    color: "#283747",
     fontWeight: "bold",
     fontSize: 25
   }
