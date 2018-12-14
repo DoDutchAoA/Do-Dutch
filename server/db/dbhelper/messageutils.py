@@ -12,7 +12,7 @@ def insertNewReceipt(sender, receiver, receiptId, data):
 
 
 def pollingMessage(receiver):
-    if receiver and receiver.__len__() == 0:
+    if not receiver:
         return []
     result_list = q.selectInfoByConditions(
         "MessageQueue", "sender_id, receiver_id, event, receipt_id, data", "receiver_id = '%s'", (
