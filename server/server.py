@@ -25,6 +25,21 @@ def allowed_file(filename):
            filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
 
 
+def trimUser(_str):
+    _str = re.sub(r'[^a-zA-Z0-9@_.]','',_str)
+    return _str[0:30]
+
+
+def trimGroup(_str):
+    _str = re.sub(r'[^a-zA-Z0-9]','',_str)
+    return _str[0:16]
+
+
+def trimItem(_str):
+    _str = re.sub(r'[^a-zA-Z0-9_]','',_str)
+    return _str[0:30]
+
+
 @app.route("/upload", methods=['POST', 'GET'])
 def server():
     if request.method == 'POST' or request.method == 'GET':
