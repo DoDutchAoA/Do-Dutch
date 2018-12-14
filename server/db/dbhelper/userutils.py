@@ -10,7 +10,10 @@ def getUserReceipts(userId):
         "Receipts", "info",
         "user_id = '%s'", (userId),
     )
-    return result_list[0]
+    if (result_list.__len__() > 0):
+        return result_list[0]
+    else:
+        return ''
 
 
 def usernameExists(username):
