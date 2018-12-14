@@ -3,7 +3,7 @@ import queries as q
 
 def insertNewReceipt(sender, receiver, receiptId, data):
     if q.insertRecordTo(
-        "MessageQueue", "(sender, receiver, event, receipt_id, data)",
+        "MessageQueue", "(sender_id, receiver_id, event, receipt_id, data)",
         (sender, receiver, "new", receiptId, data), "(%s, %s, %s, %s, %s)",
     ):
         return True
@@ -13,7 +13,7 @@ def insertNewReceipt(sender, receiver, receiptId, data):
 
 def pollingMessage(receiver):
     result_list = q.selectInfoByConditions(
-        "MessageQueue", "sender, receiver, event, receipt_id, data", "receiver = '%s'", (
+        "MessageQueue", "sender_id, receiver_id, event, receipt_id, data", "receiver = '%s'", (
             receiver
         ),
     )

@@ -43,6 +43,21 @@ def createTables(create_script_name):
         runQuery(queries[i] + ";", None, False)
 
 
+    
+def searchInfoByPartialConditions(tableName, info_format, cons_format=None, keyword=None):  # quotes
+    query = ""
+    if cons_format == None and keyword == None:
+        query = ("SELECT " + info_format + " FROM " + tableName + ";")
+    else:
+        kword = ('%s'%keyword)
+        cons_format = (cons_format + " like '%" + kword + "%'")
+        query = (
+            "SELECT " + info_format + " FROM " + tableName + " WHERE " +
+            cons_format + ";"
+        )
+    return runQuery(query, None, True)
+
+
 def selectInfoByConditions(tableName, info_format, cons_format=None, vals=None):  # quotes
     query = ""
     if cons_format == None and vals == None:
@@ -92,6 +107,15 @@ def deleteRecordByCondition(tableName, cons_format, vals):
 def insertRecordTo(tableName, cols, vals, vals_format):
     query = "INSERT INTO " + tableName + cols + " VALUES " + vals_format + ";"
     runQuery(query, vals, False)
+    return True
+
+
+def insertRecordForcibly(tableName, user_id, info):
+    info = pymysql.escape_string(info)
+    query = 'INSERT INTO %s (user_id, info) VALUES ("%s", "%s") ON DUPLICATE KEY UPDATE info="%s";' % (
+        tableName, user_id, info, info)
+    print query
+    runQuery(query, None, False)
     return True
 
 
