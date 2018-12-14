@@ -46,7 +46,7 @@
     "regenerator-runtime": "^0.13.1"
   },
   "jest": {
-    "verbose": true,
+    "verbose": false,
     "preset": "react-native",
     "coverageReporters": [
       "cobertura",

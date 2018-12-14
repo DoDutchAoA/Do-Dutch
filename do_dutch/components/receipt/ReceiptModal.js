@@ -21,7 +21,10 @@ import {
 import Modal from "react-native-modal";
 //import NumericInput from "react-native-numeric-input";
 
-class Title extends React.Component {
+const digits = 2;
+
+export class Title extends React.Component { //Receipt name
+
   constructor(props) {
     super(props);
     this.state = {
@@ -69,6 +72,7 @@ class Title extends React.Component {
           />
 
           <Icon
+            className="ChangeConfirmed"
             raised
             name="check"
             type="font-awesome"
@@ -83,6 +87,7 @@ class Title extends React.Component {
             containerStyle={{ marginRight: 0, marginTop: 20 }}
           />
           <Icon
+            className="ChangeDropped"
             raised
             name="times"
             type="font-awesome"
@@ -102,7 +107,7 @@ class Title extends React.Component {
   }
 }
 
-class Item extends React.Component {
+export class Item extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -111,6 +116,10 @@ class Item extends React.Component {
       tempText: props.data.name,
       split: true
     };
+  }
+
+  setToFix(number, digits) {
+    return (number !== undefined) ? number.toFixed(digits) : number;
   }
 
   changeEditable() {
@@ -128,14 +137,12 @@ class Item extends React.Component {
     } else {
       name = (
         <View
-          style={{
-            flexDirection: "row"
-          }}
+          style={{ flexDirection: "row" }}
         >
           <TextInput
             value={this.state.tempText}
             style={{ height: 40, marginRight: -50 }}
-            placeholder="Type here to translate!"
+            placeholder=""
             onChangeText={text =>
               this.setState({
                 tempText: text
@@ -144,6 +151,7 @@ class Item extends React.Component {
           />
 
           <Icon
+            className="ChangeConfirmed"
             raised
             name="check"
             type="font-awesome"
@@ -156,6 +164,7 @@ class Item extends React.Component {
             containerStyle={{ marginRight: 0 }}
           />
           <Icon
+            className="ChangeDropped"
             raised
             name="times"
             type="font-awesome"
@@ -170,19 +179,21 @@ class Item extends React.Component {
       );
     }
 
+    console.log("sharercount = ", this.props.sharerCount);
+
+    const digits = 2;
     let splitButtons;
     let splitTotal;
     if (this.props.sharerCount == 1) {
       splitButtons = ["All"];
-      splitTotal = this.props.data.price.toFixed(2);
+      // console.log("herer!!", this.props.data.price);
+      splitTotal = this.setToFix(this.props.data.price, digits);
     } else {
       splitButtons = ["Split", "All"];
       if (this.state.data.split) {
-        splitTotal = (this.props.data.price / this.props.sharerCount).toFixed(
-          2
-        );
+        splitTotal = this.setToFix(this.props.data.price / this.props.sharerCount, digits);
       } else {
-        splitTotal = this.props.data.price.toFixed(2);
+        splitTotal = this.setToFix(this.props.data.price, digits);
       }
     }
 
@@ -197,14 +208,14 @@ class Item extends React.Component {
             iconStyle={{ marginRight: 10 }}
           />
         }
-        key={this.state.data.name}
+        key={this.state.data.name}  //Item name
         title={<View>{name}</View>}
         hideChevron
         badge={{
           element: (
             <View style={{ flexDirection: "row" }}>
               <Text style={{ marginTop: 5, marginRight: 5 }}>$</Text>
-              <Text style={{ marginTop: 5, marginRight: 1 }}>{splitTotal}</Text>
+              <Text id="processed" style={{ marginTop: 5, marginRight: 1 }}>{splitTotal}</Text>
               <Text
                 style={{
                   color: "#aaa",
@@ -213,15 +224,17 @@ class Item extends React.Component {
                   fontSize: 10
                 }}
               >
-                {"/" + this.props.data.price.toFixed(2)}
+                {"/" + this.setToFix(this.props.data.price, digits)}
               </Text>
               <ButtonGroup
+                className="SplitBtn"
                 onPress={index => {
                   let data = this.state.data;
-                  data.split = index == 0;
+                  data.split = index == 0;  //split == 0, all == 1
                   this.setState({ data: data });
                   this.props.updateReceipt(this.state.data);
                 }}
+
                 selectedIndex={this.state.data.split ? 0 : 1}
                 buttons={splitButtons}
                 textStyle={{ fontSize: 12 }}
@@ -254,32 +267,37 @@ class Item extends React.Component {
 }
 
 export default class ReceiptModal extends Component {
+
   constructor(props) {
     super(props);
+
     this.state = {
       isModalVisible: false,
       sharerCount: 0,
       friends: [],
       receiptData: [],
-      confirmCallback: () => {},
       total: 0,
-      image_url: ""
+      image_url: "",
+      confirmCallback: () => {}
     };
   }
 
   onClick = () => {
-    this.item.method(); // do stuff
+    this.item.method();
   };
 
   componentDidMount() {
-    this.props.onRef(this);
+    if (this.props.onRef)
+      this.props.onRef(this);
   }
+
   componentWillUnmount() {
     this.props.onRef(undefined);
   }
 
   calculateTotal(receiptData, sharerCount) {
     total = 0;
+
     for (index in receiptData) {
       if (receiptData[index].split) {
         total += receiptData[index].price / sharerCount;
@@ -287,15 +305,24 @@ export default class ReceiptModal extends Component {
         total += receiptData[index].price;
       }
     }
+
     this.setState({ total: total });
   }
 
+  setToFix(number, digits) {
+    return (number !== undefined) ? number.toFixed(digits) : number;
+  }
+
   launch(receiptRecord, confirmCallback) {
+
     let sharerCount = 1;
+
     for (i in receiptRecord.friends) {
       if (receiptRecord.friends[i].selected) sharerCount++;
     }
-    let d = new Date();
+
+    // let d = new Date();
+
     this.setState({
       isModalVisible: true,
       title: receiptRecord.title,
@@ -307,16 +334,18 @@ export default class ReceiptModal extends Component {
       status: receiptRecord.status,
       confirmCallback: confirmCallback
     });
+
     this.calculateTotal(receiptRecord.items, sharerCount);
   }
 
   render() {
     let processedTime;
     if (this.state.time)
-      processedTime =
-        this.state.time.split(" ")[0] + " " + this.state.time.split(" ")[1];
+      processedTime = this.state.time.split(" ")[0] + " " + this.state.time.split(" ")[1];
+
     return (
       <Modal isVisible={this.state.isModalVisible}>
+
         <ScrollView
           contentContainerStyle={styles.modalContent}
           scrollEnabled={true}
@@ -326,8 +355,7 @@ export default class ReceiptModal extends Component {
               alignItems: "flex-end",
               marginTop: -30,
               marginBottom: -40
-            }}
-          >
+            }}>
             <Text style={{ fontSize: 80, color: "#e1e1e1" }}>
               {processedTime}
             </Text>
@@ -335,10 +363,9 @@ export default class ReceiptModal extends Component {
 
           <Title
             title={this.state.title}
-            changeTitleCallback={title => {
+            changeTitleCallback={ title => {
               this.setState({ title: title });
-            }}
-          />
+          }}/>
 
           <Text style={{ fontSize: 15, fontWeight: "bold" }}>Friends</Text>
           <ScrollView
@@ -347,6 +374,7 @@ export default class ReceiptModal extends Component {
             contentContainerStyle={styles.modalContent}
             style={{ height: 110 }}
           >
+
             {this.state.friends.map((l, index) => {
               l.key = index.toString();
               let opacity = l.selected ? 1.0 : 0.3;
@@ -364,6 +392,7 @@ export default class ReceiptModal extends Component {
                   }}
                 />
               ) : null;
+
               return (
                 <View
                   style={{
@@ -380,15 +409,19 @@ export default class ReceiptModal extends Component {
                       uri: l.avatar
                     }}
                     onPress={() => {
+
                       let friends = this.state.friends;
                       friends[index].selected = !friends[index].selected;
+
                       let sharerCount = this.state.sharerCount;
                       if (friends[index].selected) sharerCount += 1;
                       else sharerCount -= 1;
+
                       this.setState({
                         friends: friends,
                         sharerCount: sharerCount
                       });
+
                       this.calculateTotal(this.state.receiptData, sharerCount);
                     }}
                     activeOpacity={0.7}
@@ -449,7 +482,7 @@ export default class ReceiptModal extends Component {
               Total:
             </Text>
             <Text style={{ fontSize: 20, fontWeight: "bold" }}>
-              {"$" + this.state.total.toFixed(2)}
+              {"$" + this.setToFix(this.state.total, digits)}
             </Text>
           </View>
           <View style={styles.modalBtnContainer}>

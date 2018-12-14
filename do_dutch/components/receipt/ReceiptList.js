@@ -146,6 +146,7 @@ export default class ReceiptList extends Component {
               items={item.items}
               friends={item.friends}
               index={index}
+              className="Receipt"
             />
           );
         }}

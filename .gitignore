@@ -23,6 +23,7 @@ do_dutch/.vscode/.react/index.map
 do_dutch/ios/do_dutch.xcodeproj/project.pbxproj
 do_dutch/.vscode/.react/debuggerWorker.js
 
-
+do_dutch/reports/
+tests/test-reports/
 do_dutch/package-lock.json
 server/db/.query.py.swp
