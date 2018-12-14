@@ -112,8 +112,10 @@ def login():
 @app.route("/createEmptyGroup", methods=['POST', 'GET'])
 def createEmptyGroup():
     if request.method == 'POST':
+        groupNm = request.json.get('groupName')
+        groupNm = trimGroup(groupNm) 
         result = functions.createEmptyGroup(
-            request.json.get('groupName'), request.json.get('ownerId'),
+            groupNm, request.json.get('ownerId'),
         )
         return str(result)
 
@@ -130,10 +132,10 @@ def addMembersToGroup():
 @app.route("/createGroupWithMembers", methods=['POST', 'GET'])
 def createGroupWithMembers():
     if request.method == 'POST':
+        groupNm = request.json.get('groupName')
+        groupNm = trimGroup(groupNm) 
         result = functions.createGroupWithMembers(
-            request.json.get(
-                'groupName',
-            ), request.json.get('ownerId'), request.json.get('memberIds'),
+            groupNm, request.json.get('ownerId'), request.json.get('memberIds'),
         )
         return str(result)
 
