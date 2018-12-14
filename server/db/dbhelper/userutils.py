@@ -10,7 +10,7 @@ def getUserReceipts(userId):
         "Receipts", "info",
         "user_id = '%s'", (userId),
     )
-    return result_list
+    return result_list[0]
 
 
 def usernameExists(username):
