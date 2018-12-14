@@ -16,24 +16,37 @@ class ReceiptListItem extends Component {
     this.state = {
       image_url: props.image_url,
       title: props.title,
-      balance: props.balance,
+      total: props.total,
+      payerTotal: props.payerTotal,
+      sharerTotal: props.sharerTotal,
       place: props.place,
       time: props.time,
       status: props.status,
       items: props.items,
-      friends: props.friends
+      group: props.group
     };
   }
 
   render() {
-    let statusStyle;
+    let balance = "$0.00";
+    let unpaidCount = 0;
+    let statusStyle, balanceStyle;
     if (this.state) {
+      if (this.state.group != undefined) {
+        this.state.group.members.forEach(member => {
+          if (!member.paid) unpaidCount += 1;
+        });
+      }
       if (this.state.status == "Sharer") {
         statusStyle = styles.sharerTagContainer;
       } else {
         statusStyle = styles.payerTagContainer;
+        balance = (-this.state.sharerTotal * unpaidCount).toFixed(2);
+        if (unpaidCount == 0) balanceStyle = styles.greenText;
+        else balanceStyle = styles.redText;
       }
     }
+
     return (
       <TouchableOpacity
         onPress={() => this.props.onPressRecord(this.props.index)}
@@ -45,9 +58,12 @@ class ReceiptListItem extends Component {
               <Text style={{ fontSize: 16, color: "#000" }}>
                 {this.state.title}
               </Text>
-              <Text style={{ fontSize: 16, color: "#000" }}>
-                ${this.state.balance.toFixed(2)}
-              </Text>
+              <View style={{ flexDirection: "row" }}>
+                <Text style={balanceStyle}>${balance}</Text>
+                <Text style={{ fontSize: 16, color: "#aaa" }}>
+                  /{this.state.total.toFixed(2)}
+                </Text>
+              </View>
             </View>
             <View style={styles.containerText}>
               <Text style={{ fontSize: 10, color: "#aaa" }}>
@@ -133,12 +149,14 @@ export default class ReceiptList extends Component {
                 onPressRecord={this.props.onPressRecord}
                 image_url={item.image_url}
                 title={item.title}
-                balance={item.accumTotal}
+                total={item.total}
+                payerTotal={item.payerTotal}
+                sharerTotal={item.sharerTotal}
                 place={item.place}
                 time={item.time}
                 status={item.status}
                 items={item.items}
-                friends={item.friends}
+                group={item.group}
                 index={index}
               />
             );
@@ -177,6 +195,14 @@ const marginLR = 5;
 const itemWidth = viewportWidth - 2 * marginLR;
 
 const styles = StyleSheet.create({
+  greenText: {
+    fontSize: 16,
+    color: "#00aa00"
+  },
+  redText: {
+    fontSize: 16,
+    color: "#aa0000"
+  },
   groupTitle: {
     fontWeight: "bold",
     backgroundColor: "#ffffff",

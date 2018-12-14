@@ -170,18 +170,18 @@ class Item extends React.Component {
     }
 
     let splitButtons;
-    let splitTotal;
+    let payerTotal;
     if (this.props.sharerCount == 1) {
       splitButtons = ["All"];
-      splitTotal = this.props.data.price.toFixed(2);
+      payerTotal = this.props.data.price.toFixed(2);
     } else {
       splitButtons = ["Split", "All"];
       if (this.state.data.split) {
-        splitTotal = (this.props.data.price / this.props.sharerCount).toFixed(
+        payerTotal = (this.props.data.price / this.props.sharerCount).toFixed(
           2
         );
       } else {
-        splitTotal = this.props.data.price.toFixed(2);
+        payerTotal = this.props.data.price.toFixed(2);
       }
     }
 
@@ -203,7 +203,7 @@ class Item extends React.Component {
           element: (
             <View style={{ flexDirection: "row" }}>
               <Text style={{ marginTop: 5, marginRight: 5 }}>$</Text>
-              <Text style={{ marginTop: 5, marginRight: 1 }}>{splitTotal}</Text>
+              <Text style={{ marginTop: 5, marginRight: 1 }}>{payerTotal}</Text>
               <Text
                 style={{
                   color: "#aaa",
@@ -261,6 +261,8 @@ export default class ReceiptModal extends Component {
       receiptItems: [],
       confirmCallback: () => {},
       total: 0,
+      payerTotal: 0,
+      sharerTotal: 0,
       image_url: "",
       groups: []
     };
@@ -278,24 +280,29 @@ export default class ReceiptModal extends Component {
   }
 
   calculateTotal() {
-    total = 0;
+    let payerTotal = 0;
+    let total = 0;
     for (index in this.state.receiptItems) {
       if (this.state.receiptItems[index].split) {
-        total += this.state.receiptItems[index].price / this.state.sharerCount;
+        payerTotal +=
+          this.state.receiptItems[index].price / this.state.sharerCount;
       } else {
-        total += this.state.receiptItems[index].price;
+        payerTotal += this.state.receiptItems[index].price;
       }
+      total += this.state.receiptItems[index].price;
     }
-    this.setState({ total: total });
+    let sharerTotal = (total - payerTotal) / (this.state.sharerCount - 1);
+    this.setState({
+      total: total,
+      payerTotal: payerTotal,
+      sharerTotal: sharerTotal
+    });
   }
 
   launch(receipt, groups, confirmCallback) {
     let sharerCount = 1;
-    if (
-      receipt.selectedGroup != undefined &&
-      receipt.selectedGroup.members != undefined
-    ) {
-      sharerCount = receipt.selectedGroup.members.length;
+    if (receipt.group != undefined && receipt.group.members != undefined) {
+      sharerCount = receipt.group.members.length + 1;
     }
     this.setState({
       //// Receipt Info ////
@@ -304,7 +311,7 @@ export default class ReceiptModal extends Component {
       receiptItems: receipt.items,
       image_url: receipt.image_url,
       status: receipt.status,
-      selectedGroup: receipt.selectedGroup,
+      group: receipt.group,
       //// Local Info ////
       isModalVisible: true,
       sharerCount: sharerCount,
@@ -342,8 +349,8 @@ export default class ReceiptModal extends Component {
             {this.state.groups.map((group, index) => {
               group.key = index.toString();
               let selected;
-              if (this.state.selectedGroup != undefined)
-                selected = this.state.selectedGroup.group_id == group.group_id;
+              if (this.state.group != undefined)
+                selected = this.state.group.group_id == group.group_id;
               else selected = false;
               let opacity = selected ? 1.0 : 0.3;
               let icon = selected ? (
@@ -375,11 +382,11 @@ export default class ReceiptModal extends Component {
                     source={group.avatar}
                     onPress={() => {
                       if (
-                        this.state.selectedGroup != undefined &&
-                        this.state.selectedGroup.group_id == group.group_id
+                        this.state.group != undefined &&
+                        this.state.group.group_id == group.group_id
                       ) {
                         this.setState({
-                          selectedGroup: undefined,
+                          group: undefined,
                           sharerCount: 1
                         });
                       } else {
@@ -387,8 +394,8 @@ export default class ReceiptModal extends Component {
                         tempGroups[index] = group;
                         this.setState({
                           groups: tempGroups,
-                          selectedGroup: group,
-                          sharerCount: group.members.length
+                          group: group,
+                          sharerCount: group.members.length + 1
                         });
                       }
                       this.calculateTotal();
@@ -404,7 +411,7 @@ export default class ReceiptModal extends Component {
           </ScrollView>
         </View>
       );
-      if (this.state.selectedGroup != undefined) {
+      if (this.state.group != undefined) {
         memberList = (
           <View>
             <Text style={{ marginTop: 5, fontSize: 13 }}>
@@ -416,7 +423,7 @@ export default class ReceiptModal extends Component {
               contentContainerStyle={styles.modalContent}
               style={{ height: 90 }}
             >
-              {this.state.selectedGroup.members.map((member, index) => {
+              {this.state.group.members.map((member, index) => {
                 member.key = index.toString();
                 let paid = member.paid;
                 let opacity = paid ? 1.0 : 0.3;
@@ -528,7 +535,16 @@ export default class ReceiptModal extends Component {
               Total:
             </Text>
             <Text style={{ fontSize: 20, fontWeight: "bold" }}>
-              {"$" + this.state.total.toFixed(2)}
+              {"$" + this.state.payerTotal.toFixed(2)}
+            </Text>
+            <Text
+              style={{
+                color: "#aaa",
+                marginTop: 5,
+                fontSize: 13
+              }}
+            >
+              {" / " + this.state.total.toFixed(2)}
             </Text>
           </View>
           <View style={styles.modalBtnContainer}>
@@ -552,7 +568,9 @@ export default class ReceiptModal extends Component {
               buttonStyle={styles.modalBtn}
               onPress={() => {
                 this.state.confirmCallback({
-                  accumTotal: this.state.total,
+                  total: this.state.total,
+                  payerTotal: this.state.payerTotal,
+                  sharerTotal: this.state.sharerTotal,
                   detectedTotal: "$114.58",
                   image_url: this.state.image_url,
                   items: this.state.receiptItems,
@@ -560,7 +578,7 @@ export default class ReceiptModal extends Component {
                   status: this.state.status,
                   time: this.state.time,
                   title: this.state.title,
-                  selectedGroup: this.state.selectedGroup
+                  group: this.state.group
                 });
                 this.setState({ isModalVisible: false });
               }}

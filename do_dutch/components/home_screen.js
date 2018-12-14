@@ -25,8 +25,9 @@ export default class HomeScreen extends Component {
 
   constructor(props) {
     super(props);
+    window.user_id = 1;
 
-    DataHelper.getFromLocal("history", data => {
+    DataHelper.getFromLocal(window.user_id.toString(), data => {
       this.saveReceiptHistory(JSON.parse(data));
     });
     NetworkHelper.beginPollingReceipt(10000, json => {
@@ -51,12 +52,12 @@ export default class HomeScreen extends Component {
     // if (this.state.pastList) {
     //   this.state.pastList.setReceiptHistory(historyJSON);
     // }
-    DataHelper.saveToLocal("history", historyJSON);
-    NetworkHelper.saveToCloud(window.user_id, historyJSON);
+    DataHelper.saveToLocal(window.user_id.toString(), historyJSON);
+    NetworkHelper.saveToCloud(window.user_id.toString(), historyJSON);
   }
 
   refreshLists() {
-    NetworkHelper.loadFromCloud(window.user_id, history => {
+    NetworkHelper.loadFromCloud(window.user_id.toString(), history => {
       this.saveReceiptHistory(history);
     });
   }
@@ -69,7 +70,7 @@ export default class HomeScreen extends Component {
       receiptSpinner: true
     });
     ///////////////////  LOAD GROUPS FIRST ///////////////////
-    NetworkHelper.loadAllGroups(window.user_id, groups => {
+    NetworkHelper.loadAllGroups(window.user_id.toString(), groups => {
       this.setState({
         receiptSpinner: false
       });
@@ -87,7 +88,6 @@ export default class HomeScreen extends Component {
   }
 
   render() {
-    window.user_id = 1;
     let receiptPrompt,
       loginPrompt,
       searchListView,
@@ -208,7 +208,7 @@ export default class HomeScreen extends Component {
                   this.setState({
                     imageSource: source,
                     data: data,
-                    uploadingSpinner: spinner
+                    uploadingSpinner: true
                   });
                 },
                 ///////  RESPONSE RECEIVED CALLBACK  ///////

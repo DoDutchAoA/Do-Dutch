@@ -13,29 +13,6 @@ const options = {
   quality: 1
 };
 
-const memberAvatars = [
-  require("./assets/memberAvatars/0.jpg"),
-  require("./assets/memberAvatars/1.jpg"),
-  require("./assets/memberAvatars/2.jpg"),
-  require("./assets/memberAvatars/3.jpg"),
-  require("./assets/memberAvatars/4.jpg"),
-  require("./assets/memberAvatars/5.jpg")
-];
-const groupAvatars = [
-  require("./assets/groupAvatars/0.jpeg"),
-  require("./assets/groupAvatars/1.jpeg"),
-  require("./assets/groupAvatars/2.jpeg"),
-  require("./assets/groupAvatars/3.jpeg"),
-  require("./assets/groupAvatars/4.jpeg"),
-  require("./assets/groupAvatars/5.jpeg"),
-  require("./assets/groupAvatars/6.jpeg"),
-  require("./assets/groupAvatars/7.jpeg"),
-  require("./assets/groupAvatars/8.jpeg"),
-  require("./assets/groupAvatars/9.jpeg"),
-  require("./assets/groupAvatars/10.jpeg"),
-  require("./assets/groupAvatars/11.jpeg")
-];
-
 let NetworkHelper = {
   uploadReceiptPhoto(loadedCallback, uploadedCallback) {
     ImagePicker.showImagePicker(options, selection => {
@@ -171,18 +148,10 @@ let NetworkHelper = {
       })
     })
       .then(response => response.json())
-      .then(groups => {
-        if (groups) {
-          groups.forEach((group, gIndex) => {
-            groups[gIndex]["avatar"] = groupAvatars[group["group_id"] % 12];
-            groups[gIndex]["members"].forEach((member, mIndex) => {
-              groups[gIndex]["members"][mIndex]["avatar"] =
-                memberAvatars[member["member_id"] % 6];
-              groups[gIndex]["members"][mIndex]["paid"] = true;
-            });
-          });
+      .then(responseJson => {
+        if (responseJson) {
+          console.log(responseJson);
         }
-        callback(groups);
       })
       .catch(error => {});
   }
