@@ -171,15 +171,16 @@ class Item extends React.Component {
 
     let splitButtons;
     let payerTotal;
-    if (this.props.sharerCount == 1) {
+    if (this.props.sharerCount == 0) {
       splitButtons = ["All"];
       payerTotal = this.props.data.price.toFixed(2);
     } else {
       splitButtons = ["Split", "All"];
       if (this.state.data.split) {
-        payerTotal = (this.props.data.price / this.props.sharerCount).toFixed(
-          2
-        );
+        payerTotal = (
+          this.props.data.price /
+          (this.props.sharerCount + 1)
+        ).toFixed(2);
       } else {
         payerTotal = this.props.data.price.toFixed(2);
       }
@@ -257,7 +258,7 @@ export default class ReceiptModal extends Component {
     super(props);
     this.state = {
       isModalVisible: false,
-      sharerCount: 1,
+      sharerCount: 0,
       receiptItems: [],
       confirmCallback: () => {},
       total: 0,
@@ -285,13 +286,18 @@ export default class ReceiptModal extends Component {
     for (index in this.state.receiptItems) {
       if (this.state.receiptItems[index].split) {
         payerTotal +=
-          this.state.receiptItems[index].price / this.state.sharerCount;
+          this.state.receiptItems[index].price / (this.state.sharerCount + 1);
       } else {
         payerTotal += this.state.receiptItems[index].price;
       }
       total += this.state.receiptItems[index].price;
     }
-    let sharerTotal = (total - payerTotal) / (this.state.sharerCount - 1);
+    let sharerTotal;
+    if (this.state.sharerCount != 0) {
+      sharerTotal = (total - payerTotal) / this.state.sharerCount;
+    } else {
+      sharerTotal = 0;
+    }
     this.setState({
       total: total,
       payerTotal: payerTotal,
@@ -300,9 +306,9 @@ export default class ReceiptModal extends Component {
   }
 
   launch(receipt, groups, confirmCallback) {
-    let sharerCount = 1;
+    let sharerCount = 0;
     if (receipt.group != undefined && receipt.group.members != undefined) {
-      sharerCount = receipt.group.members.length + 1;
+      sharerCount = receipt.group.members.length;
     }
     this.setState({
       //// Receipt Info ////
@@ -310,8 +316,8 @@ export default class ReceiptModal extends Component {
       time: receipt.time,
       receiptItems: receipt.items,
       image_url: receipt.image_url,
-      status: receipt.status,
       group: receipt.group,
+      creator: receipt.creator,
       //// Local Info ////
       isModalVisible: true,
       sharerCount: sharerCount,
@@ -387,7 +393,7 @@ export default class ReceiptModal extends Component {
                       ) {
                         this.setState({
                           group: undefined,
-                          sharerCount: 1
+                          sharerCount: 0
                         });
                       } else {
                         let tempGroups = this.state.groups;
@@ -395,7 +401,7 @@ export default class ReceiptModal extends Component {
                         this.setState({
                           groups: tempGroups,
                           group: group,
-                          sharerCount: group.members.length + 1
+                          sharerCount: group.members.length
                         });
                       }
                       this.calculateTotal();
@@ -442,10 +448,8 @@ export default class ReceiptModal extends Component {
                       small
                       rounded
                       source={member.avatar}
-                      activeOpacity={0.7}
                       avatarStyle={{
-                        opacity: opacity,
-                        borderWidth: 2,
+                        borderWidth: 1,
                         borderColor: borderColor,
                         backgroundColor: "#fff"
                       }}
@@ -575,10 +579,10 @@ export default class ReceiptModal extends Component {
                   image_url: this.state.image_url,
                   items: this.state.receiptItems,
                   place: "Walmart",
-                  status: this.state.status,
                   time: this.state.time,
                   title: this.state.title,
-                  group: this.state.group
+                  group: this.state.group,
+                  creator: this.state.creator
                 });
                 this.setState({ isModalVisible: false });
               }}

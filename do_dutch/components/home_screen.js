@@ -9,7 +9,6 @@ import ReceiptList from "./receipt/ReceiptList.js";
 import ReceiptModal from "./receipt/ReceiptModal.js";
 import NetworkHelper from "./receipt/NetworkHelper.js";
 import DataHelper from "./receipt/DataHelper.js";
-import { friendsData1 } from "./receipt/SimulationData";
 
 export default class HomeScreen extends Component {
   state = {
@@ -17,7 +16,6 @@ export default class HomeScreen extends Component {
     receiptSpinner: false,
     searchText: "",
     receiptHistory: [],
-    pastHistory: [],
     ongoingList: undefined,
     pastList: undefined,
     searchList: undefined
@@ -26,19 +24,23 @@ export default class HomeScreen extends Component {
   constructor(props) {
     super(props);
     window.user_id = 1;
+    window.username = "sharer";
+    this.construct();
+  }
 
-    DataHelper.getFromLocal(window.user_id.toString(), data => {
-      this.saveReceiptHistory(JSON.parse(data));
-    });
-    NetworkHelper.beginPollingReceipt(10000, json => {
-      if (json.length > 0) {
-        let receiptRecord = JSON.parse(json[0].data);
-        receiptRecord.status = "Sharer";
-        let history = this.state.receiptHistory;
-        history.push(receiptRecord);
-        this.saveReceiptHistory(history);
-      }
-    });
+  construct() {
+    if (window.user_id !== undefined) {
+      DataHelper.getFromLocal(window.user_id.toString(), data => {
+        this.saveReceiptHistory(JSON.parse(data));
+      });
+      NetworkHelper.beginPollingReceipt(10000, json => {
+        if (json.length > 0) {
+          let history = this.state.receiptHistory;
+          history.push(JSON.parse(json[0].data));
+          this.saveReceiptHistory(history);
+        }
+      });
+    }
   }
 
   saveReceiptHistory(historyJSON) {
@@ -49,9 +51,9 @@ export default class HomeScreen extends Component {
     if (this.state.searchList) {
       this.state.searchList.setReceiptHistory(historyJSON);
     }
-    // if (this.state.pastList) {
-    //   this.state.pastList.setReceiptHistory(historyJSON);
-    // }
+    if (this.state.pastList) {
+      this.state.pastList.setReceiptHistory(historyJSON);
+    }
     DataHelper.saveToLocal(window.user_id.toString(), historyJSON);
     NetworkHelper.saveToCloud(window.user_id.toString(), historyJSON);
   }
@@ -97,16 +99,15 @@ export default class HomeScreen extends Component {
       loginPrompt = "Please login first!";
     } else {
       loginPrompt = "";
-      receiptPrompt =
-        !this.state.receiptHistory.length && !this.state.pastHistory.length
-          ? "No Receipt Yet 😕"
-          : "End of Receipts";
+      receiptPrompt = !this.state.receiptHistory.length
+        ? "No Receipt Yet 😕"
+        : "End of Receipts";
       /////////////////  SEARCH LIST  //////////////////
       if (this.state.searchText.length > 0) {
         searchListView = (
           <ReceiptList
             onRef={ref => this.setState({ searchList: ref })}
-            groupTitle="SEARCH RESULT"
+            listTitle="SEARCH RESULT"
             prompt="All Done!"
             keyword={this.state.searchText}
             onPressRecord={index => {
@@ -121,7 +122,7 @@ export default class HomeScreen extends Component {
         ongoingListView = (
           <ReceiptList
             onRef={ref => this.setState({ ongoingList: ref })}
-            groupTitle="ONGOING"
+            listTitle="ONGOING"
             prompt=""
             keyword=""
             onPressRecord={index => {
@@ -131,20 +132,18 @@ export default class HomeScreen extends Component {
           />
         );
         /////////////////  PAST LIST  //////////////////
-        if (this.state.pastHistory.length > 0) {
-          pastListView = (
-            <ReceiptList
-              onRef={ref => this.setState({ pastList: ref })}
-              groupTitle="PAST"
-              prompt="No Record"
-              keyword=""
-              onPressRecord={index => {
-                this.launchModal(false, index); // TODO: modify: state.pastList, state.pastHistory
-              }}
-              receiptHistory={this.state.pastHistory}
-            />
-          );
-        }
+        pastListView = (
+          <ReceiptList
+            onRef={ref => this.setState({ pastList: ref })}
+            listTitle="PAST"
+            prompt="No Record"
+            keyword=""
+            onPressRecord={index => {
+              this.launchModal(false, index);
+            }}
+            receiptHistory={this.state.receiptHistory}
+          />
+        );
       }
     }
 
@@ -155,7 +154,7 @@ export default class HomeScreen extends Component {
         <SearchBar
           containerStyle={{ backgroundColor: "#fff" }}
           lightTheme
-          placeholder="Search receipt name, merchant, or status..."
+          placeholder="Search receipt name or merchant..."
           onChangeText={text => {
             this.setState({ searchText: text });
             if (this.state.searchList !== undefined && text.length > 0)
@@ -197,14 +196,14 @@ export default class HomeScreen extends Component {
         />
 
         {/******************** UPLOADING RECEIPT **********************/}
-        <ActionButton buttonColor="rgba(231,76,60,1)" position="center">
+        <ActionButton buttonColor="rgba(63,81,181,1.0)">
           <ActionButton.Item
             buttonColor="#9b59b6"
             title="New Photo"
             onPress={() => {
               NetworkHelper.uploadReceiptPhoto(
                 ///////  IMAGE SELECTED CALLBACK  ///////
-                (source, data, spinner) => {
+                (source, data) => {
                   this.setState({
                     imageSource: source,
                     data: data,
@@ -213,7 +212,7 @@ export default class HomeScreen extends Component {
                 },
                 ///////  RESPONSE RECEIVED CALLBACK  ///////
                 receiptRecord => {
-                  this.setState({ spinner: false });
+                  this.setState({ uploadingSpinner: false });
                   this.launchModal(true, 0, receiptRecord);
                 }
               );

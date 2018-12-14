@@ -13,6 +13,30 @@ const options = {
   quality: 1
 };
 
+const groupAvatars = [
+  require("./assets/groupAvatars/0.jpeg"),
+  require("./assets/groupAvatars/1.jpeg"),
+  require("./assets/groupAvatars/2.jpeg"),
+  require("./assets/groupAvatars/3.jpeg"),
+  require("./assets/groupAvatars/4.jpeg"),
+  require("./assets/groupAvatars/5.jpeg"),
+  require("./assets/groupAvatars/6.jpeg"),
+  require("./assets/groupAvatars/7.jpeg"),
+  require("./assets/groupAvatars/8.jpeg"),
+  require("./assets/groupAvatars/9.jpeg"),
+  require("./assets/groupAvatars/10.jpeg"),
+  require("./assets/groupAvatars/11.jpeg")
+];
+
+const memberAvatars = [
+  require("./assets/memberAvatars/0.jpg"),
+  require("./assets/memberAvatars/1.jpg"),
+  require("./assets/memberAvatars/2.jpg"),
+  require("./assets/memberAvatars/3.jpg"),
+  require("./assets/memberAvatars/4.jpg"),
+  require("./assets/memberAvatars/5.jpg")
+];
+
 let NetworkHelper = {
   uploadReceiptPhoto(loadedCallback, uploadedCallback) {
     ImagePicker.showImagePicker(options, selection => {
@@ -77,7 +101,7 @@ let NetworkHelper = {
       accumTotal: "$" + accumTotal.toFixed(2).toString(),
       detectedTotal: "$" + detectedTotal.toFixed(2).toString(),
       image_url: parsedData.path,
-      status: "Payer"
+      creator: window.user_id
     };
   },
 
@@ -148,9 +172,17 @@ let NetworkHelper = {
       })
     })
       .then(response => response.json())
-      .then(responseJson => {
-        if (responseJson) {
-          console.log(responseJson);
+      .then(groups => {
+        if (groups != undefined) {
+          groups.forEach((group, gIndex) => {
+            groups[gIndex].avatar = groupAvatars[parseInt(group.group_id) % 12];
+            group.members.forEach((member, mIndex) => {
+              groups[gIndex].members[mIndex].avatar =
+                memberAvatars[parseInt(member.member_id) % 6];
+              groups[gIndex].members[mIndex].paid = false;
+            });
+          });
+          callback(groups);
         }
       })
       .catch(error => {});

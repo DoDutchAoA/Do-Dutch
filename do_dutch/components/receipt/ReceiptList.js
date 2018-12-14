@@ -21,29 +21,56 @@ class ReceiptListItem extends Component {
       sharerTotal: props.sharerTotal,
       place: props.place,
       time: props.time,
-      status: props.status,
       items: props.items,
-      group: props.group
+      group: props.group,
+      creator: props.creator,
+      listTitle: props.listTitle
     };
   }
 
   render() {
-    let balance = "$0.00";
-    let unpaidCount = 0;
-    let statusStyle, balanceStyle;
-    if (this.state) {
-      if (this.state.group != undefined) {
-        this.state.group.members.forEach(member => {
-          if (!member.paid) unpaidCount += 1;
-        });
-      }
-      if (this.state.status == "Sharer") {
-        statusStyle = styles.sharerTagContainer;
+    let balance = "$0.00",
+      status;
+    let unpaidCount = 0,
+      totalCount = 0;
+    let statusStyle, balanceStyle, sharerStyle;
+    if (this.state.group != undefined) {
+      this.state.group.members.forEach(member => {
+        if (!member.paid) unpaidCount += 1;
+        totalCount += 1;
+      });
+    } else {
+      unpaidCount = 0;
+      totalCount = 0;
+    }
+    if (
+      (this.state.listTitle == "ONGOING" && unpaidCount == 0) ||
+      (this.state.listTitle == "PAST" && unpaidCount > 0)
+    ) {
+      return <View />;
+    }
+
+    if (this.state.creator == window.user_id) {
+      status = "Payer";
+      statusStyle = styles.payerTagContainer;
+      balance = (-this.state.sharerTotal * unpaidCount).toFixed(2);
+      if (unpaidCount == 0) {
+        balanceStyle = styles.greenText;
+        sharerStyle = styles.greenSharerText;
       } else {
-        statusStyle = styles.payerTagContainer;
-        balance = (-this.state.sharerTotal * unpaidCount).toFixed(2);
-        if (unpaidCount == 0) balanceStyle = styles.greenText;
-        else balanceStyle = styles.redText;
+        balanceStyle = styles.redText;
+        sharerStyle = styles.redSharerText;
+      }
+    } else {
+      status = "Sharer";
+      statusStyle = styles.sharerTagContainer;
+      balance = (-this.state.sharerTotal * unpaidCount).toFixed(2);
+      if (unpaidCount == 0) {
+        balanceStyle = styles.greenText;
+        sharerStyle = styles.greenSharerText;
+      } else {
+        balanceStyle = styles.redText;
+        sharerStyle = styles.redSharerText;
       }
     }
 
@@ -69,9 +96,12 @@ class ReceiptListItem extends Component {
               <Text style={{ fontSize: 10, color: "#aaa" }}>
                 {this.state.place}
               </Text>
-              <Text style={{ fontSize: 10, color: "#aaa" }}>
-                {this.state.time}
-              </Text>
+              <View style={{ flexDirection: "row" }}>
+                <Text style={sharerStyle}>{totalCount - unpaidCount}</Text>
+                <Text style={{ fontSize: 12, color: "#aaa" }}>
+                  /{totalCount} Sharers Paid
+                </Text>
+              </View>
             </View>
             <View style={styles.containerText}>
               <View style={statusStyle}>
@@ -81,10 +111,12 @@ class ReceiptListItem extends Component {
                     color: "#ffffff"
                   }}
                 >
-                  {this.state.status}
+                  {status}
                 </Text>
               </View>
-              <Text style={{ fontSize: 12, color: "#000" }}>{"✘"}</Text>
+              <Text style={{ fontSize: 10, color: "#aaa" }}>
+                {this.state.time}
+              </Text>
             </View>
           </View>
         </View>
@@ -136,9 +168,6 @@ export default class ReceiptList extends Component {
                   .includes(this.props.keyword.toLowerCase()) &&
                 !item.place
                   .toLowerCase()
-                  .includes(this.props.keyword.toLowerCase()) &&
-                !item.status
-                  .toLowerCase()
                   .includes(this.props.keyword.toLowerCase())
               )
                 return;
@@ -154,10 +183,11 @@ export default class ReceiptList extends Component {
                 sharerTotal={item.sharerTotal}
                 place={item.place}
                 time={item.time}
-                status={item.status}
+                creator={item.creator}
                 items={item.items}
                 group={item.group}
                 index={index}
+                listTitle={this.props.listTitle}
               />
             );
           }}
@@ -169,8 +199,8 @@ export default class ReceiptList extends Component {
     }
     return (
       <View>
-        <View style={styles.groupTitleContainer}>
-          <Text style={styles.groupTitle}>{this.props.groupTitle}</Text>
+        <View style={styles.listTitleContainer}>
+          <Text style={styles.listTitle}>{this.props.listTitle}</Text>
         </View>
         <Divider
           style={{
@@ -203,13 +233,22 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: "#aa0000"
   },
-  groupTitle: {
+  greenSharerText: {
+    fontSize: 12,
+    color: "#00aa00"
+  },
+  redSharerText: {
+    fontSize: 12,
+    color: "#aa0000"
+  },
+
+  listTitle: {
     fontWeight: "bold",
     backgroundColor: "#ffffff",
     color: "#000000",
     padding: 3
   },
-  groupTitleContainer: {
+  listTitleContainer: {
     marginLeft: 10,
     marginTop: 10,
     alignItems: "center"
@@ -248,7 +287,7 @@ const styles = StyleSheet.create({
   payerTagContainer: {
     backgroundColor: "green",
     borderRadius: 2,
-    width: 60,
+    width: 40,
     alignItems: "center",
     marginTop: 3
   }
