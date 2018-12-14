@@ -36,7 +36,7 @@ class ReceiptListItem extends Component {
     }
     return (
       <TouchableOpacity
-        onPress={() => this.props.onPressRecord(this.props.index, this.state)}
+        onPress={() => this.props.onPressRecord(this.props.index)}
       >
         <View style={styles.rowContainer}>
           <Image source={{ uri: this.state.image_url }} style={styles.photo} />
