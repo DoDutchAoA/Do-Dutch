@@ -46,6 +46,7 @@ export default class LogIn extends Component {
   render() {
     return (
       <View style={styles.container}>
+        <Text style={styles.text}> Log In </Text>
         <FormLabel> Username </FormLabel>
         <FormInput
           style={styles.input}
@@ -85,8 +86,10 @@ const styles = StyleSheet.create({
     borderColor: "#7a42f4",
     borderWidth: 1
   },
-  submitButtonText: {
-    color: "white"
+  text: {
+    color: "#566573",
+    fontSize: 35,
+    fontWeight: "bold"
   },
   capitalLetter: {
     color: "#2C3E50",
