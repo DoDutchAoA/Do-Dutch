@@ -36,6 +36,8 @@ describe('Checking group list', () => {
     it('When a group is selected, a checked icon should be rendered', () => {
         const wrapper = shallow(<ReceiptModal />)
 
+        console.log(wrapper.debug())
+
         let group0 = { id: 0, members: [{id: 0, paid: 5}] };
 
         wrapper.setState({ groups: [group0],

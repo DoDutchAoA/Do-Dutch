@@ -14,14 +14,6 @@ const options = {
   quality: 1
 };
 
-const memberAvatars = [
-  require("./assets/memberAvatars/0.jpg"),
-  require("./assets/memberAvatars/1.jpg"),
-  require("./assets/memberAvatars/2.jpg"),
-  require("./assets/memberAvatars/3.jpg"),
-  require("./assets/memberAvatars/4.jpg"),
-  require("./assets/memberAvatars/5.jpg")
-];
 const groupAvatars = [
   require("./assets/groupAvatars/0.jpeg"),
   require("./assets/groupAvatars/1.jpeg"),
@@ -35,6 +27,15 @@ const groupAvatars = [
   require("./assets/groupAvatars/9.jpeg"),
   require("./assets/groupAvatars/10.jpeg"),
   require("./assets/groupAvatars/11.jpeg")
+];
+
+const memberAvatars = [
+  require("./assets/memberAvatars/0.jpg"),
+  require("./assets/memberAvatars/1.jpg"),
+  require("./assets/memberAvatars/2.jpg"),
+  require("./assets/memberAvatars/3.jpg"),
+  require("./assets/memberAvatars/4.jpg"),
+  require("./assets/memberAvatars/5.jpg")
 ];
 
 let NetworkHelper = {
@@ -101,7 +102,7 @@ let NetworkHelper = {
       accumTotal: "$" + accumTotal.toFixed(2).toString(),
       detectedTotal: "$" + detectedTotal.toFixed(2).toString(),
       image_url: parsedData.path,
-      status: "Payer"
+      creator: window.user_id
     };
   },
 
@@ -173,17 +174,17 @@ let NetworkHelper = {
     })
       .then(response => response.json())
       .then(groups => {
-        if (groups) {
+        if (groups != undefined) {
           groups.forEach((group, gIndex) => {
-            groups[gIndex]["avatar"] = groupAvatars[group["group_id"] % 12];
-            groups[gIndex]["members"].forEach((member, mIndex) => {
-              groups[gIndex]["members"][mIndex]["avatar"] =
-                memberAvatars[member["member_id"] % 6];
-              groups[gIndex]["members"][mIndex]["paid"] = true;
+            groups[gIndex].avatar = groupAvatars[parseInt(group.group_id) % 12];
+            group.members.forEach((member, mIndex) => {
+              groups[gIndex].members[mIndex].avatar =
+                memberAvatars[parseInt(member.member_id) % 6];
+              groups[gIndex].members[mIndex].paid = false;
             });
           });
+          callback(groups);
         }
-        callback(groups);
       })
       .catch(error => {});
   }
