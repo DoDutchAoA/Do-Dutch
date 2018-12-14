@@ -127,23 +127,23 @@ describe('Checking the functionalities of the SplitButton', () => {
 
     })
 
-    it('Press btn wont change the price of this item if num_owner == 1', () => {
-        const wrapper = mount(<Item
-            data={{data: {name: "Apple", price: 5},
-                   split: undefined}}
-            key={"0"}
-            sharerCount={1}
-            updateReceipt={jest.fn()}
-        />)
+    // it('Press btn wont change the price of this item if num_owner == 1', () => {
+    //     const wrapper = mount(<Item
+    //         data={{data: {name: "Apple", price: 5},
+    //                split: undefined}}
+    //         key={"0"}
+    //         sharerCount={1}
+    //         updateReceipt={jest.fn()}
+    //     />)
 
-        // console.log(wrapper.find('Text').find('#processed').debug())
+    //     // console.log(wrapper.find('Text').find('#processed').debug())
 
-        expect(wrapper.find('Text').find('#processed').text()).toEqual("5")
+    //     expect(wrapper.find('Text').find('#processed').text()).toEqual("5")
 
-        let splitbtn = wrapper.find('ButtonGroup')
-        splitbtn.simulate('press')
+    //     let splitbtn = wrapper.find('ButtonGroup')
+    //     splitbtn.simulate('press')
 
-        expect(wrapper.find('Text').find('#processed').text()).toEqual("5")
+    //     expect(wrapper.find('Text').find('#processed').text()).toEqual("5")
 
-    })
+    // })
 })
