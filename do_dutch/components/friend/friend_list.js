@@ -118,7 +118,17 @@ export default class FriendList extends Component {
           onPress={() => {
             this.changeType("delete");
           }}
-          title="delete friends"
+          icon={{ name: "clear" }}
+          buttonStyle={{
+            backgroundColor: "#EC7063",
+            width: 370,
+            height: 45,
+            borderColor: "transparent",
+            borderWidth: 2,
+            borderRadius: 7
+          }}
+          titleStyle={{ fontWeight: "700" }}
+          title="Delete Friend"
         />
       );
     } else if (this.state.type === "delete") {
@@ -127,7 +137,17 @@ export default class FriendList extends Component {
           onPress={() => {
             this.changeType("list");
           }}
-          title="complete delete friends"
+          icon={{ name: "remove" }}
+          buttonStyle={{
+            backgroundColor: "#D5D8DC",
+            width: 370,
+            height: 45,
+            borderColor: "transparent",
+            borderWidth: 2,
+            borderRadius: 7
+          }}
+          titleStyle={{ fontWeight: "700" }}
+          title="Completed"
         />
       );
     }

@@ -28,11 +28,17 @@ const App = TabNavigator(
     tabBarComponent: props => {
       return (
         <Footer>
-          <FooterTab style={{ backgroundColor: "#F0F3F4" }}>
+          <FooterTab style={{ backgroundColor: "#F4F6F7" }}>
             <Button
               vertical
               active={props.navigationState.index === 0}
-              onPress={() => props.navigation.navigate("ContextLayout")}
+              onPress={() => {
+                if (window.user_id == undefined) {
+                  alert("Please log in first");
+                  return;
+                }
+                props.navigation.navigate("ContextLayout");
+              }}
             >
               <Icon name="home" />
               <Text>Home</Text>
@@ -42,6 +48,10 @@ const App = TabNavigator(
               vertical
               active={props.navigationState.index === 1}
               onPress={() => {
+                if (window.user_id == undefined) {
+                  alert("Please log in first");
+                  return;
+                }
                 props.navigation.navigate("FriendContainer", {
                   user_id: window.user_id
                 });
@@ -54,11 +64,15 @@ const App = TabNavigator(
             <Button
               vertical
               active={props.navigationState.index === 1}
-              onPress={() =>
+              onPress={() => {
+                if (window.user_id == undefined) {
+                  alert("Please log in first");
+                  return;
+                }
                 props.navigation.navigate("GroupContainer", {
                   user_id: window.user_id
-                })
-              }
+                });
+              }}
             >
               <Icon name="contacts" />
               <Text>Group</Text>
@@ -76,6 +90,9 @@ const App = TabNavigator(
         </Footer>
       );
     }
+  },
+  {
+    initialRouteName: "LoginContainer"
   }
 );
 
