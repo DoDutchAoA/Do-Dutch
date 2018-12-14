@@ -39,7 +39,7 @@ def createEmptyGroup(groupName, ownerId):  # return g_id
     if createGroup(groupName, ownerId):
         groupId = getGroupIdBygName(groupName)
 
-        if addMembersToGroup(groupId, ownerId):  # add the owner himself to this group
+        if addMembersToGroup(groupId, int(ownerId)):  # add the owner himself to this group
             return groupId
 
     return -1
