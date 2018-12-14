@@ -2,7 +2,6 @@ Group\ Assignemnt/
 
 *.DS_Store
 *.lock
-*.jpg
 *.png
 *.pdf
 
@@ -26,3 +25,4 @@ do_dutch/.vscode/.react/debuggerWorker.js
 
 do_dutch/package-lock.json
 server/db/.query.py.swp
+package-lock.json
