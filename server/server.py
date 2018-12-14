@@ -26,17 +26,17 @@ def allowed_file(filename):
 
 
 def trimUser(_str):
-    _str = re.sub(r'[^a-zA-Z0-9@_.]','',_str)
+    _str = re.sub(r'[^a-zA-Z0-9@_.]', '', _str)
     return _str[0:30]
 
 
 def trimGroup(_str):
-    _str = re.sub(r'[^a-zA-Z0-9]','',_str)
+    _str = re.sub(r'[^a-zA-Z0-9]', '', _str)
     return _str[0:16]
 
 
 def trimItem(_str):
-    _str = re.sub(r'[^a-zA-Z0-9_]','',_str)
+    _str = re.sub(r'[^a-zA-Z0-9_]', '', _str)
     return _str[0:30]
 
 
@@ -80,7 +80,7 @@ def getUserReceipts():
     if request.method == 'POST':
         user_id = request.json.get('user_id')
         result = functions.getUserReceipts(user_id)
-        return str(result)
+        return json.dumps(result)
 
 
 @app.route("/signUp", methods=['POST', 'GET'])
