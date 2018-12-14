@@ -46,7 +46,7 @@ export default class Signup extends Component {
   render() {
     return (
       <View>
-        <Text> Sign Up </Text>
+        <Text style={styles.text}> Sign Up </Text>
 
         <FormLabel> Username </FormLabel>
         <FormInput
@@ -72,8 +72,21 @@ export default class Signup extends Component {
           onChangeText={text => this.setState({ password_confirm: text })}
         />
 
-        <Button onPress={e => this.userSignUp(e)} title="sign up" />
+        <Button
+          icon={{ name: "user", type: "font-awesome" }}
+          backgroundColor="#E74C3C"
+          onPress={e => this.userSignUp(e)}
+          title="Sign Up"
+        />
       </View>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  text: {
+    color: "#1F618D",
+    fontSize: 35,
+    fontWeight: "bold"
+  }
+});

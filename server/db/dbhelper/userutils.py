@@ -1,6 +1,21 @@
 import queries as q
 
 
+def updateUserReceipts(userId, info):
+    return q.insertRecordForcibly("Receipts", userId, info)
+
+
+def getUserReceipts(userId):
+    result_list = q.selectInfoByConditions(
+        "Receipts", "info",
+        "user_id = '%s'", (userId),
+    )
+    if (result_list.__len__() > 0):
+        return result_list[0]
+    else:
+        return ''
+
+
 def usernameExists(username):
     return q.checkRecordExistByConditions("Users", "user_name = '%s'", username)
 
@@ -24,7 +39,7 @@ def createEmptyGroup(groupName, ownerId):  # return g_id
     if createGroup(groupName, ownerId):
         groupId = getGroupIdBygName(groupName)
 
-        if addMembersToGroup(groupId, ownerId):  # add the owner himself to this group
+        if addMembersToGroup(groupId, int(ownerId)):  # add the owner himself to this group
             return groupId
 
     return -1
@@ -42,7 +57,9 @@ def getAllGroups(userId):
         "GroupUsers INNER JOIN gGroups ON gGroups.group_id = GroupUsers.group_id", "gGroups.group_id as group_id, group_name, owner_id",
         "member_id = '%s'", (userId),
     )
-
+    for index, data in enumerate(result_list):
+        result_list[index]['members'] = getAllMembersByGroupId(
+            data['group_id'])
     return result_list
 
 
@@ -51,7 +68,6 @@ def getAllMembersByGroupId(groupId):
         "GroupUsers INNER JOIN Users ON GroupUsers.member_id = Users.user_id", "Users.user_id as member_id, Users.user_name as member_name",
         "group_id = '%s'", (groupId),
     )
-
     return result_list
 
 
@@ -187,9 +203,9 @@ def removeFriend(first_user_id, second_user_id):
 
 
 def searchUserByKeyword(keyword):
-    result_list = q.searchInfoByConditions(
+    result_list = q.searchInfoByPartialConditions(
         "Users", "user_id, user_name",
-        "user_name LIKE '%s'", keyword,
+        "user_name", keyword
     )
 
     return result_list

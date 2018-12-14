@@ -45,18 +45,18 @@ export default class LogIn extends Component {
 
   render() {
     return (
-      <View>
-        <Text> Log In </Text>
-
+      <View style={styles.container}>
+        <Text style={styles.text}> Log In </Text>
         <FormLabel> Username </FormLabel>
         <FormInput
+          style={styles.input}
           autoFocus={true}
           keyboardType="email-address"
           value={this.state.username}
           onChangeText={text => this.setState({ username: text })}
         />
 
-        <FormLabel> Password </FormLabel>
+        <FormLabel color="#232323"> Password </FormLabel>
         <FormInput
           autoFocus={true}
           keyboardType="password"
@@ -64,8 +64,36 @@ export default class LogIn extends Component {
           onChangeText={text => this.setState({ password: text })}
         />
 
-        <Button onPress={e => this.userLogIn()} title="login" />
+        <Button
+          large
+          backgroundColor="#8e44ad"
+          icon={{ name: "envira", type: "font-awesome" }}
+          onPress={e => this.userLogIn()}
+          title="login"
+        />
       </View>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    paddingTop: 23
+  },
+  input: {
+    margin: 15,
+    height: 40,
+    borderColor: "#7a42f4",
+    borderWidth: 1
+  },
+  text: {
+    color: "#566573",
+    fontSize: 35,
+    fontWeight: "bold"
+  },
+  capitalLetter: {
+    color: "#2C3E50",
+    fontSize: 25,
+    fontStyle: "italic"
+  }
+});

@@ -31,7 +31,7 @@ const App = TabNavigator(
     tabBarComponent: props => {
       return (
         <Footer>
-          <FooterTab>
+          <FooterTab style={{ backgroundColor: "#F0F3F4" }}>
             <Button
               vertical
               active={props.navigationState.index === 0}

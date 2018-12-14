@@ -1,3 +1,4 @@
+
 import json
 import os
 import re
@@ -24,6 +25,21 @@ def allowed_file(filename):
            filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
 
 
+def trimUser(_str):
+    _str = re.sub(r'[^a-zA-Z0-9@_.]', '', _str)
+    return _str[0:30]
+
+
+def trimGroup(_str):
+    _str = re.sub(r'[^a-zA-Z0-9]', '', _str)
+    return _str[0:16]
+
+
+def trimItem(_str):
+    _str = re.sub(r'[^a-zA-Z0-9_]', '', _str)
+    return _str[0:30]
+
+
 @app.route("/upload", methods=['POST', 'GET'])
 def server():
     if request.method == 'POST' or request.method == 'GET':
@@ -48,6 +64,23 @@ def server():
             )
             return response
     return 'error'
+
+
+@app.route("/updateUserReceipts", methods=['POST', 'GET'])
+def updateUserReceipt():
+    if request.method == 'POST':
+        user_id = request.json.get('user_id')
+        info = request.json.get('info')
+        result = functions.updateUserReceipts(user_id, info)
+        return str(result)
+
+
+@app.route("/getUserReceipts", methods=['POST', 'GET'])
+def getUserReceipts():
+    if request.method == 'POST':
+        user_id = request.json.get('user_id')
+        result = functions.getUserReceipts(user_id)
+        return json.dumps(result)
 
 
 @app.route("/signUp", methods=['POST', 'GET'])
@@ -79,8 +112,10 @@ def login():
 @app.route("/createEmptyGroup", methods=['POST', 'GET'])
 def createEmptyGroup():
     if request.method == 'POST':
+        groupNm = request.json.get('groupName')
+        groupNm = trimGroup(groupNm) 
         result = functions.createEmptyGroup(
-            request.json.get('groupName'), request.json.get('ownerId'),
+            groupNm, request.json.get('ownerId'),
         )
         return str(result)
 
@@ -97,10 +132,10 @@ def addMembersToGroup():
 @app.route("/createGroupWithMembers", methods=['POST', 'GET'])
 def createGroupWithMembers():
     if request.method == 'POST':
+        groupNm = request.json.get('groupName')
+        groupNm = trimGroup(groupNm) 
         result = functions.createGroupWithMembers(
-            request.json.get(
-                'groupName',
-            ), request.json.get('ownerId'), request.json.get('memberIds'),
+            groupNm, request.json.get('ownerId'), request.json.get('memberIds'),
         )
         return str(result)
 
@@ -175,8 +210,10 @@ def addItemToOrder():
 @app.route("/modifyItemName", methods=['POST', 'GET'])
 def modifyItemName():
     if request.method == 'POST':
+        itemNm = request.json.get('itemName')
+        itemNm = trimItem(itemNm)
         result = functions.modifyItemName(
-            request.json.get('itemId'), request.json.get('itemName'),
+            request.json.get('itemId'), itemNm,
         )
         return str(result)
 
