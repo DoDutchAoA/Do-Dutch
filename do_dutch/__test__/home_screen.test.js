@@ -20,30 +20,30 @@ describe('Checking the rendering of the HomeScreen', () => {
     })
 })
 
-describe('Checking the rendering of the container', () => {
+// describe('Checking the rendering of the container', () => {
 
-    // const wrapper = mount(<HomeScreen  />)
+//     const wrapper = mount(<HomeScreen  />)
 
-    // it('A SearchBar should be rendered', () => {
-    //     expect(wrapper.find('Search')).toHaveLength(1)
-    // })
+//     it('A SearchBar should be rendered', () => {
+//         expect(wrapper.find('Search')).toHaveLength(1)
+//     })
 
-    // // it('A ScrollableView should be rendered', () => {
-    // //     expect(wrapper.find('ScrollView')).toHaveLength(1);
-    // // })
+//     // it('A ScrollableView should be rendered', () => {
+//     //     expect(wrapper.find('ScrollView')).toHaveLength(1);
+//     // })
 
-    // it('A View.Modal should be rendered', () => {
-    //     expect(wrapper.find('Component.Modal')).toHaveLength(1);
-    // })
+//     it('A View.Modal should be rendered', () => {
+//         expect(wrapper.find('Component.Modal')).toHaveLength(1);
+//     })
 
-    // it('A Spinner should be rendered', () => {
-    //     expect(wrapper.find('Spinner')).toHaveLength(1);
-    // })
+//     it('A Spinner should be rendered', () => {
+//         expect(wrapper.find('Spinner')).toHaveLength(1);
+//     })
 
-    // it('An actionButton should be rendered', () => {
-    //     expect(wrapper.find('ActionButton')).toHaveLength(1)
-    // })
-})
+//     it('An actionButton should be rendered', () => {
+//         expect(wrapper.find('ActionButton')).toHaveLength(1)
+//     })
+// })
 
 // describe('Checking the rendering of the SearchBar', () => {
 
@@ -97,9 +97,9 @@ describe('Checking the rendering of the container', () => {
 //     //     expect(onPressEvent.mock.calls.length).toBe(1);
 //     // })
 
-//     it('Clicking on refresh a navigation func should be called ', () => {
-//         expect(renderer.create(<ActionButtonItem buttonColor="#1abc9c" title="Refresh"
-//         onPress={jest.fn()} />)).toMatchSnapshot();
-//       });
+    // it('Clicking on refresh a navigation func should be called ', () => {
+    //     expect(renderer.create(<ActionButtonItem buttonColor="#1abc9c" title="Refresh"
+    //     onPress={jest.fn()} />)).toMatchSnapshot();
+    //   });
 
 //   })

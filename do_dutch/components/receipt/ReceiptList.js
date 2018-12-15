@@ -37,6 +37,7 @@ export class ReceiptListItem extends Component {
     let unpaidCount = 0,
       totalCount = 0;
     let statusStyle, balanceStyle, sharerStyle;
+
     if (receipt.group != undefined) {
       receipt.group.members.forEach(member => {
         if (!member.paid) unpaidCount += 1;
