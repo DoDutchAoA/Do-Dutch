@@ -52,23 +52,6 @@ export default class GroupDetail extends Component {
           <View>
             <Button
               large
-              icon={{ name: "delete" }}
-              onPress={() => this.deleteGroup()}
-              titleStyle={{ fontWeight: "700" }}
-              buttonStyle={{
-                backgroundColor: "#FAD7A0",
-                width: 375,
-                height: 45,
-                borderColor: "transparent",
-                borderWidth: 3,
-                borderRadius: 8
-              }}
-              title="Delete Group"
-            />
-          </View>
-          <View>
-            <Button
-              large
               icon={{ name: "person" }}
               onPress={() =>
                 this.props.navigation.navigate("GroupAddMembers", {
@@ -77,14 +60,31 @@ export default class GroupDetail extends Component {
               }
               titleStyle={{ fontWeight: "700" }}
               buttonStyle={{
-                backgroundColor: "#F7DC6F",
-                width: 375,
-                height: 45,
+                backgroundColor: "#F4D03F",
+                width: 250,
+                height: 60,
                 borderColor: "transparent",
-                borderWidth: 3,
-                borderRadius: 8
+                borderWidth: 6,
+                borderRadius: 100
               }}
               title="Add Members"
+            />
+          </View>
+          <View>
+            <Button
+              large
+              icon={{ name: "delete" }}
+              onPress={() => this.deleteGroup()}
+              titleStyle={{ fontWeight: "700" }}
+              buttonStyle={{
+                backgroundColor: "#F1C40F",
+                width: 250,
+                height: 60,
+                borderColor: "transparent",
+                borderWidth: 6,
+                borderRadius: 100
+              }}
+              title="Delete Group"
             />
           </View>
         </View>
@@ -154,32 +154,32 @@ export default class GroupDetail extends Component {
     return (
       <View>
         <Badge
-          containerStyle={{ backgroundColor: "#D7DBDD" }}
+          containerStyle={styles.badgeStyle}
           textStyle={{ color: "#34495E" }}
         >
           <Text style={styles.groupinfo}> {this.state.group_name} </Text>
         </Badge>
-
-        <Button
-          large
-          icon={{ name: "chat" }}
-          onPress={() =>
-            this.props.navigation.navigate("GroupChat", {
-              group_id: this.state.group_id
-            })
-          }
-          titleStyle={{ fontWeight: "700" }}
-          buttonStyle={{
-            backgroundColor: "#E67E22",
-            width: 375,
-            height: 45,
-            borderColor: "transparent",
-            borderWidth: 3,
-            borderRadius: 8
-          }}
-          title="Group Chat"
-        />
-
+        <View style={styles.buttonStyle}>
+          <Button
+            large
+            icon={{ name: "chat" }}
+            onPress={() =>
+              this.props.navigation.navigate("GroupChat", {
+                group_id: this.state.group_id
+              })
+            }
+            titleStyle={{ fontWeight: "700" }}
+            buttonStyle={{
+              backgroundColor: "#D4AC0D",
+              width: 250,
+              height: 60,
+              borderColor: "transparent",
+              borderWidth: 6,
+              borderRadius: 100
+            }}
+            title="Group Chat"
+          />
+        </View>
         <View>
           <FlatList
             data={this.state.groupsData}
@@ -214,8 +214,22 @@ const styles = StyleSheet.create({
   },
   footer: {
     position: "absolute",
-    height: 40,
-    left: 0,
-    top: 450
+    width: "100%",
+    height: "30%",
+    justifyContent: "center",
+    alignItems: "center",
+    top: 365
+  },
+  buttonStyle: {
+    position: "absolute",
+    width: "100%",
+    height: "30%",
+    justifyContent: "center",
+    alignItems: "center",
+    top: 455
+  },
+  badgeStyle: {
+    backgroundColor: "#D7DBDD",
+    top: 10
   }
 });
