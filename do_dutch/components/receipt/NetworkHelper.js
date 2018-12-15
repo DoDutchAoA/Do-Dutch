@@ -194,6 +194,30 @@ let NetworkHelper = {
         }
       })
       .catch(error => {});
+  },
+
+  sendPayment(receiver, receiptId) {
+    fetch(serverURL + "sendPayment", {
+      method: "POST",
+      headers: headers,
+      body: JSON.stringify({
+        sender: window.user_id,
+        receiver: receiver,
+        receiptId: receiptId
+      })
+    });
+  },
+
+  sendChallenge(receiver, receiptId) {
+    fetch(serverURL + "sendChallenge", {
+      method: "POST",
+      headers: headers,
+      body: JSON.stringify({
+        sender: window.user_id,
+        receiver: receiver,
+        receiptId: receiptId
+      })
+    });
   }
 };
 
