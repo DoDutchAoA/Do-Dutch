@@ -103,7 +103,7 @@ let NetworkHelper = {
       detectedTotal: "$" + detectedTotal.toFixed(2).toString(),
       image_url: parsedData.path,
       creator: window.user_id,
-      paid: false
+      payment: "unpaid"
     };
   },
 
@@ -171,6 +171,26 @@ let NetworkHelper = {
     }, interval);
   },
 
+  beginPollingGroupChats(interval, callback) {
+    setInterval(() => {
+      if (window.group_id_for_chats == undefined) {
+        return;
+      }
+
+      fetch(serverURL + "getGroupChats", {
+        method: "POST",
+        headers: headers,
+        body: JSON.stringify({
+          group_id: window.group_id_for_chats
+        })
+      })
+        .then(response => {
+          callback(JSON.parse(response._bodyText));
+        })
+        .catch(error => {});
+    }, interval);
+  },
+
   loadAllGroups(userId, callback) {
     fetch(serverURL + "getAllGroups", {
       method: "POST",
@@ -187,7 +207,7 @@ let NetworkHelper = {
             group.members.forEach((member, mIndex) => {
               groups[gIndex].members[mIndex].avatar =
                 memberAvatars[parseInt(member.member_id) % 6];
-              groups[gIndex].members[mIndex].paid = false;
+              groups[gIndex].members[mIndex].payment = "unpaid";
             });
           });
           callback(groups);

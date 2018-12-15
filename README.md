@@ -1,32 +1,62 @@
-# W4156 Go Dutch
+# Go Dutch Version 1.0
 
-## Second iteration
+## Introduction
 
-### 1. Progress overview
+Go Dutch is an Android application built on React Native. It can set you free from the tedious and error-prone experience of working out the money flow in a shared bill! A digital receipt which contains detailed information of a purchase will be generated after a purchase payer (receipt owner) scan their receipt. Payers can share this digital receipt with a specific group, and all members of this group become the sharers of this receipt. Depending on you are a purchase payer or receipt sharer, this application can help you to calculate how much you should receive and pay. Also, this application can keep track of payments for each receipt by showing the number of sharers who have confirmed their payments. Once sharers complete their payment to payers offline, sharers can confirm their payment on our app. A receipt is marked as completed once all sharers have confirmed their payment. That makes our application becomes a good tool to keep accounts!
 
-After the first iteration, tasks were classified into the users-related part and the receipt-related part and assigned to Qianrui and Yushi, Zhihao and Qian respectively. The progress for both parts are listed below:
+This is the first "release" of our application. More features are coming on their ways!
 
-- User-related part:
-  1. Implemented tab navigator to navigate between home page, friend and group and signing in and signing up.
-  2. Implemented searching friend function and adding friend function.
-  3. Implemented creating and modifying group function.
-  4. Considered valid and invalid partition and boundary condition, and created corresponding tests.
 
-- Receipt-related part:
-  1. We drastically improved the interface of the receipt page, which is now able to display the history receipts ordered by timestamps, and allows the user to edit and delete the history receipts.
-  2. The functionality of adding new receipts works smoothly as before. Now a floating button is designed as the new entry of this function rather than navigating to a new page.
-  3. A new overlaying modal is implemented to let users edit the detailed information of the items.
-  4. Notifications and updates will be sent to all related users in real-time after critical operations related to the receipts.
+## Getting Started
 
-### 2. Coverage report
+### Prerequisites
 
-In this iteration, we started to test our Android application, by using Jest and Enzyme. We utilized two different tools to generate the code coverage reports for our database and the Android app part: [coverage.py](https://coverage.readthedocs.io/en/latest/cmd.html) and [jest-sonar-reporter](https://www.npmjs.com/package/jest-sonar-reporter). The test script for the database can be found [here](https://github.com/DoDutchAoA/Do-Dutch/blob/jenkins/database/server/tests.py), and [here](https://github.com/DoDutchAoA/Do-Dutch/tree/jenkins/do_dutch/__test__) for our mobile programming. Two coverage reports (XML version) can be both found [here](https://github.com/DoDutchAoA/Do-Dutch/tree/jenkins/tests/test-reports/coverage). The image below shows the coverage report for our React code generated locally. 
+Making sure you have [React Native CLI](https://facebook.github.io/react-native/docs/getting-started), [SDK 8.1 (Oreo)](https://facebook.github.io/react-native/docs/getting-started), [npm](https://www.npmjs.com) equipped to run our application.
 
+
+### Installation
+
+First clone our repository:
+
+```
+git clone https://github.com/DoDutchAoA/Do-Dutch.git
+```
+
+Install all dependencies:
+```
+npm install
+```
+
+Establish links to all dependencies:
+```
+react-native link
+```
+
+### Running
+
+By simply running
+Establish links to all dependencies:
+```
+react-native run-android
+```
+
+## Tests
+
+### Unit Tests
+
+We utilized Jest and Enzyme to test this application, and unittest to test our back-end database. All test script resides in [here]([here](https://github.com/DoDutchAoA/Do-Dutch/tree/jenkins/do_dutch/__test__)) and [here](https://github.com/DoDutchAoA/Do-Dutch/blob/jenkins/database/server/tests.py). To run test scripts for the front-end, you can  run
+
+```
+npm test
+```
+
+Since you have no access to our database, you may not be able to run those tests for our back-end. But you can navigate to [here](https://github.com/DoDutchAoA/Do-Dutch/tree/jenkins/tests/test-reports/coverage) and [here]((https://github.com/DoDutchAoA/Do-Dutch/tree/jenkins/tests/test-reports/unittest)) to check out all test reports. Below is a coverage report generated when tests are ran locally.
+ 
 ![alt text](https://github.com/DoDutchAoA/Do-Dutch/blob/jenkins/coverage_local.png)
 
-Just in case, the report for unit tests can be found via this [link](https://github.com/DoDutchAoA/Do-Dutch/tree/jenkins/tests/test-reports/unittest).
 
-### 3. CI server (Jenkins)
+
+## CI server (Jenkins)
 
 For this iteration, we failed to deploy our test for the mobile part on our CI server due to some reasons. Firstly, our server, an EC2 instance running under the Amazon free trial, only has less than 8GB disk space and limited RAM space. Currently, without installing any dependency to run tests for our mobile app, there is only nearly 2GB left. We are afraid that installing all dependency (including OpenSSL, nodejs, npm, react-cli, jest, enzyme and so on) would leave no room for our server to process requests from the front-end. Also, to run tests successfully requires some manual configurations, which we have not figured out how to achieve them by running a script on our CI server.
 
@@ -37,12 +67,12 @@ Even though we did not have our CI server configured, we still got the coverage 
 The reasons why the coverage rate is not so high is there are still some functions we have not figured out how to test by test scripts, such as functions involved in POST and GET requests, and functions declared inside namespace instead of class. We are trying hard to figure out them and hopefully, we can test as much as possible functions by the end of the final demo.
 
 
-### 4. Miscellaneous
+## Miscellaneous
 
 Static analysis reports 
   - For Python code: https://github.com/DoDutchAoA/Do-Dutch/tree/jenkins/first_iteration
   - For React code: https://github.com/DoDutchAoA/Do-Dutch/tree/jenkins/static_analysis
 
-### 5. Future work
+## Future work
 
-By the demo day for the second iteration, the receipt team is expected to complete the development of all user stories related to the receipt. If time allows, the progress of corresponding tests should be caught up. In the demo for the second iteration, functions mentioned in all user stories should work both individually and integrally. After that, the main tasks for us would be the user testing, maintenance, and UI polishing, if time allows.
+Currently our application can be able to handle relatively simple logic. We will keep on developing more features to make "Go Dutch" more powerful!

@@ -23,8 +23,11 @@ export default class HomeScreen extends Component {
 
   constructor(props) {
     super(props);
-    window.user_id = 1;
-    window.username = "sharer";
+    // window.user_id = 3;
+    // window.username = "test64";
+
+    window.user_id = 8;
+    window.username = "Sara";
 
     if (window.user_id !== undefined) {
       DataHelper.getFromLocal(window.user_id.toString(), data => {
@@ -34,14 +37,36 @@ export default class HomeScreen extends Component {
         if (messages.length > 0) {
           let history = this.state.receiptHistory;
           messages.forEach(message => {
-            let newReceipt = message.data;
-            let index = history.findIndex(receipt => {
-              receipt.receiptId == newReceipt.receiptId;
-            });
-            if (index != -1) {
-              history[index] = newReceipt;
-            } else {
-              history.push(JSON.parse(newReceipt));
+            if (message.event == "new") {
+              let newReceipt = JSON.parse(message.data);
+              let receiptIndex = history.findIndex(
+                receipt => receipt.receiptId == newReceipt.receiptId
+              );
+              if (receiptIndex != undefined && receiptIndex != -1) {
+                history[receiptIndex] = newReceipt;
+              } else {
+                history.push(newReceipt);
+              }
+            } else if (message.event == "pay") {
+              let receiptIndex = history.findIndex(
+                receipt => receipt.receiptId == message.receipt_id
+              );
+              if (receiptIndex != undefined && receiptIndex != -1) {
+                let memberIndex = history[receiptIndex].group.members.findIndex(
+                  member => member.member_id == message.sender_id
+                );
+                if (memberIndex != undefined && memberIndex != -1) {
+                  history[receiptIndex].group.members[memberIndex].payment =
+                    "paid";
+                }
+              }
+            } else if (message.event == "challenge") {
+              let receiptIndex = history.findIndex(
+                receipt => receipt.receiptId == message.receipt_id
+              );
+              if (receiptIndex != undefined && receiptIndex != -1) {
+                history[receiptIndex].payment = "challenged";
+              }
             }
           });
           this.saveReceiptHistory(history);
@@ -83,16 +108,36 @@ export default class HomeScreen extends Component {
       this.setState({
         receiptSpinner: false
       });
-      this.modal.launch(receipt, groups, confirmedReceiptData => {
-        //////////// CONFIRMATION CALLBACK /////////////
-        if (isNewReceipt) {
-          history.push(confirmedReceiptData);
-        } else {
-          history[index] = confirmedReceiptData;
+      this.modal.launch(
+        receipt,
+        groups,
+        (confirmType, confirmedReceiptData) => {
+          //////////// CONFIRMATION CALLBACK /////////////
+          //////////// UPDATE THE LOCAL RECEIPT //////////
+          if (
+            confirmType == "update" ||
+            confirmType == "pay" ||
+            confirmType == "challenge"
+          ) {
+            if (isNewReceipt) {
+              history.push(confirmedReceiptData);
+            } else {
+              history[index] = confirmedReceiptData;
+            }
+            this.saveReceiptHistory(history);
+          }
+          /////////// PROCESS THE NETWORK REQUESTS ///////////
+          if (confirmType == "update") {
+            NetworkHelper.pushReceiptData(confirmedReceiptData);
+          } else if (confirmType == "pay") {
+            NetworkHelper.sendPayment(receipt.creator, receipt.receiptId);
+          } else if (confirmType == "challenge") {
+            NetworkHelper.sendChallenge(receipt.creator, receipt.receiptId);
+          } else {
+            /// confirmType == "Cancel", don't do anything
+          }
         }
-        NetworkHelper.pushReceiptData(confirmedReceiptData);
-        this.saveReceiptHistory(history);
-      });
+      );
     });
   }
 

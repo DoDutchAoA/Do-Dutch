@@ -37,16 +37,27 @@ export default class Logout extends Component {
   render() {
     return (
       <View>
-        <Text style={styles.text}> Hi Dutcher! You already logged in. </Text>
-        <Button
-          large
-          backgroundColor="#52BE80"
-          icon={{
-            name: "lock"
-          }}
-          onPress={this.props.updateLogout}
-          title="Log out"
-        />
+        <View style={styles.textSection}>
+          <Text style={styles.text}> Hi Dutcher! </Text>
+        </View>
+        <View style={styles.buttonSection}>
+          <Button
+            large
+            buttonStyle={{
+              backgroundColor: "#52BE80",
+              width: 380,
+              height: 100,
+              borderColor: "transparent",
+              borderWidth: 15,
+              borderRadius: 30
+            }}
+            icon={{
+              name: "lock"
+            }}
+            onPress={this.props.updateLogout}
+            title="Log out"
+          />
+        </View>
       </View>
     );
   }
@@ -57,5 +68,16 @@ const styles = StyleSheet.create({
     color: "#566573",
     fontSize: 35,
     fontWeight: "bold"
+  },
+  textSection: {
+    position: "absolute",
+    bottom: 100,
+    width: "100%",
+    height: "30%",
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  buttonSection: {
+    top: 100
   }
 });

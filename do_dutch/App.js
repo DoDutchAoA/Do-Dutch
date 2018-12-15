@@ -24,6 +24,7 @@ const App = TabNavigator(
     LoginContainer: { screen: LoginContainer }
   },
   {
+    initialRouteName: "LoginContainer",
     tabBarPosition: "bottom",
     tabBarComponent: props => {
       return (
@@ -52,6 +53,7 @@ const App = TabNavigator(
                   alert("Please log in first");
                   return;
                 }
+
                 props.navigation.navigate("FriendContainer", {
                   user_id: window.user_id
                 });
@@ -90,9 +92,6 @@ const App = TabNavigator(
         </Footer>
       );
     }
-  },
-  {
-    initialRouteName: "LoginContainer"
   }
 );
 

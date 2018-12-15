@@ -34,28 +34,34 @@ export default class LoginContainer extends Component {
       return (
         <View>
           <Login updateLogin={this.updateLogin} />
-          <Text
-            onPress={() => {
-              this.toggleLoginSignup();
-            }}
-          >
-            {" "}
-            Doesn't have an account? Sign up here.{" "}
-          </Text>
+          <View style={styles.textSection}>
+            <Text
+              onPress={() => {
+                this.toggleLoginSignup();
+              }}
+            >
+              {" "}
+              *Not have an account?{" "}
+              <Text style={{ color: "#8e44ad" }}>Sign up</Text> here.{" "}
+            </Text>
+          </View>
         </View>
       );
     } else {
       return (
         <View>
           <Signup updateLogin={this.updateLogin} />
-          <Text
-            onPress={() => {
-              this.toggleLoginSignup();
-            }}
-          >
-            {" "}
-            Already have an account? Click here to login.{" "}
-          </Text>
+          <View style={styles.textSection}>
+            <Text
+              onPress={() => {
+                this.toggleLoginSignup();
+              }}
+            >
+              {" "}
+              *Already have an account?{" "}
+              <Text style={{ color: "#E74C3C" }}>Click here</Text> to login.{" "}
+            </Text>
+          </View>
         </View>
       );
     }
@@ -79,11 +85,23 @@ export default class LoginContainer extends Component {
 
   render() {
     return (
-      <View>
-        <Text> Do Dutch </Text>
-
+      <View
+        style={{
+          flex: 1,
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "stretch"
+        }}
+      >
         {this.userAuthentication()}
       </View>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  textSection: {
+    justifyContent: "center",
+    alignItems: "center"
+  }
+});

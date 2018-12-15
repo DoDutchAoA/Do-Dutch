@@ -68,17 +68,47 @@ export default class GroupCreate extends Component {
   render() {
     return (
       <View>
-        <FormLabel> Group name </FormLabel>
+        <FormLabel labelStyle={styles.labelStyle}>Group Name </FormLabel>
         <FormInput
           autoFocus={true}
           value={this.state.group_name}
           onChangeText={text => this.setState({ group_name: text })}
         />
 
-        <Button onPress={e => this.createGroup()} title="Submit" />
-
         <GroupMemberSelect setCheckedValue={this.setCheckedValue} />
+        <View style={styles.buttonStyle}>
+          <Button
+            large
+            icon={{ name: "create" }}
+            onPress={e => this.createGroup()}
+            titleStyle={{ fontWeight: "700" }}
+            buttonStyle={{
+              backgroundColor: "#2471A3",
+              width: 200,
+              height: 60,
+              borderColor: "transparent",
+              borderWidth: 6,
+              borderRadius: 100
+            }}
+            title="Submit"
+          />
+        </View>
       </View>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  buttonStyle: {
+    position: "absolute",
+    top: 440,
+    width: "100%",
+    height: "30%",
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  labelStyle: {
+    fontSize: 20,
+    color: "#1C2833"
+  }
+});

@@ -48,41 +48,45 @@ export default class GroupDetail extends Component {
   loadOwnerButtons() {
     if (window.user_id == this.state.owner_id && this.state.owner_id !== -1) {
       return (
-        <View>
-          <Button
-            large
-            icon={{ name: "delete" }}
-            onPress={() => this.deleteGroup()}
-            titleStyle={{ fontWeight: "700" }}
-            buttonStyle={{
-              backgroundColor: "#FAD7A0",
-              width: 320,
-              height: 45,
-              borderColor: "transparent",
-              borderWidth: 3,
-              borderRadius: 8
-            }}
-            title="Delete Group"
-          />
-          <Button
-            large
-            icon={{ name: "person" }}
-            onPress={() =>
-              this.props.navigation.navigate("GroupAddMembers", {
-                group_id: this.state.group_id
-              })
-            }
-            titleStyle={{ fontWeight: "700" }}
-            buttonStyle={{
-              backgroundColor: "#F7DC6F",
-              width: 320,
-              height: 45,
-              borderColor: "transparent",
-              borderWidth: 3,
-              borderRadius: 8
-            }}
-            title="Add Members"
-          />
+        <View style={styles.footer}>
+          <View>
+            <Button
+              large
+              icon={{ name: "person" }}
+              onPress={() =>
+                this.props.navigation.navigate("GroupAddMembers", {
+                  group_id: this.state.group_id
+                })
+              }
+              titleStyle={{ fontWeight: "700" }}
+              buttonStyle={{
+                backgroundColor: "#F4D03F",
+                width: 250,
+                height: 60,
+                borderColor: "transparent",
+                borderWidth: 6,
+                borderRadius: 100
+              }}
+              title="Add Members"
+            />
+          </View>
+          <View>
+            <Button
+              large
+              icon={{ name: "delete" }}
+              onPress={() => this.deleteGroup()}
+              titleStyle={{ fontWeight: "700" }}
+              buttonStyle={{
+                backgroundColor: "#F1C40F",
+                width: 250,
+                height: 60,
+                borderColor: "transparent",
+                borderWidth: 6,
+                borderRadius: 100
+              }}
+              title="Delete Group"
+            />
+          </View>
         </View>
       );
     }
@@ -150,14 +154,32 @@ export default class GroupDetail extends Component {
     return (
       <View>
         <Badge
-          containerStyle={{ backgroundColor: "#D7DBDD" }}
+          containerStyle={styles.badgeStyle}
           textStyle={{ color: "#34495E" }}
         >
           <Text style={styles.groupinfo}> {this.state.group_name} </Text>
         </Badge>
-
-        {this.loadOwnerButtons()}
-
+        <View style={styles.buttonStyle}>
+          <Button
+            large
+            icon={{ name: "chat" }}
+            onPress={() =>
+              this.props.navigation.navigate("GroupChat", {
+                group_id: this.state.group_id
+              })
+            }
+            titleStyle={{ fontWeight: "700" }}
+            buttonStyle={{
+              backgroundColor: "#D4AC0D",
+              width: 250,
+              height: 60,
+              borderColor: "transparent",
+              borderWidth: 6,
+              borderRadius: 100
+            }}
+            title="Group Chat"
+          />
+        </View>
         <View>
           <FlatList
             data={this.state.groupsData}
@@ -169,6 +191,7 @@ export default class GroupDetail extends Component {
             ItemSeparatorComponent={this.renderSeparator}
           />
         </View>
+        {this.loadOwnerButtons()}
       </View>
     );
   }
@@ -188,5 +211,25 @@ const styles = StyleSheet.create({
     color: "#283747",
     fontWeight: "bold",
     fontSize: 25
+  },
+  footer: {
+    position: "absolute",
+    width: "100%",
+    height: "30%",
+    justifyContent: "center",
+    alignItems: "center",
+    top: 365
+  },
+  buttonStyle: {
+    position: "absolute",
+    width: "100%",
+    height: "30%",
+    justifyContent: "center",
+    alignItems: "center",
+    top: 455
+  },
+  badgeStyle: {
+    backgroundColor: "#D7DBDD",
+    top: 10
   }
 });

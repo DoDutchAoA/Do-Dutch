@@ -27,18 +27,34 @@ class ReceiptListItem extends Component {
     let statusStyle, balanceStyle, sharerStyle;
     if (receipt.group != undefined) {
       receipt.group.members.forEach(member => {
-        if (!member.paid) unpaidCount += 1;
-        totalCount += 1;
+        if (member.member_id != window.user_id) {
+          totalCount += 1;
+          if (!(member.payment == "paid")) {
+            unpaidCount += 1;
+          }
+        }
       });
     } else {
       unpaidCount = 0;
       totalCount = 0;
     }
-    if (
-      (this.props.listTitle == "ONGOING" && unpaidCount == 0) ||
-      (this.props.listTitle == "PAST" && unpaidCount > 0)
-    ) {
-      return <View />;
+
+    ///////// DON"T SHOW THIS RECEIPT  /////////////
+    ///////////   Payer    ///////////////
+    if (receipt.creator == window.user_id) {
+      if (
+        (this.props.listTitle == "ONGOING" && unpaidCount == 0) ||
+        (this.props.listTitle == "PAST" && unpaidCount > 0)
+      ) {
+        return <View />;
+      }
+    } else {
+      if (
+        (this.props.listTitle == "ONGOING" && receipt.payment == "paid") ||
+        (this.props.listTitle == "PAST" && !(receipt.payment == "paid"))
+      ) {
+        return <View />;
+      }
     }
 
     let paymentInfo;
@@ -68,7 +84,7 @@ class ReceiptListItem extends Component {
       status = "Sharer";
       statusStyle = styles.sharerTagContainer;
       let paidPrompt;
-      if (receipt.paid) {
+      if (receipt.payment == "paid") {
         balance = (0).toFixed(2);
         balanceStyle = styles.greenText;
         sharerStyle = styles.greenSharerText;
@@ -79,6 +95,14 @@ class ReceiptListItem extends Component {
         sharerStyle = styles.redSharerText;
         paidPrompt = "Unpaid";
       }
+      paymentInfo = <Text style={sharerStyle}>{paidPrompt}</Text>;
+    }
+    //////////// AFTER ALL, CHALLENGED //////////////
+    if (receipt.payment == "challenged") {
+      balance = receipt.sharerTotal.toFixed(2);
+      balanceStyle = styles.yellowText;
+      sharerStyle = styles.yellowSharerText;
+      paidPrompt = "Challenged";
       paymentInfo = <Text style={sharerStyle}>{paidPrompt}</Text>;
     }
 
@@ -227,6 +251,10 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: "#aa0000"
   },
+  yellowText: {
+    fontSize: 16,
+    color: "#aaaa00"
+  },
   greenSharerText: {
     fontSize: 12,
     color: "#00aa00"
@@ -235,7 +263,10 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: "#aa0000"
   },
-
+  yellowSharerText: {
+    fontSize: 12,
+    color: "#aaaa00"
+  },
   listTitle: {
     fontWeight: "bold",
     backgroundColor: "#ffffff",

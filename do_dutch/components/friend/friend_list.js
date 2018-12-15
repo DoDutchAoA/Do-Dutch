@@ -5,7 +5,8 @@ import {
   StyleSheet,
   Text,
   View,
-  ScrollView
+  ScrollView,
+  Alert
 } from "react-native";
 
 import { Button, CheckBox } from "react-native-elements";
@@ -100,10 +101,10 @@ export default class FriendList extends Component {
     })
       .then(response => {
         if (JSON.parse(response._bodyText)["status"] === true) {
-          alert("Delete friend " + friend_name);
+          Alert.alert("Success", "Delete friend " + friend_name);
           this.loadFriendsData("delete");
         } else {
-          alert("Fail to delete friend " + friend_name);
+          Alert.alert("Fail", "Fail to delete friend " + friend_name);
         }
       })
       .catch(error => {
@@ -120,15 +121,15 @@ export default class FriendList extends Component {
           }}
           icon={{ name: "clear" }}
           buttonStyle={{
-            backgroundColor: "#EC7063",
-            width: 370,
-            height: 45,
+            backgroundColor: "#E74C3C",
+            width: 200,
+            height: 60,
             borderColor: "transparent",
-            borderWidth: 2,
-            borderRadius: 7
+            borderWidth: 6,
+            borderRadius: 100
           }}
           titleStyle={{ fontWeight: "700" }}
-          title="Delete Friend"
+          title="Delete"
         />
       );
     } else if (this.state.type === "delete") {
@@ -140,11 +141,11 @@ export default class FriendList extends Component {
           icon={{ name: "remove" }}
           buttonStyle={{
             backgroundColor: "#D5D8DC",
-            width: 370,
-            height: 45,
+            width: 200,
+            height: 60,
             borderColor: "transparent",
-            borderWidth: 2,
-            borderRadius: 7
+            borderWidth: 6,
+            borderRadius: 100
           }}
           titleStyle={{ fontWeight: "700" }}
           title="Completed"
@@ -191,7 +192,7 @@ export default class FriendList extends Component {
 
   loadAllFriends() {
     return (
-      <View>
+      <View style={styles.friendSection}>
         <SectionList
           sections={this.state.friendsData}
           renderItem={this._renderItem}
@@ -206,8 +207,26 @@ export default class FriendList extends Component {
   render() {
     return (
       <View>
-        {this.loadDeleteFriendButton()}
         {this.loadAllFriends()}
+        <View style={styles.buttonSection}>
+          <Button
+            onPress={() => {
+              this.loadFriendsData("list");
+            }}
+            icon={{ name: "refresh", type: "font-awesome" }}
+            buttonStyle={{
+              backgroundColor: "#58D68D",
+              width: 200,
+              height: 60,
+              borderColor: "transparent",
+              borderWidth: 6,
+              borderRadius: 100
+            }}
+            titleStyle={{ fontWeight: "700" }}
+            title="Reload"
+          />
+          {this.loadDeleteFriendButton()}
+        </View>
       </View>
     );
   }
@@ -231,5 +250,16 @@ const styles = StyleSheet.create({
     padding: 10,
     fontSize: 18,
     height: 44
+  },
+  buttonSection: {
+    position: "absolute",
+    top: 430,
+    width: "100%",
+    height: "30%",
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  friendSection: {
+    top: 20
   }
 });
