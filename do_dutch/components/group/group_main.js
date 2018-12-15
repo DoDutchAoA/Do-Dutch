@@ -144,7 +144,7 @@ const styles = StyleSheet.create({
   },
   buttonSection: {
     position: "absolute",
-    top: 490,
+    top: 470,
     width: "100%",
     height: "30%",
     justifyContent: "center",
