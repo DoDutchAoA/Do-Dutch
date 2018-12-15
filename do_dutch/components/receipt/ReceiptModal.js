@@ -182,14 +182,20 @@ export class Item extends React.Component {
     const digits = 2;
     let splitButtons;
     let payerTotal;
-    if (this.props.sharerCount == 0) {
+    if (this.props.sharerCount == 1) {
       splitButtons = ["All"];
       payerTotal = this.setToFix(this.props.data.price, digits);
     } else {
       splitButtons = ["Split", "All"];
       if (this.state.data.split) {
+<<<<<<< HEAD
         let payment = this.props.data.price / (this.props.sharerCount + 1);
         payerTotal = this.setToFix(payment, digits);
+=======
+        payerTotal = (this.props.data.price / this.props.sharerCount).toFixed(
+          2
+        );
+>>>>>>> 386e11dcc5b2dff2300b5df4fd0d6e975810f564
       } else {
         payerTotal = this.setToFix(this.props.data.price, digits);
       }
@@ -271,7 +277,7 @@ export default class ReceiptModal extends Component {
 
     this.state = {
       isModalVisible: false,
-      sharerCount: 0,
+      sharerCount: 1,
       receiptItems: [],
       confirmCallback: () => { },
       total: 0,
@@ -306,7 +312,7 @@ export default class ReceiptModal extends Component {
       let curItem = this.state.receiptItems[index];
 
       if (curItem.split) {
-        payerTotal += curItem.price / (this.state.sharerCount + 1);
+        payerTotal += curItem.price / this.state.sharerCount;
       } else {
         payerTotal += curItem.price;
       }
@@ -331,7 +337,7 @@ export default class ReceiptModal extends Component {
   }
 
   launch(receipt, groups, confirmCallback) {
-    let sharerCount = 0;
+    let sharerCount = 1;
     if (receipt.group != undefined && receipt.group.members != undefined) {
       sharerCount = receipt.group.members.length - 1;
     }
@@ -360,7 +366,7 @@ export default class ReceiptModal extends Component {
     if (this.state.groups == undefined || this.state.groups.length == 0) {
       groupList = (
         <View>
-          <Text id="NoGroupPrompt">You haven't enrolled in any group.</Text>
+          <Text id="NoGroupPrompt">"You haven't enrolled in any group."></Text>
         </View>
       );
     } else {
@@ -376,7 +382,6 @@ export default class ReceiptModal extends Component {
             style={{ height: 100 }}
           >
             {this.state.groups.map((group, index) => {
-              group.key = index.toString();
               let selected;
 
               if (this.state.group != undefined)
@@ -416,20 +421,22 @@ export default class ReceiptModal extends Component {
                         this.state.group != undefined &&
                         this.state.group.group_id == group.group_id
                       ) {
-                        this.setState({
-                          group: undefined,
-                          sharerCount: 0
-                        });
+                        this.setState(
+                          {
+                            group: undefined,
+                            sharerCount: 1
+                          },
+                          this.calculateTotal
+                        );
                       } else {
-                        let tempGroups = this.state.groups;
-                        tempGroups[index] = group;
-                        this.setState({
-                          groups: tempGroups,
-                          group: group,
-                          sharerCount: group.members.length
-                        });
+                        this.setState(
+                          {
+                            group: group,
+                            sharerCount: group.members.length
+                          },
+                          this.calculateTotal
+                        );
                       }
-                      this.calculateTotal();
                     }}
                     activeOpacity={0.7}
                     avatarStyle={{ opacity: opacity, backgroundColor: "#fff" }}

@@ -95,6 +95,7 @@ let NetworkHelper = {
       time.getMinutes();
 
     return {
+      receiptId: window.user_id.toString() + time.getTime(),
       title: "Receipt Name",
       time: timeStamp,
       place: "Walmart",
@@ -134,17 +135,21 @@ let NetworkHelper = {
       .catch(error => {});
   },
 
-  uploadReceiptData(receipt) {
-    fetch(serverURL + "newReceipt", {
-      method: "POST",
-      headers: headers,
-      body: JSON.stringify({
-        sender: window.user_id,
-        receiver: "2",
-        receiptId: "someid",
-        data: JSON.stringify(receipt)
-      })
-    });
+  pushReceiptData(receipt) {
+    if (receipt.group != undefined) {
+      receipt.group.members.forEach(member => {
+        fetch(serverURL + "newReceipt", {
+          method: "POST",
+          headers: headers,
+          body: JSON.stringify({
+            sender: window.user_id,
+            receiver: member.member_id,
+            receiptId: "someid",
+            data: JSON.stringify(receipt)
+          })
+        });
+      });
+    }
   },
 
   beginPollingReceipt(interval, callback) {
