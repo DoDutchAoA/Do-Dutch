@@ -1,4 +1,4 @@
-# W4156 Go Dutch V 1.0
+# Go Dutch Version 1.0
 
 ## Introduction
 
