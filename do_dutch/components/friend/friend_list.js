@@ -197,7 +197,9 @@ export default class FriendList extends Component {
           sections={this.state.friendsData}
           renderItem={this._renderItem}
           renderSectionHeader={({ section }) => (
-            <Text style={styles.sectionHeader}>{section.title}</Text>
+            <Text style={styles.sectionHeader} key={section.user_id}>
+              {section.title}
+            </Text>
           )}
         />
       </View>
