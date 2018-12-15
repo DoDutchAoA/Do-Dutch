@@ -34,15 +34,17 @@ export default class LoginContainer extends Component {
       return (
         <View>
           <Login updateLogin={this.updateLogin} />
-          <Text
-            onPress={() => {
-              this.toggleLoginSignup();
-            }}
-          >
-            {" "}
-            *Not have an account?{" "}
-            <Text style={{ color: "#8e44ad" }}>Sign up</Text> here.{" "}
-          </Text>
+          <View style={styles.textSection}>
+            <Text
+              onPress={() => {
+                this.toggleLoginSignup();
+              }}
+            >
+              {" "}
+              *Not have an account?{" "}
+              <Text style={{ color: "#8e44ad" }}>Sign up</Text> here.{" "}
+            </Text>
+          </View>
         </View>
       );
     } else {
@@ -94,3 +96,10 @@ export default class LoginContainer extends Component {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  textSection: {
+    justifyContent: "center",
+    alignItems: "center"
+  }
+});
