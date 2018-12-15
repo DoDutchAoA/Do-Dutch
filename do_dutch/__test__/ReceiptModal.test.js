@@ -36,12 +36,10 @@ describe('Checking group list', () => {
     it('When a group is selected, a checked icon should be rendered', () => {
         const wrapper = shallow(<ReceiptModal />)
 
-        console.log(wrapper.debug())
-
         let group0 = { id: 0, members: [{id: 0, paid: 5}] };
 
         wrapper.setState({ groups: [group0],
-                           selectedGroup: group0})
+                           group: group0})
 
         expect(wrapper.find('#selected')).toHaveLength(1)
     })
@@ -57,15 +55,19 @@ describe('Checking calculation', () => {
             {id: 2, split: false, price: 10}];
 
         const wrapper = shallow(<ReceiptModal />)
-        wrapper.setState({receiptItems: items, sharerCount: 2})
+        wrapper.setState({receiptItems: items, sharerCount: 1})
 
         //Should be 0 before calculation
         expect(wrapper.state('total')).toEqual(0)
 
         wrapper.instance().calculateTotal()
 
-        let ans = (5 + 4) / 2 + 10
-        expect(wrapper.state('total')).toEqual(ans)
+        let sharerTotal = (5 + 4) / 2
+        let payerTotal = (5 + 4) / 2 + 10
+        let total = 5 + 4 + 10
+        expect(wrapper.state('total')).toEqual(total)
+        expect(wrapper.state('sharerTotal')).toEqual(sharerTotal)
+        expect(wrapper.state('payerTotal')).toEqual(payerTotal)
 
     })
 
@@ -87,18 +89,23 @@ describe('Checking calculation', () => {
 
         let receipt = {
             title: "default", time: "today",
-            receiptItems: items, image_url: "",
-            status: "", selectedGroup: groups[0]
+            items: items, image_url: "",
+            status: "", group: groups[0]
         }
 
         //Checking preconditions
         expect(wrapper.state('total')).toEqual(0)
 
+
         wrapper.instance().launch(receipt, groups, jest.fn())
 
-        // //Post condition
-        // let ans = (5 + 4) / 2 + 10
-        // expect(wrapper.state('total')).toEqual(ans)
+        //Post condition
+        let sharerTotal = (5 + 4) / 2
+        let payerTotal = (5 + 4) / 2 + 10
+        let total = 5 + 4 + 10
+        expect(wrapper.state('total')).toEqual(total)
+        expect(wrapper.state('sharerTotal')).toEqual(sharerTotal)
+        expect(wrapper.state('payerTotal')).toEqual(payerTotal)
     })
 
 

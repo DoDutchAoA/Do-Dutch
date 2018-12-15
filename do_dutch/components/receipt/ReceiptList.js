@@ -166,64 +166,14 @@ export default class ReceiptList extends Component {
   }
 
   renderList() {
-    let keyword = this.props.keyword;
-    return (
-      <FlatList
-        data={this.state.receiptHistory}
-        extraData={this.state}
-        renderItem={({ item, index }) => {
-
-          if (keyword.length > 0) {
-            if (
-              !item.title
-                .toLowerCase()
-                .includes(this.props.keyword.toLowerCase()) &&
-              !item.place
-                .toLowerCase()
-                .includes(this.props.keyword.toLowerCase()) &&
-              !item.status
-                .toLowerCase()
-                .includes(this.props.keyword.toLowerCase())
-            )
-              return;
-          }
-
-          return (
-            ///////////////// DATA DEFINE ///////////////////
-            <ReceiptListItem
-              onPressRecord={this.props.onPressRecord}
-              image_url={item.image_url}
-              title={item.title}
-              balance={item.accumTotal}
-              place={item.place}
-              time={item.time}
-              status={item.status}
-              items={item.items}
-              friends={item.friends}
-              index={index}
-              className="Receipt"
-            />
-          );
-        }}
-        keyExtractor={(item, index) => index.toString()}
-      />
-    );
-
-    // return content;
-  }
-
-  renderPrompt() {
-    return <Text className="prompt">{this.props.prompt}</Text>;
-  }
-
-  render() {
-
     let content;
     let keyword = this.props.keyword;
-    if (this.state.receiptHistory.length > 0) {
+    let receiptHistory = this.state.receiptHistory
+    if (receiptHistory !== undefined && receiptHistory !== null &&
+      receiptHistory.length > 0) {
       content = (
         <FlatList
-          data={this.state.receiptHistory}
+          data={receiptHistory}
           extraData={this.state}
           renderItem={({ item, index }) => {
             if (keyword.length > 0) {
@@ -235,7 +185,7 @@ export default class ReceiptList extends Component {
                   .toLowerCase()
                   .includes(this.props.keyword.toLowerCase())
               )
-                return;
+                return null;
             }
             return (
               ///////////////// DATA DEFINE ///////////////////
@@ -263,6 +213,15 @@ export default class ReceiptList extends Component {
       content = this.renderPrompt();
     }
 
+    return content;
+  }
+
+  renderPrompt() {
+    return <Text className="prompt">{this.props.prompt}</Text>;
+  }
+
+  render() {
+    let content = this.renderList();
     return (
       <View>
         <View style={styles.listTitleContainer}>

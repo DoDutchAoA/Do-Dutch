@@ -63,18 +63,18 @@ describe('Checking the rendering of ReceiptListItem', () => {
         expect(wrapper.find('TouchableOpacity')).toHaveLength(1)
     })
 
-    it('When onwer is a sharer, item should be rendered in steelblue', () => {
-        const wrapper = shallow(<ReceiptListItem
-            onPressRecord={jest.fn()} image_url={""}
-            title={""} balance={0.0}
-            place={""} time={""}
-            status={"Sharer"} items={[]}
-            friends={[]} index={0}
-        />)
+    // it('When onwer is a sharer, item should be rendered in steelblue', () => {
+    //     const wrapper = shallow(<ReceiptListItem
+    //         onPressRecord={jest.fn()} image_url={""}
+    //         title={""} balance={0.0}
+    //         place={""} time={""}
+    //         status={"Sharer"} items={[]}
+    //         friends={[]} index={0}
+    //     />)
 
-        expect(wrapper.find('.itemOnwerStatus')
-            .prop('style'))
-            .toHaveProperty('backgroundColor', 'steelblue');
+    //     expect(wrapper.find('.itemOnwerStatus')
+    //         .prop('style'))
+    //         .toHaveProperty('backgroundColor', 'steelblue');
 
-    })
+    // })
 })

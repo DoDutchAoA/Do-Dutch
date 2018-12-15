@@ -1,131 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testExecutions version="1">
-    <file path="/Users/fionazheng/GoDutch/Do-Dutch/do_dutch/__test__/ReceiptList.test.js">
-        <testCase name="Checking the rendering of ReceiptList A divider should be rendered" duration="11">
-            <failure message="TypeError: Cannot read property &apos;length&apos; of undefined"><![CDATA[TypeError: Cannot read property 'length' of undefined
-    at ReceiptList.render (/Users/fionazheng/GoDutch/Do-Dutch/do_dutch/components/receipt/ReceiptList.js:4089:37)
-    at ReactShallowRenderer._mountClassComponent (/Users/fionazheng/GoDutch/Do-Dutch/do_dutch/node_modules/enzyme-adapter-react-16/node_modules/react-test-renderer/cjs/react-test-renderer-shallow.development.js:462:37)
-    at ReactShallowRenderer.render (/Users/fionazheng/GoDutch/Do-Dutch/do_dutch/node_modules/enzyme-adapter-react-16/node_modules/react-test-renderer/cjs/react-test-renderer-shallow.development.js:410:14)
-    at /Users/fionazheng/GoDutch/Do-Dutch/do_dutch/node_modules/enzyme-adapter-react-16/build/ReactSixteenAdapter.js:480:35
-    at withSetStateAllowed (/Users/fionazheng/GoDutch/Do-Dutch/do_dutch/node_modules/enzyme-adapter-utils/build/Utils.js:137:16)
-    at Object.render (/Users/fionazheng/GoDutch/Do-Dutch/do_dutch/node_modules/enzyme-adapter-react-16/build/ReactSixteenAdapter.js:479:68)
-    at new ShallowWrapper (/Users/fionazheng/GoDutch/Do-Dutch/do_dutch/node_modules/enzyme/build/ShallowWrapper.js:204:22)
-    at shallow (/Users/fionazheng/GoDutch/Do-Dutch/do_dutch/node_modules/enzyme/build/shallow.js:21:10)
-    at Object.<anonymous> (/Users/fionazheng/GoDutch/Do-Dutch/do_dutch/__test__/ReceiptList.test.js:18:38)
-    at Object.asyncJestTest (/Users/fionazheng/GoDutch/Do-Dutch/do_dutch/node_modules/jest-jasmine2/build/jasmine_async.js:108:37)]]></failure>
-        </testCase>
-        <testCase name="Checking the rendering of ReceiptList If no history, a prompt should be rendered" duration="1">
-            <failure message="TypeError: Cannot read property &apos;length&apos; of undefined"><![CDATA[TypeError: Cannot read property 'length' of undefined
-    at ReceiptList.render (/Users/fionazheng/GoDutch/Do-Dutch/do_dutch/components/receipt/ReceiptList.js:4089:37)
-    at ReactShallowRenderer._mountClassComponent (/Users/fionazheng/GoDutch/Do-Dutch/do_dutch/node_modules/enzyme-adapter-react-16/node_modules/react-test-renderer/cjs/react-test-renderer-shallow.development.js:462:37)
-    at ReactShallowRenderer.render (/Users/fionazheng/GoDutch/Do-Dutch/do_dutch/node_modules/enzyme-adapter-react-16/node_modules/react-test-renderer/cjs/react-test-renderer-shallow.development.js:410:14)
-    at /Users/fionazheng/GoDutch/Do-Dutch/do_dutch/node_modules/enzyme-adapter-react-16/build/ReactSixteenAdapter.js:480:35
-    at withSetStateAllowed (/Users/fionazheng/GoDutch/Do-Dutch/do_dutch/node_modules/enzyme-adapter-utils/build/Utils.js:137:16)
-    at Object.render (/Users/fionazheng/GoDutch/Do-Dutch/do_dutch/node_modules/enzyme-adapter-react-16/build/ReactSixteenAdapter.js:479:68)
-    at new ShallowWrapper (/Users/fionazheng/GoDutch/Do-Dutch/do_dutch/node_modules/enzyme/build/ShallowWrapper.js:204:22)
-    at shallow (/Users/fionazheng/GoDutch/Do-Dutch/do_dutch/node_modules/enzyme/build/shallow.js:21:10)
-    at Object.<anonymous> (/Users/fionazheng/GoDutch/Do-Dutch/do_dutch/__test__/ReceiptList.test.js:23:38)
-    at Object.asyncJestTest (/Users/fionazheng/GoDutch/Do-Dutch/do_dutch/node_modules/jest-jasmine2/build/jasmine_async.js:108:37)]]></failure>
-        </testCase>
-        <testCase name="Checking the rendering of ReceiptList If no history, a prompt should be rendered" duration="19"/>
-        <testCase name="Checking the functionaliies of ReceiptList When keyword.length == 0, no receiptItem would be rendred" duration="57"/>
-        <testCase name="Checking the rendering of ReceiptListItem A touchableOpacity should be rendered" duration="11"/>
-        <testCase name="Checking the rendering of ReceiptListItem When onwer is a sharer, item should be rendered in steelblue" duration="16">
-            <failure message="Error: expect(object).toHaveProperty(path, value)"><![CDATA[Error: expect(object).toHaveProperty(path, value)
-
-Expected the object:
-  {"alignItems": "center", "backgroundColor": "green", "borderRadius": 2, "marginTop": 3, "width": 40}
-To have a nested property:
-  "backgroundColor"
-With a value of:
-  "steelblue"
-Received:
-  "green"
-
-Difference:
-
-- Expected
-+ Received
-
-- steelblue
-+ green
-    at Object.<anonymous> (/Users/fionazheng/GoDutch/Do-Dutch/do_dutch/__test__/ReceiptList.test.js:77:5)
-    at Object.asyncJestTest (/Users/fionazheng/GoDutch/Do-Dutch/do_dutch/node_modules/jest-jasmine2/build/jasmine_async.js:108:37)
-    at resolve (/Users/fionazheng/GoDutch/Do-Dutch/do_dutch/node_modules/jest-jasmine2/build/queue_runner.js:56:12)
-    at new Promise (<anonymous>)
-    at mapper (/Users/fionazheng/GoDutch/Do-Dutch/do_dutch/node_modules/jest-jasmine2/build/queue_runner.js:43:19)
-    at promise.then (/Users/fionazheng/GoDutch/Do-Dutch/do_dutch/node_modules/jest-jasmine2/build/queue_runner.js:87:41)
-    at <anonymous>
-    at process._tickCallback (internal/process/next_tick.js:189:7)]]></failure>
-        </testCase>
-    </file>
     <file path="/Users/fionazheng/GoDutch/Do-Dutch/do_dutch/__test__/ReceiptModal.test.js">
-        <testCase name="Checking the rendering of the modal A Modal should be rendered" duration="25"/>
-        <testCase name="Checking group list When no group, a prompt should be rendered" duration="13"/>
-        <testCase name="Checking group list When at least one group exsit, a grouplist should be rendered" duration="7"/>
-        <testCase name="Checking group list When a group is selected, a checked icon should be rendered" duration="46">
-            <failure message="Error: expect(received).toHaveLength(length)"><![CDATA[Error: expect(received).toHaveLength(length)
-
-Expected value to have length:
-  1
-Received:
-  {Symbol(enzyme.__root__): {Symbol(enzyme.__root__): [Circular], Symbol(enzyme.__unrendered__): <ReceiptModal />, Symbol(enzyme.__renderer__): {"batchedUpdates": [Function batchedUpdates], "getNode": [Function getNode], "render": [Function render], "simulateError": [Function simulateError], "simulateEvent": [Function simulateEvent], "unmount": [Function unmount]}, Symbol(enzyme.__node__): {"instance": null, "key": undefined, "nodeType": "class", "props": {"animationIn": "slideInUp", "animationInTiming": 300, "animationOut": "slideOutDown", "animationOutTiming": 300, "avoidKeyboard": false, "backdropColor": "black", "backdropOpacity": 0.7, "backdropTransitionInTiming": 300, "backdropTransitionOutTiming": 300, "children": <ScrollView contentContainerStyle={[Object]} scrollEnabled={true}><Component … /><Title … /><Component … /><Component … /><TextElement … /><List … /><Component … /><Component … /><Component … /></ScrollView>, "deviceHeight": null, "deviceWidth": null, "hideModalContentWhileAnimating": false, "isVisible": false, "onBackButtonPress": [Function onBackButtonPress], "onBackdropPress": [Function onBackdropPress], "onModalHide": [Function onModalHide], "onModalShow": [Function onModalShow], "scrollOffset": 0, "scrollOffsetMax": 0, "scrollTo": null, "supportedOrientations": ["portrait", "landscape"], "swipeThreshold": 100, "useNativeDriver": false}, "ref": null, "rendered": {"instance": null, "key": undefined, "nodeType": "class", "props": {"children": [Array], "contentContainerStyle": [Object], "scrollEnabled": true}, "ref": null, "rendered": [[Object], [Object], [Object], [Object], [Object], [Object], [Object], [Object], [Object]], "type": [Function ScrollViewMock]}, "type": [Function ReactNativeModal]}, Symbol(enzyme.__nodes__): [{"instance": null, "key": undefined, "nodeType": "class", "props": {"animationIn": "slideInUp", "animationInTiming": 300, "animationOut": "slideOutDown", "animationOutTiming": 300, "avoidKeyboard": false, "backdropColor": "black", "backdropOpacity": 0.7, "backdropTransitionInTiming": 300, "backdropTransitionOutTiming": 300, "children": <ScrollView … />, "deviceHeight": null, "deviceWidth": null, "hideModalContentWhileAnimating": false, "isVisible": false, "onBackButtonPress": [Function onBackButtonPress], "onBackdropPress": [Function onBackdropPress], "onModalHide": [Function onModalHide], "onModalShow": [Function onModalShow], "scrollOffset": 0, "scrollOffsetMax": 0, "scrollTo": null, "supportedOrientations": [Array], "swipeThreshold": 100, "useNativeDriver": false}, "ref": null, "rendered": {"instance": null, "key": undefined, "nodeType": "class", "props": [Object], "ref": null, "rendered": [Array], "type": [Function ScrollViewMock]}, "type": [Function ReactNativeModal]}], Symbol(enzyme.__options__): {"adapter": {"options": {"enableComponentDidUpdateOnSetState": true, "lifecycles": [Object]}}}}, Symbol(enzyme.__unrendered__): null, Symbol(enzyme.__renderer__): {"batchedUpdates": [Function batchedUpdates], "getNode": [Function getNode], "render": [Function render], "simulateError": [Function simulateError], "simulateEvent": [Function simulateEvent], "unmount": [Function unmount]}, Symbol(enzyme.__node__): undefined, Symbol(enzyme.__nodes__): [], Symbol(enzyme.__options__): {"adapter": {"options": {"enableComponentDidUpdateOnSetState": true, "lifecycles": {"componentDidUpdate": [Object], "getDerivedStateFromProps": true, "getSnapshotBeforeUpdate": true, "setState": [Object]}}}}, Symbol(enzyme.__rootNodes__): [{"instance": null, "key": undefined, "nodeType": "class", "props": {"animationIn": "slideInUp", "animationInTiming": 300, "animationOut": "slideOutDown", "animationOutTiming": 300, "avoidKeyboard": false, "backdropColor": "black", "backdropOpacity": 0.7, "backdropTransitionInTiming": 300, "backdropTransitionOutTiming": 300, "children": <ScrollView contentContainerStyle={[Object]} scrollEnabled={true}><Component … /><Title … /><Component … /><Component … /><TextElement … /><List … /><Component … /><Component … /><Component … /></ScrollView>, "deviceHeight": null, "deviceWidth": null, "hideModalContentWhileAnimating": false, "isVisible": false, "onBackButtonPress": [Function onBackButtonPress], "onBackdropPress": [Function onBackdropPress], "onModalHide": [Function onModalHide], "onModalShow": [Function onModalShow], "scrollOffset": 0, "scrollOffsetMax": 0, "scrollTo": null, "supportedOrientations": ["portrait", "landscape"], "swipeThreshold": 100, "useNativeDriver": false}, "ref": null, "rendered": {"instance": null, "key": undefined, "nodeType": "class", "props": {"children": [Array], "contentContainerStyle": [Object], "scrollEnabled": true}, "ref": null, "rendered": [[Object], [Object], [Object], [Object], [Object], [Object], [Object], [Object], [Object]], "type": [Function ScrollViewMock]}, "type": [Function ReactNativeModal]}]}
-received.length:
-  0
-    at Object.<anonymous> (/Users/fionazheng/GoDutch/Do-Dutch/do_dutch/__test__/ReceiptModal.test.js:46:39)
-    at Object.asyncJestTest (/Users/fionazheng/GoDutch/Do-Dutch/do_dutch/node_modules/jest-jasmine2/build/jasmine_async.js:108:37)
-    at resolve (/Users/fionazheng/GoDutch/Do-Dutch/do_dutch/node_modules/jest-jasmine2/build/queue_runner.js:56:12)
-    at new Promise (<anonymous>)
-    at mapper (/Users/fionazheng/GoDutch/Do-Dutch/do_dutch/node_modules/jest-jasmine2/build/queue_runner.js:43:19)
-    at promise.then (/Users/fionazheng/GoDutch/Do-Dutch/do_dutch/node_modules/jest-jasmine2/build/queue_runner.js:87:41)
-    at <anonymous>
-    at process._tickCallback (internal/process/next_tick.js:189:7)]]></failure>
-        </testCase>
-        <testCase name="Checking calculation Checking calculateTotal()" duration="12">
-            <failure message="Error: expect(received).toEqual(expected)"><![CDATA[Error: expect(received).toEqual(expected)
-
-Expected value to equal:
-  14.5
-Received:
-  19
-    at Object.<anonymous> (/Users/fionazheng/GoDutch/Do-Dutch/do_dutch/__test__/ReceiptModal.test.js:68:36)
-    at Object.asyncJestTest (/Users/fionazheng/GoDutch/Do-Dutch/do_dutch/node_modules/jest-jasmine2/build/jasmine_async.js:108:37)
-    at resolve (/Users/fionazheng/GoDutch/Do-Dutch/do_dutch/node_modules/jest-jasmine2/build/queue_runner.js:56:12)
-    at new Promise (<anonymous>)
-    at mapper (/Users/fionazheng/GoDutch/Do-Dutch/do_dutch/node_modules/jest-jasmine2/build/queue_runner.js:43:19)
-    at promise.then (/Users/fionazheng/GoDutch/Do-Dutch/do_dutch/node_modules/jest-jasmine2/build/queue_runner.js:87:41)
-    at <anonymous>
-    at process._tickCallback (internal/process/next_tick.js:189:7)]]></failure>
-        </testCase>
-        <testCase name="Checking calculation calculateTotal() is called when a modal is launched" duration="8">
-            <failure message="TypeError: Cannot read property &apos;map&apos; of undefined"><![CDATA[TypeError: Cannot read property 'map' of undefined
-    at ReceiptModal.render (/Users/fionazheng/GoDutch/Do-Dutch/do_dutch/components/receipt/ReceiptModal.js:5604:307)
-    at ReactShallowRenderer._updateClassComponent (/Users/fionazheng/GoDutch/Do-Dutch/do_dutch/node_modules/enzyme-adapter-react-16/node_modules/react-test-renderer/cjs/react-test-renderer-shallow.development.js:520:39)
-    at ReactShallowRenderer.render (/Users/fionazheng/GoDutch/Do-Dutch/do_dutch/node_modules/enzyme-adapter-react-16/node_modules/react-test-renderer/cjs/react-test-renderer-shallow.development.js:393:12)
-    at Updater.enqueueSetState (/Users/fionazheng/GoDutch/Do-Dutch/do_dutch/node_modules/enzyme-adapter-react-16/node_modules/react-test-renderer/cjs/react-test-renderer-shallow.development.js:348:20)
-    at ReceiptModal.Object.<anonymous>.Component.setState (/Users/fionazheng/GoDutch/Do-Dutch/do_dutch/node_modules/react/cjs/react.development.js:372:16)
-    at /Users/fionazheng/GoDutch/Do-Dutch/do_dutch/node_modules/enzyme/build/ShallowWrapper.js:604:34
-    at withSetStateAllowed (/Users/fionazheng/GoDutch/Do-Dutch/do_dutch/node_modules/enzyme/build/Utils.js:326:3)
-    at ShallowWrapper.<anonymous> (/Users/fionazheng/GoDutch/Do-Dutch/do_dutch/node_modules/enzyme/build/ShallowWrapper.js:576:42)
-    at ShallowWrapper.single (/Users/fionazheng/GoDutch/Do-Dutch/do_dutch/node_modules/enzyme/build/ShallowWrapper.js:1830:25)
-    at ShallowWrapper.setState (/Users/fionazheng/GoDutch/Do-Dutch/do_dutch/node_modules/enzyme/build/ShallowWrapper.js:575:14)]]></failure>
-        </testCase>
+        <testCase name="Checking the rendering of the modal A Modal should be rendered" duration="16"/>
+        <testCase name="Checking group list When no group, a prompt should be rendered" duration="3"/>
+        <testCase name="Checking group list When at least one group exsit, a grouplist should be rendered" duration="6"/>
+        <testCase name="Checking group list When a group is selected, a checked icon should be rendered" duration="4"/>
+        <testCase name="Checking calculation Checking calculateTotal()" duration="12"/>
+        <testCase name="Checking calculation calculateTotal() is called when a modal is launched" duration="8"/>
+    </file>
+    <file path="/Users/fionazheng/GoDutch/Do-Dutch/do_dutch/__test__/home_screen_render.test.js">
+        <testCase name="Checking the rendering of the HomeScreen A parent container should be rendered" duration="20"/>
     </file>
     <file path="/Users/fionazheng/GoDutch/Do-Dutch/do_dutch/__test__/ReceiptModa.Item.test.js">
         <testCase name="Checking the rendering of the Item A container ListItem is rendered when Item is initialized" duration="6"/>
-        <testCase name="Checking the functionalities of the editable Item name Item name becomes editable when TouchableOpacity is pressed" duration="20"/>
-        <testCase name="Checking the functionalities of the editable Item name Pressed the checked Icon to save the Item name change" duration="7"/>
-        <testCase name="Checking the functionalities of the editable Item name Pressed the times Icon to drop the Title change" duration="14"/>
-    </file>
-    <file path="/Users/fionazheng/GoDutch/Do-Dutch/do_dutch/__test__/home_screen_render.test.js">
-        <testCase name="Checking the rendering of the HomeScreen A parent container should be rendered" duration="12"/>
+        <testCase name="Checking the functionalities of the editable Item name Item name becomes editable when TouchableOpacity is pressed" duration="17"/>
+        <testCase name="Checking the functionalities of the editable Item name Pressed the checked Icon to save the Item name change" duration="11"/>
+        <testCase name="Checking the functionalities of the editable Item name Pressed the times Icon to drop the Title change" duration="9"/>
     </file>
     <file path="/Users/fionazheng/GoDutch/Do-Dutch/do_dutch/__test__/ReceiptModal.Title.test.js">
         <testCase name="Checking the rendering of the Title A TouchableOpacity is rendered when Title is initialized" duration="3"/>
-        <testCase name="Checking the rendering of the Title Title text checking" duration="14"/>
-        <testCase name="Checking the functionalities of the Title Title renders a textInput when it is editable" duration="8"/>
-        <testCase name="Checking the functionalities of the Title Title becomes editable when TouchableOpacity is pressed" duration="2"/>
-        <testCase name="Checking the functionalities of the Title Pressed the checked Icon to save the Title change" duration="4"/>
+        <testCase name="Checking the rendering of the Title Title text checking" duration="17"/>
+        <testCase name="Checking the functionalities of the Title Title renders a textInput when it is editable" duration="14"/>
+        <testCase name="Checking the functionalities of the Title Title becomes editable when TouchableOpacity is pressed" duration="3"/>
+        <testCase name="Checking the functionalities of the Title Pressed the checked Icon to save the Title change" duration="6"/>
         <testCase name="Checking the functionalities of the Title Pressed the times Icon to drop the Title change" duration="4"/>
+    </file>
+    <file path="/Users/fionazheng/GoDutch/Do-Dutch/do_dutch/__test__/ReceiptList.test.js">
+        <testCase name="Checking the rendering of ReceiptList A divider should be rendered" duration="5"/>
+        <testCase name="Checking the rendering of ReceiptList If no history, a prompt should be rendered" duration="1"/>
+        <testCase name="Checking the rendering of ReceiptList If no history, a prompt should be rendered" duration="2"/>
+        <testCase name="Checking the functionaliies of ReceiptList When keyword.length == 0, no receiptItem would be rendred" duration="5"/>
+        <testCase name="Checking the rendering of ReceiptListItem A touchableOpacity should be rendered" duration="4"/>
+    </file>
+    <file path="/Users/fionazheng/GoDutch/Do-Dutch/do_dutch/__test__/login.test.js">
+        <testCase name="LogIn Two input areas should be rendered" duration="3"/>
+        <testCase name="LogIn Button should be rendered" duration="1"/>
     </file>
 </testExecutions>

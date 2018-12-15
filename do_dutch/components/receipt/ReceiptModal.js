@@ -213,7 +213,7 @@ export class Item extends React.Component {
           element: (
             <View style={{ flexDirection: "row" }}>
               <Text style={{ marginTop: 5, marginRight: 5 }}>$</Text>
-              <Text  id="processed" style={{ marginTop: 5, marginRight: 1 }}>{payerTotal}</Text>
+              <Text id="processed" style={{ marginTop: 5, marginRight: 1 }}>{payerTotal}</Text>
               <Text
                 style={{
                   color: "#aaa",
@@ -273,13 +273,13 @@ export default class ReceiptModal extends Component {
       isModalVisible: false,
       sharerCount: 0,
       receiptItems: [],
-      confirmCallback: () => {},
+      confirmCallback: () => { },
       total: 0,
       payerTotal: 0,
       sharerTotal: 0,
       image_url: "",
       groups: [],  //Show all group a user enrolling in
-      selectedGroup: undefined
+      group: undefined  //selected group
     };
   }
 
@@ -298,22 +298,31 @@ export default class ReceiptModal extends Component {
 
   calculateTotal() {
     let payerTotal = 0;
+    let sharerTotal = 0;
     let total = 0;
+
+    console.log("ri", this.state.receiptItems)
+
     for (let index in this.state.receiptItems) {
-      if (this.state.receiptItems[index].split) {
-        payerTotal +=
-          this.state.receiptItems[index].price / (this.state.sharerCount + 1);
+
+      let curItem = this.state.receiptItems[index];
+
+      if (curItem.split) {
+        payerTotal += curItem.price / (this.state.sharerCount + 1);
       } else {
-        payerTotal += this.state.receiptItems[index].price;
+        payerTotal += curItem.price;
       }
-      total += this.state.receiptItems[index].price;
+      total += curItem.price;
     }
-    let sharerTotal;
+
     if (this.state.sharerCount != 0) {
       sharerTotal = (total - payerTotal) / this.state.sharerCount;
     } else {
       sharerTotal = 0;
     }
+
+    console.log(total, payerTotal, sharerTotal);
+
     this.setState({
       total: total,
       payerTotal: payerTotal,
@@ -328,12 +337,12 @@ export default class ReceiptModal extends Component {
   launch(receipt, groups, confirmCallback) {
     let sharerCount = 0;
     if (receipt.group != undefined && receipt.group.members != undefined) {
-      sharerCount = receipt.group.members.length;
+      sharerCount = receipt.group.members.length - 1;
     }
     // let d = new Date();
 
     this.setState({
-    //   //// Receipt Info ////
+      //   //// Receipt Info ////
       title: receipt.title,
       time: receipt.time,
       receiptItems: receipt.items,
@@ -346,15 +355,18 @@ export default class ReceiptModal extends Component {
       confirmCallback: confirmCallback,
       groups: groups
     });
+
+    console.log(receipt.items, "here??", sharerCount);
+
     this.calculateTotal();
   }
 
   renderGroupList() {
     let groupList;
-    if (this.state.groups === undefined || this.state.groups.length == 0) {
+    if (this.state.groups == undefined || this.state.groups.length == 0) {
       groupList = (
-        <View id="NoGroupPrompt">
-          <Text >"You haven't enrolled in any group."</Text>
+        <View>
+          <Text id="NoGroupPrompt">You haven't enrolled in any group.</Text>
         </View>
       );
     } else {
@@ -372,10 +384,10 @@ export default class ReceiptModal extends Component {
             {this.state.groups.map((group, index) => {
               group.key = index.toString();
               let selected;
-              if (this.state.group !== undefined)
+
+              if (this.state.group != undefined)
                 selected = this.state.group.group_id == group.group_id;
               else selected = false;
-
               let opacity = selected ? 1.0 : 0.3;
               let icon = selected ? (
                 <Icon
@@ -392,7 +404,6 @@ export default class ReceiptModal extends Component {
                   }}
                 />
               ) : null;
-
               return (
                 <View
                   style={{
@@ -437,13 +448,13 @@ export default class ReceiptModal extends Component {
           </ScrollView>
         </View>
       );
+    }
+    return groupList;
   }
-  return groupList;
-}
 
   renderMemberList() {
-    if (this.state.selectedGroup === undefined)
-      return "";
+    if (this.state.group === undefined)
+      return null;
 
     return (
       <View>
@@ -457,7 +468,7 @@ export default class ReceiptModal extends Component {
           style={{ height: 90 }}
         >
           {
-            this.state.selectedGroup.members.map((member, index) => {
+            this.state.group.members.map((member, index) => {
               member.key = index.toString();
               let paid = member.paid;
               let opacity = paid ? 1.0 : 0.3;
@@ -476,10 +487,8 @@ export default class ReceiptModal extends Component {
                     small
                     rounded
                     source={member.avatar}
-                    activeOpacity={0.7}
                     avatarStyle={{
-                      opacity: opacity,
-                      borderWidth: 2,
+                      borderWidth: 1,
                       borderColor: borderColor,
                       backgroundColor: "#fff"
                     }}
@@ -495,6 +504,28 @@ export default class ReceiptModal extends Component {
     );
   }
 
+  renderItemList() {
+    if (this.state.receiptItems === undefined)
+      return null;
+    else
+      return (
+        <List containerStyle={{ marginBottom: 20 }}>
+          {this.state.receiptItems.map((l, index) => (
+            <Item
+              data={l}
+              key={index.toString()}
+              sharerCount={this.state.sharerCount}
+              updateReceipt={receipt => {
+                let receiptItems = this.state.receiptItems; //Receipt
+                receiptItems[index] = receipt;
+                this.setState({ receiptItems: receiptItems });
+                this.calculateTotal();
+              }}
+            />
+          ))}
+        </List>);
+  }
+
   render() {
     let processedTime;
     if (this.state.time) {
@@ -504,6 +535,8 @@ export default class ReceiptModal extends Component {
 
     let groupList = this.renderGroupList();
     let memberList = this.renderMemberList();
+    let itemList = this.renderItemList();
+
 
     return (
       <Modal isVisible={this.state.isModalVisible}>
@@ -533,26 +566,13 @@ export default class ReceiptModal extends Component {
           {memberList}
           {/************* Items **************************/}
           <Text
-            style={{ marginBottom: -10, fontSize: 15,
-                     backgroundColor: "#fff", fontWeight: "bold"}}
-          >
+            style={{
+              marginBottom: -10, fontSize: 15,
+              backgroundColor: "#fff", fontWeight: "bold"
+            }}>
             Your Items
           </Text>
-          <List containerStyle={{ marginBottom: 20 }}>
-            {this.state.receiptItems.map((l, index) => (
-              <Item
-                data={l}
-                key={index.toString()}
-                sharerCount={this.state.sharerCount}
-                updateReceipt={receipt => {
-                  let receiptItems = this.state.receiptItems; //Receipt
-                  receiptItems[index] = receipt;
-                  this.setState({ receiptItems: receiptItems });
-                  this.calculateTotal();
-                }}
-              />
-            ))}
-          </List>
+          {itemList}
           <View
             style={{
               justifyContent: "flex-end",
@@ -561,7 +581,7 @@ export default class ReceiptModal extends Component {
           >
             <Text style={{ fontSize: 10, color: "#868686", marginRight: 10 }}>
               $xx (balance) + $xx (amortized tax)
-            </Text>
+              </Text>
           </View>
           <View
             style={{
@@ -572,7 +592,7 @@ export default class ReceiptModal extends Component {
           >
             <Text style={{ marginRight: 5, fontWeight: "bold", marginTop: 2 }}>
               Total:
-            </Text>
+              </Text>
             <Text style={{ fontSize: 20, fontWeight: "bold" }}>
               {"$" + this.setToFix(this.state.payerTotal, digits)}
             </Text>
@@ -628,6 +648,7 @@ export default class ReceiptModal extends Component {
     );
   }
 }
+
 
 const styles = StyleSheet.create({
   // Modal Contents
