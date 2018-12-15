@@ -271,7 +271,8 @@ export default class ReceiptModal extends Component {
       image_url: "",
       groups: [],
       isPayer: true,
-      receiptId: 0
+      receiptId: 0,
+      payment: ""
     };
   }
 
@@ -327,6 +328,7 @@ export default class ReceiptModal extends Component {
       creator: receipt.creator,
       isPayer: receipt.creator == window.user_id,
       receiptId: receipt.receiptId,
+      payment: receipt.payment,
       //// Local Info ////
       isModalVisible: true,
       sharerCount: sharerCount,
@@ -442,8 +444,28 @@ export default class ReceiptModal extends Component {
             >
               {this.state.group.members.map((member, index) => {
                 member.key = index.toString();
-                let paid = member.paid;
-                let borderColor = paid ? "#0d0" : "#00dddd";
+                if (member.member_id == window.user_id) return <View />;
+                let avatar =
+                  member.payment == "paid" ||
+                  member.member_id == window.user_id ? (
+                    <Avatar
+                      small
+                      rounded
+                      overlayContainerStyle={{ backgroundColor: "#0d0" }}
+                      icon={{
+                        name: "check",
+                        type: "font-awesome"
+                      }}
+                      avatarStyle={{ backgroundColor: "#fff" }}
+                    />
+                  ) : (
+                    <Avatar
+                      small
+                      rounded
+                      source={member.avatar}
+                      avatarStyle={{ backgroundColor: "#fff" }}
+                    />
+                  );
                 return (
                   <View
                     style={{
@@ -454,16 +476,7 @@ export default class ReceiptModal extends Component {
                     }}
                     key={index.toString()}
                   >
-                    <Avatar
-                      small
-                      rounded
-                      source={member.avatar}
-                      avatarStyle={{
-                        borderWidth: 1,
-                        borderColor: borderColor,
-                        backgroundColor: "#fff"
-                      }}
-                    />
+                    {avatar}
                     <Text style={{ marginTop: 0, marginBottom: 5 }}>
                       {member.member_name}
                     </Text>
@@ -578,12 +591,23 @@ export default class ReceiptModal extends Component {
               fontSize={15}
               buttonStyle={styles.modalBtn}
               onPress={() => {
-                if (!this.state.isPayer) {
-                  NetworkHelper.sendChallenge(
-                    window.user_id,
-                    this.state.receiptId
-                  );
-                }
+                let confirmType = this.state.isPayer ? "cancel" : "challenge";
+                let payment = this.state.isPayer ? "unpaid" : "challenged";
+                this.state.confirmCallback(confirmType, {
+                  receiptId: this.state.receiptId,
+                  total: this.state.total,
+                  payerTotal: this.state.payerTotal,
+                  sharerTotal: this.state.sharerTotal,
+                  detectedTotal: "$114.58",
+                  image_url: this.state.image_url,
+                  items: this.state.receiptItems,
+                  place: "The Famous Supermarket",
+                  time: this.state.time,
+                  title: this.state.title,
+                  creator: this.state.creator,
+                  group: this.state.group,
+                  payment: payment
+                });
                 this.setState({ isModalVisible: false });
               }}
             />
@@ -595,17 +619,17 @@ export default class ReceiptModal extends Component {
               fontSize={15}
               buttonStyle={styles.modalBtn}
               onPress={() => {
-                let paid;
-                if (this.state.isPayer) {
-                  paid = false;
-                } else {
-                  paid = true;
-                  NetworkHelper.sendPayment(
-                    window.user_id,
-                    this.state.receiptId
-                  );
+                let confirmType = this.state.isPayer ? "update" : "pay";
+                let payment = this.state.isPayer ? "unpaid" : "paid";
+                let group = this.state.group;
+                if (confirmType == "update") {
+                  group.members.forEach((member, index) => {
+                    if (member.member_id != window.user_id) {
+                      group.members[index].payment = "unpaid";
+                    }
+                  });
                 }
-                this.state.confirmCallback({
+                this.state.confirmCallback(confirmType, {
                   receiptId: this.state.receiptId,
                   total: this.state.total,
                   payerTotal: this.state.payerTotal,
@@ -613,12 +637,12 @@ export default class ReceiptModal extends Component {
                   detectedTotal: "$114.58",
                   image_url: this.state.image_url,
                   items: this.state.receiptItems,
-                  place: "Walmart",
+                  place: "The Famous Supermarket",
                   time: this.state.time,
                   title: this.state.title,
-                  group: this.state.group,
                   creator: this.state.creator,
-                  paid: paid
+                  group: group,
+                  payment: payment
                 });
                 this.setState({ isModalVisible: false });
               }}
