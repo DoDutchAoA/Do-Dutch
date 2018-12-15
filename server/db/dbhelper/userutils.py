@@ -1,4 +1,6 @@
 import queries as q
+import time
+import datetime
 
 
 def updateUserReceipts(userId, info):
@@ -305,3 +307,23 @@ def removeAllMembersFromGroup(groupId):
         "GroupUsers", "group_id = '%s'",
         str(groupId),
     )
+
+def addGroupChat(group_id, user_id, user_name, text):
+    ts = time.time()
+    timestamp = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
+
+    return q.insertRecordTo(
+        "GroupChats", "(group_id, user_id, user_name, text, timestamp)",
+        (group_id, user_id, user_name, text, timestamp), "(%s, %s, %s, %s, %s)",
+    )
+
+def getGroupChats(group_id):
+    result = q.searchInfoByConditions(
+        "GroupChats", "user_id, user_name, text, timestamp",
+        "group_id = '%s'", group_id,
+    )
+
+    for res in result:
+        res["timestamp"] = res["timestamp"].strftime('%Y-%m-%dT%H:%M:%SZ')
+    print(result)
+    return result

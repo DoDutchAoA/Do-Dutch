@@ -99,7 +99,6 @@ def checkRecordExistByConditions(tableName, cons_format=None, vals=None):
 def deleteRecordByCondition(tableName, cons_format, vals):
     query = ("DELETE FROM " + tableName + " WHERE " + cons_format + ";")
     query = query % vals
-    # print(query)
     runQuery(query, None, False)
     return True
 
