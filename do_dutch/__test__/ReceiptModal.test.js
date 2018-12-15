@@ -15,10 +15,8 @@ const testItems = [{ id: 0, split: true, price: 5 },
     { id: 1, split: true, price: 4 },
     { id: 2, split: false, price: 10 }];
 
-const testGroups = [{
-        id: 0,
-        members: [{ id: 0 }, { id: 1 }]
-}]
+const testGroups = [ { id: 0, members: [{ id: 0 }, { id: 1 }] },
+                     { id: 1, members: [{ id: 1 }, { id: 2 }] }]
 
 const testReceipt = {
         title: "default", time: "today",
@@ -85,7 +83,6 @@ describe('Checking group list', () => {
 
         expect(wrapper.find('#selected')).toHaveLength(1)
     })
-
 })
 
 describe('Checking calculation', () => {
@@ -125,7 +122,6 @@ describe('Checking calculation', () => {
         //Checking preconditions
         expect(wrapper.state('total')).toEqual(0)
 
-
         wrapper.instance().launch(testReceipt, testGroups, jest.fn())
 
         //Post condition
@@ -137,5 +133,32 @@ describe('Checking calculation', () => {
         expect(wrapper.state('payerTotal')).toEqual(payerTotal)
     })
 
+})
 
+
+describe('Checking memberList', () => {
+
+    it('Two groups should be rendered', () => {
+        const wrapper = shallow(<ReceiptModal />)
+        wrapper.instance().launch(testReceipt, testGroups, jest.fn())
+        expect(wrapper.find('.Group')).toHaveLength(2)
+    })
+
+    // it('When anthoer group is selected, the total price changes', () => {
+    //     const wrapper = shallow(<ReceiptModal />)
+    //     wrapper.setState({ groups: [{ id: 0, numOfMems: 3 }]})
+    //     expect(wrapper.find('#NoGroupPrompt')).toHaveLength(0)
+    //     expect(wrapper.find('#GroupList')).toHaveLength(1)
+    // })
+
+    // it('When a group is selected, a checked icon should be rendered', () => {
+    //     const wrapper = shallow(<ReceiptModal />)
+
+    //     let group0 = testGroups[0];
+
+    //     wrapper.setState({ groups: [group0],
+    //                        group: group0})
+
+    //     expect(wrapper.find('#selected')).toHaveLength(1)
+    // })
 })

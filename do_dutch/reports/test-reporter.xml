@@ -1,42 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testExecutions version="1">
     <file path="/Users/fionazheng/GoDutch/Do-Dutch/do_dutch/__test__/ReceiptList.test.js">
-        <testCase name="Checking the rendering of ReceiptList A divider should be rendered" duration="18"/>
+        <testCase name="Checking the rendering of ReceiptList A divider should be rendered" duration="28"/>
+        <testCase name="Checking the rendering of ReceiptList If no history, a prompt should be rendered" duration="5"/>
         <testCase name="Checking the rendering of ReceiptList If no history, a prompt should be rendered" duration="3"/>
-        <testCase name="Checking the rendering of ReceiptList If no history, a prompt should be rendered" duration="2"/>
         <testCase name="Checking the functionaliies of ReceiptList When keyword.length == 0, no receiptItem would be rendred" duration="2"/>
-        <testCase name="Checking the rendering of ReceiptListItem A touchableOpacity should be rendered" duration="4"/>
+        <testCase name="Checking the rendering of ReceiptListItem A touchableOpacity should be rendered" duration="8"/>
     </file>
     <file path="/Users/fionazheng/GoDutch/Do-Dutch/do_dutch/__test__/ReceiptModal.test.js">
-        <testCase name="Checking the rendering of the modal A Modal should be rendered" duration="17"/>
-        <testCase name="Checking the rendering of the modal A Modal shows up when a modal launch " duration="9"/>
+        <testCase name="Checking the rendering of the modal A Modal should be rendered" duration="21"/>
+        <testCase name="Checking the rendering of the modal A Modal shows up when a modal launch " duration="12"/>
         <testCase name="Checking the rendering of the modal Press either ok or cancel will shut down the modal" duration="12"/>
-        <testCase name="Checking the rendering of the modal Press either ok or cancel will shut down the modal" duration="12"/>
-        <testCase name="Checking group list When no group, a prompt should be rendered" duration="6"/>
-        <testCase name="Checking group list When at least one group exsit, a grouplist should be rendered" duration="7"/>
-        <testCase name="Checking group list When a group is selected, a checked icon should be rendered" duration="6"/>
-        <testCase name="Checking calculation Checking calculateTotal()" duration="5"/>
-        <testCase name="Checking calculation calculateTotal() is called when a modal is launched" duration="15"/>
+        <testCase name="Checking the rendering of the modal Press either ok or cancel will shut down the modal" duration="15"/>
+        <testCase name="Checking group list When no group, a prompt should be rendered" duration="5"/>
+        <testCase name="Checking group list When at least one group exsit, a grouplist should be rendered" duration="8"/>
+        <testCase name="Checking group list When a group is selected, a checked icon should be rendered" duration="8"/>
+        <testCase name="Checking calculation Checking calculateTotal()" duration="10"/>
+        <testCase name="Checking calculation calculateTotal() is called when a modal is launched" duration="14"/>
+        <testCase name="Checking memberList Two groups should be rendered" duration="18"/>
     </file>
-    <file path="/Users/fionazheng/GoDutch/Do-Dutch/do_dutch/__test__/ReceiptModa.Item.test.js">
-        <testCase name="Checking the rendering of the Item A container ListItem is rendered when Item is initialized" duration="7"/>
-        <testCase name="Checking the functionalities of the editable Item name Item name becomes editable when TouchableOpacity is pressed" duration="21"/>
-        <testCase name="Checking the functionalities of the editable Item name Pressed the checked Icon to save the Item name change" duration="11"/>
-        <testCase name="Checking the functionalities of the editable Item name Pressed the times Icon to drop the Title change" duration="12"/>
+    <file path="/Users/fionazheng/GoDutch/Do-Dutch/do_dutch/__test__/ReceiptModal.Title.test.js">
+        <testCase name="Checking the rendering of the Title A TouchableOpacity is rendered when Title is initialized" duration="4"/>
+        <testCase name="Checking the rendering of the Title Title text checking" duration="16"/>
+        <testCase name="Checking the functionalities of the Title Title renders a textInput when it is editable" duration="18"/>
+        <testCase name="Checking the functionalities of the Title Title becomes editable when TouchableOpacity is pressed" duration="3"/>
+        <testCase name="Checking the functionalities of the Title Pressed the checked Icon to save the Title change" duration="4"/>
+        <testCase name="Checking the functionalities of the Title Pressed the times Icon to drop the Title change" duration="3"/>
     </file>
     <file path="/Users/fionazheng/GoDutch/Do-Dutch/do_dutch/__test__/home_screen.test.js">
-        <testCase name="Checking the rendering of the HomeScreen A parent container should be rendered" duration="12"/>
+        <testCase name="Checking the rendering of the HomeScreen A parent container should be rendered" duration="11"/>
     </file>
     <file path="/Users/fionazheng/GoDutch/Do-Dutch/do_dutch/__test__/login.test.js">
         <testCase name="LogIn Two input areas should be rendered" duration="2"/>
         <testCase name="LogIn Button should be rendered" duration="1"/>
     </file>
-    <file path="/Users/fionazheng/GoDutch/Do-Dutch/do_dutch/__test__/ReceiptModal.Title.test.js">
-        <testCase name="Checking the rendering of the Title A TouchableOpacity is rendered when Title is initialized" duration="5"/>
-        <testCase name="Checking the rendering of the Title Title text checking" duration="20"/>
-        <testCase name="Checking the functionalities of the Title Title renders a textInput when it is editable" duration="11"/>
-        <testCase name="Checking the functionalities of the Title Title becomes editable when TouchableOpacity is pressed" duration="4"/>
-        <testCase name="Checking the functionalities of the Title Pressed the checked Icon to save the Title change" duration="6"/>
-        <testCase name="Checking the functionalities of the Title Pressed the times Icon to drop the Title change" duration="4"/>
+    <file path="/Users/fionazheng/GoDutch/Do-Dutch/do_dutch/__test__/ReceiptModa.Item.test.js">
+        <testCase name="Checking the rendering of the Item A container ListItem is rendered when Item is initialized" duration="7"/>
+        <testCase name="Checking the functionalities of the editable Item name Item name becomes editable when TouchableOpacity is pressed" duration="11"/>
+        <testCase name="Checking the functionalities of the editable Item name Pressed the checked Icon to save the Item name change" duration="7"/>
+        <testCase name="Checking the functionalities of the editable Item name Pressed the times Icon to drop the Title change" duration="16"/>
     </file>
 </testExecutions>

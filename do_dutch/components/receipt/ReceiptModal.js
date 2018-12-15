@@ -346,8 +346,6 @@ export default class ReceiptModal extends Component {
       groups: groups
     });
 
-    // console.log("in launch", this.state.sharerCount);
-
     this.calculateTotal();
   }
 
@@ -394,7 +392,7 @@ export default class ReceiptModal extends Component {
                 />
               ) : null;
               return (
-                <View
+                <View className="Group"
                   style={{
                     flexDirection: "column",
                     alignItems: "center",
@@ -403,6 +401,7 @@ export default class ReceiptModal extends Component {
                   key={index.toString()}
                 >
                   <Avatar
+                    id="Avatar"
                     medium
                     rounded
                     source={group.avatar}
@@ -416,7 +415,7 @@ export default class ReceiptModal extends Component {
                             group: undefined,
                             sharerCount: 1
                           },
-                          this.calculateTotal
+                          this.calculateTotal()
                         );
                       } else {
                         this.setState(
@@ -424,7 +423,7 @@ export default class ReceiptModal extends Component {
                             group: group,
                             sharerCount: group.members.length
                           },
-                          this.calculateTotal
+                          this.calculateTotal()
                         );
                       }
                     }}
