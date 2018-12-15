@@ -48,41 +48,45 @@ export default class GroupDetail extends Component {
   loadOwnerButtons() {
     if (window.user_id == this.state.owner_id && this.state.owner_id !== -1) {
       return (
-        <View>
-          <Button
-            large
-            icon={{ name: "delete" }}
-            onPress={() => this.deleteGroup()}
-            titleStyle={{ fontWeight: "700" }}
-            buttonStyle={{
-              backgroundColor: "#FAD7A0",
-              width: 320,
-              height: 45,
-              borderColor: "transparent",
-              borderWidth: 3,
-              borderRadius: 8
-            }}
-            title="Delete Group"
-          />
-          <Button
-            large
-            icon={{ name: "person" }}
-            onPress={() =>
-              this.props.navigation.navigate("GroupAddMembers", {
-                group_id: this.state.group_id
-              })
-            }
-            titleStyle={{ fontWeight: "700" }}
-            buttonStyle={{
-              backgroundColor: "#F7DC6F",
-              width: 320,
-              height: 45,
-              borderColor: "transparent",
-              borderWidth: 3,
-              borderRadius: 8
-            }}
-            title="Add Members"
-          />
+        <View style={styles.footer}>
+          <View>
+            <Button
+              large
+              icon={{ name: "delete" }}
+              onPress={() => this.deleteGroup()}
+              titleStyle={{ fontWeight: "700" }}
+              buttonStyle={{
+                backgroundColor: "#FAD7A0",
+                width: 375,
+                height: 45,
+                borderColor: "transparent",
+                borderWidth: 3,
+                borderRadius: 8
+              }}
+              title="Delete Group"
+            />
+          </View>
+          <View>
+            <Button
+              large
+              icon={{ name: "person" }}
+              onPress={() =>
+                this.props.navigation.navigate("GroupAddMembers", {
+                  group_id: this.state.group_id
+                })
+              }
+              titleStyle={{ fontWeight: "700" }}
+              buttonStyle={{
+                backgroundColor: "#F7DC6F",
+                width: 375,
+                height: 45,
+                borderColor: "transparent",
+                borderWidth: 3,
+                borderRadius: 8
+              }}
+              title="Add Members"
+            />
+          </View>
         </View>
       );
     }
@@ -148,14 +152,7 @@ export default class GroupDetail extends Component {
 
   render() {
     return (
-      <View
-        style={{
-          flex: 1,
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "stretch"
-        }}
-      >
+      <View>
         <Badge
           containerStyle={{ backgroundColor: "#D7DBDD" }}
           textStyle={{ color: "#34495E" }}
@@ -163,11 +160,9 @@ export default class GroupDetail extends Component {
           <Text style={styles.groupinfo}> {this.state.group_name} </Text>
         </Badge>
 
-        {this.loadOwnerButtons()}
-
         <Button
           large
-          icon={{ name: "person" }}
+          icon={{ name: "chat" }}
           onPress={() =>
             this.props.navigation.navigate("GroupChat", {
               group_id: this.state.group_id
@@ -175,8 +170,8 @@ export default class GroupDetail extends Component {
           }
           titleStyle={{ fontWeight: "700" }}
           buttonStyle={{
-            backgroundColor: "#FAD7A0",
-            width: 320,
+            backgroundColor: "#E67E22",
+            width: 375,
             height: 45,
             borderColor: "transparent",
             borderWidth: 3,
@@ -196,6 +191,7 @@ export default class GroupDetail extends Component {
             ItemSeparatorComponent={this.renderSeparator}
           />
         </View>
+        {this.loadOwnerButtons()}
       </View>
     );
   }
@@ -215,5 +211,11 @@ const styles = StyleSheet.create({
     color: "#283747",
     fontWeight: "bold",
     fontSize: 25
+  },
+  footer: {
+    position: "absolute",
+    height: 40,
+    left: 0,
+    top: 450
   }
 });
