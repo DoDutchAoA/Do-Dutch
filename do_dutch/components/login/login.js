@@ -8,6 +8,9 @@ import {
   FormValidationMessage
 } from "react-native-elements";
 
+const fetch = require("node-fetch");
+
+
 export default class LogIn extends Component {
   constructor() {
     super();
@@ -19,6 +22,7 @@ export default class LogIn extends Component {
   }
 
   userLogIn() {
+
     fetch("http://52.12.74.177:5000/login", {
       method: "POST",
       headers: {
@@ -49,6 +53,7 @@ export default class LogIn extends Component {
         <Text style={styles.text}> Log In </Text>
         <FormLabel> Username </FormLabel>
         <FormInput
+          id="username"
           style={styles.input}
           autoFocus={true}
           keyboardType="email-address"
@@ -58,6 +63,7 @@ export default class LogIn extends Component {
 
         <FormLabel color="#232323"> Password </FormLabel>
         <FormInput
+          id="password"
           autoFocus={true}
           secureTextEntry={true}
           value={this.state.password}
@@ -68,7 +74,7 @@ export default class LogIn extends Component {
           large
           backgroundColor="#8e44ad"
           icon={{ name: "envira", type: "font-awesome" }}
-          onPress={e => this.userLogIn()}
+          onPress={this.userLogIn}
           title="login"
         />
       </View>

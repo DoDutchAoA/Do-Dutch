@@ -1,7 +1,10 @@
 import React from 'react';
 import * as enzyme from 'enzyme';
 import { shallow, mount } from 'enzyme';
+
 import renderer from 'react-test-renderer';
+// import 'whatwg-fetch'
+// import fetchMock from 'fetch-mock';
 
 import ReactSixteenAdapter from 'enzyme-adapter-react-16';
 
@@ -9,39 +12,80 @@ import LogIn from '../components/login/login';
 
 enzyme.configure({ adapter: new ReactSixteenAdapter() });
 
-const setup = () => {
-    const wrapper = shallow(<LogIn />)
+// const dummyUser = {
 
-    const props = {
-        state: { username: "", password: ""},
-        userLogin: jest.fn()
-      }
+// }
 
-      return {
-        props,
-        wrapper
-      }
-}
-
-describe('LogIn', () => {
-
-    const { props, wrapper } = setup();
+describe('Checking rendering', () => {
 
     it('Two input areas should be rendered', () => {
-        expect(wrapper.find('FormInput')).toHaveLength(2);
+        const wrapper = shallow(<LogIn />)
+        expect(wrapper.find('#username')).toHaveLength(1);
+        expect(wrapper.find('#password')).toHaveLength(1);
     })
 
     it('Button should be rendered', () => {
+        const wrapper = shallow(<LogIn />)
         expect(wrapper.find('Button').exists()).toBeTruthy();
     })
+})
 
-    //Fetch is not defined
-    // it('A func should be called when the button is pressed', () => {
-    //     const onPressEvent = jest.fn();
-    //     // onPressEvent.mockReturnValue('Link on press invoked');
-    //     // const wrapper = shallow(<Button onPress={ onPressEvent } text='CustomLink Component'/>);
-    //     wrapper.find('Button').first().props().onPress();
-    //     expect(onPressEvent.mock.calls.length).toBe(1);
+describe('Checking functionalities', () => {
+
+    it('Username is set as the user input in the FormInput', () => {
+        const wrapper = shallow(<LogIn />)
+        const nameInput = wrapper.find("#username")
+
+        //Precondition
+        expect(wrapper.state('username')).toEqual("")
+
+        //Action
+        nameInput.simulate('change', { target: { value: 'Dutchers' } })
+
+        //Setstate is aysnc
+        setTimeout(() => {
+            expect(wrapper.state('username')).toEqual("Dutchers")
+            wrapper.unmount();
+            done();
+          }, 1000);
+    })
+
+    it('Password is set as the user input in the FormInput', () => {
+        const wrapper = shallow(<LogIn />)
+        const nameInput = wrapper.find("#password")
+
+        //Precondition
+        expect(wrapper.state('password')).toEqual("")
+
+        //Action
+        nameInput.simulate('change', { target: { value: 'Dutchers' } })
+
+        //Setstate is aysnc
+        setTimeout(() => {
+            expect(wrapper.state('password')).toEqual("Dutchers")
+            wrapper.unmount();
+            done();
+          }, 1000);
+    })
+
+    // it('A func should be called when the ActionButtonItem is pressed', () => {
+    //     const wrapper = shallow(<LogIn />)
+
+    //     wrapper.setState({
+    //         username: "Dutchers",
+    //         password: "Dutchers"
+    //     })
+
+    //     const onPressEvent = jest.fn()
+    //     console.log(wrapper.state('username'))
+
+    //     wrapper.find('Button').props().onPress()
+
+    //     setTimeout(() => {
+    //         expect(onPressEvent.mock.calls.length).toBe(1)
+    //         wrapper.unmount();
+    //         done();
+    //     }, 1000);
     // })
 
 })

@@ -37,8 +37,8 @@ export default class Logout extends Component {
   render() {
     return (
       <View>
-        <Text style={styles.text}> Hi Dutcher! </Text>
-        <Button
+        <Text style={[styles.container, styles.welcome]}> Hi Dutcher! </Text>
+        <Button style={styles.container}
           large
           backgroundColor="#52BE80"
           icon={{
@@ -53,9 +53,16 @@ export default class Logout extends Component {
 }
 
 const styles = StyleSheet.create({
-  text: {
+  welcome: {
     color: "#566573",
     fontSize: 35,
-    fontWeight: "bold"
+    fontWeight: "bold",
+
+  },
+
+  container: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'space-between',
   }
 });
