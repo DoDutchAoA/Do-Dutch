@@ -7,7 +7,6 @@ import { shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
 import ReceiptModal from '../components/receipt/ReceiptModal';
-import { wrap } from 'module';
 
 enzyme.configure({ adapter: new Adapter() });
 
@@ -179,18 +178,5 @@ describe('Checking memberList', () => {
         //Postcondition
         expect(wrapper.find("#splitTotal").render().text())
             .toEqual("$" + curTotal.toFixed(2))
-
-
     })
-
-    // it('When a group is selected, a checked icon should be rendered', () => {
-    //     const wrapper = shallow(<ReceiptModal />)
-
-    //     let group0 = testGroups[0];
-
-    //     wrapper.setState({ groups: [group0],
-    //                        group: group0})
-
-    //     expect(wrapper.find('#selected')).toHaveLength(1)
-    // })
 })

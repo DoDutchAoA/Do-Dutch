@@ -57,7 +57,7 @@ const GroupStackNavigator = createStackNavigator({
   GroupDetail: {
     screen: GroupDetail,
     navigationOptions: ({ navigation }) => ({
-      title: "Group detail",
+      title: "Group Detail",
       headerTitleStyle: {
         color: "#17202a",
         textAlign: "center",
