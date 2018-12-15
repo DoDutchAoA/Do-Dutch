@@ -24,7 +24,7 @@ export default class FriendSearch extends Component {
 
   addFriend(friend_name, friend_id) {
     if (friend_id == window.user_id) {
-      alert("cannot add yourself.");
+      Alert.alert("Fail", "cannot add yourself.");
       return;
     }
 
@@ -43,9 +43,12 @@ export default class FriendSearch extends Component {
         var data = [];
         var responseData = JSON.parse(response._bodyText);
         if (responseData["status"] == true) {
-          alert(friend_name + " is your friend now.");
+          Alert.alert("Success", friend_name + " is your friend now.");
         } else {
-          alert("Fail to add " + friend_name + " as your friend.");
+          Alert.alert(
+            "Fail",
+            "Fail to add " + friend_name + " as your friend."
+          );
         }
       })
       .catch(error => {
