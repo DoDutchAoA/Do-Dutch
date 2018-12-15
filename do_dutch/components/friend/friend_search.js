@@ -47,6 +47,7 @@ export default class FriendSearch extends Component {
         } else {
           alert("Fail to add " + friend_name + " as your friend.");
         }
+        this.props.navigation.navigate("FriendMain", { force_reload: 0 });
       })
       .catch(error => {
         console.error("Error: friend list fetch error." + error);

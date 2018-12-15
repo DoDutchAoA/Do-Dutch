@@ -16,6 +16,7 @@ export default class FriendContainer extends Component {
   }
 
   render() {
+    this.props.navigation.navigate("FriendMain");
     return (
       <FriendStackNavigator
         screenProps={this.props.navigation.getParam("user_id", -1)}

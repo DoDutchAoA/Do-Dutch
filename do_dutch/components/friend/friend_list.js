@@ -207,6 +207,22 @@ export default class FriendList extends Component {
     return (
       <View>
         {this.loadDeleteFriendButton()}
+        <Button
+          onPress={() => {
+            this.loadFriendsData("list");
+          }}
+          icon={{ name: "search", type: "font-awesome" }}
+          buttonStyle={{
+            backgroundColor: "#3498DB",
+            width: 370,
+            height: 45,
+            borderColor: "transparent",
+            borderWidth: 2,
+            borderRadius: 7
+          }}
+          titleStyle={{ fontWeight: "700" }}
+          title="Reload Friends"
+        />
         {this.loadAllFriends()}
       </View>
     );

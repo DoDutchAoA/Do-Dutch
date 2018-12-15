@@ -6,6 +6,10 @@ import FriendList from "./friend_list.js";
 import FriendSearch from "./friend_search.js";
 
 export default class FriendMain extends Component {
+  constructor() {
+    super();
+  }
+
   render() {
     return (
       <View>

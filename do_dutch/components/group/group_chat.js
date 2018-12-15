@@ -21,6 +21,8 @@ export default class GroupChat extends Component {
       new_comment: ""
     };
 
+    window.foo("yes");
+
     window.group_id_for_chats = undefined;
 
     NetworkHelper.beginPollingGroupChats(10000, messages => {
