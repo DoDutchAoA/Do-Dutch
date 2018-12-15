@@ -22,7 +22,7 @@ export default class FriendMain extends Component {
             icon={{ name: "search", type: "font-awesome" }}
             buttonStyle={{
               backgroundColor: "#3498DB",
-              width: 150,
+              width: 200,
               height: 60,
               borderColor: "transparent",
               borderWidth: 6,
@@ -40,7 +40,7 @@ export default class FriendMain extends Component {
 const styles = StyleSheet.create({
   buttonSection: {
     position: "absolute",
-    top: 360,
+    top: 340,
     width: "100%",
     height: "30%",
     justifyContent: "center",

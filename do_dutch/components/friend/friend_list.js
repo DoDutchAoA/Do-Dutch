@@ -122,7 +122,7 @@ export default class FriendList extends Component {
           icon={{ name: "clear" }}
           buttonStyle={{
             backgroundColor: "#E74C3C",
-            width: 150,
+            width: 200,
             height: 60,
             borderColor: "transparent",
             borderWidth: 6,
@@ -141,7 +141,7 @@ export default class FriendList extends Component {
           icon={{ name: "remove" }}
           buttonStyle={{
             backgroundColor: "#D5D8DC",
-            width: 150,
+            width: 200,
             height: 60,
             borderColor: "transparent",
             borderWidth: 6,
@@ -209,7 +209,6 @@ export default class FriendList extends Component {
       <View>
         {this.loadAllFriends()}
         <View style={styles.buttonSection}>
-          {this.loadDeleteFriendButton()}
           <Button
             onPress={() => {
               this.loadFriendsData("list");
@@ -217,7 +216,7 @@ export default class FriendList extends Component {
             icon={{ name: "refresh", type: "font-awesome" }}
             buttonStyle={{
               backgroundColor: "#58D68D",
-              width: 150,
+              width: 200,
               height: 60,
               borderColor: "transparent",
               borderWidth: 6,
@@ -226,6 +225,7 @@ export default class FriendList extends Component {
             titleStyle={{ fontWeight: "700" }}
             title="Reload"
           />
+          {this.loadDeleteFriendButton()}
         </View>
       </View>
     );
@@ -253,7 +253,7 @@ const styles = StyleSheet.create({
   },
   buttonSection: {
     position: "absolute",
-    top: 450,
+    top: 430,
     width: "100%",
     height: "30%",
     justifyContent: "center",
