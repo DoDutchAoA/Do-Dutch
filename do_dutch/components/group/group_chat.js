@@ -7,7 +7,7 @@ import {
   Image,
   FlatList
 } from "react-native";
-import { Button, Badge, FormInput } from "react-native-elements";
+import { Button, Badge, FormInput, FormLabel } from "react-native-elements";
 
 import NetworkHelper from "./../receipt/NetworkHelper.js";
 
@@ -118,8 +118,13 @@ export default class GroupChat extends Component {
             ItemSeparatorComponent={this.renderSeparator}
           />
         </View>
-        <View>
+        <View style={styles.buttonStyle}>
+          <FormLabel color="#5F6A6A">Chat Info</FormLabel>
           <FormInput
+            style={{
+              borderWidth: 1,
+              borderBottomColor: "red"
+            }}
             autoFocus={true}
             value={this.state.new_comment}
             onChangeText={text => this.setState({ new_comment: text })}
@@ -132,11 +137,11 @@ export default class GroupChat extends Component {
             titleStyle={{ fontWeight: "700" }}
             buttonStyle={{
               backgroundColor: "#1ABC9C",
-              width: 375,
-              height: 45,
+              width: 200,
+              height: 60,
               borderColor: "transparent",
-              borderWidth: 3,
-              borderRadius: 8
+              borderWidth: 6,
+              borderRadius: 100
             }}
             title="Send"
           />
@@ -160,5 +165,13 @@ const styles = StyleSheet.create({
     color: "#283747",
     fontWeight: "bold",
     fontSize: 25
+  },
+  buttonStyle: {
+    position: "absolute",
+    top: 400,
+    width: "100%",
+    height: "30%",
+    justifyContent: "center",
+    alignItems: "center"
   }
 });
