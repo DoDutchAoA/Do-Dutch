@@ -121,15 +121,15 @@ export default class FriendList extends Component {
           }}
           icon={{ name: "clear" }}
           buttonStyle={{
-            backgroundColor: "#EC7063",
-            width: 370,
-            height: 45,
+            backgroundColor: "#E74C3C",
+            width: 150,
+            height: 60,
             borderColor: "transparent",
-            borderWidth: 2,
-            borderRadius: 7
+            borderWidth: 6,
+            borderRadius: 100
           }}
           titleStyle={{ fontWeight: "700" }}
-          title="Delete Friend"
+          title="Delete"
         />
       );
     } else if (this.state.type === "delete") {
@@ -141,11 +141,11 @@ export default class FriendList extends Component {
           icon={{ name: "remove" }}
           buttonStyle={{
             backgroundColor: "#D5D8DC",
-            width: 370,
-            height: 45,
+            width: 150,
+            height: 60,
             borderColor: "transparent",
-            borderWidth: 2,
-            borderRadius: 7
+            borderWidth: 6,
+            borderRadius: 100
           }}
           titleStyle={{ fontWeight: "700" }}
           title="Completed"
@@ -192,7 +192,7 @@ export default class FriendList extends Component {
 
   loadAllFriends() {
     return (
-      <View>
+      <View style={styles.friendSection}>
         <SectionList
           sections={this.state.friendsData}
           renderItem={this._renderItem}
@@ -207,24 +207,26 @@ export default class FriendList extends Component {
   render() {
     return (
       <View>
-        {this.loadDeleteFriendButton()}
-        <Button
-          onPress={() => {
-            this.loadFriendsData("list");
-          }}
-          icon={{ name: "search", type: "font-awesome" }}
-          buttonStyle={{
-            backgroundColor: "#3498DB",
-            width: 370,
-            height: 45,
-            borderColor: "transparent",
-            borderWidth: 2,
-            borderRadius: 7
-          }}
-          titleStyle={{ fontWeight: "700" }}
-          title="Reload Friends"
-        />
         {this.loadAllFriends()}
+        <View style={styles.buttonSection}>
+          {this.loadDeleteFriendButton()}
+          <Button
+            onPress={() => {
+              this.loadFriendsData("list");
+            }}
+            icon={{ name: "refresh", type: "font-awesome" }}
+            buttonStyle={{
+              backgroundColor: "#58D68D",
+              width: 150,
+              height: 60,
+              borderColor: "transparent",
+              borderWidth: 6,
+              borderRadius: 100
+            }}
+            titleStyle={{ fontWeight: "700" }}
+            title="Reload"
+          />
+        </View>
       </View>
     );
   }
@@ -248,5 +250,16 @@ const styles = StyleSheet.create({
     padding: 10,
     fontSize: 18,
     height: 44
+  },
+  buttonSection: {
+    position: "absolute",
+    top: 450,
+    width: "100%",
+    height: "30%",
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  friendSection: {
+    top: 20
   }
 });

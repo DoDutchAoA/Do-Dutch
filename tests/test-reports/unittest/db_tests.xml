@@ -1,31 +1,733 @@
 <?xml version="1.0" ?>
-<testsuite errors="0" failures="0" name="TestDB-20181203154606" tests="22" time="3.550">
-	<testcase classname="TestDB" name="test_create_allocation_invalid" time="0.291"/>
-	<testcase classname="TestDB" name="test_create_allocation_valid" time="0.176"/>
-	<testcase classname="TestDB" name="test_create_empty_group_exist" time="0.150"/>
-	<testcase classname="TestDB" name="test_create_empty_group_notexist" time="0.146"/>
-	<testcase classname="TestDB" name="test_create_group_with_members" time="0.166"/>
-	<testcase classname="TestDB" name="test_create_item" time="0.153"/>
-	<testcase classname="TestDB" name="test_create_order" time="0.154"/>
-	<testcase classname="TestDB" name="test_create_receipt" time="0.149"/>
-	<testcase classname="TestDB" name="test_delete_allocation" time="0.168"/>
-	<testcase classname="TestDB" name="test_delete_group" time="0.168"/>
-	<testcase classname="TestDB" name="test_delete_item" time="0.152"/>
-	<testcase classname="TestDB" name="test_delete_order" time="0.148"/>
-	<testcase classname="TestDB" name="test_delete_receipt" time="0.155"/>
-	<testcase classname="TestDB" name="test_login_exist" time="0.134"/>
-	<testcase classname="TestDB" name="test_login_notexist" time="0.128"/>
-	<testcase classname="TestDB" name="test_modify_allocation_invalid" time="0.171"/>
-	<testcase classname="TestDB" name="test_modify_allocation_valid" time="0.174"/>
-	<testcase classname="TestDB" name="test_modify_item_amount" time="0.163"/>
-	<testcase classname="TestDB" name="test_modify_item_name" time="0.158"/>
-	<testcase classname="TestDB" name="test_remove_members_from_group" time="0.172"/>
-	<testcase classname="TestDB" name="test_sign_up_exist" time="0.136"/>
-	<testcase classname="TestDB" name="test_sign_up_notexist" time="0.137"/>
+<testsuite errors="22" failures="0" name="TestDB-20181215142559" tests="22" time="0.032">
+	<testcase classname="TestDB" name="test_create_allocation_invalid" time="0.012">
+		<error message="(2003, &quot;Can't connect to MySQL server on '127.0.0.1' ([Errno 61] Connection refused)&quot;)" type="OperationalError">
+<![CDATA[Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pymysql/connections.py", line 582, in connect
+    **kwargs)
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/socket.py", line 727, in create_connection
+    raise err
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/socket.py", line 716, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [Errno 61] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "tests.py", line 22, in setUp
+    buildTestEnv()
+  File "tests.py", line 14, in buildTestEnv
+    q.dropTestingDB()
+  File "/Users/fionazheng/GoDutch/Do-Dutch/database/local/queries.py", line 30, in dropTestingDB
+    runQuery(query, None, False, None)
+  File "/Users/fionazheng/GoDutch/Do-Dutch/database/local/queries.py", line 7, in runQuery
+    cw = ConnectionWrapper(db)
+  File "/Users/fionazheng/GoDutch/Do-Dutch/database/local/connection.py", line 14, in __init__
+    cursorclass=data.CURSOR_C,
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pymysql/__init__.py", line 94, in Connect
+    return Connection(*args, **kwargs)
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pymysql/connections.py", line 327, in __init__
+    self.connect()
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pymysql/connections.py", line 629, in connect
+    raise exc
+pymysql.err.OperationalError: (2003, "Can't connect to MySQL server on '127.0.0.1' ([Errno 61] Connection refused)")
+]]>		</error>
+	</testcase>
+	<testcase classname="TestDB" name="test_create_allocation_valid" time="0.001">
+		<error message="(2003, &quot;Can't connect to MySQL server on '127.0.0.1' ([Errno 61] Connection refused)&quot;)" type="OperationalError">
+<![CDATA[Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pymysql/connections.py", line 582, in connect
+    **kwargs)
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/socket.py", line 727, in create_connection
+    raise err
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/socket.py", line 716, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [Errno 61] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "tests.py", line 22, in setUp
+    buildTestEnv()
+  File "tests.py", line 14, in buildTestEnv
+    q.dropTestingDB()
+  File "/Users/fionazheng/GoDutch/Do-Dutch/database/local/queries.py", line 30, in dropTestingDB
+    runQuery(query, None, False, None)
+  File "/Users/fionazheng/GoDutch/Do-Dutch/database/local/queries.py", line 7, in runQuery
+    cw = ConnectionWrapper(db)
+  File "/Users/fionazheng/GoDutch/Do-Dutch/database/local/connection.py", line 14, in __init__
+    cursorclass=data.CURSOR_C,
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pymysql/__init__.py", line 94, in Connect
+    return Connection(*args, **kwargs)
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pymysql/connections.py", line 327, in __init__
+    self.connect()
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pymysql/connections.py", line 629, in connect
+    raise exc
+pymysql.err.OperationalError: (2003, "Can't connect to MySQL server on '127.0.0.1' ([Errno 61] Connection refused)")
+]]>		</error>
+	</testcase>
+	<testcase classname="TestDB" name="test_create_empty_group_exist" time="0.001">
+		<error message="(2003, &quot;Can't connect to MySQL server on '127.0.0.1' ([Errno 61] Connection refused)&quot;)" type="OperationalError">
+<![CDATA[Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pymysql/connections.py", line 582, in connect
+    **kwargs)
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/socket.py", line 727, in create_connection
+    raise err
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/socket.py", line 716, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [Errno 61] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "tests.py", line 22, in setUp
+    buildTestEnv()
+  File "tests.py", line 14, in buildTestEnv
+    q.dropTestingDB()
+  File "/Users/fionazheng/GoDutch/Do-Dutch/database/local/queries.py", line 30, in dropTestingDB
+    runQuery(query, None, False, None)
+  File "/Users/fionazheng/GoDutch/Do-Dutch/database/local/queries.py", line 7, in runQuery
+    cw = ConnectionWrapper(db)
+  File "/Users/fionazheng/GoDutch/Do-Dutch/database/local/connection.py", line 14, in __init__
+    cursorclass=data.CURSOR_C,
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pymysql/__init__.py", line 94, in Connect
+    return Connection(*args, **kwargs)
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pymysql/connections.py", line 327, in __init__
+    self.connect()
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pymysql/connections.py", line 629, in connect
+    raise exc
+pymysql.err.OperationalError: (2003, "Can't connect to MySQL server on '127.0.0.1' ([Errno 61] Connection refused)")
+]]>		</error>
+	</testcase>
+	<testcase classname="TestDB" name="test_create_empty_group_notexist" time="0.001">
+		<error message="(2003, &quot;Can't connect to MySQL server on '127.0.0.1' ([Errno 61] Connection refused)&quot;)" type="OperationalError">
+<![CDATA[Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pymysql/connections.py", line 582, in connect
+    **kwargs)
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/socket.py", line 727, in create_connection
+    raise err
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/socket.py", line 716, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [Errno 61] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "tests.py", line 22, in setUp
+    buildTestEnv()
+  File "tests.py", line 14, in buildTestEnv
+    q.dropTestingDB()
+  File "/Users/fionazheng/GoDutch/Do-Dutch/database/local/queries.py", line 30, in dropTestingDB
+    runQuery(query, None, False, None)
+  File "/Users/fionazheng/GoDutch/Do-Dutch/database/local/queries.py", line 7, in runQuery
+    cw = ConnectionWrapper(db)
+  File "/Users/fionazheng/GoDutch/Do-Dutch/database/local/connection.py", line 14, in __init__
+    cursorclass=data.CURSOR_C,
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pymysql/__init__.py", line 94, in Connect
+    return Connection(*args, **kwargs)
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pymysql/connections.py", line 327, in __init__
+    self.connect()
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pymysql/connections.py", line 629, in connect
+    raise exc
+pymysql.err.OperationalError: (2003, "Can't connect to MySQL server on '127.0.0.1' ([Errno 61] Connection refused)")
+]]>		</error>
+	</testcase>
+	<testcase classname="TestDB" name="test_create_group_with_members" time="0.002">
+		<error message="(2003, &quot;Can't connect to MySQL server on '127.0.0.1' ([Errno 61] Connection refused)&quot;)" type="OperationalError">
+<![CDATA[Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pymysql/connections.py", line 582, in connect
+    **kwargs)
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/socket.py", line 727, in create_connection
+    raise err
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/socket.py", line 716, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [Errno 61] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "tests.py", line 22, in setUp
+    buildTestEnv()
+  File "tests.py", line 14, in buildTestEnv
+    q.dropTestingDB()
+  File "/Users/fionazheng/GoDutch/Do-Dutch/database/local/queries.py", line 30, in dropTestingDB
+    runQuery(query, None, False, None)
+  File "/Users/fionazheng/GoDutch/Do-Dutch/database/local/queries.py", line 7, in runQuery
+    cw = ConnectionWrapper(db)
+  File "/Users/fionazheng/GoDutch/Do-Dutch/database/local/connection.py", line 14, in __init__
+    cursorclass=data.CURSOR_C,
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pymysql/__init__.py", line 94, in Connect
+    return Connection(*args, **kwargs)
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pymysql/connections.py", line 327, in __init__
+    self.connect()
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pymysql/connections.py", line 629, in connect
+    raise exc
+pymysql.err.OperationalError: (2003, "Can't connect to MySQL server on '127.0.0.1' ([Errno 61] Connection refused)")
+]]>		</error>
+	</testcase>
+	<testcase classname="TestDB" name="test_create_item" time="0.001">
+		<error message="(2003, &quot;Can't connect to MySQL server on '127.0.0.1' ([Errno 61] Connection refused)&quot;)" type="OperationalError">
+<![CDATA[Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pymysql/connections.py", line 582, in connect
+    **kwargs)
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/socket.py", line 727, in create_connection
+    raise err
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/socket.py", line 716, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [Errno 61] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "tests.py", line 22, in setUp
+    buildTestEnv()
+  File "tests.py", line 14, in buildTestEnv
+    q.dropTestingDB()
+  File "/Users/fionazheng/GoDutch/Do-Dutch/database/local/queries.py", line 30, in dropTestingDB
+    runQuery(query, None, False, None)
+  File "/Users/fionazheng/GoDutch/Do-Dutch/database/local/queries.py", line 7, in runQuery
+    cw = ConnectionWrapper(db)
+  File "/Users/fionazheng/GoDutch/Do-Dutch/database/local/connection.py", line 14, in __init__
+    cursorclass=data.CURSOR_C,
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pymysql/__init__.py", line 94, in Connect
+    return Connection(*args, **kwargs)
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pymysql/connections.py", line 327, in __init__
+    self.connect()
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pymysql/connections.py", line 629, in connect
+    raise exc
+pymysql.err.OperationalError: (2003, "Can't connect to MySQL server on '127.0.0.1' ([Errno 61] Connection refused)")
+]]>		</error>
+	</testcase>
+	<testcase classname="TestDB" name="test_create_order" time="0.001">
+		<error message="(2003, &quot;Can't connect to MySQL server on '127.0.0.1' ([Errno 61] Connection refused)&quot;)" type="OperationalError">
+<![CDATA[Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pymysql/connections.py", line 582, in connect
+    **kwargs)
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/socket.py", line 727, in create_connection
+    raise err
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/socket.py", line 716, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [Errno 61] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "tests.py", line 22, in setUp
+    buildTestEnv()
+  File "tests.py", line 14, in buildTestEnv
+    q.dropTestingDB()
+  File "/Users/fionazheng/GoDutch/Do-Dutch/database/local/queries.py", line 30, in dropTestingDB
+    runQuery(query, None, False, None)
+  File "/Users/fionazheng/GoDutch/Do-Dutch/database/local/queries.py", line 7, in runQuery
+    cw = ConnectionWrapper(db)
+  File "/Users/fionazheng/GoDutch/Do-Dutch/database/local/connection.py", line 14, in __init__
+    cursorclass=data.CURSOR_C,
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pymysql/__init__.py", line 94, in Connect
+    return Connection(*args, **kwargs)
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pymysql/connections.py", line 327, in __init__
+    self.connect()
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pymysql/connections.py", line 629, in connect
+    raise exc
+pymysql.err.OperationalError: (2003, "Can't connect to MySQL server on '127.0.0.1' ([Errno 61] Connection refused)")
+]]>		</error>
+	</testcase>
+	<testcase classname="TestDB" name="test_create_receipt" time="0.001">
+		<error message="(2003, &quot;Can't connect to MySQL server on '127.0.0.1' ([Errno 61] Connection refused)&quot;)" type="OperationalError">
+<![CDATA[Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pymysql/connections.py", line 582, in connect
+    **kwargs)
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/socket.py", line 727, in create_connection
+    raise err
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/socket.py", line 716, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [Errno 61] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "tests.py", line 22, in setUp
+    buildTestEnv()
+  File "tests.py", line 14, in buildTestEnv
+    q.dropTestingDB()
+  File "/Users/fionazheng/GoDutch/Do-Dutch/database/local/queries.py", line 30, in dropTestingDB
+    runQuery(query, None, False, None)
+  File "/Users/fionazheng/GoDutch/Do-Dutch/database/local/queries.py", line 7, in runQuery
+    cw = ConnectionWrapper(db)
+  File "/Users/fionazheng/GoDutch/Do-Dutch/database/local/connection.py", line 14, in __init__
+    cursorclass=data.CURSOR_C,
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pymysql/__init__.py", line 94, in Connect
+    return Connection(*args, **kwargs)
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pymysql/connections.py", line 327, in __init__
+    self.connect()
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pymysql/connections.py", line 629, in connect
+    raise exc
+pymysql.err.OperationalError: (2003, "Can't connect to MySQL server on '127.0.0.1' ([Errno 61] Connection refused)")
+]]>		</error>
+	</testcase>
+	<testcase classname="TestDB" name="test_delete_allocation" time="0.001">
+		<error message="(2003, &quot;Can't connect to MySQL server on '127.0.0.1' ([Errno 61] Connection refused)&quot;)" type="OperationalError">
+<![CDATA[Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pymysql/connections.py", line 582, in connect
+    **kwargs)
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/socket.py", line 727, in create_connection
+    raise err
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/socket.py", line 716, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [Errno 61] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "tests.py", line 22, in setUp
+    buildTestEnv()
+  File "tests.py", line 14, in buildTestEnv
+    q.dropTestingDB()
+  File "/Users/fionazheng/GoDutch/Do-Dutch/database/local/queries.py", line 30, in dropTestingDB
+    runQuery(query, None, False, None)
+  File "/Users/fionazheng/GoDutch/Do-Dutch/database/local/queries.py", line 7, in runQuery
+    cw = ConnectionWrapper(db)
+  File "/Users/fionazheng/GoDutch/Do-Dutch/database/local/connection.py", line 14, in __init__
+    cursorclass=data.CURSOR_C,
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pymysql/__init__.py", line 94, in Connect
+    return Connection(*args, **kwargs)
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pymysql/connections.py", line 327, in __init__
+    self.connect()
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pymysql/connections.py", line 629, in connect
+    raise exc
+pymysql.err.OperationalError: (2003, "Can't connect to MySQL server on '127.0.0.1' ([Errno 61] Connection refused)")
+]]>		</error>
+	</testcase>
+	<testcase classname="TestDB" name="test_delete_group" time="0.001">
+		<error message="(2003, &quot;Can't connect to MySQL server on '127.0.0.1' ([Errno 61] Connection refused)&quot;)" type="OperationalError">
+<![CDATA[Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pymysql/connections.py", line 582, in connect
+    **kwargs)
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/socket.py", line 727, in create_connection
+    raise err
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/socket.py", line 716, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [Errno 61] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "tests.py", line 22, in setUp
+    buildTestEnv()
+  File "tests.py", line 14, in buildTestEnv
+    q.dropTestingDB()
+  File "/Users/fionazheng/GoDutch/Do-Dutch/database/local/queries.py", line 30, in dropTestingDB
+    runQuery(query, None, False, None)
+  File "/Users/fionazheng/GoDutch/Do-Dutch/database/local/queries.py", line 7, in runQuery
+    cw = ConnectionWrapper(db)
+  File "/Users/fionazheng/GoDutch/Do-Dutch/database/local/connection.py", line 14, in __init__
+    cursorclass=data.CURSOR_C,
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pymysql/__init__.py", line 94, in Connect
+    return Connection(*args, **kwargs)
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pymysql/connections.py", line 327, in __init__
+    self.connect()
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pymysql/connections.py", line 629, in connect
+    raise exc
+pymysql.err.OperationalError: (2003, "Can't connect to MySQL server on '127.0.0.1' ([Errno 61] Connection refused)")
+]]>		</error>
+	</testcase>
+	<testcase classname="TestDB" name="test_delete_item" time="0.001">
+		<error message="(2003, &quot;Can't connect to MySQL server on '127.0.0.1' ([Errno 61] Connection refused)&quot;)" type="OperationalError">
+<![CDATA[Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pymysql/connections.py", line 582, in connect
+    **kwargs)
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/socket.py", line 727, in create_connection
+    raise err
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/socket.py", line 716, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [Errno 61] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "tests.py", line 22, in setUp
+    buildTestEnv()
+  File "tests.py", line 14, in buildTestEnv
+    q.dropTestingDB()
+  File "/Users/fionazheng/GoDutch/Do-Dutch/database/local/queries.py", line 30, in dropTestingDB
+    runQuery(query, None, False, None)
+  File "/Users/fionazheng/GoDutch/Do-Dutch/database/local/queries.py", line 7, in runQuery
+    cw = ConnectionWrapper(db)
+  File "/Users/fionazheng/GoDutch/Do-Dutch/database/local/connection.py", line 14, in __init__
+    cursorclass=data.CURSOR_C,
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pymysql/__init__.py", line 94, in Connect
+    return Connection(*args, **kwargs)
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pymysql/connections.py", line 327, in __init__
+    self.connect()
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pymysql/connections.py", line 629, in connect
+    raise exc
+pymysql.err.OperationalError: (2003, "Can't connect to MySQL server on '127.0.0.1' ([Errno 61] Connection refused)")
+]]>		</error>
+	</testcase>
+	<testcase classname="TestDB" name="test_delete_order" time="0.001">
+		<error message="(2003, &quot;Can't connect to MySQL server on '127.0.0.1' ([Errno 61] Connection refused)&quot;)" type="OperationalError">
+<![CDATA[Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pymysql/connections.py", line 582, in connect
+    **kwargs)
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/socket.py", line 727, in create_connection
+    raise err
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/socket.py", line 716, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [Errno 61] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "tests.py", line 22, in setUp
+    buildTestEnv()
+  File "tests.py", line 14, in buildTestEnv
+    q.dropTestingDB()
+  File "/Users/fionazheng/GoDutch/Do-Dutch/database/local/queries.py", line 30, in dropTestingDB
+    runQuery(query, None, False, None)
+  File "/Users/fionazheng/GoDutch/Do-Dutch/database/local/queries.py", line 7, in runQuery
+    cw = ConnectionWrapper(db)
+  File "/Users/fionazheng/GoDutch/Do-Dutch/database/local/connection.py", line 14, in __init__
+    cursorclass=data.CURSOR_C,
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pymysql/__init__.py", line 94, in Connect
+    return Connection(*args, **kwargs)
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pymysql/connections.py", line 327, in __init__
+    self.connect()
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pymysql/connections.py", line 629, in connect
+    raise exc
+pymysql.err.OperationalError: (2003, "Can't connect to MySQL server on '127.0.0.1' ([Errno 61] Connection refused)")
+]]>		</error>
+	</testcase>
+	<testcase classname="TestDB" name="test_delete_receipt" time="0.001">
+		<error message="(2003, &quot;Can't connect to MySQL server on '127.0.0.1' ([Errno 61] Connection refused)&quot;)" type="OperationalError">
+<![CDATA[Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pymysql/connections.py", line 582, in connect
+    **kwargs)
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/socket.py", line 727, in create_connection
+    raise err
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/socket.py", line 716, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [Errno 61] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "tests.py", line 22, in setUp
+    buildTestEnv()
+  File "tests.py", line 14, in buildTestEnv
+    q.dropTestingDB()
+  File "/Users/fionazheng/GoDutch/Do-Dutch/database/local/queries.py", line 30, in dropTestingDB
+    runQuery(query, None, False, None)
+  File "/Users/fionazheng/GoDutch/Do-Dutch/database/local/queries.py", line 7, in runQuery
+    cw = ConnectionWrapper(db)
+  File "/Users/fionazheng/GoDutch/Do-Dutch/database/local/connection.py", line 14, in __init__
+    cursorclass=data.CURSOR_C,
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pymysql/__init__.py", line 94, in Connect
+    return Connection(*args, **kwargs)
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pymysql/connections.py", line 327, in __init__
+    self.connect()
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pymysql/connections.py", line 629, in connect
+    raise exc
+pymysql.err.OperationalError: (2003, "Can't connect to MySQL server on '127.0.0.1' ([Errno 61] Connection refused)")
+]]>		</error>
+	</testcase>
+	<testcase classname="TestDB" name="test_login_exist" time="0.001">
+		<error message="(2003, &quot;Can't connect to MySQL server on '127.0.0.1' ([Errno 61] Connection refused)&quot;)" type="OperationalError">
+<![CDATA[Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pymysql/connections.py", line 582, in connect
+    **kwargs)
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/socket.py", line 727, in create_connection
+    raise err
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/socket.py", line 716, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [Errno 61] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "tests.py", line 22, in setUp
+    buildTestEnv()
+  File "tests.py", line 14, in buildTestEnv
+    q.dropTestingDB()
+  File "/Users/fionazheng/GoDutch/Do-Dutch/database/local/queries.py", line 30, in dropTestingDB
+    runQuery(query, None, False, None)
+  File "/Users/fionazheng/GoDutch/Do-Dutch/database/local/queries.py", line 7, in runQuery
+    cw = ConnectionWrapper(db)
+  File "/Users/fionazheng/GoDutch/Do-Dutch/database/local/connection.py", line 14, in __init__
+    cursorclass=data.CURSOR_C,
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pymysql/__init__.py", line 94, in Connect
+    return Connection(*args, **kwargs)
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pymysql/connections.py", line 327, in __init__
+    self.connect()
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pymysql/connections.py", line 629, in connect
+    raise exc
+pymysql.err.OperationalError: (2003, "Can't connect to MySQL server on '127.0.0.1' ([Errno 61] Connection refused)")
+]]>		</error>
+	</testcase>
+	<testcase classname="TestDB" name="test_login_notexist" time="0.001">
+		<error message="(2003, &quot;Can't connect to MySQL server on '127.0.0.1' ([Errno 61] Connection refused)&quot;)" type="OperationalError">
+<![CDATA[Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pymysql/connections.py", line 582, in connect
+    **kwargs)
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/socket.py", line 727, in create_connection
+    raise err
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/socket.py", line 716, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [Errno 61] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "tests.py", line 22, in setUp
+    buildTestEnv()
+  File "tests.py", line 14, in buildTestEnv
+    q.dropTestingDB()
+  File "/Users/fionazheng/GoDutch/Do-Dutch/database/local/queries.py", line 30, in dropTestingDB
+    runQuery(query, None, False, None)
+  File "/Users/fionazheng/GoDutch/Do-Dutch/database/local/queries.py", line 7, in runQuery
+    cw = ConnectionWrapper(db)
+  File "/Users/fionazheng/GoDutch/Do-Dutch/database/local/connection.py", line 14, in __init__
+    cursorclass=data.CURSOR_C,
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pymysql/__init__.py", line 94, in Connect
+    return Connection(*args, **kwargs)
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pymysql/connections.py", line 327, in __init__
+    self.connect()
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pymysql/connections.py", line 629, in connect
+    raise exc
+pymysql.err.OperationalError: (2003, "Can't connect to MySQL server on '127.0.0.1' ([Errno 61] Connection refused)")
+]]>		</error>
+	</testcase>
+	<testcase classname="TestDB" name="test_modify_allocation_invalid" time="0.001">
+		<error message="(2003, &quot;Can't connect to MySQL server on '127.0.0.1' ([Errno 61] Connection refused)&quot;)" type="OperationalError">
+<![CDATA[Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pymysql/connections.py", line 582, in connect
+    **kwargs)
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/socket.py", line 727, in create_connection
+    raise err
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/socket.py", line 716, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [Errno 61] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "tests.py", line 22, in setUp
+    buildTestEnv()
+  File "tests.py", line 14, in buildTestEnv
+    q.dropTestingDB()
+  File "/Users/fionazheng/GoDutch/Do-Dutch/database/local/queries.py", line 30, in dropTestingDB
+    runQuery(query, None, False, None)
+  File "/Users/fionazheng/GoDutch/Do-Dutch/database/local/queries.py", line 7, in runQuery
+    cw = ConnectionWrapper(db)
+  File "/Users/fionazheng/GoDutch/Do-Dutch/database/local/connection.py", line 14, in __init__
+    cursorclass=data.CURSOR_C,
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pymysql/__init__.py", line 94, in Connect
+    return Connection(*args, **kwargs)
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pymysql/connections.py", line 327, in __init__
+    self.connect()
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pymysql/connections.py", line 629, in connect
+    raise exc
+pymysql.err.OperationalError: (2003, "Can't connect to MySQL server on '127.0.0.1' ([Errno 61] Connection refused)")
+]]>		</error>
+	</testcase>
+	<testcase classname="TestDB" name="test_modify_allocation_valid" time="0.001">
+		<error message="(2003, &quot;Can't connect to MySQL server on '127.0.0.1' ([Errno 61] Connection refused)&quot;)" type="OperationalError">
+<![CDATA[Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pymysql/connections.py", line 582, in connect
+    **kwargs)
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/socket.py", line 727, in create_connection
+    raise err
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/socket.py", line 716, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [Errno 61] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "tests.py", line 22, in setUp
+    buildTestEnv()
+  File "tests.py", line 14, in buildTestEnv
+    q.dropTestingDB()
+  File "/Users/fionazheng/GoDutch/Do-Dutch/database/local/queries.py", line 30, in dropTestingDB
+    runQuery(query, None, False, None)
+  File "/Users/fionazheng/GoDutch/Do-Dutch/database/local/queries.py", line 7, in runQuery
+    cw = ConnectionWrapper(db)
+  File "/Users/fionazheng/GoDutch/Do-Dutch/database/local/connection.py", line 14, in __init__
+    cursorclass=data.CURSOR_C,
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pymysql/__init__.py", line 94, in Connect
+    return Connection(*args, **kwargs)
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pymysql/connections.py", line 327, in __init__
+    self.connect()
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pymysql/connections.py", line 629, in connect
+    raise exc
+pymysql.err.OperationalError: (2003, "Can't connect to MySQL server on '127.0.0.1' ([Errno 61] Connection refused)")
+]]>		</error>
+	</testcase>
+	<testcase classname="TestDB" name="test_modify_item_amount" time="0.001">
+		<error message="(2003, &quot;Can't connect to MySQL server on '127.0.0.1' ([Errno 61] Connection refused)&quot;)" type="OperationalError">
+<![CDATA[Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pymysql/connections.py", line 582, in connect
+    **kwargs)
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/socket.py", line 727, in create_connection
+    raise err
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/socket.py", line 716, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [Errno 61] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "tests.py", line 22, in setUp
+    buildTestEnv()
+  File "tests.py", line 14, in buildTestEnv
+    q.dropTestingDB()
+  File "/Users/fionazheng/GoDutch/Do-Dutch/database/local/queries.py", line 30, in dropTestingDB
+    runQuery(query, None, False, None)
+  File "/Users/fionazheng/GoDutch/Do-Dutch/database/local/queries.py", line 7, in runQuery
+    cw = ConnectionWrapper(db)
+  File "/Users/fionazheng/GoDutch/Do-Dutch/database/local/connection.py", line 14, in __init__
+    cursorclass=data.CURSOR_C,
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pymysql/__init__.py", line 94, in Connect
+    return Connection(*args, **kwargs)
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pymysql/connections.py", line 327, in __init__
+    self.connect()
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pymysql/connections.py", line 629, in connect
+    raise exc
+pymysql.err.OperationalError: (2003, "Can't connect to MySQL server on '127.0.0.1' ([Errno 61] Connection refused)")
+]]>		</error>
+	</testcase>
+	<testcase classname="TestDB" name="test_modify_item_name" time="0.001">
+		<error message="(2003, &quot;Can't connect to MySQL server on '127.0.0.1' ([Errno 61] Connection refused)&quot;)" type="OperationalError">
+<![CDATA[Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pymysql/connections.py", line 582, in connect
+    **kwargs)
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/socket.py", line 727, in create_connection
+    raise err
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/socket.py", line 716, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [Errno 61] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "tests.py", line 22, in setUp
+    buildTestEnv()
+  File "tests.py", line 14, in buildTestEnv
+    q.dropTestingDB()
+  File "/Users/fionazheng/GoDutch/Do-Dutch/database/local/queries.py", line 30, in dropTestingDB
+    runQuery(query, None, False, None)
+  File "/Users/fionazheng/GoDutch/Do-Dutch/database/local/queries.py", line 7, in runQuery
+    cw = ConnectionWrapper(db)
+  File "/Users/fionazheng/GoDutch/Do-Dutch/database/local/connection.py", line 14, in __init__
+    cursorclass=data.CURSOR_C,
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pymysql/__init__.py", line 94, in Connect
+    return Connection(*args, **kwargs)
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pymysql/connections.py", line 327, in __init__
+    self.connect()
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pymysql/connections.py", line 629, in connect
+    raise exc
+pymysql.err.OperationalError: (2003, "Can't connect to MySQL server on '127.0.0.1' ([Errno 61] Connection refused)")
+]]>		</error>
+	</testcase>
+	<testcase classname="TestDB" name="test_remove_members_from_group" time="0.001">
+		<error message="(2003, &quot;Can't connect to MySQL server on '127.0.0.1' ([Errno 61] Connection refused)&quot;)" type="OperationalError">
+<![CDATA[Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pymysql/connections.py", line 582, in connect
+    **kwargs)
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/socket.py", line 727, in create_connection
+    raise err
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/socket.py", line 716, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [Errno 61] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "tests.py", line 22, in setUp
+    buildTestEnv()
+  File "tests.py", line 14, in buildTestEnv
+    q.dropTestingDB()
+  File "/Users/fionazheng/GoDutch/Do-Dutch/database/local/queries.py", line 30, in dropTestingDB
+    runQuery(query, None, False, None)
+  File "/Users/fionazheng/GoDutch/Do-Dutch/database/local/queries.py", line 7, in runQuery
+    cw = ConnectionWrapper(db)
+  File "/Users/fionazheng/GoDutch/Do-Dutch/database/local/connection.py", line 14, in __init__
+    cursorclass=data.CURSOR_C,
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pymysql/__init__.py", line 94, in Connect
+    return Connection(*args, **kwargs)
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pymysql/connections.py", line 327, in __init__
+    self.connect()
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pymysql/connections.py", line 629, in connect
+    raise exc
+pymysql.err.OperationalError: (2003, "Can't connect to MySQL server on '127.0.0.1' ([Errno 61] Connection refused)")
+]]>		</error>
+	</testcase>
+	<testcase classname="TestDB" name="test_sign_up_exist" time="0.001">
+		<error message="(2003, &quot;Can't connect to MySQL server on '127.0.0.1' ([Errno 61] Connection refused)&quot;)" type="OperationalError">
+<![CDATA[Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pymysql/connections.py", line 582, in connect
+    **kwargs)
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/socket.py", line 727, in create_connection
+    raise err
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/socket.py", line 716, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [Errno 61] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "tests.py", line 22, in setUp
+    buildTestEnv()
+  File "tests.py", line 14, in buildTestEnv
+    q.dropTestingDB()
+  File "/Users/fionazheng/GoDutch/Do-Dutch/database/local/queries.py", line 30, in dropTestingDB
+    runQuery(query, None, False, None)
+  File "/Users/fionazheng/GoDutch/Do-Dutch/database/local/queries.py", line 7, in runQuery
+    cw = ConnectionWrapper(db)
+  File "/Users/fionazheng/GoDutch/Do-Dutch/database/local/connection.py", line 14, in __init__
+    cursorclass=data.CURSOR_C,
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pymysql/__init__.py", line 94, in Connect
+    return Connection(*args, **kwargs)
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pymysql/connections.py", line 327, in __init__
+    self.connect()
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pymysql/connections.py", line 629, in connect
+    raise exc
+pymysql.err.OperationalError: (2003, "Can't connect to MySQL server on '127.0.0.1' ([Errno 61] Connection refused)")
+]]>		</error>
+	</testcase>
+	<testcase classname="TestDB" name="test_sign_up_notexist" time="0.001">
+		<error message="(2003, &quot;Can't connect to MySQL server on '127.0.0.1' ([Errno 61] Connection refused)&quot;)" type="OperationalError">
+<![CDATA[Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pymysql/connections.py", line 582, in connect
+    **kwargs)
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/socket.py", line 727, in create_connection
+    raise err
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/socket.py", line 716, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [Errno 61] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "tests.py", line 22, in setUp
+    buildTestEnv()
+  File "tests.py", line 14, in buildTestEnv
+    q.dropTestingDB()
+  File "/Users/fionazheng/GoDutch/Do-Dutch/database/local/queries.py", line 30, in dropTestingDB
+    runQuery(query, None, False, None)
+  File "/Users/fionazheng/GoDutch/Do-Dutch/database/local/queries.py", line 7, in runQuery
+    cw = ConnectionWrapper(db)
+  File "/Users/fionazheng/GoDutch/Do-Dutch/database/local/connection.py", line 14, in __init__
+    cursorclass=data.CURSOR_C,
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pymysql/__init__.py", line 94, in Connect
+    return Connection(*args, **kwargs)
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pymysql/connections.py", line 327, in __init__
+    self.connect()
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pymysql/connections.py", line 629, in connect
+    raise exc
+pymysql.err.OperationalError: (2003, "Can't connect to MySQL server on '127.0.0.1' ([Errno 61] Connection refused)")
+]]>		</error>
+	</testcase>
 	<system-out>
 <![CDATA[]]>	</system-out>
 	<system-err>
-<![CDATA[/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pymysql/cursors.py:329: Warning: (1008, "Can't drop database 'testtest'; database doesn't exist")
-  self._do_get_result()
-]]>	</system-err>
+<![CDATA[]]>	</system-err>
 </testsuite>

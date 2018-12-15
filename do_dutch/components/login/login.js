@@ -47,7 +47,9 @@ export default class LogIn extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.text}> Log In </Text>
+        <View>
+          <Text style={styles.text}> Log In </Text>
+        </View>
         <FormLabel> Username </FormLabel>
         <FormInput
           id="username"
@@ -69,10 +71,17 @@ export default class LogIn extends Component {
 
         <Button
           large
-          backgroundColor="#8e44ad"
+          buttonStyle={{
+            backgroundColor: "#8e44ad",
+            width: 380,
+            height: 100,
+            borderColor: "transparent",
+            borderWidth: 15,
+            borderRadius: 30
+          }}
           icon={{ name: "envira", type: "font-awesome" }}
-          onPress={this.userLogIn}
-          title="login"
+          onPress={e => this.userLogIn()}
+          title="Login"
         />
       </View>
     );
@@ -81,7 +90,7 @@ export default class LogIn extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 23
+    paddingTop: 15
   },
   input: {
     margin: 15,
@@ -92,7 +101,9 @@ const styles = StyleSheet.create({
   text: {
     color: "#566573",
     fontSize: 35,
-    fontWeight: "bold"
+    fontWeight: "bold",
+    top: 15,
+    left: 15
   },
   capitalLetter: {
     color: "#2C3E50",
