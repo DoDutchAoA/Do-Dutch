@@ -216,7 +216,7 @@ def searchUserByKeyword(keyword):
 def getAllFriends(userId):
     result_list = q.searchInfoByConditions(
         "Friends", "friend_id, friend_name, title",
-        "user_id = '%s'", userId,
+        "user_id = '%s' ORDER BY title", userId,
     )
 
     res = {}
@@ -325,5 +325,5 @@ def getGroupChats(group_id):
 
     for res in result:
         res["timestamp"] = res["timestamp"].strftime('%Y-%m-%dT%H:%M:%SZ')
-    print(result)
+
     return result

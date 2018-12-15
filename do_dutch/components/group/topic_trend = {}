@@ -1,0 +1,14 @@
+topic_trend = {}
+
+
+# Create twitter streaming
+val ssc = new SteamingContext(sparkContext, ..)
+val tweets = TwitterUtils.createStream(ssc, auth) 
+
+# transform each tweet into pair (tag, tweet)
+val tag_tweets = tweets.map(tweet => (getATag(tweet), tweet))
+
+# group pairs (tag, tweet) by tags, and transform it into (tag, tweets, number_of_tweets_with_this_tag)
+val topic_trends = tag_tweets.groupByKey().map((key, tweets) => (key, tweets, tweets.count()))
+
+
