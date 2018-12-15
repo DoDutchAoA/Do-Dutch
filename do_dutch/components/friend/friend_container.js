@@ -29,16 +29,18 @@ const FriendStackNavigator = createStackNavigator({
   FriendMain: {
     screen: FriendMain,
     navigationOptions: ({ navigation }) => ({
-      title: "Friends",
-      headerTitleStyle: {
-        color: "#17202a",
-        textAlign: "center",
-        fontFamily: "Montserrat-Regular"
-      },
-      headerStyle: {
-        backgroundColor: "#d5d8dc",
-        textAlign: "center"
-      }
+      headerTitle: (
+        <Text
+          style={{
+            fontFamily: "sans-serif-condensed",
+            textAlign: "center",
+            width: "100%",
+            fontSize: 24
+          }}
+        >
+          G o &nbsp;&nbsp; D u t c h
+        </Text>
+      )
     })
   },
   FriendSearch: {

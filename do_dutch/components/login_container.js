@@ -51,15 +51,17 @@ export default class LoginContainer extends Component {
       return (
         <View>
           <Signup updateLogin={this.updateLogin} />
-          <Text
-            onPress={() => {
-              this.toggleLoginSignup();
-            }}
-          >
-            {" "}
-            *Already have an account?{" "}
-            <Text style={{ color: "#E74C3C" }}>Click here</Text> to login.{" "}
-          </Text>
+          <View style={styles.textSection}>
+            <Text
+              onPress={() => {
+                this.toggleLoginSignup();
+              }}
+            >
+              {" "}
+              *Already have an account?{" "}
+              <Text style={{ color: "#E74C3C" }}>Click here</Text> to login.{" "}
+            </Text>
+          </View>
         </View>
       );
     }
