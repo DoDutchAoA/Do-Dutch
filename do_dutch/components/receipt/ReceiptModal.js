@@ -179,7 +179,7 @@ export class Item extends React.Component {
       );
     }
 
-    // const digits = 2;
+    const digits = 2;
     let splitButtons;
     let payerTotal;
     if (this.props.sharerCount == 1) {
@@ -306,6 +306,7 @@ export default class ReceiptModal extends Component {
         payerTotal += curItem.price;
       }
       total += curItem.price;
+
     }
 
     if (this.state.sharerCount > 1) {
@@ -401,7 +402,7 @@ export default class ReceiptModal extends Component {
                   key={index.toString()}
                 >
                   <Avatar
-                    id="Avatar"
+                    className="Avatar"
                     medium
                     rounded
                     source={group.avatar}
@@ -415,15 +416,16 @@ export default class ReceiptModal extends Component {
                             group: undefined,
                             sharerCount: 1
                           },
-                          this.calculateTotal()
+                          this.calculateTotal
                         );
                       } else {
+
                         this.setState(
                           {
                             group: group,
                             sharerCount: group.members.length
                           },
-                          this.calculateTotal()
+                          this.calculateTotal
                         );
                       }
                     }}
@@ -583,7 +585,7 @@ export default class ReceiptModal extends Component {
             <Text style={{ marginRight: 5, fontWeight: "bold", marginTop: 2 }}>
               Total:
               </Text>
-            <Text style={{ fontSize: 20, fontWeight: "bold" }}>
+            <Text id="splitTotal" style={{ fontSize: 20, fontWeight: "bold" }}>
               {"$" + this.setToFix(this.state.payerTotal, digits)}
             </Text>
             <Text

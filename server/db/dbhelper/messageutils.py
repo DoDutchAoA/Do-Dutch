@@ -20,5 +20,5 @@ def pollingMessage(receiver):
         ),
     )
     if result_list and result_list.__len__() > 0:
-        q.deleteRecordByCondition("MessageQueue", "receiver = '%s'", receiver)
+        q.deleteRecordByCondition("MessageQueue", "receiver_id = '%s'", receiver)
     return result_list

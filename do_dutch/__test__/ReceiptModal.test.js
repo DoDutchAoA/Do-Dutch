@@ -15,8 +15,8 @@ const testItems = [{ id: 0, split: true, price: 5 },
     { id: 1, split: true, price: 4 },
     { id: 2, split: false, price: 10 }];
 
-const testGroups = [ { id: 0, members: [{ id: 0 }, { id: 1 }] },
-                     { id: 1, members: [{ id: 1 }, { id: 2 }] }]
+const testGroups = [ { group_id: 0, members: [{ id: 0 }, { id: 1 }] },
+                     { group_id: 1, members: [{ id: 1 }, { id: 2 }, { id : 3} ]}]
 
 const testReceipt = {
         title: "default", time: "today",
@@ -142,14 +142,46 @@ describe('Checking memberList', () => {
         const wrapper = shallow(<ReceiptModal />)
         wrapper.instance().launch(testReceipt, testGroups, jest.fn())
         expect(wrapper.find('.Group')).toHaveLength(2)
+        // expect(wrapper.find("#splitTotal")).toHaveLength(1)
     })
 
-    // it('When anthoer group is selected, the total price changes', () => {
-    //     const wrapper = shallow(<ReceiptModal />)
-    //     wrapper.setState({ groups: [{ id: 0, numOfMems: 3 }]})
-    //     expect(wrapper.find('#NoGroupPrompt')).toHaveLength(0)
-    //     expect(wrapper.find('#GroupList')).toHaveLength(1)
-    // })
+    it('When anthoer group is selected, the group the receipt assigned to changes', () => {
+        const wrapper = shallow(<ReceiptModal />)
+        wrapper.instance().launch(testReceipt, testGroups, jest.fn())
+
+        //Precondition
+        expect(wrapper.state('group')).toEqual(testGroups[0])
+
+        let avatars = wrapper.find(".Avatar")
+        expect(avatars).toHaveLength(2)
+
+        // let curAva = avatars.get(1)
+        avatars.at(1).simulate('press')
+
+        //Postcondition
+        expect(wrapper.state('group')).toEqual(testGroups[1])
+    })
+
+    it('When anthoer group is selected, the split price changes', () => {
+        const wrapper = shallow(<ReceiptModal />)
+        wrapper.instance().launch(testReceipt, testGroups, jest.fn())
+
+        let prevTotal = (5 + 4) / testGroups[0].members.length + 10
+        let curTotal = (5 + 4) / testGroups[1].members.length + 10
+
+        //precondition
+        expect(wrapper.find("#splitTotal").render().text())
+            .toEqual("$" + prevTotal.toFixed(2))
+
+        //Action
+        wrapper.find(".Avatar").at(1).simulate('press')
+
+        //Postcondition
+        expect(wrapper.find("#splitTotal").render().text())
+            .toEqual("$" + curTotal.toFixed(2))
+
+
+    })
 
     // it('When a group is selected, a checked icon should be rendered', () => {
     //     const wrapper = shallow(<ReceiptModal />)

@@ -139,16 +139,18 @@ let NetworkHelper = {
   pushReceiptData(receipt) {
     if (receipt.group != undefined) {
       receipt.group.members.forEach(member => {
-        fetch(serverURL + "newReceipt", {
-          method: "POST",
-          headers: headers,
-          body: JSON.stringify({
-            sender: window.user_id,
-            receiver: member.member_id,
-            receiptId: "someid",
-            data: JSON.stringify(receipt)
-          })
-        });
+        if (member.member_id != window.user_id) {
+          fetch(serverURL + "newReceipt", {
+            method: "POST",
+            headers: headers,
+            body: JSON.stringify({
+              sender: window.user_id,
+              receiver: member.member_id,
+              receiptId: "fakeID",
+              data: JSON.stringify(receipt)
+            })
+          });
+        }
       });
     }
   },

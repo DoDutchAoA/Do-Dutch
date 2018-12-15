@@ -113,3 +113,9 @@ def insertNewReceipt(sender, receiver, receiptId, data):
 
 def pollingMessage(receiver):
     return m.pollingMessage(receiver)
+
+def addGroupChat(group_id, user_id, user_name, text):
+    return u.addGroupChat(group_id, user_id, user_name, text)
+
+def getGroupChats(group_id):
+    return u.getGroupChats(group_id)
