@@ -111,11 +111,21 @@ def insertNewReceipt(sender, receiver, receiptId, data):
     return m.insertNewReceipt(sender, receiver, receiptId, data)
 
 
+def sendPayment(sender, receiver, receiptId):
+    return m.sendPayment(sender, receiver, receiptId)
+
+
+def sendChallenge(sender, receiver, receiptId):
+    return m.sendChallenge(sender, receiver, receiptId)
+
+
 def pollingMessage(receiver):
     return m.pollingMessage(receiver)
 
+
 def addGroupChat(group_id, user_id, user_name, text):
     return u.addGroupChat(group_id, user_id, user_name, text)
+
 
 def getGroupChats(group_id):
     return u.getGroupChats(group_id)

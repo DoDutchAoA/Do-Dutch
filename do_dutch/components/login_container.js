@@ -40,7 +40,8 @@ export default class LoginContainer extends Component {
             }}
           >
             {" "}
-            Doesn't have an account? Sign up here.{" "}
+            *Not have an account?{" "}
+            <Text style={{ color: "#8e44ad" }}>Sign up</Text> here.{" "}
           </Text>
         </View>
       );
@@ -54,7 +55,8 @@ export default class LoginContainer extends Component {
             }}
           >
             {" "}
-            Already have an account? Click here to login.{" "}
+            *Already have an account?{" "}
+            <Text style={{ color: "#E74C3C" }}>Click here</Text> to login.{" "}
           </Text>
         </View>
       );
@@ -79,9 +81,14 @@ export default class LoginContainer extends Component {
 
   render() {
     return (
-      <View>
-        <Text> Do Dutch </Text>
-
+      <View
+        style={{
+          flex: 1,
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "stretch"
+        }}
+      >
         {this.userAuthentication()}
       </View>
     );

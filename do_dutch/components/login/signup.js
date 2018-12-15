@@ -73,6 +73,7 @@ export default class Signup extends Component {
         />
 
         <Button
+          large
           icon={{ name: "user", type: "font-awesome" }}
           backgroundColor="#E74C3C"
           onPress={e => this.userSignUp(e)}

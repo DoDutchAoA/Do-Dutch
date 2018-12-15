@@ -19,7 +19,7 @@ import {
 } from "react-native-elements";
 
 import Modal from "react-native-modal";
-//import NumericInput from "react-native-numeric-input";
+import NetworkHelper from "./NetworkHelper.js";
 
 const digits = 2;
 
@@ -278,8 +278,9 @@ export default class ReceiptModal extends Component {
       payerTotal: 0,
       sharerTotal: 0,
       image_url: "",
-      groups: [],  //Show all group a user enrolling in
-      group: undefined  //selected group
+      groups: [],
+      isPayer: true,
+      receiptId: 0
     };
   }
 
@@ -340,6 +341,8 @@ export default class ReceiptModal extends Component {
       image_url: receipt.image_url,
       group: receipt.group,
       creator: receipt.creator,
+      isPayer: receipt.creator == window.user_id,
+      receiptId: receipt.receiptId,
       //// Local Info ////
       isModalVisible: true,
       sharerCount: sharerCount,
@@ -525,6 +528,8 @@ export default class ReceiptModal extends Component {
         this.state.time.split(" ")[0] + " " + this.state.time.split(" ")[1];
     }
 
+    let confirmBtnTitle = this.state.isPayer ? "OK" : "Pay";
+    let cancelBtnTitle = this.state.isPayer ? "Cancel" : "Challenge";
     let groupList = this.renderGroupList();
     let memberList = this.renderMemberList();
     let itemList = this.renderItemList();
@@ -603,12 +608,18 @@ export default class ReceiptModal extends Component {
             <Button
               rounded
               id="ReceiptCancel"
-              title="Cancel"
+              title={cancelBtnTitle}
               color="#868686"
               backgroundColor="rgba(0, 0, 0, 0.0)"
               fontSize={15}
               buttonStyle={styles.modalBtn}
               onPress={() => {
+                if (!this.state.isPayer) {
+                  NetworkHelper.sendChallenge(
+                    window.user_id,
+                    this.state.receiptId
+                  );
+                }
                 this.setState({ isModalVisible: false });
               }}
             />
@@ -621,7 +632,18 @@ export default class ReceiptModal extends Component {
               fontSize={15}
               buttonStyle={styles.modalBtn}
               onPress={() => {
+                let paid;
+                if (this.state.isPayer) {
+                  paid = false;
+                } else {
+                  paid = true;
+                  NetworkHelper.sendPayment(
+                    window.user_id,
+                    this.state.receiptId
+                  );
+                }
                 this.state.confirmCallback({
+                  receiptId: this.state.receiptId,
                   total: this.state.total,
                   payerTotal: this.state.payerTotal,
                   sharerTotal: this.state.sharerTotal,
