@@ -102,7 +102,8 @@ let NetworkHelper = {
       accumTotal: "$" + accumTotal.toFixed(2).toString(),
       detectedTotal: "$" + detectedTotal.toFixed(2).toString(),
       image_url: parsedData.path,
-      creator: window.user_id
+      creator: window.user_id,
+      paid: false
     };
   },
 
