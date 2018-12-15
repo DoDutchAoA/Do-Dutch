@@ -42,7 +42,7 @@ react-native run-android
 
 ## Tests
 
-### Unit Test
+### Unit Tests
 
 We utilized Jest and Enzyme to test this application, and unittest to test our back-end database. All test script resides in [here]([here](https://github.com/DoDutchAoA/Do-Dutch/tree/jenkins/do_dutch/__test__)) and [here](https://github.com/DoDutchAoA/Do-Dutch/blob/jenkins/database/server/tests.py). To run test scripts for the front-end, you can  run
 
@@ -50,9 +50,10 @@ We utilized Jest and Enzyme to test this application, and unittest to test our b
 npm test
 ```
 
-Since you have no access to our database, you may not be able to run those tests for our back-end. But you can navigate to [here](https://github.com/DoDutchAoA/Do-Dutch/tree/jenkins/tests/test-reports/coverage) and [here]((https://github.com/DoDutchAoA/Do-Dutch/tree/jenkins/tests/test-reports/unittest)) to check out all test reports. 
+Since you have no access to our database, you may not be able to run those tests for our back-end. But you can navigate to [here](https://github.com/DoDutchAoA/Do-Dutch/tree/jenkins/tests/test-reports/coverage) and [here]((https://github.com/DoDutchAoA/Do-Dutch/tree/jenkins/tests/test-reports/unittest)) to check out all test reports. Below is a coverage report generated when tests are ran locally.
  
 ![alt text](https://github.com/DoDutchAoA/Do-Dutch/blob/jenkins/coverage_local.png)
+
 
 
 ## CI server (Jenkins)
