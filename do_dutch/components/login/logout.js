@@ -40,7 +40,14 @@ export default class Logout extends Component {
         <Text style={styles.text}> Hi Dutcher! </Text>
         <Button
           large
-          backgroundColor="#52BE80"
+          buttonStyle={{
+            backgroundColor: "#52BE80",
+            width: 380,
+            height: 100,
+            borderColor: "transparent",
+            borderWidth: 15,
+            borderRadius: 30
+          }}
           icon={{
             name: "lock"
           }}

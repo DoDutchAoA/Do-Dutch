@@ -76,9 +76,14 @@ export default class LogIn extends Component {
             borderWidth: 15,
             borderRadius: 30
           }}
-          icon={{ name: "envira", type: "font-awesome" }}
+          icon={{ name: "person" }}
           onPress={e => this.userLogIn()}
-          title="Login"
+          titleStyle={{
+            fontWeight: "700",
+            fontSize: 10,
+            fontFamily: "MarkPro Medium"
+          }}
+          title="Log in"
         />
       </View>
     );

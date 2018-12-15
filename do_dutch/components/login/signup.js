@@ -75,7 +75,14 @@ export default class Signup extends Component {
         <Button
           large
           icon={{ name: "user", type: "font-awesome" }}
-          backgroundColor="#E74C3C"
+          buttonStyle={{
+            backgroundColor: "#E74C3C",
+            width: 380,
+            height: 100,
+            borderColor: "transparent",
+            borderWidth: 15,
+            borderRadius: 30
+          }}
           onPress={e => this.userSignUp(e)}
           title="Sign Up"
         />
@@ -88,6 +95,8 @@ const styles = StyleSheet.create({
   text: {
     color: "#1F618D",
     fontSize: 35,
-    fontWeight: "bold"
+    fontWeight: "bold",
+    top: 15,
+    left: 20
   }
 });
