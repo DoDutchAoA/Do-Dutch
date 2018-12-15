@@ -79,9 +79,14 @@ export default class LoginContainer extends Component {
 
   render() {
     return (
-      <View>
-        <Text> Do Dutch </Text>
-
+      <View
+        style={{
+          flex: 1,
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "stretch"
+        }}
+      >
         {this.userAuthentication()}
       </View>
     );
