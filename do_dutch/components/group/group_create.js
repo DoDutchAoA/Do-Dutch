@@ -75,8 +75,21 @@ export default class GroupCreate extends Component {
           onChangeText={text => this.setState({ group_name: text })}
         />
 
-        <Button onPress={e => this.createGroup()} title="Submit" />
-
+        <Button
+          large
+          icon={{ name: "create" }}
+          onPress={e => this.createGroup()}
+          titleStyle={{ fontWeight: "700" }}
+          buttonStyle={{
+            backgroundColor: "#2471A3",
+            width: 375,
+            height: 45,
+            borderColor: "transparent",
+            borderWidth: 3,
+            borderRadius: 8
+          }}
+          title="Submit"
+        />
         <GroupMemberSelect setCheckedValue={this.setCheckedValue} />
       </View>
     );
