@@ -158,6 +158,26 @@ export default class GroupDetail extends Component {
 
         {this.loadOwnerButtons()}
 
+        <Button
+          large
+          icon={{ name: "person" }}
+          onPress={() =>
+            this.props.navigation.navigate("GroupChat", {
+              group_id: this.state.group_id
+            })
+          }
+          titleStyle={{ fontWeight: "700" }}
+          buttonStyle={{
+            backgroundColor: "#FAD7A0",
+            width: 320,
+            height: 45,
+            borderColor: "transparent",
+            borderWidth: 3,
+            borderRadius: 8
+          }}
+          title="Group Chat"
+        />
+
         <View>
           <FlatList
             data={this.state.groupsData}
