@@ -40,18 +40,34 @@ export class ReceiptListItem extends Component {
 
     if (receipt.group != undefined) {
       receipt.group.members.forEach(member => {
-        if (!member.paid) unpaidCount += 1;
-        totalCount += 1;
+        if (member.member_id != window.user_id) {
+          totalCount += 1;
+          if (!(member.payment == "paid")) {
+            unpaidCount += 1;
+          }
+        }
       });
     } else {
       unpaidCount = 0;
       totalCount = 0;
     }
-    if (
-      (this.props.listTitle == "ONGOING" && unpaidCount == 0) ||
-      (this.props.listTitle == "PAST" && unpaidCount > 0)
-    ) {
-      return <View />;
+
+    ///////// DON"T SHOW THIS RECEIPT  /////////////
+    ///////////   Payer    ///////////////
+    if (receipt.creator == window.user_id) {
+      if (
+        (this.props.listTitle == "ONGOING" && unpaidCount == 0) ||
+        (this.props.listTitle == "PAST" && unpaidCount > 0)
+      ) {
+        return <View />;
+      }
+    } else {
+      if (
+        (this.props.listTitle == "ONGOING" && receipt.payment == "paid") ||
+        (this.props.listTitle == "PAST" && !(receipt.payment == "paid"))
+      ) {
+        return <View />;
+      }
     }
 
     let paymentInfo;
@@ -76,24 +92,42 @@ export class ReceiptListItem extends Component {
           </View>
         );
       }
-      ////////////// IS SHARER! ///////////////
-      else {
-        status = "Sharer";
-        statusStyle = styles.sharerTagContainer;
-        let paidPrompt;
-        if (receipt != undefined && receipt.paid) {
-          balance = this.setToFix(0, digits);
-          balanceStyle = styles.greenText;
-          sharerStyle = styles.greenSharerText;
-          paidPrompt = "Paid √";
-        } else {
-          balance = receipt.sharerTotal.toFixed(2);
-          balanceStyle = styles.redText;
-          sharerStyle = styles.redSharerText;
-          paidPrompt = "Unpaid";
-        }
-        paymentInfo = <Text style={sharerStyle}>{paidPrompt}</Text>;
+
+      paymentInfo = (
+        <View style={{ flexDirection: "row" }}>
+          <Text style={sharerStyle}>{totalCount - unpaidCount}</Text>
+          <Text style={{ fontSize: 12, color: "#aaa" }}>
+            /{totalCount} Sharers Paid
+          </Text>
+        </View>
+      );
+    }
+    ////////////// IS SHARER! ///////////////
+    else {
+      status = "Sharer";
+      statusStyle = styles.sharerTagContainer;
+      let paidPrompt;
+      if (receipt.payment == "paid") {
+        balance = (0).toFixed(2);
+        balanceStyle = styles.greenText;
+        sharerStyle = styles.greenSharerText;
+        paidPrompt = "Paid √";
+      } else {
+        balance = receipt.sharerTotal.toFixed(2);
+        balanceStyle = styles.redText;
+        sharerStyle = styles.redSharerText;
+        paidPrompt = "Unpaid";
       }
+      paymentInfo = <Text style={sharerStyle}>{paidPrompt}</Text>;
+    }
+    //////////// AFTER ALL, CHALLENGED //////////////
+    if (receipt.payment == "challenged") {
+      balance = receipt.sharerTotal.toFixed(2);
+      balanceStyle = styles.yellowText;
+      sharerStyle = styles.yellowSharerText;
+      paidPrompt = "Challenged";
+      paymentInfo = <Text style={sharerStyle}>{paidPrompt}</Text>;
+    }
 
     return (
       <TouchableOpacity
@@ -256,6 +290,10 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: "#aa0000"
   },
+  yellowText: {
+    fontSize: 16,
+    color: "#aaaa00"
+  },
   greenSharerText: {
     fontSize: 12,
     color: "#00aa00"
@@ -264,7 +302,10 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: "#aa0000"
   },
-
+  yellowSharerText: {
+    fontSize: 12,
+    color: "#aaaa00"
+  },
   listTitle: {
     fontWeight: "bold",
     backgroundColor: "#ffffff",

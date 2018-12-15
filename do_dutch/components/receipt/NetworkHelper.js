@@ -104,7 +104,7 @@ let NetworkHelper = {
       detectedTotal: "$" + detectedTotal.toFixed(2).toString(),
       image_url: parsedData.path,
       creator: window.user_id,
-      paid: false
+      payment: "unpaid"
     };
   },
 
@@ -208,7 +208,7 @@ let NetworkHelper = {
             group.members.forEach((member, mIndex) => {
               groups[gIndex].members[mIndex].avatar =
                 memberAvatars[parseInt(member.member_id) % 6];
-              groups[gIndex].members[mIndex].paid = false;
+              groups[gIndex].members[mIndex].payment = "unpaid";
             });
           });
           callback(groups);
