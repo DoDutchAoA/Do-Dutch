@@ -44,7 +44,7 @@ const GroupStackNavigator = createStackNavigator({
   GroupCreate: {
     screen: GroupCreate,
     navigationOptions: ({ navigation }) => ({
-      title: "Create new group",
+      title: "Create New Group",
       headerTitleStyle: {
         color: "#17202a",
         textAlign: "center",
@@ -74,7 +74,7 @@ const GroupStackNavigator = createStackNavigator({
   GroupAddMembers: {
     screen: GroupAddMembers,
     navigationOptions: ({ navigation }) => ({
-      title: "Add members",
+      title: "Add Members",
       headerTitleStyle: {
         color: "#17202a",
         textAlign: "center",
@@ -89,7 +89,7 @@ const GroupStackNavigator = createStackNavigator({
   GroupChat: {
     screen: GroupChat,
     navigationOptions: ({ navigation }) => ({
-      title: "Add members",
+      title: "Group Chat",
       headerTitleStyle: {
         color: "#17202a",
         textAlign: "center",
