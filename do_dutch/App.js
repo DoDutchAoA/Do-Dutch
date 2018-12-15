@@ -53,6 +53,7 @@ const App = TabNavigator(
                   alert("Please log in first");
                   return;
                 }
+
                 props.navigation.navigate("FriendContainer", {
                   user_id: window.user_id
                 });

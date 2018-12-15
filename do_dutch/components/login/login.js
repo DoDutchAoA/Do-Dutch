@@ -59,7 +59,7 @@ export default class LogIn extends Component {
         <FormLabel color="#232323"> Password </FormLabel>
         <FormInput
           autoFocus={true}
-          keyboardType="password"
+          secureTextEntry={true}
           value={this.state.password}
           onChangeText={text => this.setState({ password: text })}
         />

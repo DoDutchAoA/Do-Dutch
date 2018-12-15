@@ -21,6 +21,8 @@ export default class GroupChat extends Component {
       new_comment: ""
     };
 
+    window.foo("yes");
+
     window.group_id_for_chats = undefined;
 
     NetworkHelper.beginPollingGroupChats(10000, messages => {
@@ -124,11 +126,20 @@ export default class GroupChat extends Component {
             value={this.state.new_comment}
             onChangeText={text => this.setState({ new_comment: text })}
           />
+
           <Button
             large
-            backgroundColor="#8e44ad"
-            icon={{ name: "envira", type: "font-awesome" }}
+            icon={{ name: "send" }}
             onPress={e => this.addComment()}
+            titleStyle={{ fontWeight: "700" }}
+            buttonStyle={{
+              backgroundColor: "#1ABC9C",
+              width: 375,
+              height: 45,
+              borderColor: "transparent",
+              borderWidth: 3,
+              borderRadius: 8
+            }}
             title="Send"
           />
         </View>

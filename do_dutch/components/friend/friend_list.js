@@ -5,7 +5,8 @@ import {
   StyleSheet,
   Text,
   View,
-  ScrollView
+  ScrollView,
+  Alert
 } from "react-native";
 
 import { Button, CheckBox } from "react-native-elements";
@@ -100,10 +101,10 @@ export default class FriendList extends Component {
     })
       .then(response => {
         if (JSON.parse(response._bodyText)["status"] === true) {
-          alert("Delete friend " + friend_name);
+          Alert.alert("Success", "Delete friend " + friend_name);
           this.loadFriendsData("delete");
         } else {
-          alert("Fail to delete friend " + friend_name);
+          Alert.alert("Fail", "Fail to delete friend " + friend_name);
         }
       })
       .catch(error => {
@@ -207,6 +208,22 @@ export default class FriendList extends Component {
     return (
       <View>
         {this.loadDeleteFriendButton()}
+        <Button
+          onPress={() => {
+            this.loadFriendsData("list");
+          }}
+          icon={{ name: "search", type: "font-awesome" }}
+          buttonStyle={{
+            backgroundColor: "#3498DB",
+            width: 370,
+            height: 45,
+            borderColor: "transparent",
+            borderWidth: 2,
+            borderRadius: 7
+          }}
+          titleStyle={{ fontWeight: "700" }}
+          title="Reload Friends"
+        />
         {this.loadAllFriends()}
       </View>
     );
