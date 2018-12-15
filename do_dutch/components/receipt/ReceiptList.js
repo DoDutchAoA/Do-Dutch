@@ -18,17 +18,7 @@ export class ReceiptListItem extends Component {
     super(props);
 
     this.state = {
-      image_url: props.image_url,
-      title: props.title,
-      total: props.total,
-      payerTotal: props.payerTotal,
-      sharerTotal: props.sharerTotal,
-      place: props.place,
-      time: props.time,
-      items: props.items,
-      group: props.group,
-      creator: props.creator,
-      listTitle: props.listTitle
+      receipt: props.receipt
     };
   }
 
@@ -37,13 +27,18 @@ export class ReceiptListItem extends Component {
   }
 
   render() {
+
+    if (!this.state.receipt)
+      return null;
+
+    let receipt = this.state.receipt;
     let balance = "$0.00",
       status;
     let unpaidCount = 0,
       totalCount = 0;
     let statusStyle, balanceStyle, sharerStyle;
-    if (this.state.group != undefined) {
-      this.state.group.members.forEach(member => {
+    if (receipt.group != undefined) {
+      receipt.group.members.forEach(member => {
         if (!member.paid) unpaidCount += 1;
         totalCount += 1;
       });
@@ -52,66 +47,76 @@ export class ReceiptListItem extends Component {
       totalCount = 0;
     }
     if (
-      (this.state.listTitle == "ONGOING" && unpaidCount == 0) ||
-      (this.state.listTitle == "PAST" && unpaidCount > 0)
+      (this.props.listTitle == "ONGOING" && unpaidCount == 0) ||
+      (this.props.listTitle == "PAST" && unpaidCount > 0)
     ) {
       return <View />;
     }
 
-    if (this.state.creator == window.user_id) {
-      status = "Payer";
-      statusStyle = styles.payerTagContainer;
-      balance = this.setToFix(-this.state.sharerTotal * unpaidCount, digits);
-      // (-this.state.sharerTotal * unpaidCount).toFixed(2);
-      if (unpaidCount == 0) {
-        balanceStyle = styles.greenText;
-        sharerStyle = styles.greenSharerText;
-      } else {
-        balanceStyle = styles.redText;
-        sharerStyle = styles.redSharerText;
+    let paymentInfo;
+    ////////////// IS PAYER! /////////////////
+      if (receipt.creator == window.user_id) {
+        status = "Payer";
+        statusStyle = styles.payerTagContainer;
+        balance = this.setToFix(-receipt.sharerTotal * unpaidCount, digits);
+        if (unpaidCount == 0) {
+          balanceStyle = styles.greenText;
+          sharerStyle = styles.greenSharerText;
+        } else {
+          balanceStyle = styles.redText;
+          sharerStyle = styles.redSharerText;
+        }
+        paymentInfo = (
+          <View style={{ flexDirection: "row" }}>
+            <Text style={sharerStyle}>{totalCount - unpaidCount}</Text>
+            <Text style={{ fontSize: 12, color: "#aaa" }}>
+              /{totalCount} Sharers Paid
+            </Text>
+          </View>
+        );
       }
-    } else {
-      status = "Sharer";
-      statusStyle = styles.sharerTagContainer;
-      balance = this.setToFix(-this.state.sharerTotal * unpaidCount, digits);
-      (-this.state.sharerTotal * unpaidCount).toFixed(2);
-      if (unpaidCount == 0) {
-        balanceStyle = styles.greenText;
-        sharerStyle = styles.greenSharerText;
-      } else {
-        balanceStyle = styles.redText;
-        sharerStyle = styles.redSharerText;
+      ////////////// IS SHARER! ///////////////
+      else {
+        status = "Sharer";
+        statusStyle = styles.sharerTagContainer;
+        let paidPrompt;
+        if (receipt != undefined && receipt.paid) {
+          balance = this.setToFix(0, digits);
+          balanceStyle = styles.greenText;
+          sharerStyle = styles.greenSharerText;
+          paidPrompt = "Paid √";
+        } else {
+          balance = receipt.sharerTotal.toFixed(2);
+          balanceStyle = styles.redText;
+          sharerStyle = styles.redSharerText;
+          paidPrompt = "Unpaid";
+        }
+        paymentInfo = <Text style={sharerStyle}>{paidPrompt}</Text>;
       }
-    }
 
     return (
       <TouchableOpacity
         onPress={() => this.props.onPressRecord(this.props.index)}
       >
         <View style={styles.rowContainer}>
-          <Image source={{ uri: this.state.image_url }} style={styles.photo} />
+          <Image source={{ uri: receipt.image_url }} style={styles.photo} />
           <View style={{ flex: 1, flexDirection: "column" }}>
             <View style={styles.containerText}>
               <Text style={{ fontSize: 16, color: "#000" }}>
-                {this.state.title}
+                {receipt.title}
               </Text>
               <View style={{ flexDirection: "row" }}>
                 <Text style={balanceStyle}>${balance}</Text>
                 <Text style={{ fontSize: 16, color: "#aaa" }}>
-                  /{ this.setToFix(this.state.total, digits) }
+                  /{this.setToFix(receipt.total, digits)}
                 </Text>
               </View>
             </View>
             <View style={styles.containerText}>
               <Text style={{ fontSize: 10, color: "#aaa" }}>
-                {this.state.place}
+                {receipt.place}
               </Text>
-              <View style={{ flexDirection: "row" }}>
-                <Text style={sharerStyle}>{totalCount - unpaidCount}</Text>
-                <Text style={{ fontSize: 12, color: "#aaa" }}>
-                  /{totalCount} Sharers Paid
-                </Text>
-              </View>
+              {paymentInfo}
             </View>
             <View style={styles.containerText}>
               <View style={statusStyle} className="itemOnwerStatus">
@@ -125,7 +130,7 @@ export class ReceiptListItem extends Component {
                 </Text>
               </View>
               <Text style={{ fontSize: 10, color: "#aaa" }}>
-                {this.state.time}
+                {receipt.time}
               </Text>
             </View>
           </View>
@@ -140,7 +145,7 @@ export default class ReceiptList extends Component {
     super(props);
 
     this.state = {
-      receiptHistory: this.props.receiptHistory,
+      receiptList: this.props.receiptHistory
     };
   }
 
@@ -155,12 +160,12 @@ export default class ReceiptList extends Component {
 
   setReceiptHistory(receiptHistory) {
     this.setState({
-      receiptHistory: []
+      receiptList: []
     });
 
     setTimeout(() => {
       this.setState({
-        receiptHistory: receiptHistory
+        receiptList: receiptHistory
       });
     }, 0);
   }
@@ -175,13 +180,13 @@ export default class ReceiptList extends Component {
         <FlatList
           data={receiptHistory}
           extraData={this.state}
-          renderItem={({ item, index }) => {
+          renderItem={({ item: receipt, index }) => {
             if (keyword.length > 0) {
               if (
-                !item.title
+                !receipt.title
                   .toLowerCase()
                   .includes(this.props.keyword.toLowerCase()) &&
-                !item.place
+                !receipt.place
                   .toLowerCase()
                   .includes(this.props.keyword.toLowerCase())
               )
@@ -190,19 +195,10 @@ export default class ReceiptList extends Component {
             return (
               ///////////////// DATA DEFINE ///////////////////
               <ReceiptListItem
-                onPressRecord={this.props.onPressRecord}
-                image_url={item.image_url}
-                title={item.title}
-                total={item.total}
-                payerTotal={item.payerTotal}
-                sharerTotal={item.sharerTotal}
-                place={item.place}
-                time={item.time}
-                creator={item.creator}
-                items={item.items}
-                group={item.group}
                 index={index}
+                onPressRecord={this.props.onPressRecord}
                 listTitle={this.props.listTitle}
+                receipt={receipt}
               />
             );
           }}
@@ -306,7 +302,7 @@ const styles = StyleSheet.create({
   sharerTagContainer: {
     backgroundColor: "steelblue",
     borderRadius: 2,
-    width: 60,
+    width: 40,
     alignItems: "center",
     marginTop: 3
   },

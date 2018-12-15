@@ -24,25 +24,27 @@ export default class HomeScreen extends Component {
 
   constructor(props) {
     super(props);
-    window.user_id = 1;
-    window.username = "sharer";
+    window.user_id = 2;
+    window.username = "payer";
 
     if (window.user_id !== undefined) {
       DataHelper.getFromLocal(window.user_id.toString(), data => {
         this.saveReceiptHistory(JSON.parse(data));
       });
-      NetworkHelper.beginPollingReceipt(10000, json => {
-        if (json.length > 0) {
-          let newReceipt = json[0].data;
+      NetworkHelper.beginPollingReceipt(10000, messages => {
+        if (messages.length > 0) {
           let history = this.state.receiptHistory;
-          let index = history.findIndex(receipt => {
-            receipt.receiptId == newReceipt.receiptId;
+          messages.forEach(message => {
+            let newReceipt = message.data;
+            let index = history.findIndex(receipt => {
+              receipt.receiptId == newReceipt.receiptId;
+            });
+            if (index != -1) {
+              history[index] = newReceipt;
+            } else {
+              history.push(JSON.parse(newReceipt));
+            }
           });
-          if (index != -1) {
-            history[index] = newReceipt;
-          } else {
-            history.push(JSON.parse(newReceipt));
-          }
           this.saveReceiptHistory(history);
         }
       });

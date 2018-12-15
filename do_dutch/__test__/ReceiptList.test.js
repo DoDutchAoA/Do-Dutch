@@ -12,6 +12,21 @@ import { ReceiptListItem } from '../components/receipt/ReceiptList';
 
 enzyme.configure({ adapter: new Adapter() });
 
+const testItems = [{ id: 0, split: true, price: 5 },
+    { id: 1, split: true, price: 4 },
+    { id: 2, split: false, price: 10 }];
+
+const testGroups = [{
+        id: 0,
+        members: [{ id: 0 }, { id: 1 }]
+}]
+
+const testReceipt = {
+        title: "default", time: "today",
+        items: testItems, image_url: "",
+        status: "", group: testGroups[0]
+}
+
 describe('Checking the rendering of ReceiptList', () => {
 
     it('A divider should be rendered', () => {
@@ -59,7 +74,7 @@ describe('Checking the functionaliies of ReceiptList', () => {
 describe('Checking the rendering of ReceiptListItem', () => {
 
     it('A touchableOpacity should be rendered', () => {
-        const wrapper = shallow(<ReceiptListItem />)
+        const wrapper = shallow(<ReceiptListItem receipt={testReceipt} />)
         expect(wrapper.find('TouchableOpacity')).toHaveLength(1)
     })
 

@@ -179,7 +179,7 @@ export class Item extends React.Component {
       );
     }
 
-    const digits = 2;
+    // const digits = 2;
     let splitButtons;
     let payerTotal;
     if (this.props.sharerCount == 1) {
@@ -188,14 +188,8 @@ export class Item extends React.Component {
     } else {
       splitButtons = ["Split", "All"];
       if (this.state.data.split) {
-<<<<<<< HEAD
         let payment = this.props.data.price / (this.props.sharerCount + 1);
         payerTotal = this.setToFix(payment, digits);
-=======
-        payerTotal = (this.props.data.price / this.props.sharerCount).toFixed(
-          2
-        );
->>>>>>> 386e11dcc5b2dff2300b5df4fd0d6e975810f564
       } else {
         payerTotal = this.setToFix(this.props.data.price, digits);
       }
@@ -289,10 +283,6 @@ export default class ReceiptModal extends Component {
     };
   }
 
-  // onClick = () => {
-  //   this.item.method();
-  // };
-
   componentDidMount() {
     if (this.props.onRef)
       this.props.onRef(this);
@@ -308,7 +298,6 @@ export default class ReceiptModal extends Component {
     let total = 0;
 
     for (let index in this.state.receiptItems) {
-
       let curItem = this.state.receiptItems[index];
 
       if (curItem.split) {
@@ -319,8 +308,8 @@ export default class ReceiptModal extends Component {
       total += curItem.price;
     }
 
-    if (this.state.sharerCount != 0) {
-      sharerTotal = (total - payerTotal) / this.state.sharerCount;
+    if (this.state.sharerCount > 1) {
+      sharerTotal = (total - payerTotal) / (this.state.sharerCount - 1);
     } else {
       sharerTotal = 0;
     }
@@ -339,9 +328,8 @@ export default class ReceiptModal extends Component {
   launch(receipt, groups, confirmCallback) {
     let sharerCount = 1;
     if (receipt.group != undefined && receipt.group.members != undefined) {
-      sharerCount = receipt.group.members.length - 1;
+      sharerCount = receipt.group.members.length;
     }
-    // let d = new Date();
 
     this.setState({
       //   //// Receipt Info ////
@@ -357,6 +345,8 @@ export default class ReceiptModal extends Component {
       confirmCallback: confirmCallback,
       groups: groups
     });
+
+    // console.log("in launch", this.state.sharerCount);
 
     this.calculateTotal();
   }

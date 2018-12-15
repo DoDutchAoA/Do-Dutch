@@ -92,16 +92,19 @@ describe('Checking calculation', () => {
 
     it('Checking calculateTotal()', () => {
 
+        let numOfMems = testGroups[0].members.length
+
         const wrapper = shallow(<ReceiptModal />)
-        wrapper.setState({receiptItems: testItems, sharerCount: 1})
+        wrapper.setState({receiptItems: testItems, sharerCount: numOfMems})
+
 
         //Should be 0 before calculation
         expect(wrapper.state('total')).toEqual(0)
 
         wrapper.instance().calculateTotal()
 
-        let sharerTotal = (5 + 4) / 2
-        let payerTotal = (5 + 4) / 2 + 10
+        let sharerTotal = (5 + 4) / numOfMems
+        let payerTotal = (5 + 4) / numOfMems + 10
         let total = 5 + 4 + 10
         expect(wrapper.state('total')).toEqual(total)
         expect(wrapper.state('sharerTotal')).toEqual(sharerTotal)
@@ -110,6 +113,9 @@ describe('Checking calculation', () => {
     })
 
     it('calculateTotal() is called when a modal is launched', () => {
+
+        let numOfMems = testGroups[0].members.length
+
         const wrapper = shallow(<ReceiptModal
             onRef={jest.fn()}
             data={[]}
@@ -123,8 +129,8 @@ describe('Checking calculation', () => {
         wrapper.instance().launch(testReceipt, testGroups, jest.fn())
 
         //Post condition
-        let sharerTotal = (5 + 4) / 2
-        let payerTotal = (5 + 4) / 2 + 10
+        let sharerTotal = (5 + 4) / numOfMems
+        let payerTotal = (5 + 4) / numOfMems + 10
         let total = 5 + 4 + 10
         expect(wrapper.state('total')).toEqual(total)
         expect(wrapper.state('sharerTotal')).toEqual(sharerTotal)
