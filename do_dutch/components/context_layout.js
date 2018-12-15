@@ -4,6 +4,7 @@ import Camera from "./receipt_actions/camera.js";
 import Form from "./receipt_actions/fetch.js";
 import ReceiptScreen from "./receipt_actions/receipt_screen.js";
 import HomeScreen from "./home_screen.js";
+import { StyleSheet, Text } from "react-native";
 
 export default class ContextLayout extends Component {
   render() {
@@ -19,16 +20,18 @@ const AppStackNavigator = createStackNavigator({
   Home: {
     screen: HomeScreen,
     navigationOptions: ({ navigation }) => ({
-      title: "Go Dutch!",
-      headerTitleStyle: {
-        color: "#17202a",
-        textAlign: "center",
-        fontFamily: "Montserrat-Regular"
-      },
-      headerStyle: {
-        backgroundColor: "#d5d8dc",
-        textAlign: "center"
-      }
+      headerTitle: (
+        <Text
+          style={{
+            fontFamily: "sans-serif-condensed",
+            textAlign: "center",
+            width: "100%",
+            fontSize: 24
+          }}
+        >
+          G o &nbsp;&nbsp; D u t c h
+        </Text>
+      )
     })
   },
   Camera: {
@@ -38,7 +41,7 @@ const AppStackNavigator = createStackNavigator({
       headerTitleStyle: {
         color: "#17202a",
         textAlign: "center",
-        fontFamily: "Montserrat-Regular"
+        fontFamily: "Copperplate-Bold"
       },
       headerStyle: {
         backgroundColor: "#d5d8dc",

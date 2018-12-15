@@ -23,11 +23,11 @@ export default class HomeScreen extends Component {
 
   constructor(props) {
     super(props);
-    window.user_id = 2;
-    window.username = "payer";
+    // window.user_id = 3;
+    // window.username = "test64";
 
-    // window.user_id = 8;
-    // window.username = "Sara";
+    window.user_id = 8;
+    window.username = "Sara";
 
     if (window.user_id !== undefined) {
       DataHelper.getFromLocal(window.user_id.toString(), data => {
