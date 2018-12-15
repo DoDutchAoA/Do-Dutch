@@ -25,18 +25,23 @@ export default class HomeScreen extends Component {
     super(props);
     window.user_id = 1;
     window.username = "sharer";
-    this.construct();
-  }
 
-  construct() {
     if (window.user_id !== undefined) {
       DataHelper.getFromLocal(window.user_id.toString(), data => {
         this.saveReceiptHistory(JSON.parse(data));
       });
       NetworkHelper.beginPollingReceipt(10000, json => {
         if (json.length > 0) {
+          let newReceipt = json[0].data;
           let history = this.state.receiptHistory;
-          history.push(JSON.parse(json[0].data));
+          let index = history.findIndex(receipt => {
+            receipt.receiptId == newReceipt.receiptId;
+          });
+          if (index != -1) {
+            history[index] = newReceipt;
+          } else {
+            history.push(JSON.parse(newReceipt));
+          }
           this.saveReceiptHistory(history);
         }
       });
@@ -80,10 +85,10 @@ export default class HomeScreen extends Component {
         //////////// CONFIRMATION CALLBACK /////////////
         if (isNewReceipt) {
           history.push(confirmedReceiptData);
-          NetworkHelper.uploadReceiptData(confirmedReceiptData);
         } else {
           history[index] = confirmedReceiptData;
         }
+        NetworkHelper.pushReceiptData(confirmedReceiptData);
         this.saveReceiptHistory(history);
       });
     });
@@ -119,31 +124,33 @@ export default class HomeScreen extends Component {
       }
       ////////////////  ONGOING LIST  /////////////////
       else {
-        ongoingListView = (
-          <ReceiptList
-            onRef={ref => this.setState({ ongoingList: ref })}
-            listTitle="ONGOING"
-            prompt=""
-            keyword=""
-            onPressRecord={index => {
-              this.launchModal(false, index);
-            }}
-            receiptHistory={this.state.receiptHistory}
-          />
-        );
-        /////////////////  PAST LIST  //////////////////
-        pastListView = (
-          <ReceiptList
-            onRef={ref => this.setState({ pastList: ref })}
-            listTitle="PAST"
-            prompt="No Record"
-            keyword=""
-            onPressRecord={index => {
-              this.launchModal(false, index);
-            }}
-            receiptHistory={this.state.receiptHistory}
-          />
-        );
+        if (this.state.receiptHistory.length > 0) {
+          ongoingListView = (
+            <ReceiptList
+              onRef={ref => this.setState({ ongoingList: ref })}
+              listTitle="ONGOING"
+              prompt=""
+              keyword=""
+              onPressRecord={index => {
+                this.launchModal(false, index);
+              }}
+              receiptHistory={this.state.receiptHistory}
+            />
+          );
+          /////////////////  PAST LIST  //////////////////
+          pastListView = (
+            <ReceiptList
+              onRef={ref => this.setState({ pastList: ref })}
+              listTitle="PAST"
+              prompt=""
+              keyword=""
+              onPressRecord={index => {
+                this.launchModal(false, index);
+              }}
+              receiptHistory={this.state.receiptHistory}
+            />
+          );
+        }
       }
     }
 
@@ -199,7 +206,7 @@ export default class HomeScreen extends Component {
         <ActionButton buttonColor="rgba(63,81,181,1.0)">
           <ActionButton.Item
             buttonColor="#9b59b6"
-            title="New Photo"
+            title="New Receipt"
             onPress={() => {
               NetworkHelper.uploadReceiptPhoto(
                 ///////  IMAGE SELECTED CALLBACK  ///////
