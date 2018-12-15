@@ -75,17 +75,35 @@ export default class GroupMain extends Component {
     </View>
   );
 
+  renderSeparator = () => (
+    <View
+      style={{
+        backgroundColor: "#ABB2B9",
+        height: 0.5
+      }}
+    />
+  );
+
   render() {
     return (
       <View>
-        <Text> Group Main </Text>
         <Button
+          large
+          icon={{ name: "group" }}
           onPress={() => {
             this.props.navigation.navigate("GroupCreate");
           }}
-          title="Create a new group"
+          titleStyle={{ fontWeight: "700" }}
+          buttonStyle={{
+            backgroundColor: "#16A085",
+            width: 370,
+            height: 45,
+            borderColor: "transparent",
+            borderWidth: 0,
+            borderRadius: 5
+          }}
+          title="Create New Group"
         />
-
         <View>
           <FlatList
             data={this.state.groupsData}
@@ -104,6 +122,7 @@ export default class GroupMain extends Component {
                 {item.group_name}
               </Text>
             )}
+            ItemSeparatorComponent={this.renderSeparator}
           />
         </View>
       </View>

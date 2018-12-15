@@ -7,7 +7,7 @@ import {
   Image,
   FlatList
 } from "react-native";
-import { Button } from "react-native-elements";
+import { Button, Badge } from "react-native-elements";
 
 export default class GroupDetail extends Component {
   constructor() {
@@ -49,15 +49,39 @@ export default class GroupDetail extends Component {
     if (window.user_id == this.state.owner_id && this.state.owner_id !== -1) {
       return (
         <View>
-          <Button onPress={() => this.deleteGroup()} title="delete group" />
-          <Text> {"\n"} </Text>
           <Button
+            large
+            icon={{ name: "delete" }}
+            onPress={() => this.deleteGroup()}
+            titleStyle={{ fontWeight: "700" }}
+            buttonStyle={{
+              backgroundColor: "#FAD7A0",
+              width: 320,
+              height: 45,
+              borderColor: "transparent",
+              borderWidth: 3,
+              borderRadius: 8
+            }}
+            title="Delete Group"
+          />
+          <Button
+            large
+            icon={{ name: "person" }}
             onPress={() =>
               this.props.navigation.navigate("GroupAddMembers", {
                 group_id: this.state.group_id
               })
             }
-            title="add more members"
+            titleStyle={{ fontWeight: "700" }}
+            buttonStyle={{
+              backgroundColor: "#F7DC6F",
+              width: 320,
+              height: 45,
+              borderColor: "transparent",
+              borderWidth: 3,
+              borderRadius: 8
+            }}
+            title="Add Members"
           />
         </View>
       );
@@ -113,10 +137,24 @@ export default class GroupDetail extends Component {
       });
   }
 
+  renderSeparator = () => (
+    <View
+      style={{
+        backgroundColor: "#ABB2B9",
+        height: 0.5
+      }}
+    />
+  );
+
   render() {
     return (
       <View>
-        <Text> Group name: {this.state.group_name} </Text>
+        <Badge
+          containerStyle={{ backgroundColor: "#D7DBDD" }}
+          textStyle={{ color: "#34495E" }}
+        >
+          <Text style={styles.groupinfo}> {this.state.group_name} </Text>
+        </Badge>
 
         {this.loadOwnerButtons()}
 
@@ -128,6 +166,7 @@ export default class GroupDetail extends Component {
                 {item.member_name}
               </Text>
             )}
+            ItemSeparatorComponent={this.renderSeparator}
           />
         </View>
       </View>
@@ -144,5 +183,10 @@ const styles = StyleSheet.create({
     padding: 10,
     fontSize: 18,
     height: 44
+  },
+  groupinfo: {
+    color: "#283747",
+    fontWeight: "bold",
+    fontSize: 25
   }
 });

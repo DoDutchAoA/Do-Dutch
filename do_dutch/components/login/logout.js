@@ -42,9 +42,7 @@ export default class Logout extends Component {
           large
           backgroundColor="#52BE80"
           icon={{
-            name: "squirrel",
-            type: "octicon",
-            buttonStyle: styles.someButtonStyle
+            name: "lock"
           }}
           onPress={this.props.updateLogout}
           title="Log out"
