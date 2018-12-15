@@ -18,7 +18,7 @@ import {
 } from "react-native-elements";
 
 import Modal from "react-native-modal";
-//import NumericInput from "react-native-numeric-input";
+import NetworkHelper from "./NetworkHelper.js";
 
 class Title extends React.Component {
   constructor(props) {
@@ -270,7 +270,8 @@ export default class ReceiptModal extends Component {
       displayedTotal: 0,
       image_url: "",
       groups: [],
-      isPayer: true
+      isPayer: true,
+      receiptId: 0
     };
   }
 
@@ -325,6 +326,7 @@ export default class ReceiptModal extends Component {
       group: receipt.group,
       creator: receipt.creator,
       isPayer: receipt.creator == window.user_id,
+      receiptId: receipt.receiptId,
       //// Local Info ////
       isModalVisible: true,
       sharerCount: sharerCount,
@@ -475,6 +477,7 @@ export default class ReceiptModal extends Component {
     }
 
     let confirmBtnTitle = this.state.isPayer ? "OK" : "Pay";
+    let cancelBtnTitle = this.state.isPayer ? "Cancel" : "Challenge";
 
     return (
       <Modal isVisible={this.state.isModalVisible}>
@@ -569,12 +572,18 @@ export default class ReceiptModal extends Component {
           <View style={styles.modalBtnContainer}>
             <Button
               rounded
-              title="Cancel"
+              title={cancelBtnTitle}
               color="#868686"
               backgroundColor="rgba(0, 0, 0, 0.0)"
               fontSize={15}
               buttonStyle={styles.modalBtn}
               onPress={() => {
+                if (!this.state.isPayer) {
+                  NetworkHelper.sendChallenge(
+                    window.user_id,
+                    this.state.receiptId
+                  );
+                }
                 this.setState({ isModalVisible: false });
               }}
             />
@@ -586,8 +595,18 @@ export default class ReceiptModal extends Component {
               fontSize={15}
               buttonStyle={styles.modalBtn}
               onPress={() => {
-                let paid = this.state.isPayer ? false : true;
+                let paid;
+                if (this.state.isPayer) {
+                  paid = false;
+                } else {
+                  paid = true;
+                  NetworkHelper.sendPayment(
+                    window.user_id,
+                    this.state.receiptId
+                  );
+                }
                 this.state.confirmCallback({
+                  receiptId: this.state.receiptId,
                   total: this.state.total,
                   payerTotal: this.state.payerTotal,
                   sharerTotal: this.state.sharerTotal,
