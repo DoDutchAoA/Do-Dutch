@@ -42,7 +42,7 @@ react-native run-android
 
 ## Tests
 
-### Unit Test
+### Unit Tests
 
 We utilized Jest and Enzyme to test this application, and unittest to test our back-end database. All test script resides in [here]([here](https://github.com/DoDutchAoA/Do-Dutch/tree/jenkins/do_dutch/__test__)) and [here](https://github.com/DoDutchAoA/Do-Dutch/blob/jenkins/database/server/tests.py). To run test scripts for the front-end, you can  run
 
