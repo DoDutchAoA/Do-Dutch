@@ -7,14 +7,56 @@ import { shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
 import ReceiptModal from '../components/receipt/ReceiptModal';
+import { wrap } from 'module';
 
 enzyme.configure({ adapter: new Adapter() });
+
+const testItems = [{ id: 0, split: true, price: 5 },
+    { id: 1, split: true, price: 4 },
+    { id: 2, split: false, price: 10 }];
+
+const testGroups = [{
+        id: 0,
+        members: [{ id: 0 }, { id: 1 }]
+}]
+
+const testReceipt = {
+        title: "default", time: "today",
+        items: testItems, image_url: "",
+        status: "", group: testGroups[0]
+}
 
 describe('Checking the rendering of the modal', () => {
 
     it('A Modal should be rendered', () => {
         const wrapper = shallow(<ReceiptModal />)
         expect(wrapper.find('ReactNativeModal')).toHaveLength(1)
+    })
+
+    it('A Modal shows up when a modal launch ', () => {
+        const wrapper = shallow(<ReceiptModal />)
+        wrapper.instance().launch(testReceipt, testGroups, jest.fn())
+        expect(wrapper.find('ReactNativeModal').prop('isVisible')).toBeTruthy()
+    })
+
+    it('Press either ok or cancel will shut down the modal', () => {
+        const wrapper = shallow(<ReceiptModal />)
+        wrapper.instance().launch(testReceipt, testGroups, jest.fn())
+
+        let btn = wrapper.find('#ReceiptConfirm')
+        btn.simulate('press')
+
+        expect(wrapper.find('ReactNativeModal').prop('isVisible')).toBeFalsy()
+    })
+
+    it('Press either ok or cancel will shut down the modal', () => {
+        const wrapper = shallow(<ReceiptModal />)
+        wrapper.instance().launch(testReceipt, testGroups, jest.fn())
+
+        let btn = wrapper.find('#ReceiptCancel')
+        btn.simulate('press')
+
+        expect(wrapper.find('ReactNativeModal').prop('isVisible')).toBeFalsy()
     })
 })
 
@@ -36,7 +78,7 @@ describe('Checking group list', () => {
     it('When a group is selected, a checked icon should be rendered', () => {
         const wrapper = shallow(<ReceiptModal />)
 
-        let group0 = { id: 0, members: [{id: 0, paid: 5}] };
+        let group0 = testGroups[0];
 
         wrapper.setState({ groups: [group0],
                            group: group0})
@@ -50,12 +92,8 @@ describe('Checking calculation', () => {
 
     it('Checking calculateTotal()', () => {
 
-        let items = [{id: 0, split: true, price: 5},
-            {id: 1, split: true, price: 4},
-            {id: 2, split: false, price: 10}];
-
         const wrapper = shallow(<ReceiptModal />)
-        wrapper.setState({receiptItems: items, sharerCount: 1})
+        wrapper.setState({receiptItems: testItems, sharerCount: 1})
 
         //Should be 0 before calculation
         expect(wrapper.state('total')).toEqual(0)
@@ -78,26 +116,11 @@ describe('Checking calculation', () => {
             friends={[]}
         />)
 
-        let items = [{ id: 0, split: true, price: 5 },
-        { id: 1, split: true, price: 4 },
-        { id: 2, split: false, price: 10 }];
-
-        let groups = [{
-            id: 0,
-            members: [{ id: 0}, { id: 1 }]
-        }]
-
-        let receipt = {
-            title: "default", time: "today",
-            items: items, image_url: "",
-            status: "", group: groups[0]
-        }
-
         //Checking preconditions
         expect(wrapper.state('total')).toEqual(0)
 
 
-        wrapper.instance().launch(receipt, groups, jest.fn())
+        wrapper.instance().launch(testReceipt, testGroups, jest.fn())
 
         //Post condition
         let sharerTotal = (5 + 4) / 2

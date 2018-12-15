@@ -301,8 +301,6 @@ export default class ReceiptModal extends Component {
     let sharerTotal = 0;
     let total = 0;
 
-    console.log("ri", this.state.receiptItems)
-
     for (let index in this.state.receiptItems) {
 
       let curItem = this.state.receiptItems[index];
@@ -320,8 +318,6 @@ export default class ReceiptModal extends Component {
     } else {
       sharerTotal = 0;
     }
-
-    console.log(total, payerTotal, sharerTotal);
 
     this.setState({
       total: total,
@@ -355,8 +351,6 @@ export default class ReceiptModal extends Component {
       confirmCallback: confirmCallback,
       groups: groups
     });
-
-    console.log(receipt.items, "here??", sharerCount);
 
     this.calculateTotal();
   }
@@ -537,7 +531,6 @@ export default class ReceiptModal extends Component {
     let memberList = this.renderMemberList();
     let itemList = this.renderItemList();
 
-
     return (
       <Modal isVisible={this.state.isModalVisible}>
         <ScrollView
@@ -564,6 +557,7 @@ export default class ReceiptModal extends Component {
           />
           {groupList}
           {memberList}
+
           {/************* Items **************************/}
           <Text
             style={{
@@ -606,9 +600,11 @@ export default class ReceiptModal extends Component {
               {" / " + this.setToFix(this.state.total, digits)}
             </Text>
           </View>
+
           <View style={styles.modalBtnContainer}>
             <Button
               rounded
+              id="ReceiptCancel"
               title="Cancel"
               color="#868686"
               backgroundColor="rgba(0, 0, 0, 0.0)"
@@ -620,6 +616,7 @@ export default class ReceiptModal extends Component {
             />
             <Button
               rounded
+              id="ReceiptConfirm"
               title="OK"
               color="#9ccc65"
               backgroundColor="rgba(0, 0, 0, 0.0)"
