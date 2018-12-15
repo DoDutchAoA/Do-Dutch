@@ -9,6 +9,8 @@ import {
 } from "react-native";
 import { Button, Badge, FormInput } from "react-native-elements";
 
+import NetworkHelper from "./../receipt/NetworkHelper.js";
+
 export default class GroupChat extends Component {
   constructor() {
     super();
@@ -16,8 +18,14 @@ export default class GroupChat extends Component {
     this.state = {
       group_id: -1,
       chatsData: [],
-      nnew_comment: ""
+      new_comment: ""
     };
+
+    window.group_id_for_chats = undefined;
+
+    NetworkHelper.beginPollingGroupChats(10000, messages => {
+      this.setState({ chatsData: messages });
+    });
   }
 
   componentDidMount() {
@@ -36,6 +44,7 @@ export default class GroupChat extends Component {
 
   loadGroupChatData() {
     this.state.group_id = this.props.navigation.getParam("group_id", -1);
+    window.group_id_for_chats = this.state.group_id;
 
     fetch("http://52.12.74.177:5000/getGroupChats", {
       method: "POST",
@@ -75,6 +84,8 @@ export default class GroupChat extends Component {
         if (response._bodyText == false) {
           alert("Fail to send the message.");
         }
+        this.state.new_comment = "";
+        this.loadGroupChatData();
       })
       .catch(error => {
         console.error("Error: group chat insert error." + error);
