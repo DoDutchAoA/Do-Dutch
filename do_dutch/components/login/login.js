@@ -8,7 +8,7 @@ import {
   FormValidationMessage
 } from "react-native-elements";
 
-const fetch = require("node-fetch");
+// const fetch = require("node-fetch");
 
 
 export default class LogIn extends Component {

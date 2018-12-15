@@ -281,7 +281,8 @@ export default class ReceiptModal extends Component {
       groups: [],
       isPayer: true,
       receiptId: 0,
-      payment: ""
+      payment: "",
+      tal: 0
     };
   }
 
@@ -322,6 +323,8 @@ export default class ReceiptModal extends Component {
       payerTotal: payerTotal,
       sharerTotal: sharerTotal
     });
+
+    console.log(total, payerTotal, sharerTotal)
   }
 
   setToFix(number, digits) {
@@ -360,10 +363,11 @@ export default class ReceiptModal extends Component {
     if (this.state.groups == undefined || this.state.groups.length == 0) {
       groupList = (
         <View>
-          <Text id="NoGroupPrompt">"You haven't enrolled in any group."></Text>
+          <Text id="NoGroupPrompt">"You haven't enrolled in any group."</Text>
         </View>
       );
-    } else {
+    }
+    else {
       groupList = (
         <View id="GroupList">
           <Text style={{ marginTop: 10, fontSize: 15, fontWeight: "bold" }}>
@@ -377,7 +381,6 @@ export default class ReceiptModal extends Component {
           >
             {this.state.groups.map((group, index) => {
               let selected;
-
               if (this.state.group != undefined)
                 selected = this.state.group.group_id == group.group_id;
               else selected = false;
@@ -386,8 +389,8 @@ export default class ReceiptModal extends Component {
                 <Icon
                   reverse
                   raised
-                  id="selected"
                   name="check"
+                  id="selected"
                   type="font-awesome"
                   color="#0d0"
                   size={10}
@@ -412,6 +415,8 @@ export default class ReceiptModal extends Component {
                     rounded
                     source={group.avatar}
                     onPress={() => {
+                      console.log("is?", this.state.isPayer);
+                      if (!this.state.isPayer) return;
                       if (
                         this.state.group != undefined &&
                         this.state.group.group_id == group.group_id
@@ -425,6 +430,7 @@ export default class ReceiptModal extends Component {
                         );
                       } else {
 
+
                         this.setState(
                           {
                             group: group,
@@ -432,6 +438,7 @@ export default class ReceiptModal extends Component {
                           },
                           this.calculateTotal
                         );
+
                       }
                     }}
                     activeOpacity={0.7}
@@ -445,70 +452,110 @@ export default class ReceiptModal extends Component {
           </ScrollView>
         </View>
       );
-      if (this.state.group != undefined) {
-        memberList = (
-          <View>
-            <Text style={{ marginTop: 5, fontSize: 13 }}>
-              Share with {this.state.sharerCount - 1} people:
-            </Text>
-            <ScrollView
-              horizontal={true}
-              scrollEnabled={true}
-              contentContainerStyle={styles.modalContent}
-              style={{ height: 90 }}
-            >
-              {this.state.group.members.map((member, index) => {
-                member.key = index.toString();
-                if (member.member_id == window.user_id) return <View />;
-                let avatar =
-                  member.payment == "paid" ||
-                  member.member_id == window.user_id ? (
-                    <Avatar
-                      small
-                      rounded
-                      overlayContainerStyle={{ backgroundColor: "#0d0" }}
-                      icon={{
-                        name: "check",
-                        type: "font-awesome"
-                      }}
-                      avatarStyle={{ backgroundColor: "#fff" }}
-                    />
-                  ) : (
-                    <Avatar
-                      small
-                      rounded
-                      source={member.avatar}
-                      avatarStyle={{ backgroundColor: "#fff" }}
-                    />
-                  );
-                return (
-                  <View
-                    style={{
-                      flexDirection: "column",
-                      alignItems: "center",
-                      marginRight: 10,
-                      marginTop: -10
-                    }}
-                    key={index.toString()}
-                  >
-                    {avatar}
-                    <Text style={{ marginTop: 0, marginBottom: 5 }}>
-                      {member.member_name}
-                    </Text>
-                  </View>
-                );
-              })}
-            </ScrollView>
-          </View>
-        );
-      }
     }
+    return groupList;
+  }
 
-    let confirmBtnTitle = this.state.isPayer ? "OK" : "Pay";
-    let cancelBtnTitle = this.state.isPayer ? "Cancel" : "Challenge";
+  renderMemberList() {
+    if (this.state.group == undefined)
+      return null;
+
+    return (
+      <View>
+        <Text style={{ marginTop: 5, fontSize: 13 }}>
+          Share with {this.state.sharerCount - 1} people:
+          </Text>
+        <ScrollView
+          horizontal={true}
+          scrollEnabled={true}
+          contentContainerStyle={styles.modalContent}
+          style={{ height: 90 }}
+        >
+          {this.state.group.members.map((member, index) => {
+            member.key = index.toString();
+            if (member.member_id == window.user_id) return <View />;
+            let avatar =
+              member.payment == "paid" ||
+                member.member_id == window.user_id ? (
+                  <Avatar
+                    small
+                    rounded
+                    overlayContainerStyle={{ backgroundColor: "#0d0" }}
+                    icon={{
+                      name: "check",
+                      type: "font-awesome"
+                    }}
+                    avatarStyle={{ backgroundColor: "#fff" }}
+                  />
+                ) : (
+                  <Avatar
+                    small
+                    rounded
+                    source={member.avatar}
+                    avatarStyle={{ backgroundColor: "#fff" }}
+                  />
+                );
+            return (
+              <View
+                style={{
+                  flexDirection: "column",
+                  alignItems: "center",
+                  marginRight: 10,
+                  marginTop: -10
+                }}
+                key={index.toString()}
+              >
+                {avatar}
+                <Text style={{ marginTop: 0, marginBottom: 5 }}>
+                  {member.member_name}
+                </Text>
+              </View>
+            );
+          })}
+        </ScrollView>
+      </View>
+    );
+  }
+
+  renderItemList() {
+    if (this.state.receiptItems === undefined)
+      return null;
+
+    return (<List containerStyle={{ marginBottom: 20 }}>
+      {this.state.receiptItems.map((l, index) => {
+        if (!this.state.isPayer && !l.split) {
+          return;
+        }
+        return (
+          <Item
+            data={l}
+            key={index.toString()}
+            sharerCount={this.state.sharerCount}
+            isPayer={this.state.isPayer}
+            updateReceipt={receipt => {
+              let receiptItems = this.state.receiptItems;
+              receiptItems[index] = receipt;
+              this.setState({ receiptItems: receiptItems });
+              this.calculateTotal();
+            }}
+          />
+        );
+      })}
+    </List>);
+  }
+
+  render() {
+    let processedTime;
+    if (this.state.time) {
+      processedTime =
+        this.state.time.split(" ")[0] + " " + this.state.time.split(" ")[1];
+    }
     let groupList = this.renderGroupList();
     let memberList = this.renderMemberList();
     let itemList = this.renderItemList();
+
+    let confirmBtnTitle = this.state.isPayer ? "OK" : "Pay";
+    let cancelBtnTitle = this.state.isPayer ? "Cancel" : "Challenge";
 
     return (
       <Modal isVisible={this.state.isModalVisible}>
@@ -536,13 +583,14 @@ export default class ReceiptModal extends Component {
           />
           {groupList}
           {memberList}
-
-          {/************* Items **************************/}
           <Text
             style={{
-              marginBottom: -10, fontSize: 15,
-              backgroundColor: "#fff", fontWeight: "bold"
-            }}>
+              marginBottom: -10,
+              fontSize: 15,
+              backgroundColor: "#fff",
+              fontWeight: "bold"
+            }}
+          >
             Your Items
           </Text>
           {itemList}
@@ -554,7 +602,7 @@ export default class ReceiptModal extends Component {
           >
             <Text style={{ fontSize: 10, color: "#868686", marginRight: 10 }}>
               $xx (balance) + $xx (amortized tax)
-              </Text>
+            </Text>
           </View>
           <View
             style={{
@@ -565,9 +613,10 @@ export default class ReceiptModal extends Component {
           >
             <Text style={{ marginRight: 5, fontWeight: "bold", marginTop: 2 }}>
               Total:
-              </Text>
-            <Text id="splitTotal" style={{ fontSize: 20, fontWeight: "bold" }}>
-              {"$" + this.setToFix(this.state.payerTotal, digits)}
+            </Text>
+            <Text id="displayedTotal" style={{ fontSize: 20, fontWeight: "bold" }}>
+              {"$" + this.setToFix(this.state.isPayer
+                ? this.state.payerTotal : this.state.sharerTotal, digits)}
             </Text>
             <Text
               style={{
@@ -579,7 +628,6 @@ export default class ReceiptModal extends Component {
               {" / " + this.setToFix(this.state.total, digits)}
             </Text>
           </View>
-
           <View style={styles.modalBtnContainer}>
             <Button
               rounded
@@ -613,7 +661,7 @@ export default class ReceiptModal extends Component {
             <Button
               rounded
               id="ReceiptConfirm"
-              title="OK"
+              title={confirmBtnTitle}
               color="#9ccc65"
               backgroundColor="rgba(0, 0, 0, 0.0)"
               fontSize={15}

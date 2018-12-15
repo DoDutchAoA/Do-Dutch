@@ -72,7 +72,7 @@ export class ReceiptListItem extends Component {
 
     let paymentInfo;
     ////////////// IS PAYER! /////////////////
-      if (receipt.creator == window.user_id) {
+    if (receipt.creator == window.user_id) {
         status = "Payer";
         statusStyle = styles.payerTagContainer;
         balance = this.setToFix(-receipt.sharerTotal * unpaidCount, digits);
@@ -91,16 +91,6 @@ export class ReceiptListItem extends Component {
             </Text>
           </View>
         );
-      }
-
-      paymentInfo = (
-        <View style={{ flexDirection: "row" }}>
-          <Text style={sharerStyle}>{totalCount - unpaidCount}</Text>
-          <Text style={{ fontSize: 12, color: "#aaa" }}>
-            /{totalCount} Sharers Paid
-          </Text>
-        </View>
-      );
     }
     ////////////// IS SHARER! ///////////////
     else {

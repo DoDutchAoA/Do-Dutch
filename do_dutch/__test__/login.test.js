@@ -3,18 +3,13 @@ import * as enzyme from 'enzyme';
 import { shallow, mount } from 'enzyme';
 
 import renderer from 'react-test-renderer';
-// import 'whatwg-fetch'
-// import fetchMock from 'fetch-mock';
+
 
 import ReactSixteenAdapter from 'enzyme-adapter-react-16';
 
 import LogIn from '../components/login/login';
 
 enzyme.configure({ adapter: new ReactSixteenAdapter() });
-
-// const dummyUser = {
-
-// }
 
 describe('Checking rendering', () => {
 
