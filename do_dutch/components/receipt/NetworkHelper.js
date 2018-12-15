@@ -172,6 +172,26 @@ let NetworkHelper = {
     }, interval);
   },
 
+  beginPollingGroupChats(interval, callback) {
+    setInterval(() => {
+      if (window.group_id_for_chats == undefined) {
+        return;
+      }
+
+      fetch(serverURL + "getGroupChats", {
+        method: "POST",
+        headers: headers,
+        body: JSON.stringify({
+          group_id: window.group_id_for_chats
+        })
+      })
+        .then(response => {
+          callback(JSON.parse(response._bodyText));
+        })
+        .catch(error => {});
+    }, interval);
+  },
+
   loadAllGroups(userId, callback) {
     fetch(serverURL + "getAllGroups", {
       method: "POST",

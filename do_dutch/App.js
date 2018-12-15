@@ -24,6 +24,7 @@ const App = TabNavigator(
     LoginContainer: { screen: LoginContainer }
   },
   {
+    initialRouteName: "LoginContainer",
     tabBarPosition: "bottom",
     tabBarComponent: props => {
       return (
@@ -90,9 +91,6 @@ const App = TabNavigator(
         </Footer>
       );
     }
-  },
-  {
-    initialRouteName: "LoginContainer"
   }
 );
 

@@ -23,6 +23,11 @@ export default class FriendSearch extends Component {
   }
 
   addFriend(friend_name, friend_id) {
+    if (friend_id == window.user_id) {
+      alert("cannot add yourself.");
+      return;
+    }
+
     fetch("http://52.12.74.177:5000/addFriend", {
       method: "POST",
       headers: {

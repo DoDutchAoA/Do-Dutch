@@ -9,6 +9,10 @@ import FriendSearch from "./friend_search.js";
 export default class FriendContainer extends Component {
   constructor() {
     super();
+
+    this.state = {
+      update_token: 0
+    };
   }
 
   render() {

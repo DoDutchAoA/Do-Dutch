@@ -46,7 +46,7 @@ export default class Signup extends Component {
   render() {
     return (
       <View>
-        <Text style={styles.text}> Sign Up </Text>
+        <Text style={styles.text}>Sign Up </Text>
 
         <FormLabel> Username </FormLabel>
         <FormInput
