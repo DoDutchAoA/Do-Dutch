@@ -20,26 +20,26 @@ describe('Checking the rendering of the HomeScreen', () => {
     })
 })
 
-describe('Checking the rendering of the container', () => {
+// describe('Checking the rendering of the container', () => {
 
-    // const wrapper = mount(<HomeScreen  />
+//     // const wrapper = mount(<HomeScreen  />
 
-    it('A SearchBar should be rendered', () => {
-        const wrapper = shallow(<HomeScreen />)
-        // console.log(wrapper.debug())
-        expect(wrapper.find('Search')).toHaveLength(1)
-    })
+//     it('A SearchBar should be rendered', () => {
+//         const wrapper = shallow(<HomeScreen />)
+//         // console.log(wrapper.debug())
+//         expect(wrapper.find('Search')).toHaveLength(1)
+//     })
 
-    it('A ScrollableView should be rendered', () => {
-        const wrapper = shallow(<HomeScreen />)
-        // console.log(wrapper.debug())
-        expect(wrapper.find('ScrollView')).toHaveLength(1);
-    })
+//     it('A ScrollableView should be rendered', () => {
+//         const wrapper = shallow(<HomeScreen />)
+//         // console.log(wrapper.debug())
+//         expect(wrapper.find('ScrollView')).toHaveLength(1);
+//     })
 
-    it('A View.Modal should be rendered', () => {
-        const wrapper = shallow(<HomeScreen />)
-        // console.log(wrapper.debug())
-        expect(wrapper.find('Component.Modal')).toHaveLength(1);
-    })
+//     it('A View.Modal should be rendered', () => {
+//         const wrapper = shallow(<HomeScreen />)
+//         // console.log(wrapper.debug())
+//         expect(wrapper.find('Component.Modal')).toHaveLength(1);
+//     })
 
-})
+// })
