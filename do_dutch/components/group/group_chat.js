@@ -97,9 +97,12 @@ export default class GroupChat extends Component {
           <FlatList
             data={this.state.chatsData}
             renderItem={({ item }) => (
-              <Text style={styles.item} key={item.timestamp}>
-                {item.text}
-              </Text>
+              <View style={styles.item} key={item.timestamp}>
+                <Text>
+                  {item.user_name} at {item.timestamp}
+                </Text>
+                <Text>{item.text}</Text>
+              </View>
             )}
             ItemSeparatorComponent={this.renderSeparator}
           />
