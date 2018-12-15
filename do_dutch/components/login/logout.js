@@ -37,9 +37,25 @@ export default class Logout extends Component {
   render() {
     return (
       <View>
-        <Text> Hi {window.username}! You already logged in. </Text>
-        <Button onPress={this.props.updateLogout} title="Log out" />
+        <Text style={styles.text}> Hi Dutcher! You already logged in. </Text>
+        <Button
+          large
+          backgroundColor="#52BE80"
+          icon={{
+            name: "lock"
+          }}
+          onPress={this.props.updateLogout}
+          title="Log out"
+        />
       </View>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  text: {
+    color: "#566573",
+    fontSize: 35,
+    fontWeight: "bold"
+  }
+});
