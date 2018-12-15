@@ -37,7 +37,7 @@ export default class Logout extends Component {
   render() {
     return (
       <View>
-        <Text style={styles.text}> Hi Dutcher! You already logged in. </Text>
+        <Text style={styles.text}> Hi Dutcher! </Text>
         <Button
           large
           backgroundColor="#52BE80"
