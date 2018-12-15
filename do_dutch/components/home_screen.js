@@ -23,8 +23,8 @@ export default class HomeScreen extends Component {
 
   constructor(props) {
     super(props);
-    window.user_id = 2;
-    window.username = "payer";
+    window.user_id = 1;
+    window.username = "sharer";
 
     if (window.user_id !== undefined) {
       DataHelper.getFromLocal(window.user_id.toString(), data => {
@@ -34,14 +34,29 @@ export default class HomeScreen extends Component {
         if (messages.length > 0) {
           let history = this.state.receiptHistory;
           messages.forEach(message => {
-            let newReceipt = message.data;
-            let index = history.findIndex(receipt => {
-              receipt.receiptId == newReceipt.receiptId;
-            });
-            if (index != -1) {
-              history[index] = newReceipt;
-            } else {
-              history.push(JSON.parse(newReceipt));
+            if (message.event == "new") {
+              let newReceipt = message.data;
+              let index = history.findIndex(receipt => {
+                receipt.receiptId == newReceipt.receiptId;
+              });
+              if (index != -1) {
+                history[index] = newReceipt;
+              } else {
+                history.push(JSON.parse(newReceipt));
+              }
+            } else if (message.event == "pay") {
+              let index = history.findIndex(receipt => {
+                receipt.receiptId == message.receiptId;
+              });
+              if (index != -1) {
+                let memberIndex = history[index].group.members.findIndex(
+                  member => {
+                    member.memberId == message.senderId;
+                  }
+                );
+                history[index].group.members[memberId].paid = true;
+              }
+            } else if (message.event == "challenge") {
             }
           });
           this.saveReceiptHistory(history);

@@ -46,7 +46,7 @@ export default class Signup extends Component {
   render() {
     return (
       <View>
-        <Text style={styles.text}> Sign Up </Text>
+        <Text style={styles.text}>Sign Up </Text>
 
         <FormLabel> Username </FormLabel>
         <FormInput
@@ -73,6 +73,7 @@ export default class Signup extends Component {
         />
 
         <Button
+          large
           icon={{ name: "user", type: "font-awesome" }}
           backgroundColor="#E74C3C"
           onPress={e => this.userSignUp(e)}

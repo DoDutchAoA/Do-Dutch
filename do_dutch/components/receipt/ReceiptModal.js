@@ -18,7 +18,7 @@ import {
 } from "react-native-elements";
 
 import Modal from "react-native-modal";
-//import NumericInput from "react-native-numeric-input";
+import NetworkHelper from "./NetworkHelper.js";
 
 class Title extends React.Component {
   constructor(props) {
@@ -38,7 +38,12 @@ class Title extends React.Component {
     let title;
     if (!this.state.isEditable) {
       title = (
-        <TouchableOpacity onPress={() => this.changeEditable()}>
+        <TouchableOpacity
+          onPress={() => {
+            if (!this.props.isPayer) return;
+            this.changeEditable();
+          }}
+        >
           <Text style={{ fontSize: 30, fontWeight: "bold" }}>
             {this.state.title}
           </Text>
@@ -74,6 +79,7 @@ class Title extends React.Component {
             color="#0f0"
             size={10}
             onPress={() => {
+              if (!this.props.isPayer) return;
               let newTitle = this.state.tempText;
               this.setState({ title: newTitle });
               this.props.changeTitleCallback(newTitle);
@@ -88,6 +94,7 @@ class Title extends React.Component {
             color="#f00"
             size={10}
             onPress={() => {
+              if (!this.props.isPayer) return;
               this.setState({ tempText: this.state.title });
               this.changeEditable();
             }}
@@ -120,7 +127,12 @@ class Item extends React.Component {
     let name;
     if (!this.state.isEditable) {
       name = (
-        <TouchableOpacity onPress={() => this.changeEditable()}>
+        <TouchableOpacity
+          onPress={() => {
+            if (!this.props.isPayer) return;
+            this.changeEditable();
+          }}
+        >
           <Text>{this.state.data.name}</Text>
         </TouchableOpacity>
       );
@@ -149,6 +161,7 @@ class Item extends React.Component {
             color="#0f0"
             size={10}
             onPress={() => {
+              if (!this.props.isPayer) return;
               this.state.data.name = this.state.tempText;
               this.changeEditable();
             }}
@@ -161,6 +174,7 @@ class Item extends React.Component {
             color="#f00"
             size={10}
             onPress={() => {
+              if (!this.props.isPayer) return;
               this.setState({ tempText: this.state.data.name });
               this.changeEditable();
             }}
@@ -169,19 +183,23 @@ class Item extends React.Component {
       );
     }
 
-    let splitButtons;
-    let payerTotal;
-    if (this.props.sharerCount == 1) {
+    let splitButtons, displayPrice;
+    if (!this.props.isPayer) {
+      splitButtons = ["Split"];
+      displayPrice = (this.props.data.price / this.props.sharerCount).toFixed(
+        2
+      );
+    } else if (this.props.sharerCount == 1) {
       splitButtons = ["All"];
-      payerTotal = this.props.data.price.toFixed(2);
+      displayPrice = this.props.data.price.toFixed(2);
     } else {
       splitButtons = ["Split", "All"];
       if (this.state.data.split) {
-        payerTotal = (this.props.data.price / this.props.sharerCount).toFixed(
+        displayPrice = (this.props.data.price / this.props.sharerCount).toFixed(
           2
         );
       } else {
-        payerTotal = this.props.data.price.toFixed(2);
+        displayPrice = this.props.data.price.toFixed(2);
       }
     }
 
@@ -203,7 +221,9 @@ class Item extends React.Component {
           element: (
             <View style={{ flexDirection: "row" }}>
               <Text style={{ marginTop: 5, marginRight: 5 }}>$</Text>
-              <Text style={{ marginTop: 5, marginRight: 1 }}>{payerTotal}</Text>
+              <Text style={{ marginTop: 5, marginRight: 1 }}>
+                {displayPrice}
+              </Text>
               <Text
                 style={{
                   color: "#aaa",
@@ -216,6 +236,7 @@ class Item extends React.Component {
               </Text>
               <ButtonGroup
                 onPress={index => {
+                  if (!this.props.isPayer) return;
                   let data = this.state.data;
                   data.split = index == 0;
                   this.setState({ data: data });
@@ -227,23 +248,6 @@ class Item extends React.Component {
                 containerStyle={{ height: 20, width: 70, marginRight: -10 }}
                 selectedButtonStyle={{ backgroundColor: "#a5d6a7" }}
               />
-              {/* <NumericInput
-                rounded
-                type="up-down"
-                initValue={this.state.amount}
-                value={this.state.amount}
-                onChange={value => {
-                  this.setState({ amount: value, total: value * 10 });
-                }}
-                totalWidth={60}
-                totalHeight={30}
-                maxValue={10}
-                minValue={0}
-                valueType="real"
-                upDownButtonsBackgroundColor="#aecdc2"
-                rightButtonBackgroundColor="#aecdc2"
-                leftButtonBackgroundColor="#f0b8b8"
-              /> */}
             </View>
           )
         }}
@@ -263,8 +267,11 @@ export default class ReceiptModal extends Component {
       total: 0,
       payerTotal: 0,
       sharerTotal: 0,
+      displayedTotal: 0,
       image_url: "",
-      groups: []
+      groups: [],
+      isPayer: true,
+      receiptId: 0
     };
   }
 
@@ -292,15 +299,16 @@ export default class ReceiptModal extends Component {
       total += this.state.receiptItems[index].price;
     }
     let sharerTotal;
-    if (this.state.sharerCount != 0) {
-      sharerTotal = (total - payerTotal) / this.state.sharerCount;
+    if (this.state.sharerCount > 1) {
+      sharerTotal = (total - payerTotal) / (this.state.sharerCount - 1);
     } else {
       sharerTotal = 0;
     }
     this.setState({
       total: total,
       payerTotal: payerTotal,
-      sharerTotal: sharerTotal
+      sharerTotal: sharerTotal,
+      displayedTotal: this.state.isPayer ? payerTotal : sharerTotal
     });
   }
 
@@ -317,6 +325,8 @@ export default class ReceiptModal extends Component {
       image_url: receipt.image_url,
       group: receipt.group,
       creator: receipt.creator,
+      isPayer: receipt.creator == window.user_id,
+      receiptId: receipt.receiptId,
       //// Local Info ////
       isModalVisible: true,
       sharerCount: sharerCount,
@@ -385,6 +395,7 @@ export default class ReceiptModal extends Component {
                     rounded
                     source={group.avatar}
                     onPress={() => {
+                      if (!this.state.isPayer) return;
                       if (
                         this.state.group != undefined &&
                         this.state.group.group_id == group.group_id
@@ -432,7 +443,6 @@ export default class ReceiptModal extends Component {
               {this.state.group.members.map((member, index) => {
                 member.key = index.toString();
                 let paid = member.paid;
-                let opacity = paid ? 1.0 : 0.3;
                 let borderColor = paid ? "#0d0" : "#00dddd";
                 return (
                   <View
@@ -466,6 +476,9 @@ export default class ReceiptModal extends Component {
       }
     }
 
+    let confirmBtnTitle = this.state.isPayer ? "OK" : "Pay";
+    let cancelBtnTitle = this.state.isPayer ? "Cancel" : "Challenge";
+
     return (
       <Modal isVisible={this.state.isModalVisible}>
         <ScrollView
@@ -490,7 +503,6 @@ export default class ReceiptModal extends Component {
               this.setState({ title: title });
             }}
           />
-
           {groupList}
           {memberList}
           <Text
@@ -504,19 +516,25 @@ export default class ReceiptModal extends Component {
             Your Items
           </Text>
           <List containerStyle={{ marginBottom: 20 }}>
-            {this.state.receiptItems.map((l, index) => (
-              <Item
-                data={l}
-                key={index.toString()}
-                sharerCount={this.state.sharerCount}
-                updateReceipt={receipt => {
-                  let receiptItems = this.state.receiptItems;
-                  receiptItems[index] = receipt;
-                  this.setState({ receiptItems: receiptItems });
-                  this.calculateTotal();
-                }}
-              />
-            ))}
+            {this.state.receiptItems.map((l, index) => {
+              if (!this.state.isPayer && !l.split) {
+                return;
+              }
+              return (
+                <Item
+                  data={l}
+                  key={index.toString()}
+                  sharerCount={this.state.sharerCount}
+                  isPayer={this.state.isPayer}
+                  updateReceipt={receipt => {
+                    let receiptItems = this.state.receiptItems;
+                    receiptItems[index] = receipt;
+                    this.setState({ receiptItems: receiptItems });
+                    this.calculateTotal();
+                  }}
+                />
+              );
+            })}
           </List>
           <View
             style={{
@@ -539,7 +557,7 @@ export default class ReceiptModal extends Component {
               Total:
             </Text>
             <Text style={{ fontSize: 20, fontWeight: "bold" }}>
-              {"$" + this.state.payerTotal.toFixed(2)}
+              {"$" + this.state.displayedTotal.toFixed(2)}
             </Text>
             <Text
               style={{
@@ -554,24 +572,41 @@ export default class ReceiptModal extends Component {
           <View style={styles.modalBtnContainer}>
             <Button
               rounded
-              title="Cancel"
+              title={cancelBtnTitle}
               color="#868686"
               backgroundColor="rgba(0, 0, 0, 0.0)"
               fontSize={15}
               buttonStyle={styles.modalBtn}
               onPress={() => {
+                if (!this.state.isPayer) {
+                  NetworkHelper.sendChallenge(
+                    window.user_id,
+                    this.state.receiptId
+                  );
+                }
                 this.setState({ isModalVisible: false });
               }}
             />
             <Button
               rounded
-              title="OK"
+              title={confirmBtnTitle}
               color="#9ccc65"
               backgroundColor="rgba(0, 0, 0, 0.0)"
               fontSize={15}
               buttonStyle={styles.modalBtn}
               onPress={() => {
+                let paid;
+                if (this.state.isPayer) {
+                  paid = false;
+                } else {
+                  paid = true;
+                  NetworkHelper.sendPayment(
+                    window.user_id,
+                    this.state.receiptId
+                  );
+                }
                 this.state.confirmCallback({
+                  receiptId: this.state.receiptId,
                   total: this.state.total,
                   payerTotal: this.state.payerTotal,
                   sharerTotal: this.state.sharerTotal,
@@ -582,7 +617,8 @@ export default class ReceiptModal extends Component {
                   time: this.state.time,
                   title: this.state.title,
                   group: this.state.group,
-                  creator: this.state.creator
+                  creator: this.state.creator,
+                  paid: paid
                 });
                 this.setState({ isModalVisible: false });
               }}
