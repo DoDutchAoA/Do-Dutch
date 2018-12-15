@@ -87,23 +87,6 @@ export default class GroupMain extends Component {
   render() {
     return (
       <View>
-        <Button
-          large
-          icon={{ name: "group" }}
-          onPress={() => {
-            this.props.navigation.navigate("GroupCreate");
-          }}
-          titleStyle={{ fontWeight: "700" }}
-          buttonStyle={{
-            backgroundColor: "#16A085",
-            width: 370,
-            height: 45,
-            borderColor: "transparent",
-            borderWidth: 0,
-            borderRadius: 5
-          }}
-          title="Create New Group"
-        />
         <View>
           <FlatList
             data={this.state.groupsData}
@@ -125,6 +108,25 @@ export default class GroupMain extends Component {
             ItemSeparatorComponent={this.renderSeparator}
           />
         </View>
+        <View style={styles.buttonSection}>
+          <Button
+            large
+            icon={{ name: "group" }}
+            onPress={() => {
+              this.props.navigation.navigate("GroupCreate");
+            }}
+            titleStyle={{ fontWeight: "700" }}
+            buttonStyle={{
+              backgroundColor: "#16A085",
+              width: 250,
+              height: 60,
+              borderColor: "transparent",
+              borderWidth: 0,
+              borderRadius: 100
+            }}
+            title="Create New Group"
+          />
+        </View>
       </View>
     );
   }
@@ -139,5 +141,13 @@ const styles = StyleSheet.create({
     padding: 10,
     fontSize: 18,
     height: 44
+  },
+  buttonSection: {
+    position: "absolute",
+    top: 490,
+    width: "100%",
+    height: "30%",
+    justifyContent: "center",
+    alignItems: "center"
   }
 });
