@@ -6,6 +6,15 @@ Go Dutch is an Android application built on React Native. It can set you free fr
 
 This is the first "release" of our application. More features are coming on their ways!
 
+## User Interface
+
+### Receipt History
+:-------------------------:|:-------------------------:
+![](https://github.com/DoDutchAoA/Dutch_src/blob/master/photo/History1.png)  |  ![](https://github.com/DoDutchAoA/Dutch_src/blob/master/photo/History2.png)
+
+### Receipt Modal
+:-------------------------:|:-------------------------:
+![](https://github.com/DoDutchAoA/Dutch_src/blob/master/photo/ReceiptModal1.png)  |  ![](https://github.com/DoDutchAoA/Dutch_src/blob/master/photo/ReceiptModal2.png)
 
 ## Getting Started
 
