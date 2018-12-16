@@ -9,8 +9,8 @@ This is the first "release" of our application. More features are coming on thei
 ## User Interface
 
 ### Receipt History
-:-------------------------:|:-------------------------:
-![](https://github.com/DoDutchAoA/Dutch_src/blob/master/photo/History1.png)  |  ![](https://github.com/DoDutchAoA/Dutch_src/blob/master/photo/History2.png)
+
+![receiptHistory1](https://github.com/DoDutchAoA/Dutch_src/blob/master/photo/History1.png | width=100) ![receiptHistory2](https://github.com/DoDutchAoA/Dutch_src/blob/master/photo/History2.png | width=100)
 
 ### Receipt Modal
 :-------------------------:|:-------------------------:
