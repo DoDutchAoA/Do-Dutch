@@ -8,6 +8,28 @@ This is the first "release" of our application. More features are coming on thei
 
 ## User Interface
 
+### User-related
+
+User sign up, log in and log out
+<p float="left">
+  
+<img src="https://github.com/DoDutchAoA/Dutch_src/blob/master/photo/signup_t.png" alt="Login" width="280" height="470" />
+<img src="https://github.com/DoDutchAoA/Dutch_src/blob/master/photo/login_t.png" alt="Signup" width="280" height="470"/>
+<img src="https://github.com/DoDutchAoA/Dutch_src/blob/master/photo/logout_t.png" alt="Logout" width="280" height="470"/>
+</p>
+
+Friend and Group:
+<p float="left">
+  
+<img src="https://github.com/DoDutchAoA/Dutch_src/blob/master/photo/friend_t.png" alt="Friend" width="280" height="470" />  
+<img src="https://github.com/DoDutchAoA/Dutch_src/blob/master/photo/groupdetail_t.png" alt="Group information" width="280" height="470" />
+<img src="https://github.com/DoDutchAoA/Dutch_src/blob/master/photo/groupchat_t.png" alt="Group Chat" width="280" height="470"/>
+</p>
+
+
+
+### Receipt-related
+
 Receipt History
 
 <p float="left">
