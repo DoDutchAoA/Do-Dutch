@@ -10,8 +10,8 @@ This is the first "release" of our application. More features are coming on thei
 
 ### Receipt History
 
-![receiptHistory1](https://github.com/DoDutchAoA/Dutch_src/blob/master/photo/History1.png | width=100) 
-![receiptHistory2](https://github.com/DoDutchAoA/Dutch_src/blob/master/photo/History2.png | width=100)
+![receiptHistory1](https://github.com/DoDutchAoA/Dutch_src/blob/master/photo/History1.png "history 1")
+![receiptHistory2](https://github.com/DoDutchAoA/Dutch_src/blob/master/photo/History2.png "history 2")
 
 
 
