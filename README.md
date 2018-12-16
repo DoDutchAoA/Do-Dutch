@@ -12,10 +12,12 @@ This is the first "release" of our application. More features are coming on thei
 
 <p float="left">
   
-<img src="https://github.com/DoDutchAoA/Dutch_src/blob/master/photo/History1.png" alt="history1" width="280" height="450"/>
-<img src="https://github.com/DoDutchAoA/Dutch_src/blob/master/photo/History2.png" alt="history1" width="280" />
-<img src="https://github.com/DoDutchAoA/Dutch_src/blob/master/photo/RecieptModal1.png" alt="modal1" width="280" height="450"/>
-<img src="https://github.com/DoDutchAoA/Dutch_src/blob/master/photo/ReceiptModal2.png" alt="modal2" width="280"/>
+<img src="https://github.com/DoDutchAoA/Dutch_src/blob/master/photo/History1.png" alt="history1" width="280" height="470"/>
+<img src="https://github.com/DoDutchAoA/Dutch_src/blob/master/photo/History2.png" alt="history1" width="280" height="470"/>
+</p>
+<p float="left">
+<img src="https://github.com/DoDutchAoA/Dutch_src/blob/master/photo/ReceiptModal1.png" alt="modal1" width="280" height="470"/>
+<img src="https://github.com/DoDutchAoA/Dutch_src/blob/master/photo/ReceiptModal2.png" alt="modal2" width="280" height="470"/>
 </p>
 
 ## Getting Started
