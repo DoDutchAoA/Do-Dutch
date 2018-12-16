@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <!DOCTYPE coverage SYSTEM "http://cobertura.sourceforge.net/xml/coverage-04.dtd">
-<coverage lines-valid="439" lines-covered="239" line-rate="0.5444" branches-valid="407" branches-covered="194" branch-rate="0.4767" timestamp="1544914347520" complexity="0" version="0.1">
+<coverage lines-valid="439" lines-covered="245" line-rate="0.5581" branches-valid="407" branches-covered="195" branch-rate="0.47909999999999997" timestamp="1544929276933" complexity="0" version="0.1">
   <sources>
     <source>/Users/fionazheng/GoDutch/Do-Dutch/do_dutch</source>
   </sources>
@@ -445,7 +445,7 @@
         </class>
       </classes>
     </package>
-    <package name="components.receipt" line-rate="0.6274000000000001" branch-rate="0.5285">
+    <package name="components.receipt" line-rate="0.6465000000000001" branch-rate="0.5325">
       <classes>
         <class name="DataHelper.js" filename="components/receipt/DataHelper.js" line-rate="0.44439999999999996" branch-rate="0.0909">
           <methods>
@@ -941,7 +941,7 @@
             <line number="274" hits="2" branch="false"/>
           </lines>
         </class>
-        <class name="ReceiptModal.js" filename="components/receipt/ReceiptModal.js" line-rate="0.8581" branch-rate="0.648">
+        <class name="ReceiptModal.js" filename="components/receipt/ReceiptModal.js" line-rate="0.8986" branch-rate="0.6559999999999999">
           <methods>
             <method name="_interopRequireDefault" hits="8" signature="()V">
               <lines>
@@ -953,9 +953,9 @@
                 <line number="22" hits="4"/>
               </lines>
             </method>
-            <method name="_classCallCheck" hits="22" signature="()V">
+            <method name="_classCallCheck" hits="27" signature="()V">
               <lines>
-                <line number="22" hits="22"/>
+                <line number="22" hits="27"/>
               </lines>
             </method>
             <method name="_defineProperties" hits="12" signature="()V">
@@ -968,14 +968,14 @@
                 <line number="22" hits="12"/>
               </lines>
             </method>
-            <method name="_possibleConstructorReturn" hits="22" signature="()V">
+            <method name="_possibleConstructorReturn" hits="27" signature="()V">
               <lines>
-                <line number="22" hits="22"/>
+                <line number="22" hits="27"/>
               </lines>
             </method>
-            <method name="_assertThisInitialized" hits="22" signature="()V">
+            <method name="_assertThisInitialized" hits="27" signature="()V">
               <lines>
-                <line number="22" hits="22"/>
+                <line number="22" hits="27"/>
               </lines>
             </method>
             <method name="_getPrototypeOf" hits="3" signature="()V">
@@ -1048,14 +1048,14 @@
                 <line number="110" hits="4"/>
               </lines>
             </method>
-            <method name="Item" hits="4" signature="()V">
+            <method name="Item" hits="9" signature="()V">
               <lines>
-                <line number="111" hits="4"/>
+                <line number="111" hits="9"/>
               </lines>
             </method>
-            <method name="setToFix" hits="24" signature="()V">
+            <method name="setToFix" hits="38" signature="()V">
               <lines>
-                <line number="119" hits="24"/>
+                <line number="119" hits="38"/>
               </lines>
             </method>
             <method name="changeEditable" hits="3" signature="()V">
@@ -1063,9 +1063,9 @@
                 <line number="123" hits="3"/>
               </lines>
             </method>
-            <method name="render" hits="12" signature="()V">
+            <method name="render" hits="19" signature="()V">
               <lines>
-                <line number="127" hits="12"/>
+                <line number="127" hits="19"/>
               </lines>
             </method>
             <method name="onPress" hits="1" signature="()V">
@@ -1088,9 +1088,9 @@
                 <line number="173" hits="1"/>
               </lines>
             </method>
-            <method name="onPress" hits="0" signature="()V">
+            <method name="onPress" hits="2" signature="()V">
               <lines>
-                <line number="229" hits="0"/>
+                <line number="229" hits="2"/>
               </lines>
             </method>
             <method name="(anonymous_30)" hits="4" signature="()V">
@@ -1228,16 +1228,16 @@
             <line number="106" hits="16" branch="false"/>
             <line number="107" hits="4" branch="false"/>
             <line number="110" hits="4" branch="false"/>
-            <line number="111" hits="4" branch="false"/>
-            <line number="112" hits="4" branch="false"/>
-            <line number="113" hits="4" branch="false"/>
-            <line number="117" hits="4" branch="false"/>
+            <line number="111" hits="9" branch="false"/>
+            <line number="112" hits="9" branch="false"/>
+            <line number="113" hits="9" branch="false"/>
+            <line number="117" hits="9" branch="false"/>
             <line number="119" hits="4" branch="false"/>
-            <line number="122" hits="24" branch="true" condition-coverage="100% (2/2)"/>
+            <line number="122" hits="38" branch="true" condition-coverage="100% (2/2)"/>
             <line number="126" hits="3" branch="false"/>
-            <line number="129" hits="12" branch="false"/>
-            <line number="131" hits="12" branch="true" condition-coverage="100% (2/2)"/>
-            <line number="132" hits="6" branch="false"/>
+            <line number="129" hits="19" branch="false"/>
+            <line number="131" hits="19" branch="true" condition-coverage="100% (2/2)"/>
+            <line number="132" hits="13" branch="false"/>
             <line number="133" hits="1" branch="false"/>
             <line number="138" hits="6" branch="false"/>
             <line number="146" hits="0" branch="false"/>
@@ -1245,20 +1245,20 @@
             <line number="162" hits="1" branch="false"/>
             <line number="174" hits="1" branch="false"/>
             <line number="175" hits="1" branch="false"/>
-            <line number="182" hits="12" branch="false"/>
-            <line number="185" hits="12" branch="true" condition-coverage="50% (1/2)"/>
-            <line number="186" hits="0" branch="false"/>
-            <line number="187" hits="0" branch="false"/>
-            <line number="189" hits="12" branch="false"/>
-            <line number="190" hits="12" branch="true" condition-coverage="100% (2/2)"/>
+            <line number="182" hits="19" branch="false"/>
+            <line number="185" hits="19" branch="true" condition-coverage="100% (2/2)"/>
+            <line number="186" hits="4" branch="false"/>
+            <line number="187" hits="4" branch="false"/>
+            <line number="189" hits="15" branch="false"/>
+            <line number="190" hits="15" branch="true" condition-coverage="100% (2/2)"/>
             <line number="191" hits="3" branch="false"/>
             <line number="192" hits="3" branch="false"/>
-            <line number="194" hits="9" branch="false"/>
-            <line number="198" hits="12" branch="false"/>
-            <line number="230" hits="0" branch="false"/>
-            <line number="231" hits="0" branch="false"/>
-            <line number="232" hits="0" branch="false"/>
-            <line number="233" hits="0" branch="false"/>
+            <line number="194" hits="12" branch="false"/>
+            <line number="198" hits="19" branch="false"/>
+            <line number="230" hits="2" branch="false"/>
+            <line number="231" hits="2" branch="false"/>
+            <line number="232" hits="2" branch="false"/>
+            <line number="233" hits="2" branch="false"/>
             <line number="264" hits="4" branch="false"/>
             <line number="267" hits="4" branch="false"/>
             <line number="269" hits="12" branch="false"/>
