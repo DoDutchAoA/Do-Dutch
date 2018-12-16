@@ -10,8 +10,8 @@ This is the first "release" of our application. More features are coming on thei
 
 ### Receipt History
 
-<img src="https://github.com/DoDutchAoA/Dutch_src/blob/master/photo/History1.png" width="100">
-<img src="https://github.com/DoDutchAoA/Dutch_src/blob/master/photo/History2.png" width="100">
+<img style="float:right" src="https://github.com/DoDutchAoA/Dutch_src/blob/master/photo/History1.png" width="300">
+<img style="float:right" src="https://github.com/DoDutchAoA/Dutch_src/blob/master/photo/History2.png" width="300">
 
 
 ### Receipt Modal
