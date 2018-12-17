@@ -63,24 +63,4 @@ describe('Checking functionalities', () => {
           }, 1000);
     })
 
-    // it('A func should be called when the ActionButtonItem is pressed', () => {
-    //     const wrapper = shallow(<LogIn />)
-
-    //     wrapper.setState({
-    //         username: "Dutchers",
-    //         password: "Dutchers"
-    //     })
-
-    //     const onPressEvent = jest.fn()
-    //     console.log(wrapper.state('username'))
-
-    //     wrapper.find('Button').props().onPress()
-
-    //     setTimeout(() => {
-    //         expect(onPressEvent.mock.calls.length).toBe(1)
-    //         wrapper.unmount();
-    //         done();
-    //     }, 1000);
-    // })
-
 })

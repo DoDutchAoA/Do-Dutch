@@ -24,11 +24,11 @@ export default class HomeScreen extends Component {
 
   constructor(props) {
     super(props);
-    // window.user_id = 3;
-    // window.username = "test64";
+    window.user_id = 2;
+    window.username = "payer";
 
-    window.user_id = 8;
-    window.username = "Sara";
+    // window.user_id = 8;
+    // window.username = "Sara";
 
     if (window.user_id !== undefined) {
       DataHelper.getFromLocal(window.user_id.toString(), data => {
@@ -155,6 +155,7 @@ export default class HomeScreen extends Component {
       receiptPrompt = !this.state.receiptHistory.length
         ? "No Receipt Yet 😕"
         : "End of Receipts";
+
       /////////////////  SEARCH LIST  //////////////////
       if (this.state.searchText.length > 0) {
         searchListView = (
