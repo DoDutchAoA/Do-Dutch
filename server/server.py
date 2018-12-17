@@ -178,13 +178,13 @@ def server():
             copyPath = os.path.join('../../www/upload', filename)
             print file.filename, path, copyPath
             copyfile(path, copyPath)
-            if file.filename == 'image1.jpg':
+            if file.filename == 'receipt1.jpg':
                 return json.dumps(preset1)
-            elif file.filename == 'image2.jpg':
+            elif file.filename == 'receipt2.jpg':
                 return json.dumps(preset2)
-            elif file.filename == 'image3.jpg':
+            elif file.filename == 'receipt3.jpg':
                 return json.dumps(preset3)
-            elif file.filename == 'image4.jpg':
+            elif file.filename == 'receipt4.jpg':
                 return json.dumps(preset4)
             else:
                 response = ocr(
