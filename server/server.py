@@ -171,12 +171,12 @@ def server():
         if file.filename == '':
             flash('No selected file')
             return redirect(request.url)
-        print file.filename
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
             file.save(path)
             copyPath = os.path.join('../../www/upload', filename)
+            print path, copyPath
             copyfile(path, copyPath)
             if file.filename == 'image1.jpg':
                 return json.dumps(preset1)
