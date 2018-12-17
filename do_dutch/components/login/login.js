@@ -19,7 +19,6 @@ export default class LogIn extends Component {
   }
 
   userLogIn() {
-
     fetch("http://52.12.74.177:5000/login", {
       method: "POST",
       headers: {
@@ -52,7 +51,6 @@ export default class LogIn extends Component {
         </View>
         <FormLabel> Username </FormLabel>
         <FormInput
-          id="username"
           style={styles.input}
           autoFocus={true}
           keyboardType="email-address"
@@ -62,7 +60,6 @@ export default class LogIn extends Component {
 
         <FormLabel color="#232323"> Password </FormLabel>
         <FormInput
-          id="password"
           autoFocus={true}
           secureTextEntry={true}
           value={this.state.password}

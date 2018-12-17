@@ -1,19 +1,15 @@
 import React, { Component } from "react";
 import {
   View,
+  FlatList,
   TouchableOpacity,
   StyleSheet,
   Image,
-  Dimensions,
-  Text
+  Dimensions
 } from "react-native";
+import { Text, Divider } from "react-native-elements";
 
-import { FlatList } from "react-native";
-import { Divider } from "react-native-elements";
-
-const digits = 2;
-
-export class ReceiptListItem extends Component {
+class ReceiptListItem extends Component {
   constructor(props) {
     super(props);
 
@@ -22,22 +18,13 @@ export class ReceiptListItem extends Component {
     };
   }
 
-  setToFix(number, digits) {
-    return (number !== undefined) ? number.toFixed(digits) : number;
-  }
-
   render() {
-
-    if (!this.state.receipt)
-      return null;
-
     let receipt = this.state.receipt;
     let balance = "$0.00",
       status;
     let unpaidCount = 0,
       totalCount = 0;
     let statusStyle, balanceStyle, sharerStyle;
-
     if (receipt.group != undefined) {
       receipt.group.members.forEach(member => {
         if (member.member_id != window.user_id) {
@@ -73,24 +60,24 @@ export class ReceiptListItem extends Component {
     let paymentInfo;
     ////////////// IS PAYER! /////////////////
     if (receipt.creator == window.user_id) {
-        status = "Payer";
-        statusStyle = styles.payerTagContainer;
-        balance = this.setToFix(-receipt.sharerTotal * unpaidCount, digits);
-        if (unpaidCount == 0) {
-          balanceStyle = styles.greenText;
-          sharerStyle = styles.greenSharerText;
-        } else {
-          balanceStyle = styles.redText;
-          sharerStyle = styles.redSharerText;
-        }
-        paymentInfo = (
-          <View style={{ flexDirection: "row" }}>
-            <Text style={sharerStyle}>{totalCount - unpaidCount}</Text>
-            <Text style={{ fontSize: 12, color: "#aaa" }}>
-              /{totalCount} Sharers Paid
-            </Text>
-          </View>
-        );
+      status = "Payer";
+      statusStyle = styles.payerTagContainer;
+      balance = (-receipt.sharerTotal * unpaidCount).toFixed(2);
+      if (unpaidCount == 0) {
+        balanceStyle = styles.greenText;
+        sharerStyle = styles.greenSharerText;
+      } else {
+        balanceStyle = styles.redText;
+        sharerStyle = styles.redSharerText;
+      }
+      paymentInfo = (
+        <View style={{ flexDirection: "row" }}>
+          <Text style={sharerStyle}>{totalCount - unpaidCount}</Text>
+          <Text style={{ fontSize: 12, color: "#aaa" }}>
+            /{totalCount} Sharers Paid
+          </Text>
+        </View>
+      );
     }
     ////////////// IS SHARER! ///////////////
     else {
@@ -133,7 +120,7 @@ export class ReceiptListItem extends Component {
               <View style={{ flexDirection: "row" }}>
                 <Text style={balanceStyle}>${balance}</Text>
                 <Text style={{ fontSize: 16, color: "#aaa" }}>
-                  /{this.setToFix(receipt.total, digits)}
+                  /{receipt.total.toFixed(2)}
                 </Text>
               </View>
             </View>
@@ -144,7 +131,7 @@ export class ReceiptListItem extends Component {
               {paymentInfo}
             </View>
             <View style={styles.containerText}>
-              <View style={statusStyle} className="itemOnwerStatus">
+              <View style={statusStyle}>
                 <Text
                   style={{
                     fontSize: 10,
@@ -175,10 +162,8 @@ export default class ReceiptList extends Component {
   }
 
   componentDidMount() {
-    if (this.props.onRef)
-      this.props.onRef(this);
+    this.props.onRef(this);
   }
-
   componentWillUnmount() {
     this.props.onRef(undefined);
   }
@@ -187,7 +172,6 @@ export default class ReceiptList extends Component {
     this.setState({
       receiptList: []
     });
-
     setTimeout(() => {
       this.setState({
         receiptList: receiptHistory
@@ -195,15 +179,13 @@ export default class ReceiptList extends Component {
     }, 0);
   }
 
-  renderList() {
+  render() {
     let content;
     let keyword = this.props.keyword;
-    let receiptHistory = this.state.receiptHistory
-    if (receiptHistory !== undefined && receiptHistory !== null &&
-      receiptHistory.length > 0) {
+    if (this.state.receiptList.length > 0) {
       content = (
         <FlatList
-          data={receiptHistory}
+          data={this.state.receiptList}
           extraData={this.state}
           renderItem={({ item: receipt, index }) => {
             if (keyword.length > 0) {
@@ -215,7 +197,7 @@ export default class ReceiptList extends Component {
                   .toLowerCase()
                   .includes(this.props.keyword.toLowerCase())
               )
-                return null;
+                return;
             }
             return (
               ///////////////// DATA DEFINE ///////////////////
@@ -231,24 +213,13 @@ export default class ReceiptList extends Component {
         />
       );
     } else {
-      content = this.renderPrompt();
+      content = <Text>{this.props.prompt}</Text>;
     }
-
-    return content;
-  }
-
-  renderPrompt() {
-    return <Text className="prompt">{this.props.prompt}</Text>;
-  }
-
-  render() {
-    let content = this.renderList();
     return (
       <View>
         <View style={styles.listTitleContainer}>
           <Text style={styles.listTitle}>{this.props.listTitle}</Text>
         </View>
-
         <Divider
           style={{
             marginLeft: 150,

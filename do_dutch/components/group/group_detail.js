@@ -130,9 +130,9 @@ export default class GroupDetail extends Component {
       .then(response => {
         console.log(response._bodyText);
         if (response._bodyText == "true") {
-          alert("The group has been deleted.");
+          alert("The group is deleted.");
         } else {
-          alert("Failed to delete the group.");
+          alert("Fail to delete the group.");
         }
         this.props.navigation.navigate("GroupMain", { force_reload: 0 });
       })

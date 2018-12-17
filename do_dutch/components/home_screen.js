@@ -11,7 +11,6 @@ import NetworkHelper from "./receipt/NetworkHelper.js";
 import DataHelper from "./receipt/DataHelper.js";
 
 export default class HomeScreen extends Component {
-
   state = {
     uploadingSpinner: false,
     receiptSpinner: false,
@@ -166,7 +165,6 @@ export default class HomeScreen extends Component {
       receiptPrompt = !this.state.receiptHistory.length
         ? "No Receipt Yet 😕"
         : "End of Receipts";
-
       /////////////////  SEARCH LIST  //////////////////
       if (this.state.searchText.length > 0) {
         searchListView = (
@@ -216,7 +214,7 @@ export default class HomeScreen extends Component {
 
     /////////////////////// RENDERING ////////////////////////
     return (
-      <View style={styles.container} className="Container">
+      <View style={styles.container}>
         {/************** SEARCH BAR ****************/}
         <SearchBar
           containerStyle={{ backgroundColor: "#fff" }}
@@ -238,16 +236,14 @@ export default class HomeScreen extends Component {
             <Text>{loginPrompt}</Text>
           </View>
         </ScrollView>
-
         {/************* RECEIPT MODAL ***************/}
-        <View className="Modal">
+        <View>
           <ReceiptModal
             onRef={ref => (this.modal = ref)}
             data={[]}
             friends={[]}
           />
         </View>
-
         {/**************** SPINNER ******************/}
         <Spinner
           cancelable={true}

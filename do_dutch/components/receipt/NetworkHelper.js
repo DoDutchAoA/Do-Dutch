@@ -6,7 +6,6 @@ const headers = {
   Accept: "application/json",
   "Content-Type": "application/json"
 };
-
 const options = {
   title: "New Receipt",
   takePhotoButtonTitle: "Take a photo",
@@ -41,9 +40,9 @@ const memberAvatars = [
 let NetworkHelper = {
   uploadReceiptPhoto(loadedCallback, uploadedCallback) {
     ImagePicker.showImagePicker(options, selection => {
-      if (selection.didCancel) { }
-      else if (selection.error) { }
-      else {
+      if (selection.didCancel) {
+      } else if (selection.error) {
+      } else {
         let source = { uri: selection.uri };
         loadedCallback(source, selection.data, true);
         RNFetchBlob.fetch(

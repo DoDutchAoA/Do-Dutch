@@ -7,7 +7,6 @@ import {
   TextInput,
   ScrollView
 } from "react-native";
-
 import {
   Button,
   Text,
@@ -21,10 +20,7 @@ import {
 import Modal from "react-native-modal";
 import NetworkHelper from "./NetworkHelper.js";
 
-const digits = 2;
-
-export class Title extends React.Component { //Receipt name
-
+class Title extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -42,7 +38,12 @@ export class Title extends React.Component { //Receipt name
     let title;
     if (!this.state.isEditable) {
       title = (
-        <TouchableOpacity onPress={() => this.changeEditable()}>
+        <TouchableOpacity
+          onPress={() => {
+            if (!this.props.isPayer) return;
+            this.changeEditable();
+          }}
+        >
           <Text style={{ fontSize: 30, fontWeight: "bold" }}>
             {this.state.title}
           </Text>
@@ -72,13 +73,13 @@ export class Title extends React.Component { //Receipt name
           />
 
           <Icon
-            className="ChangeConfirmed"
             raised
             name="check"
             type="font-awesome"
             color="#0f0"
             size={10}
             onPress={() => {
+              if (!this.props.isPayer) return;
               let newTitle = this.state.tempText;
               this.setState({ title: newTitle });
               this.props.changeTitleCallback(newTitle);
@@ -87,13 +88,13 @@ export class Title extends React.Component { //Receipt name
             containerStyle={{ marginLeft: 120, marginTop: 20 }}
           />
           <Icon
-            className="ChangeDropped"
             raised
             name="times"
             type="font-awesome"
             color="#f00"
             size={10}
             onPress={() => {
+              if (!this.props.isPayer) return;
               this.setState({ tempText: this.state.title });
               this.changeEditable();
             }}
@@ -107,7 +108,7 @@ export class Title extends React.Component { //Receipt name
   }
 }
 
-export class Item extends React.Component {
+class Item extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -118,10 +119,6 @@ export class Item extends React.Component {
     };
   }
 
-  setToFix(number, digits) {
-    return (number !== undefined) ? number.toFixed(digits) : number;
-  }
-
   changeEditable() {
     this.setState({ isEditable: !this.state.isEditable });
   }
@@ -130,19 +127,26 @@ export class Item extends React.Component {
     let name;
     if (!this.state.isEditable) {
       name = (
-        <TouchableOpacity onPress={() => this.changeEditable()}>
+        <TouchableOpacity
+          onPress={() => {
+            if (!this.props.isPayer) return;
+            this.changeEditable();
+          }}
+        >
           <Text>{this.state.data.name}</Text>
         </TouchableOpacity>
       );
     } else {
       name = (
         <View
-          style={{ flexDirection: "row" }}
+          style={{
+            flexDirection: "row"
+          }}
         >
           <TextInput
             value={this.state.tempText}
             style={{ height: 40, marginRight: -50 }}
-            placeholder=""
+            placeholder="Type here to translate!"
             onChangeText={text =>
               this.setState({
                 tempText: text
@@ -151,26 +155,26 @@ export class Item extends React.Component {
           />
 
           <Icon
-            className="ChangeConfirmed"
             raised
             name="check"
             type="font-awesome"
             color="#0f0"
             size={10}
             onPress={() => {
+              if (!this.props.isPayer) return;
               this.state.data.name = this.state.tempText;
               this.changeEditable();
             }}
             containerStyle={{ marginRight: 0 }}
           />
           <Icon
-            className="ChangeDropped"
             raised
             name="times"
             type="font-awesome"
             color="#f00"
             size={10}
             onPress={() => {
+              if (!this.props.isPayer) return;
               this.setState({ tempText: this.state.data.name });
               this.changeEditable();
             }}
@@ -179,19 +183,23 @@ export class Item extends React.Component {
       );
     }
 
-    const digits = 2;
-    let splitButtons;
-    let payerTotal;
-    if (this.props.sharerCount == 1) {
+    let splitButtons, displayPrice;
+    if (!this.props.isPayer) {
+      splitButtons = ["Split"];
+      displayPrice = (this.props.data.price / this.props.sharerCount).toFixed(
+        2
+      );
+    } else if (this.props.sharerCount == 1) {
       splitButtons = ["All"];
-      payerTotal = this.setToFix(this.props.data.price, digits);
+      displayPrice = this.props.data.price.toFixed(2);
     } else {
       splitButtons = ["Split", "All"];
       if (this.state.data.split) {
-        let payment = this.props.data.price / (this.props.sharerCount + 1);
-        payerTotal = this.setToFix(payment, digits);
+        displayPrice = (this.props.data.price / this.props.sharerCount).toFixed(
+          2
+        );
       } else {
-        payerTotal = this.setToFix(this.props.data.price, digits);
+        displayPrice = this.props.data.price.toFixed(2);
       }
     }
 
@@ -206,14 +214,16 @@ export class Item extends React.Component {
             iconStyle={{ marginRight: 10 }}
           />
         }
-        key={this.state.data.name}  //Item name
+        key={this.state.data.name}
         title={<View>{name}</View>}
         hideChevron
         badge={{
           element: (
             <View style={{ flexDirection: "row" }}>
               <Text style={{ marginTop: 5, marginRight: 5 }}>$</Text>
-              <Text id="processed" style={{ marginTop: 5, marginRight: 1 }}>{payerTotal}</Text>
+              <Text style={{ marginTop: 5, marginRight: 1 }}>
+                {displayPrice}
+              </Text>
               <Text
                 style={{
                   color: "#aaa",
@@ -222,40 +232,22 @@ export class Item extends React.Component {
                   fontSize: 10
                 }}
               >
-                {"/" + this.setToFix(this.props.data.price, digits)}
+                {"/" + this.props.data.price.toFixed(2)}
               </Text>
               <ButtonGroup
-                className="SplitBtn"
                 onPress={index => {
+                  if (!this.props.isPayer) return;
                   let data = this.state.data;
-                  data.split = index == 0;  //split == 0, all == 1
+                  data.split = index == 0;
                   this.setState({ data: data });
                   this.props.updateReceipt(this.state.data);
                 }}
-
                 selectedIndex={this.state.data.split ? 0 : 1}
                 buttons={splitButtons}
                 textStyle={{ fontSize: 12 }}
                 containerStyle={{ height: 20, width: 70, marginRight: -10 }}
                 selectedButtonStyle={{ backgroundColor: "#a5d6a7" }}
               />
-              {/* <NumericInput
-                rounded
-                type="up-down"
-                initValue={this.state.amount}
-                value={this.state.amount}
-                onChange={value => {
-                  this.setState({ amount: value, total: value * 10 });
-                }}
-                totalWidth={60}
-                totalHeight={30}
-                maxValue={10}
-                minValue={0}
-                valueType="real"
-                upDownButtonsBackgroundColor="#aecdc2"
-                rightButtonBackgroundColor="#aecdc2"
-                leftButtonBackgroundColor="#f0b8b8"
-              /> */}
             </View>
           )
         }}
@@ -265,70 +257,60 @@ export class Item extends React.Component {
 }
 
 export default class ReceiptModal extends Component {
-
   constructor(props) {
     super(props);
-
     this.state = {
       isModalVisible: false,
       sharerCount: 1,
       receiptItems: [],
-      confirmCallback: () => { },
+      confirmCallback: () => {},
       total: 0,
       payerTotal: 0,
       sharerTotal: 0,
+      displayedTotal: 0,
       image_url: "",
       groups: [],
       isPayer: true,
       receiptId: 0,
-      payment: "",
-      tal: 0
+      payment: ""
     };
   }
 
-  componentDidMount() {
-    if (this.props.onRef)
-      this.props.onRef(this);
-  }
+  onClick = () => {
+    this.item.method(); // do stuff
+  };
 
+  componentDidMount() {
+    this.props.onRef(this);
+  }
   componentWillUnmount() {
     this.props.onRef(undefined);
   }
 
   calculateTotal() {
     let payerTotal = 0;
-    let sharerTotal = 0;
     let total = 0;
-
-    for (let index in this.state.receiptItems) {
-      let curItem = this.state.receiptItems[index];
-
-      if (curItem.split) {
-        payerTotal += curItem.price / this.state.sharerCount;
+    for (index in this.state.receiptItems) {
+      if (this.state.receiptItems[index].split) {
+        payerTotal +=
+          this.state.receiptItems[index].price / this.state.sharerCount;
       } else {
-        payerTotal += curItem.price;
+        payerTotal += this.state.receiptItems[index].price;
       }
-      total += curItem.price;
-
+      total += this.state.receiptItems[index].price;
     }
-
+    let sharerTotal;
     if (this.state.sharerCount > 1) {
       sharerTotal = (total - payerTotal) / (this.state.sharerCount - 1);
     } else {
       sharerTotal = 0;
     }
-
     this.setState({
       total: total,
       payerTotal: payerTotal,
-      sharerTotal: sharerTotal
+      sharerTotal: sharerTotal,
+      displayedTotal: this.state.isPayer ? payerTotal : sharerTotal
     });
-
-    console.log(total, payerTotal, sharerTotal)
-  }
-
-  setToFix(number, digits) {
-    return (number !== undefined) ? number.toFixed(digits) : number;
   }
 
   launch(receipt, groups, confirmCallback) {
@@ -336,9 +318,8 @@ export default class ReceiptModal extends Component {
     if (receipt.group != undefined && receipt.group.members != undefined) {
       sharerCount = receipt.group.members.length;
     }
-
     this.setState({
-      //   //// Receipt Info ////
+      //// Receipt Info ////
       title: receipt.title,
       time: receipt.time,
       receiptItems: receipt.items,
@@ -354,22 +335,25 @@ export default class ReceiptModal extends Component {
       confirmCallback: confirmCallback,
       groups: groups
     });
-
     this.calculateTotal();
   }
 
-  renderGroupList() {
-    let groupList;
+  render() {
+    let processedTime;
+    if (this.state.time) {
+      processedTime =
+        this.state.time.split(" ")[0] + " " + this.state.time.split(" ")[1];
+    }
+    let groupList, memberList;
     if (this.state.groups == undefined || this.state.groups.length == 0) {
       groupList = (
         <View>
-          <Text id="NoGroupPrompt">"You haven't enrolled in any group."</Text>
+          <Text>You haven't enrolled in any group.</Text>
         </View>
       );
-    }
-    else {
+    } else {
       groupList = (
-        <View id="GroupList">
+        <View>
           <Text style={{ marginTop: 10, fontSize: 15, fontWeight: "bold" }}>
             Groups
           </Text>
@@ -390,7 +374,6 @@ export default class ReceiptModal extends Component {
                   reverse
                   raised
                   name="check"
-                  id="selected"
                   type="font-awesome"
                   color="#0d0"
                   size={10}
@@ -401,7 +384,7 @@ export default class ReceiptModal extends Component {
                 />
               ) : null;
               return (
-                <View className="Group"
+                <View
                   style={{
                     flexDirection: "column",
                     alignItems: "center",
@@ -410,12 +393,10 @@ export default class ReceiptModal extends Component {
                   key={index.toString()}
                 >
                   <Avatar
-                    className="Avatar"
                     medium
                     rounded
                     source={group.avatar}
                     onPress={() => {
-                      console.log("is?", this.state.isPayer);
                       if (!this.state.isPayer) return;
                       if (
                         this.state.group != undefined &&
@@ -429,8 +410,6 @@ export default class ReceiptModal extends Component {
                           this.calculateTotal
                         );
                       } else {
-
-
                         this.setState(
                           {
                             group: group,
@@ -438,7 +417,6 @@ export default class ReceiptModal extends Component {
                           },
                           this.calculateTotal
                         );
-
                       }
                     }}
                     activeOpacity={0.7}
@@ -452,107 +430,64 @@ export default class ReceiptModal extends Component {
           </ScrollView>
         </View>
       );
-    }
-    return groupList;
-  }
-
-  renderMemberList() {
-    if (this.state.group == undefined)
-      return null;
-
-    return (
-      <View>
-        <Text style={{ marginTop: 5, fontSize: 13 }}>
-          Share with {this.state.sharerCount - 1} people:
-          </Text>
-        <ScrollView
-          horizontal={true}
-          scrollEnabled={true}
-          contentContainerStyle={styles.modalContent}
-          style={{ height: 90 }}
-        >
-          {this.state.group.members.map((member, index) => {
-            member.key = index.toString();
-            if (member.member_id == window.user_id) return <View />;
-            let avatar =
-              member.payment == "paid" ||
-                member.member_id == window.user_id ? (
-                  <Avatar
-                    small
-                    rounded
-                    overlayContainerStyle={{ backgroundColor: "#0d0" }}
-                    icon={{
-                      name: "check",
-                      type: "font-awesome"
+      if (this.state.group != undefined) {
+        memberList = (
+          <View>
+            <Text style={{ marginTop: 5, fontSize: 13 }}>
+              Share with {this.state.sharerCount - 1} people:
+            </Text>
+            <ScrollView
+              horizontal={true}
+              scrollEnabled={true}
+              contentContainerStyle={styles.modalContent}
+              style={{ height: 90 }}
+            >
+              {this.state.group.members.map((member, index) => {
+                member.key = index.toString();
+                if (member.member_id == window.user_id) return <View />;
+                let avatar =
+                  member.payment == "paid" ||
+                  member.member_id == window.user_id ? (
+                    <Avatar
+                      small
+                      rounded
+                      overlayContainerStyle={{ backgroundColor: "#0d0" }}
+                      icon={{
+                        name: "check",
+                        type: "font-awesome"
+                      }}
+                      avatarStyle={{ backgroundColor: "#fff" }}
+                    />
+                  ) : (
+                    <Avatar
+                      small
+                      rounded
+                      source={member.avatar}
+                      avatarStyle={{ backgroundColor: "#fff" }}
+                    />
+                  );
+                return (
+                  <View
+                    style={{
+                      flexDirection: "column",
+                      alignItems: "center",
+                      marginRight: 10,
+                      marginTop: -10
                     }}
-                    avatarStyle={{ backgroundColor: "#fff" }}
-                  />
-                ) : (
-                  <Avatar
-                    small
-                    rounded
-                    source={member.avatar}
-                    avatarStyle={{ backgroundColor: "#fff" }}
-                  />
+                    key={index.toString()}
+                  >
+                    {avatar}
+                    <Text style={{ marginTop: 0, marginBottom: 5 }}>
+                      {member.member_name}
+                    </Text>
+                  </View>
                 );
-            return (
-              <View
-                style={{
-                  flexDirection: "column",
-                  alignItems: "center",
-                  marginRight: 10,
-                  marginTop: -10
-                }}
-                key={index.toString()}
-              >
-                {avatar}
-                <Text style={{ marginTop: 0, marginBottom: 5 }}>
-                  {member.member_name}
-                </Text>
-              </View>
-            );
-          })}
-        </ScrollView>
-      </View>
-    );
-  }
-
-  renderItemList() {
-    if (this.state.receiptItems === undefined)
-      return null;
-
-    return (<List containerStyle={{ marginBottom: 20 }}>
-      {this.state.receiptItems.map((l, index) => {
-        if (!this.state.isPayer && !l.split) {
-          return;
-        }
-        return (
-          <Item
-            data={l}
-            key={index.toString()}
-            sharerCount={this.state.sharerCount}
-            isPayer={this.state.isPayer}
-            updateReceipt={receipt => {
-              let receiptItems = this.state.receiptItems;
-              receiptItems[index] = receipt;
-              this.setState({ receiptItems: receiptItems });
-              this.calculateTotal();
-            }}
-          />
+              })}
+            </ScrollView>
+          </View>
         );
-      })}
-    </List>);
-  }
-
-  render() {
-    let processedTime;
-    if (this.state.time) {
-      processedTime =
-        this.state.time.split(" ")[0] + " " + this.state.time.split(" ")[1];
+      }
     }
-    let groupList = this.renderGroupList();
-    let memberList = this.renderMemberList();
-    let itemList = this.renderItemList();
 
     let confirmBtnTitle = this.state.isPayer ? "OK" : "Pay";
     let cancelBtnTitle = this.state.isPayer ? "Cancel" : "Challenge";
@@ -594,7 +529,27 @@ export default class ReceiptModal extends Component {
           >
             Your Items
           </Text>
-          {itemList}
+          <List containerStyle={{ marginBottom: 20 }}>
+            {this.state.receiptItems.map((l, index) => {
+              if (!this.state.isPayer && !l.split) {
+                return;
+              }
+              return (
+                <Item
+                  data={l}
+                  key={index.toString()}
+                  sharerCount={this.state.sharerCount}
+                  isPayer={this.state.isPayer}
+                  updateReceipt={receipt => {
+                    let receiptItems = this.state.receiptItems;
+                    receiptItems[index] = receipt;
+                    this.setState({ receiptItems: receiptItems });
+                    this.calculateTotal();
+                  }}
+                />
+              );
+            })}
+          </List>
           <View
             style={{
               justifyContent: "flex-end",
@@ -615,9 +570,8 @@ export default class ReceiptModal extends Component {
             <Text style={{ marginRight: 5, fontWeight: "bold", marginTop: 2 }}>
               Total:
             </Text>
-            <Text id="displayedTotal" style={{ fontSize: 20, fontWeight: "bold" }}>
-              {"$" + this.setToFix(this.state.isPayer
-                ? this.state.payerTotal : this.state.sharerTotal, digits)}
+            <Text style={{ fontSize: 20, fontWeight: "bold" }}>
+              {"$" + this.state.displayedTotal.toFixed(2)}
             </Text>
             <Text
               style={{
@@ -626,13 +580,12 @@ export default class ReceiptModal extends Component {
                 fontSize: 13
               }}
             >
-              {" / " + this.setToFix(this.state.total, digits)}
+              {" / " + this.state.total.toFixed(2)}
             </Text>
           </View>
           <View style={styles.modalBtnContainer}>
             <Button
               rounded
-              id="ReceiptCancel"
               title={cancelBtnTitle}
               color="#868686"
               backgroundColor="rgba(0, 0, 0, 0.0)"
@@ -661,7 +614,6 @@ export default class ReceiptModal extends Component {
             />
             <Button
               rounded
-              id="ReceiptConfirm"
               title={confirmBtnTitle}
               color="#9ccc65"
               backgroundColor="rgba(0, 0, 0, 0.0)"
@@ -706,7 +658,6 @@ export default class ReceiptModal extends Component {
     );
   }
 }
-
 
 const styles = StyleSheet.create({
   // Modal Contents
