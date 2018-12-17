@@ -15,27 +15,27 @@ const options = {
 };
 
 const groupAvatars = [
-  require("./assets/groupAvatars/0.jpeg"),
-  require("./assets/groupAvatars/1.jpeg"),
-  require("./assets/groupAvatars/2.jpeg"),
-  require("./assets/groupAvatars/3.jpeg"),
-  require("./assets/groupAvatars/4.jpeg"),
-  require("./assets/groupAvatars/5.jpeg"),
-  require("./assets/groupAvatars/6.jpeg"),
-  require("./assets/groupAvatars/7.jpeg"),
-  require("./assets/groupAvatars/8.jpeg"),
-  require("./assets/groupAvatars/9.jpeg"),
-  require("./assets/groupAvatars/10.jpeg"),
-  require("./assets/groupAvatars/11.jpeg")
+  { uri: "http://52.12.74.177/assets/groupAvatars/0.jpeg" },
+  { uri: "http://52.12.74.177/assets/groupAvatars/1.jpeg" },
+  { uri: "http://52.12.74.177/assets/groupAvatars/2.jpeg" },
+  { uri: "http://52.12.74.177/assets/groupAvatars/3.jpeg" },
+  { uri: "http://52.12.74.177/assets/groupAvatars/4.jpeg" },
+  { uri: "http://52.12.74.177/assets/groupAvatars/5.jpeg" },
+  { uri: "http://52.12.74.177/assets/groupAvatars/6.jpeg" },
+  { uri: "http://52.12.74.177/assets/groupAvatars/7.jpeg" },
+  { uri: "http://52.12.74.177/assets/groupAvatars/8.jpeg" },
+  { uri: "http://52.12.74.177/assets/groupAvatars/9.jpeg" },
+  { uri: "http://52.12.74.177/assets/groupAvatars/10.jpeg" },
+  { uri: "http://52.12.74.177/assets/groupAvatars/11.jpeg" }
 ];
 
 const memberAvatars = [
-  require("./assets/memberAvatars/0.jpg"),
-  require("./assets/memberAvatars/1.jpg"),
-  require("./assets/memberAvatars/2.jpg"),
-  require("./assets/memberAvatars/3.jpg"),
-  require("./assets/memberAvatars/4.jpg"),
-  require("./assets/memberAvatars/5.jpg")
+  { uri: "http://52.12.74.177/assets/memberAvatars/0.jpg" },
+  { uri: "http://52.12.74.177/assets/memberAvatars/1.jpg" },
+  { uri: "http://52.12.74.177/assets/memberAvatars/2.jpg" },
+  { uri: "http://52.12.74.177/assets/memberAvatars/3.jpg" },
+  { uri: "http://52.12.74.177/assets/memberAvatars/4.jpg" },
+  { uri: "http://52.12.74.177/assets/memberAvatars/5.jpg" }
 ];
 
 let NetworkHelper = {
@@ -55,7 +55,7 @@ let NetworkHelper = {
           [
             {
               name: "image",
-              filename: window.user_id + "image.png",
+              filename: selection.fileName,
               type: "image/png",
               data: selection.data
             }
@@ -104,7 +104,8 @@ let NetworkHelper = {
       detectedTotal: "$" + detectedTotal.toFixed(2).toString(),
       image_url: parsedData.path,
       creator: window.user_id,
-      payment: "unpaid"
+      payment: "unpaid",
+      group: undefined
     };
   },
 
@@ -131,6 +132,8 @@ let NetworkHelper = {
       .then(responseJson => {
         if (responseJson) {
           callback(JSON.parse(responseJson["info"]));
+        } else {
+          callback([]);
         }
       })
       .catch(error => {});
@@ -157,18 +160,20 @@ let NetworkHelper = {
 
   beginPollingReceipt(interval, callback) {
     setInterval(() => {
-      fetch(serverURL + "pollingReceipt", {
-        method: "POST",
-        headers: headers,
-        body: JSON.stringify({
-          receiver: window.user_id
+      if (window.user_id != undefined && window.user_id != "") {
+        fetch(serverURL + "pollingReceipt", {
+          method: "POST",
+          headers: headers,
+          body: JSON.stringify({
+            receiver: window.user_id
+          })
         })
-      })
-        .then(response => response.json())
-        .then(responseJson => {
-          callback(responseJson);
-        })
-        .catch(error => {});
+          .then(response => response.json())
+          .then(responseJson => {
+            callback(responseJson);
+          })
+          .catch(error => {});
+      }
     }, interval);
   },
 

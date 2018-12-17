@@ -22,56 +22,73 @@ export default class HomeScreen extends Component {
     searchList: undefined
   };
 
+  userInitialized = undefined;
+
   constructor(props) {
     super(props);
-    window.user_id = 2;
-    window.username = "payer";
+    // window.user_id = 1;
+    // window.username = "Daniel";
 
-    // window.user_id = 8;
-    // window.username = "Sara";
+    setInterval(() => {
+      if (window.user_id != this.user_id && window.user_id != undefined) {
+        this.refreshLists();
+        this.user_id = window.user_id;
+      }
+    }, 1000);
 
-    if (window.user_id !== undefined) {
+    NetworkHelper.beginPollingReceipt(3000, messages => {
+      if (messages.length > 0) {
+        let history = this.state.receiptHistory;
+        messages.forEach(message => {
+          if (message.event == "new") {
+            let newReceipt = JSON.parse(message.data);
+            let receiptIndex = history.findIndex(
+              receipt => receipt.receiptId == newReceipt.receiptId
+            );
+            if (receiptIndex != undefined && receiptIndex != -1) {
+              history[receiptIndex] = newReceipt;
+            } else {
+              history.push(newReceipt);
+            }
+          } else if (message.event == "pay") {
+            let receiptIndex = history.findIndex(
+              receipt => receipt.receiptId == message.receipt_id
+            );
+            if (receiptIndex != undefined && receiptIndex != -1) {
+              let memberIndex = history[receiptIndex].group.members.findIndex(
+                member => member.member_id == message.sender_id
+              );
+              if (memberIndex != undefined && memberIndex != -1) {
+                history[receiptIndex].group.members[memberIndex].payment =
+                  "paid";
+              }
+            }
+          } else if (message.event == "challenge") {
+            let receiptIndex = history.findIndex(
+              receipt => receipt.receiptId == message.receipt_id
+            );
+            if (receiptIndex != undefined && receiptIndex != -1) {
+              history[receiptIndex].payment = "challenged";
+            }
+          }
+        });
+        this.saveReceiptHistory(history);
+      }
+    });
+  }
+
+  refreshListsFromLocal() {
+    if (window.user_id !== undefined && window.user_id != "") {
       DataHelper.getFromLocal(window.user_id.toString(), data => {
         this.saveReceiptHistory(JSON.parse(data));
       });
-      NetworkHelper.beginPollingReceipt(10000, messages => {
-        if (messages.length > 0) {
-          let history = this.state.receiptHistory;
-          messages.forEach(message => {
-            if (message.event == "new") {
-              let newReceipt = JSON.parse(message.data);
-              let receiptIndex = history.findIndex(
-                receipt => receipt.receiptId == newReceipt.receiptId
-              );
-              if (receiptIndex != undefined && receiptIndex != -1) {
-                history[receiptIndex] = newReceipt;
-              } else {
-                history.push(newReceipt);
-              }
-            } else if (message.event == "pay") {
-              let receiptIndex = history.findIndex(
-                receipt => receipt.receiptId == message.receipt_id
-              );
-              if (receiptIndex != undefined && receiptIndex != -1) {
-                let memberIndex = history[receiptIndex].group.members.findIndex(
-                  member => member.member_id == message.sender_id
-                );
-                if (memberIndex != undefined && memberIndex != -1) {
-                  history[receiptIndex].group.members[memberIndex].payment =
-                    "paid";
-                }
-              }
-            } else if (message.event == "challenge") {
-              let receiptIndex = history.findIndex(
-                receipt => receipt.receiptId == message.receipt_id
-              );
-              if (receiptIndex != undefined && receiptIndex != -1) {
-                history[receiptIndex].payment = "challenged";
-              }
-            }
-          });
-          this.saveReceiptHistory(history);
-        }
+    }
+  }
+
+  refreshLists() {
+    if (window.user_id !== undefined && window.user_id != "") {
+      NetworkHelper.loadFromCloud(window.user_id.toString(), history => {
+        this.saveReceiptHistory(history);
       });
     }
   }
@@ -89,12 +106,6 @@ export default class HomeScreen extends Component {
     }
     DataHelper.saveToLocal(window.user_id.toString(), historyJSON);
     NetworkHelper.saveToCloud(window.user_id.toString(), historyJSON);
-  }
-
-  refreshLists() {
-    NetworkHelper.loadFromCloud(window.user_id.toString(), history => {
-      this.saveReceiptHistory(history);
-    });
   }
 
   /////////////////  MODAL LAUNCHING  //////////////////

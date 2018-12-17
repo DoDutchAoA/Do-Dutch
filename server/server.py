@@ -19,28 +19,147 @@ app.config['UPLOAD_FOLDER'] = './upload'
 app.secret_key = "super secret key"
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
 
-preset = {"items": [{"category": "protein", "text": "chk bnls breast 6.74 f", "price": 6.74, "display": "Chicken"}, {"category": "grain", "text": "si chow mein 5pk 4.49", "price": 4.49, "display": "Noodles"}, {"category": "grain", "text": "pf sandwish buns 3.49", "price": 3.49, "display": "Burger"}, {"category": "protein", "text": "dairypure 1% milk 2.99", "price": 2.99, "display": "milk"}, {"category": "protein", "text": "bcd soon tofu md 2.49", "price": 2.49, "display": "Tofu"}, {"category": "protein", "text": "bcd soon tofu plai 2.49", "price": 2.49, "display": "Tofu"}, {"category": "vegetable", "text": "peeled garlic - 3.44", "price": 3.44, "display": "Garlic"}, {"category": "snack", "text": "breyers orec choco 5.99", "price": 5.99, "display": "Breyers Ice Cream"}, {"category": "protein", "text": "om turkey bologna 2.99", "price": 2.99, "display": "Turkey Meat"}, {"category": "vegetable", "text": "mushroom slice 2.20.",
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 "price": 2.2, "display": "Mushroom"}, {"category": "fruit", "text": "mixed fruit slices 5.27 f", "price": 5.27, "display": "Fruit"}, {"category": "vegetable", "text": "big green onion 2,99 f", "price": 2.99, "display": "onion"}, {"category": "fruit", "text": ". mixed fruit slices \u00a9 5.31 f", "price": 5.31, "display": "Fruit"}, {"category": "snack", "text": "hor mixed nuts | 7.49 f", "price": 7.49, "display": "Nuts"}, {"category": "vegetable", "text": "green cabbage 3.90 f", "price": 3.9, "display": "Cabbage"}, {"category": "seasoning", "text": "otg gsh sesame oil 8.99 f", "price": 8.99, "display": "Oil"}, {"category": "seasoning", "text": "hot chili oil sauc 2.49 f", "price": 2.49, "display": "Oil"}, {"category": "seasoning", "text": "hot chili oil sauc 2.49 f", "price": 2.49, "display": "Hot Sauce"}], "accumTotal": 76.24000000000001, "detectedTotal": 114.58, "path": "http://52.12.74.177/upload/1image.png"}
+preset1 = {
+    "items": [
+        {"category": "protein", "text": "chk bnls breast 6.74 f",
+         "price": 6.74, "display": "Chicken"},
+        {"category": "grain", "text": "si chow mein 5pk 4.49",
+         "price": 4.49, "display": "Noodles"},
+        {"category": "grain", "text": "pf sandwish buns 3.49",
+         "price": 3.49, "display": "Burger"},
+        {"category": "protein", "text": "dairypure 1% milk 2.99",
+         "price": 2.99, "display": "milk"},
+        {"category": "protein", "text": "bcd soon tofu md 2.49",
+         "price": 2.49, "display": "Tofu"},
+        {"category": "protein", "text": "bcd soon tofu plai 2.49",
+         "price": 2.49, "display": "Tofu"},
+        {"category": "vegetable", "text": "peeled garlic - 3.44",
+         "price": 3.44, "display": "Garlic"},
+        {"category": "snack", "text": "breyers orec choco 5.99",
+         "price": 5.99, "display": "Breyers Ice Cream"},
+        {"category": "protein", "text": "om turkey bologna 2.99",
+         "price": 2.99, "display": "Turkey Meat"},
+        {"category": "vegetable", "text": "mushroom slice 2.20.",
+         "price": 1.39, "display": "Mushroom"},
+        {"category": "fruit", "text": "mixed fruit slices 5.27 f",
+         "price": 5.27, "display": "Fruit"},
+        {"category": "vegetable", "text": "big green onion 2,99 f",
+         "price": 2.99, "display": "onion"},
+        {"category": "fruit", "text": ". mixed fruit slices \u00a9 5.31 f",
+         "price": 5.31, "display": "Fruit"},
+        {"category": "snack", "text": "hor mixed nuts | 7.49 f",
+         "price": 7.49, "display": "Nuts"},
+        {"category": "vegetable", "text": "green cabbage 3.90 f",
+         "price": 3.9, "display": "Cabbage"},
+        {"category": "seasoning", "text": "otg gsh sesame oil 8.99 f",
+         "price": 8.99, "display": "Oil"},
+        {"category": "seasoning", "text": "hot chili oil sauc 2.49 f",
+         "price": 2.49, "display": "Oil"},
+        {"category": "seasoning", "text": "hot chili oil sauc 2.49 f",
+         "price": 2.49, "display": "Hot Sauce"}
+    ],
+    "accumTotal": 76.24000000000001,
+    "detectedTotal": 114.58,
+    "path": "http://52.12.74.177/upload/receipt1_thumb.jpg"}
+
+preset2 = {
+    "items": [
+        {"category": "snack", "text": "whipped cream 4.75 f",
+         "price": 4.75, "display": "Cream"},
+        {"category": "grain", "text": "si chow mein 5pk 4.49",
+         "price": 3.99, "display": "Ansungtangmyun"},
+        {"category": "grain", "text": "pf sandwish buns 3.49",
+         "price": 7.49, "display": "Lactaid 100 whole"},
+        {"category": "protein", "text": "dairypure 1% milk 2.99",
+         "price": 9.99, "display": "Beef"},
+        {"category": "protein", "text": "bcd soon tofu md 2.49",
+         "price": 1.99, "display": "Mocha"},
+        {"category": "protein", "text": "bcd soon tofu plai 2.49",
+         "price": 2.99, "display": "Cookie Dough"},
+        {"category": "vegetable", "text": "peeled garlic - 3.44",
+         "price": 3.49, "display": "SW Miss"},
+        {"category": "snack", "text": "breyers orec choco 5.99",
+         "price": 3.29, "display": "Cookie"},
+        {"category": "protein", "text": "om turkey bologna 2.99",
+         "price": 10.99, "display": "Cashews"},
+        {"category": "vegetable", "text": "mushroom slice 2.20.",
+         "price": 4.99, "display": "Wasabi Blast Mix"}],
+    "accumTotal": 53.96,
+    "detectedTotal": 114.58,
+    "path": "http://52.12.74.177/upload/receipt2_thumb.jpg"
+}
+
+preset3 = {
+    "items": [
+        {"category": "snack", "text": "whipped cream 4.75 f",
+         "price": 4.99, "display": "Udon"},
+        {"category": "grain", "text": "si chow mein 5pk 4.49",
+         "price": 3.29, "display": "Seaweed Miso"},
+        {"category": "grain", "text": "pf sandwish buns 3.49",
+         "price": 3.99, "display": "Soybean Sause"},
+        {"category": "protein", "text": "dairypure 1% milk 2.99",
+         "price": 2.99, "display": "3Min Curry Mid"},
+        {"category": "protein", "text": "bcd soon tofu md 2.49",
+         "price": 2.99, "display": "3Min Curry Mid"},
+        {"category": "protein", "text": "bcd soon tofu plai 2.49",
+         "price": 9.99, "display": "Beef"},
+        {"category": "vegetable", "text": "peeled garlic - 3.44",
+         "price": 2.13, "display": "Banana"},
+        {"category": "snack", "text": "breyers orec choco 5.99",
+         "price": 4.99, "display": "Green"},
+        {"category": "protein", "text": "om turkey bologna 2.99",
+         "price": 6.99, "display": "Stirfry Neoguri"}],
+    "accumTotal": 42.35,
+    "detectedTotal": 114.58,
+    "path": "http://52.12.74.177/upload/receipt3_thumb.jpg"
+}
+
+preset4 = {
+    "items": [
+        {"category": "grocery", "text": "whipped cream 4.99 f",
+         "price": 1.99, "display": "Ketchup"},
+        {"category": "grocery", "text": "si chow mein 5pk 4.29",
+         "price": 2.99, "display": "Oil"},
+        {"category": "frozon", "text": "pf sandwish buns 3.49",
+         "price": 6.29, "display": "Eggs"},
+        {"category": "frozon", "text": "dairypure 1% milk 2.99",
+         "price": 1.99, "display": "Cheese"},
+        {"category": "bakery", "text": "bcd soon tofu md 2.49",
+         "price": 2.99, "display": "Sesame"},
+        {"category": "meat", "text": "bcd soon tofu plai 2.49",
+         "price": 6.99, "display": "Philly"},
+        {"category": "produce", "text": "dairypure 1% milk 2.99",
+         "price": 4.37, "display": "Broccoli"},
+        {"category": "produce", "text": "bcd soon tofu md 2.49",
+         "price": 1.68, "display": "Bananas"},
+        {"category": "produce", "text": "bcd soon tofu plai 2.49",
+         "price": 1.31, "display": "Lettuce"},
+        {"category": "produce", "text": "bcd soon tofu plai 2.49",
+         "price": 8.04, "display": "Tomatoes"}],
+    "accumTotal": 38.64,
+    "detectedTotal": 114.58,
+    "path": "http://52.12.74.177/upload/receipt4_thumb.jpg"
+}
 
 
 def allowed_file(filename):
     return '.' in filename and \
-           filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
+        filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
 
 
 def trimUser(_str):
     _str = re.sub(r'[^a-zA-Z0-9@_.]', '', _str)
-    return _str[0:30]
+    return _str[0: 30]
 
 
 def trimGroup(_str):
     _str = re.sub(r'[^a-zA-Z0-9]', '', _str)
-    return _str[0:16]
+    return _str[0: 16]
 
 
 def trimItem(_str):
     _str = re.sub(r'[^a-zA-Z0-9_]', '', _str)
-    return _str[0:30]
+    return _str[0: 30]
 
 
 @app.route("/upload", methods=['POST', 'GET'])
@@ -53,22 +172,28 @@ def server():
         if file.filename == '':
             flash('No selected file')
             return redirect(request.url)
-
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
             file.save(path)
             copyPath = os.path.join('../../www/upload', filename)
+            print file.filename, path, copyPath
             copyfile(path, copyPath)
-            # if file.filename == '1image.png':
-            return json.dumps(preset)
-            # response = ocr(
-            #    path, os.path.join(
-            #        'http://52.12.74.177/upload', filename,
-            #    ),
-            # )
-            # print(type(response))
-            # return response
+            if file.filename == 'receipt1.jpg':
+                return json.dumps(preset1)
+            elif file.filename == 'receipt2.jpg':
+                return json.dumps(preset2)
+            elif file.filename == 'receipt3.jpg':
+                return json.dumps(preset3)
+            elif file.filename == 'receipt4.jpg':
+                return json.dumps(preset4)
+            else:
+                response = ocr(
+                    path, os.path.join(
+                        'http://52.12.74.177/upload', filename,
+                    ),
+                )
+                return response
     return 'error'
 
 
@@ -134,8 +259,8 @@ def signUp():
     if request.method == 'POST':
         _username = request.json.get('username')
         _userpwd = request.json.get('userpwd')
-        _username = _username[0:16]
-        _userpwd = _userpwd[0:16]
+        _username = _username[0: 16]
+        _userpwd = _userpwd[0: 16]
         username = re.sub(r'[^a-zA-Z0-9@_]', '', _username)
         userpwd = re.sub(r'[^a-zA-Z0-9@_]', '', _userpwd)
         result = functions.signUp(username, userpwd)
@@ -147,8 +272,8 @@ def login():
     if request.method == 'POST':
         _username = request.json.get('username')
         _userpwd = request.json.get('userpwd')
-        _username = _username[0:16]
-        _userpwd = _userpwd[0:16]
+        _username = _username[0: 16]
+        _userpwd = _userpwd[0: 16]
         username = re.sub(r'[^a-zA-Z0-9@_]', '', _username)
         userpwd = re.sub(r'[^a-zA-Z0-9@_]', '', _userpwd)
         result = functions.login(username, userpwd)

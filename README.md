@@ -6,6 +6,43 @@ Go Dutch is an Android application built on React Native. It can set you free fr
 
 This is the first "release" of our application. More features are coming on their ways!
 
+## User Interface
+
+### User-related
+
+User sign up, log in and log out
+<p float="left">
+
+<img src="https://github.com/DoDutchAoA/Dutch_src/blob/master/photo/signup_t.png" alt="Login" width="280" height="470" />
+<img src="https://github.com/DoDutchAoA/Dutch_src/blob/master/photo/login_t.png" alt="Signup" width="280" height="470"/>
+<img src="https://github.com/DoDutchAoA/Dutch_src/blob/master/photo/logout_t.png" alt="Logout" width="280" height="470"/>
+</p>
+
+Friend and Group:
+<p float="left">
+
+<img src="https://github.com/DoDutchAoA/Dutch_src/blob/master/photo/friend_t.png" alt="Friend" width="280" height="470" />
+<img src="https://github.com/DoDutchAoA/Dutch_src/blob/master/photo/groupdetail_t.png" alt="Group information" width="280" height="470" />
+<img src="https://github.com/DoDutchAoA/Dutch_src/blob/master/photo/groupchat_t.png" alt="Group Chat" width="280" height="470"/>
+</p>
+
+
+
+### Receipt-related
+
+Receipt History
+
+<p float="left">
+
+<img src="https://github.com/DoDutchAoA/Dutch_src/blob/master/photo/History1.png" alt="history1" width="280" height="470" />
+<img src="https://github.com/DoDutchAoA/Dutch_src/blob/master/photo/History2.png" alt="history1" width="280" height="470"/>
+</p>
+
+Receipt Modal
+<p float="left">
+<img src="https://github.com/DoDutchAoA/Dutch_src/blob/master/photo/ReceiptModal1.png" alt="modal1" width="280" height="470"/>
+<img src="https://github.com/DoDutchAoA/Dutch_src/blob/master/photo/ReceiptModal2.png" alt="modal2" width="280" height="470"/>
+</p>
 
 ## Getting Started
 
