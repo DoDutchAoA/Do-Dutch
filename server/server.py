@@ -176,7 +176,7 @@ def server():
             path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
             file.save(path)
             copyPath = os.path.join('../../www/upload', filename)
-            print path, copyPath
+            print file.filename, path, copyPath
             copyfile(path, copyPath)
             if file.filename == 'image1.jpg':
                 return json.dumps(preset1)
