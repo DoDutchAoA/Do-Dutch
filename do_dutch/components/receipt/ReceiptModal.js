@@ -85,7 +85,7 @@ class Title extends React.Component {
               this.props.changeTitleCallback(newTitle);
               this.changeEditable();
             }}
-            containerStyle={{ marginRight: 0, marginTop: 20 }}
+            containerStyle={{ marginLeft: 120, marginTop: 20 }}
           />
           <Icon
             raised
@@ -98,7 +98,7 @@ class Title extends React.Component {
               this.setState({ tempText: this.state.title });
               this.changeEditable();
             }}
-            containerStyle={{ marginRight: 0, marginTop: 20 }}
+            containerStyle={{ marginLeft: 0, marginTop: 20 }}
           />
         </View>
       );
@@ -512,6 +512,7 @@ export default class ReceiptModal extends Component {
 
           <Title
             title={this.state.title}
+            isPayer={this.state.isPayer}
             changeTitleCallback={title => {
               this.setState({ title: title });
             }}
@@ -622,6 +623,10 @@ export default class ReceiptModal extends Component {
                 let confirmType = this.state.isPayer ? "update" : "pay";
                 let payment = this.state.isPayer ? "unpaid" : "paid";
                 let group = this.state.group;
+                if (confirmType == "update" && group == undefined) {
+                  alert("Please select a group first!");
+                  return;
+                }
                 if (confirmType == "update") {
                   group.members.forEach((member, index) => {
                     if (member.member_id != window.user_id) {
