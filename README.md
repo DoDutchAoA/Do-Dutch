@@ -1,4 +1,4 @@
-# Go Dutch Version 1.0
+# Go Dutch Version 1.1
 
 ## Introduction
 
@@ -42,6 +42,7 @@ Receipt Modal
 <p float="left">
 <img src="https://github.com/DoDutchAoA/Dutch_src/blob/master/photo/ReceiptModal1.png" alt="modal1" width="280" height="470"/>
 <img src="https://github.com/DoDutchAoA/Dutch_src/blob/master/photo/ReceiptModal2.png" alt="modal2" width="280" height="470"/>
+<img src="https://github.com/DoDutchAoA/Dutch_src/blob/master/photo/ReceiptModal3.png" alt="modal2" width="280" height="470"/>
 </p>
 
 ## Getting Started
