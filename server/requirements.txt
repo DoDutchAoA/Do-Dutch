@@ -3,7 +3,7 @@
 
 # ocr/ocr.py: 11
 # server.py: 3
-Flask == 0.12.2
+Flask == 1.0
 
 # ocr/ocr.py: 2
 Pillow == 5.1.0
