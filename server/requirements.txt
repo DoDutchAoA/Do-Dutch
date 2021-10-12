@@ -25,7 +25,7 @@ numpy == 1.15.2
 # ocr/preprocess/process.py: 4
 # ocr/preprocess/test_transform.py: 4
 # ocr/preprocess/transform.py: 3
-opencv_python == 3.4.0.12
+opencv_python == 3.4.7.28
 
 # ocr/ocr.py: 3
 pytesseract == 0.2.5
