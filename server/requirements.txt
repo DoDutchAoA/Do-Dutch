@@ -6,7 +6,7 @@
 Flask == 0.12.2
 
 # ocr/ocr.py: 2
-Pillow == 5.1.0
+Pillow == 9.0.1
 
 # ocr/ocr.py: 12
 # server.py: 4
