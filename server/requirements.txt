@@ -19,7 +19,7 @@ imutils == 0.5.1
 # ocr/preprocess/process.py: 2
 # ocr/preprocess/test_transform.py: 2
 # ocr/preprocess/transform.py: 2
-numpy == 1.15.2
+numpy == 1.22.0
 
 # ocr/ocr.py: 5
 # ocr/preprocess/process.py: 4
